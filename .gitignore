@@ -1,4 +1,7 @@
 
 #gitignore
-config.php
+Config/illuminateConfig.php
 vendor
+node_modules
+robots.txt
+Config/PDOConfig.php
