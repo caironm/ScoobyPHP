@@ -1,0 +1,11 @@
+ <script>
+ Swal.fire({
+  type: 'error',
+  title: 'Oops...',
+  text: 'Algo saiu errado, por favor tente novamente.',
+}).then(function (result) {
+    if (result.value) {
+        window.history.back();
+    }
+})
+  </script>
