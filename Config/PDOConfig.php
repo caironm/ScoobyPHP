@@ -9,7 +9,7 @@ if(ENV == 'development'){
 
     //configuração para banco de dados local
 
-    $config['dbname'] = 'database_name';
+    $config['dbname'] = '';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'root';
     $config['dbpass'] = '';

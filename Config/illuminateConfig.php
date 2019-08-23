@@ -9,7 +9,7 @@ if(ENV === 'development'){
     $capsule->addConnection([
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => 'database_name',
+        'database'  => '',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',
