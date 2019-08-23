@@ -1,5 +1,6 @@
 
 #gitignore
 vendor
+Cache
 node_modules
 robots.txt
