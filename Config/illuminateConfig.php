@@ -9,7 +9,7 @@ if(ENV === 'development'){
     $capsule->addConnection([
         'driver'    => 'mysql',
         'host'      => 'localhost',
-        'database'  => 'scoobyphp',
+        'database'  => 'database_name',
         'username'  => 'root',
         'password'  => '',
         'charset'   => 'utf8',

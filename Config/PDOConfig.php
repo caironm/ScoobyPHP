@@ -9,7 +9,7 @@ if(ENV == 'development'){
 
     //configuração para banco de dados local
 
-    $config['dbname'] = 'scoobyphp';
+    $config['dbname'] = 'database_name';
     $config['host'] = 'localhost';
     $config['dbuser'] = 'root';
     $config['dbpass'] = '';
@@ -18,10 +18,10 @@ if(ENV == 'development'){
 }else if(ENV == 'production'){
 
      //configuiração para banco de dados remoto 
-    $config['dbname'] = '';
-    $config['host'] = 'localhost';
-    $config['dbuser'] = '';
-    $config['dbpass'] = '';
+    $config['dbname'] = 'remote_database_name';
+    $config['host'] = 'remote_host';
+    $config['dbuser'] = 'username';
+    $config['dbpass'] = 'pass';
     error_reporting(0);
 }
 try {
