@@ -44,27 +44,47 @@ class Controller
         ]);
 
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
-            require_once 'App/Views/Templates/Template.twig';
+
+            require_once 'App/Views/Templates/Header.twig';
+
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
             extract($ViewData);
             echo $template->render($ViewData);
+
+            require_once 'App/Views/Templates/Footer.twig';
+
         } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
+            
             $auth = $helper->auth();
-            require_once 'App/Views/Templates/Template.twig';
+            require_once 'App/Views/Templates/Header.twig';
+
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
             extract($ViewData);
             echo $template->render($ViewData);
+
+            require_once 'App/Views/Templates/Footer.twig';
+
         } elseif (in_array($ViewName, $changeTemplate) === true or in_array(strtolower($ViewName), $changeTemplate) === true) {
-            require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Template.twig';
+            
+            require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Header.twig';
+           
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
             extract($ViewData);
             echo $template->render($ViewData);
+            
+            require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
+        
         } elseif (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
+           
             $auth = $helper->auth();
-            require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Template.twig';
+            require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Header.twig';
+           
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
             extract($ViewData);
             echo $template->render($ViewData);
+            
+            require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
+        
         } else {
             $this->Load('error', '404');
         }
