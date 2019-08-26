@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use \Core\Controller;
+use Helpers\Redirect;
 
 class NotfoundController extends Controller
 {
@@ -12,6 +13,7 @@ class NotfoundController extends Controller
      */
     public function index()
     {
+        Redirect::redirectTo(HOME);
         $this->Load('error', '404');
     }
 }
