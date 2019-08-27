@@ -12,9 +12,9 @@ class Cookie
      * @param string $expire
      * @return void
      */
-    public static function setCookie(string $cookieName, string $cookieValue, string $expire)
+    public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999)
     {
-        return setCookie($cookieName, $cookieValue, time($expire));
+        return setCookie($cookieName, $cookieValue, time() + ($expire));
     }
 
     /**
@@ -40,8 +40,7 @@ class Cookie
         if(!isset($_COOKIE[$cookieName])){
             return false;
         }else{
-            echo $_COOKIE[$cookieName];
-            return true;
+            return $_COOKIE[$cookieName];
         }
     }
 
@@ -57,8 +56,7 @@ class Cookie
             return false;
         }else{
             echo $_COOKIE[$cookieName];
-            $_COOKIE[$cookieName] = "";
-            return true;
+            return $_COOKIE[$cookieName] = "";
         }
     }
 
@@ -68,7 +66,7 @@ class Cookie
      * @param sting $cookieName
      * @return void
      */
-    public static function cookieDestroy(sting $cookieName)
+    public static function cookieDestroy(string $cookieName)
     {
         if(!isset($_COOKIE[$cookieName])){
             return false;

@@ -2,6 +2,7 @@
 
 namespace Controllers;
 use \Core\Controller;
+use Helpers\Cookie;
 //uses para user a classe illuminate database
 use Illuminate\Database\Capsule\Manager as db;
 //use para o pdo
@@ -21,6 +22,7 @@ class HomeController extends Controller
     {
        
         $helper = new Helper;
+        
         /**
          *
          * Exemplo de consulta usando o helper IlluminateDatabase
