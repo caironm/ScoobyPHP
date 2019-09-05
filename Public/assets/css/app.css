@@ -19,3 +19,14 @@ body{
     margin-right: 20px !important;
     box-shadow: 0 0 30px #444;
 }
+
+.footer-msg{
+    background: rgba(0,0,0, .2);
+    padding: 0 15px;
+    font-size: 18px;
+    border-radius: 10px;
+    position: relative;
+    top: 20px;
+    left: 20px;
+
+}
