@@ -37,31 +37,32 @@ class Cookie
      */
     public static function getCookie(string $cookieName)
     {
-        if(!isset($_COOKIE[$cookieName]) or empty($_COOKIE[$cookieName])){
+        if(!isset($_COOKIE[$cookieName])){
             return false;
         }
             return $_COOKIE[$cookieName];
     }
 
     /**
-     * Retorna e apaga o valor do cookie
+     * Recupera o valor do cookie e apaga o seu valor
      *
      * @param string $cookieName
      * @return void
      */
-    public static function getCookieAndErase(string $cookieName)
+    public static function getCookieAndErase($cookieName)
     {
-        if(!isset($_COOKIE[$cookieName]) or empty($_COOKIE[$cookieName])){
+        if(!isset($_COOKIE[$cookieName])){
             return false;
-        }
+        }else{
             echo $_COOKIE[$cookieName];
-            return $_COOKIE[$cookieName] = "";  
+            return $_COOKIE[$cookieName] = "";
+        }
     }
 
     /**
-     * Destroy o cookie existente
+     * Apaga o cookie existente
      *
-     * @param string $cookieName
+     * @param sting $cookieName
      * @return void
      */
     public static function cookieDestroy(string $cookieName)
@@ -70,6 +71,7 @@ class Cookie
             return false;
         }
             unset($_COOKIE[$cookieName]);
-            return true;     
+            return true;
+        
     }
 }
