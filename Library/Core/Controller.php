@@ -42,7 +42,11 @@ class Controller
             'debug' => true,
             'cache' => 'Config/Cache'
         ]);
-
+        $twig->addGlobal('csrfToken', $_SESSION['csrfToken']);
+        $twig->addGlobal('base_url', BASE_URL);
+        $twig->addGlobal('node_modules', NODE_MODULES);
+        $twig->addGlobal('assets', ASSET);
+        
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 
             require_once 'App/Views/Templates/Header.twig';
