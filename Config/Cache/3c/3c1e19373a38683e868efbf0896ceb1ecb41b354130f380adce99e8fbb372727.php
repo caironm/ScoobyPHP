@@ -12,8 +12,8 @@ use Twig\Sandbox\SecurityNotAllowedFunctionError;
 use Twig\Source;
 use Twig\Template;
 
-/* Pages/Home.twig */
-class __TwigTemplate_ca2741e13777146b872cf110b7a771ab8b30a26e6c85d296d30b4a958a54ac30 extends \Twig\Template
+/* Error/Failure.twig */
+class __TwigTemplate_37a6811778994f375af015eeb6f1754e65bd2ed692c7dd91dde818658766b0b2 extends \Twig\Template
 {
     private $source;
     private $macros = [];
@@ -35,44 +35,28 @@ class __TwigTemplate_ca2741e13777146b872cf110b7a771ab8b30a26e6c85d296d30b4a958a5
         $macros = $this->macros;
         // line 1
         echo "<div class=\"container\">
-    <h1 class='center'>
-        <b>ScoobY Framework</b>
-    </h1>
-    <h2>
-        ";
-        // line 6
-        echo twig_escape_filter($this->env, ($context["wellcomeMessage"] ?? null), "html", null, true);
-        echo "
-    </h2>
+<br>
+   <h1 class='text-center'> Erro de autenticação </h1>
 </div>
-<button onclick=\"teste()\" class=\"btn green\">teste</button>";
+<button onclick=\"teste()\">teste</button>";
     }
 
     public function getTemplateName()
     {
-        return "Pages/Home.twig";
-    }
-
-    public function isTraitable()
-    {
-        return false;
+        return "Error/Failure.twig";
     }
 
     public function getDebugInfo()
     {
-        return array (  44 => 6,  37 => 1,);
+        return array (  37 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<div class=\"container\">
-    <h1 class='center'>
-        <b>ScoobY Framework</b>
-    </h1>
-    <h2>
-        {{ wellcomeMessage }}
-    </h2>
+<br>
+   <h1 class='text-center'> Erro de autenticação </h1>
 </div>
-<button onclick=\"teste()\" class=\"btn green\">teste</button>", "Pages/Home.twig", "/opt/lampp/htdocs/ScoobyPHP/App/Views/Pages/Home.twig");
+<button onclick=\"teste()\">teste</button>", "Error/Failure.twig", "/opt/lampp/htdocs/ScoobyPHP/App/Views/Error/Failure.twig");
     }
 }
