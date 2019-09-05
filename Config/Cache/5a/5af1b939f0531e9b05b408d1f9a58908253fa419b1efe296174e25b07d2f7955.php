@@ -44,8 +44,7 @@ class __TwigTemplate_ca2741e13777146b872cf110b7a771ab8b30a26e6c85d296d30b4a958a5
         echo twig_escape_filter($this->env, ($context["wellcomeMessage"] ?? null), "html", null, true);
         echo "
     </h2>
-</div>
-<button onclick=\"teste()\" class=\"btn green\">teste</button>";
+</div>";
     }
 
     public function getTemplateName()
@@ -72,7 +71,6 @@ class __TwigTemplate_ca2741e13777146b872cf110b7a771ab8b30a26e6c85d296d30b4a958a5
     <h2>
         {{ wellcomeMessage }}
     </h2>
-</div>
-<button onclick=\"teste()\" class=\"btn green\">teste</button>", "Pages/Home.twig", "/opt/lampp/htdocs/ScoobyPHP/App/Views/Pages/Home.twig");
+</div>", "Pages/Home.twig", "/opt/lampp/htdocs/ScoobyPHP/App/Views/Pages/Home.twig");
     }
 }
