@@ -28,8 +28,11 @@ if (ENV == 'development') {
     //define a url para a pasta node_modules
     define("NODE_MODULES", "http://url_do_site/node_modules/");
 
-    //define a url para a pasta assets
-    define("ASSET", "http://localhost/url_do_site/Public/assets/");
+     //define a url para a pasta assets
+     define("ASSET", "http://url_do_site/Public/assets/");
+
+     //define a url para a pasta node_modules
+     define("NODE_MODULES", "http://url_do_site/node_modules/");
      
     //Url base para caso o controller não seja indicado na url
     define("HOME", "Home");
