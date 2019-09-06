@@ -15,4 +15,16 @@ class Redirect
     {
         return header("Location:".BASE_URL."$url");
     }
+
+     /**
+     * Retorna a quantidade de paginas informada no metodo
+     * caso não seja informado um valor, retorna para a pagina anterior 
+     *
+     * @param integer $value
+     * @return void
+     */
+    public static function redirectBack(int $value = -1)
+    {
+        echo "<script>window.history.go($value)</script>"; 
+    }
 }
