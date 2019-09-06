@@ -2,7 +2,6 @@
 
 namespace Controllers;
 use \Core\Controller;
-use Helpers\Redirect;
 
 class NotfoundController extends Controller
 {
