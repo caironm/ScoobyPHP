@@ -4,6 +4,7 @@
   "description": "um simples framework php",
   "main": "index.js",
   "dependencies": {
+    "@sweetalert2/theme-borderless": "^2.1.0",
     "animate.css": "^3.7.2",
     "bootstrap": "^4.3.1",
     "materialize-css": "^1.0.0",
