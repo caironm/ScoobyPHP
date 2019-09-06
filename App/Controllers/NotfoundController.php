@@ -13,7 +13,6 @@ class NotfoundController extends Controller
      */
     public function index()
     {
-        Redirect::redirectTo(HOME);
         $this->Load('error', '404');
     }
 }
