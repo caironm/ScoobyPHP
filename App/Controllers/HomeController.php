@@ -9,7 +9,6 @@ use Illuminate\Database\Capsule\Manager as db;
 use PDO;
 //use para a classe helper que é uma factory para as outras classes
 use Helpers\Helper;
-use Helpers\Session;
 
 class HomeController extends Controller
 {
