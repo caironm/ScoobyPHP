@@ -35,7 +35,7 @@ class Core
                 $parans = $url;
             }
         }else{
-            $currentController = "HomeController";
+            $currentController = ucfirst(HOME)."Controller";
             $currentAction = "index";
         }
 
