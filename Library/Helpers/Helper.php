@@ -26,16 +26,6 @@ class Helper
     }
 
     /**
-     * Metodo que instancia a classe FlashMessage
-     *
-     * @return void
-     */
-    public function flashMessage(string $msg)
-    {
-        return new FlashMessage($msg);
-    }
-
-    /**
      * Metodo que instancia a classe IlluminateDatabase
      *
      * @return void

@@ -6,7 +6,7 @@ use Helpers\Helper;
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 
-class Controller
+abstract class Controller
 {
     protected $ViewData = [];
 
@@ -42,11 +42,13 @@ class Controller
             'debug' => true,
             'cache' => 'Config/Cache'
         ]);
+
+
         $twig->addGlobal('csrfToken', $_SESSION['csrfToken']);
         $twig->addGlobal('base_url', BASE_URL);
-        $twig->addGlobal('node_modules', NODE_MODULES);
-        $twig->addGlobal('assets', ASSET);
-        
+        $twig->addGlobal('session', $_SESSION);
+        $twig->addGlobal('asset', "../Public/assets/");
+
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 
             require_once 'App/Views/Templates/Header.twig';
@@ -78,7 +80,7 @@ class Controller
             
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
         
-        } elseif (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
+        } else if (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
            
             $auth = $helper->auth();
             require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Header.twig';

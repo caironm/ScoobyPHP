@@ -4,15 +4,14 @@
  * Array contendo as views que não passarão pela autenticação
  */
 $notAutentication = [
-    'Home',
     '404',
+    'Home'
 ];
 
 /**
  * Array contendo as views que passarão pela autenticação
  */
 $autentication = [
-
 ];
 
 /**

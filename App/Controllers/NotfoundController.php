@@ -12,6 +12,6 @@ class NotfoundController extends Controller
      */
     public function index()
     {
-        $this->Load('error', '404');
+        $this->Load('Error', '404');
     }
 }

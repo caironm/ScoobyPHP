@@ -11,9 +11,10 @@ class Core
      */
     public function run()
     {
+        
         $url= '/';
         $parans = [];
-
+        
         if(isset($_GET['url'])){
             $url .= $_GET['url'];
         }
@@ -35,7 +36,7 @@ class Core
                 $parans = $url;
             }
         }else{
-            $currentController = ucfirst(HOME)."Controller";
+            $currentController = HOME."Controller";
             $currentAction = "index";
         }
 
@@ -54,9 +55,8 @@ class Core
         }
 
         $newController = $prefix.$currentController;
-
+    
         $controller = new $newController();
         call_user_func_array([$controller, $currentAction], $parans);
     }
-
 }

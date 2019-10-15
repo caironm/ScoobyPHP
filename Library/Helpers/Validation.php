@@ -1,6 +1,8 @@
 <?php
 
 namespace Helpers;
+use Illuminate\Database\Capsule\Manager as db;
+
 
 /**
  * Classe de validação e sanitização de dados.
@@ -237,13 +239,15 @@ class Validation
      * @param string $emailField
      * @return void
      */
-    public static function emailMatch(string $value, string $tableName, string $emailField)
+    public static function emailMatch($value, string $tableName, string $emailField)
     {
         if (self::isEmail($value) === false) {
             return false;
         }
         $value = self::sanitizeEmail($value);
-        if (DB::table($tableName)->where($emailField, $value)->count() > 0) {
+        $helper = new Helper;
+        $helper->illuminateDb();
+        if (DB::table($tableName)->where($emailField, $value)->count() > 0 === true) {
             return false;
         }
         return true;

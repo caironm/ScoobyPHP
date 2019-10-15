@@ -1,31 +1,19 @@
 {
-  "name": "scoobyphp",
+  "name": "scooby-tasks",
   "version": "1.0.0",
-  "description": "um simples framework php",
+  "description": "A litle and very simple PHP framework",
   "main": "index.js",
   "dependencies": {
-    "@sweetalert2/theme-borderless": "^2.1.0",
     "animate.css": "^3.7.2",
-    "bootstrap": "^4.3.1",
-    "materialize-css": "^1.0.0",
-    "sweetalert2": "^8.17.1"
+    "izitoast": "^1.4.0",
+    "jquery": "^3.4.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "sweetalert2": "^8.16.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/terriani/ScoobyPHP.git"
-  },
-  "author": "vinicius terriani",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/terriani/ScoobyPHP/issues"
-  },
-  "homepage": "https://github.com/terriani/ScoobyPHP#readme",
-  "keywords": [
-    "framework",
-    "php"
-  ]
+  "author": "",
+  "license": "(MIT)"
 }

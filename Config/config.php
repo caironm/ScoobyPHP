@@ -20,22 +20,16 @@ if (ENV == 'development') {
 } elseif (ENV == 'production') {
 
      //define a url base do sistema
-    define("BASE_URL", "http://url_do_site/");
+    define("BASE_URL", "http://YOUR_URL/");
 
     //define a url para a pasta assets
-    define("ASSET", "http://url_do_site/Public/assets/");
+    define("ASSET", "http://YOUR_URL/Public/assets/");
 
     //define a url para a pasta node_modules
-    define("NODE_MODULES", "http://url_do_site/node_modules/");
-
-     //define a url para a pasta assets
-     define("ASSET", "http://url_do_site/Public/assets/");
-
-     //define a url para a pasta node_modules
-     define("NODE_MODULES", "http://url_do_site/node_modules/");
+    define("NODE_MODULES", "http://YOUR_URL/node_modules/");
      
     //Url base para caso o controller não seja indicado na url
-    define("HOME", "Home");
+    define("HOME", "home");
 
     error_reporting(0);
 }
