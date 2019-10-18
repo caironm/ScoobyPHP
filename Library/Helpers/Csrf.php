@@ -39,19 +39,17 @@ class Csrf
     {
         
         if(!isset($_SESSION['csrfToken']) or empty($_SESSION['csrfToken'])){
-           
-           return Redirect::redirectTo('Failure');
+            return false;
         }
         if(!isset($_REQUEST['csrfToken']) or empty($_REQUEST['csrfToken'])){
-
-            return Redirect::redirectTo('Failure'); 
+            return false;
         } 
         if(isset($_SESSION['csrfToken']) and !empty($_SESSION['csrfToken']) and isset($_REQUEST['csrfToken']) and !empty($_REQUEST['csrfToken']) and $_REQUEST['csrfToken'] === $_SESSION['csrfToken']){
             return true;
         }
         else{
             
-            return Redirect::redirectTo('Failure');
+            return false;
         }
     }
 
