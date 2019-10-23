@@ -2,6 +2,8 @@
 
 namespace Helpers;
 
+use Illuminate\Database\Capsule\Manager as db;
+
 class Login
 {
 
@@ -28,9 +30,21 @@ class Login
     {
         $_SESSION['id'] = "";
         $_SESSION['email'] = "";
+        $_SESSION['statusLog'] = false;        
+    }
+
+    /**
+     * Destroy a sessão logada e redireciona o usuario
+     *
+     * @param string $viewName
+     * @return void
+     */
+    public static function sessionLoginDestroyWithRedirect(string $viewName = HOME)
+    {
+        $_SESSION['id'] = "";
+        $_SESSION['email'] = "";
         $_SESSION['statusLog'] = false;
-        
-        return Redirect::redirectTo('Home');
+        return Redirect::redirectTo($viewName);
     }
 
     /**
@@ -57,22 +71,21 @@ class Login
         $helper = new Helper;
         if (Csrf::csrfTokenValidate() === true) {
             $helper->illuminateDb();
-            $storageEmail  = DB::table($table)->where($emailField, $email)->value($emailField);
-            if($storageEmail == $email){
+            $storageEmail = DB::table($table)->where($emailField, $email)->value($emailField);
+            if ($storageEmail == $email) {
                 $storagePass = DB::table($table)->where($emailField, $email)->value($passwordField);
-                    if (password_verify($pass, $storagePass)) {
-                        $storageId = DB::table($table)->where($emailField, $email)->value($idField);
-                        self::sessionLoginGenerate($storageId, $storageEmail);
-                        return true;
-                    } else {
-                        self::sessionLoginDestroy();
-                    }
+                if (password_verify($pass, $storagePass)) {
+                    $id = DB::table($table)->where($emailField, $email)->value($idField);
+                    self::sessionLoginGenerate($id, $storageEmail);
+                    return true;
                 } else {
+                    self::sessionLoginDestroy();
                     return false;
                 }
-            
+            } else {
+                return false;
+            }
         } else {
-            Redirect::redirectTo('failure');
             return false;
         }
     }

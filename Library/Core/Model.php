@@ -3,7 +3,7 @@
 namespace Core;
 use Illuminate\Database\Capsule\Manager as db;
 
-class Model
+abstract class Model
 {
 
     /**
@@ -12,6 +12,6 @@ class Model
     public function __construct()
     {
         require_once 'Config/illuminateConfig.php';
-        require_once 'Config/PDOConfig';
+        require_once 'Config/PDOConfig.php';
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Helpers;
 
@@ -9,12 +9,12 @@ class Cookie
      *
      * @param string $cookieName
      * @param string $cookieValue
-     * @param integer $expire
+     * @param string $expire
      * @return void
      */
     public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999)
     {
-        return setCookie($cookieName, $cookieValue, time() + $expire);
+        return setCookie($cookieName, $cookieValue, time() + ($expire));
     }
 
     /**
@@ -30,7 +30,7 @@ class Cookie
     }
 
     /**
-     * Retorna o valor do cookie
+     * Retorna o valor do cookie informado 
      *
      * @param string $cookieName
      * @return void
@@ -39,8 +39,9 @@ class Cookie
     {
         if(!isset($_COOKIE[$cookieName])){
             return false;
-        }
+        }else{
             return $_COOKIE[$cookieName];
+        }
     }
 
     /**
@@ -69,9 +70,9 @@ class Cookie
     {
         if(!isset($_COOKIE[$cookieName])){
             return false;
-        }
+        }else{
             unset($_COOKIE[$cookieName]);
             return true;
-        
+        }
     }
 }
