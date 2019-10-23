@@ -46,6 +46,7 @@ class Controller
         $twig->addGlobal('base_url', BASE_URL);
         $twig->addGlobal('node_modules', NODE_MODULES);
         $twig->addGlobal('assets', ASSET);
+        $twig->addGlobal('session', $_SESSION);
         
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 

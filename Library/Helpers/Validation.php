@@ -1,6 +1,8 @@
 <?php
 
 namespace Helpers;
+use \Helpers\Helper;
+use Illuminate\Database\Capsule\Manager as db;
 
 /**
  * Classe de validação e sanitização de dados.
@@ -243,6 +245,8 @@ class Validation
             return false;
         }
         $value = self::sanitizeEmail($value);
+        $helper = new Helper;
+        $helper->illuminateDb();
         if (DB::table($tableName)->where($emailField, $value)->count() > 0) {
             return false;
         }

@@ -39,7 +39,7 @@ class Login
      * @param string $pass
      * @return void
      */
-    public static function passwordHash(string $pass)
+    public static function passwordHash($pass)
     {
         return password_hash($pass, PASSWORD_BCRYPT);
     }
@@ -52,20 +52,17 @@ class Login
      * @param string $pass
      * @return void
      */
-    public static function loginValidate(string $email, string $pass)
+    public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'pass', $idField = 'id')
     {
         $helper = new Helper;
         if (Csrf::csrfTokenValidate() === true) {
-            $db = $helper->pdoDb();
-            $sql = "SELECT * from users WHERE email = ?";
-            $stmt = $db->dbConnection()->prepare($sql);
-            $stmt->execute([$email]);
-            if ($stmt->rowCount() > 0) {
-                $storage = $stmt->fetch();
-                if ($storage['email'] == $email) {
-                    $storagePass = $storage['pass'];
+            $helper->illuminateDb();
+            $storageEmail  = DB::table($table)->where($emailField, $email)->value($emailField);
+            if($storageEmail == $email){
+                $storagePass = DB::table($table)->where($emailField, $email)->value($passwordField);
                     if (password_verify($pass, $storagePass)) {
-                        self::sessionLoginGenerate($storage['id'], $storage['email']);
+                        $storageId = DB::table($table)->where($emailField, $email)->value($idField);
+                        self::sessionLoginGenerate($storageId, $storageEmail);
                         return true;
                     } else {
                         self::sessionLoginDestroy();
@@ -73,10 +70,7 @@ class Login
                 } else {
                     return false;
                 }
-            } else {
-                Redirect::redirectTo('home');
-                return false;
-            }
+            
         } else {
             Redirect::redirectTo('failure');
             return false;

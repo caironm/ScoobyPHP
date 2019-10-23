@@ -13,13 +13,15 @@ class Request
     public static function input(string $inputName)
     {
         if(Csrf::csrfTokenValidate()){
-            if(isset($_REQUEST["$inputName"]) and !empty($_REQUEST["$inputName"])){
-                return htmlspecialchars(strip_tags(addslashes(trim($_REQUEST["$inputName"]))));
-            }else{
-                $helper = new Helper;
-                $flashMessage  = $helper->flashMessage("Input ['$inputName'] não encontrado");
-                //$flashMessage->setMessage();
-                Redirect::redirectTo('failure');
+            if(self::has($inputName)){
+                if(isset($_REQUEST["$inputName"]) and !empty($_REQUEST["$inputName"])){
+                    return htmlspecialchars(strip_tags(addslashes(trim($_REQUEST["$inputName"]))));
+                }else{
+                    $helper = new Helper;
+                    $flashMessage  = $helper->flashMessage("Input ['$inputName'] não encontrado");
+                    //$flashMessage->setMessage();
+                    Redirect::redirectTo('failure');
+                }
             }
         }
     }
