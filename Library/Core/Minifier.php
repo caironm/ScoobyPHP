@@ -2,8 +2,7 @@
 
 use MatthiasMullie\Minify;
 
-$minify = filter_input(INPUT_GET, "minify", FILTER_VALIDATE_BOOLEAN);
-if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
+
     /**
      * Minify Css
      */
@@ -33,4 +32,3 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
     }
     $minifiedPath = dirname(__DIR__, 2)."/Public/assets/js/scooby.min.js";
     $minifierJs->minify($minifiedPath);
-}
