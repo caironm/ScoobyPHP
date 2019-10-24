@@ -1,6 +1,7 @@
 <?php
 
 namespace Helpers;
+
 use Carbon\Carbon;
 
 class Helper

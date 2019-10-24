@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 use Illuminate\Database\Capsule\Manager as db;
 
 abstract class Model

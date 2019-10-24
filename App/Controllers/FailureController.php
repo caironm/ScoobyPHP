@@ -1,6 +1,7 @@
 <?php
 
 namespace Controllers;
+
 use \Core\Controller;
 
 class FailureController extends Controller

@@ -1,6 +1,7 @@
 <?php
 
 namespace Helpers;
+
 use Illuminate\Database\Capsule\Manager as db;
 
 
