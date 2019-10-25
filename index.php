@@ -9,4 +9,7 @@ require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
+$whoops = new \Whoops\Run;
+$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
+$whoops->register();
 $c->run();
