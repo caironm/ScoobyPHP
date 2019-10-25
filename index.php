@@ -9,7 +9,13 @@ require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
-$whoops = new \Whoops\Run;
-$whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
-$whoops->register();
+if (ENV !== 'production') {
+    $whoops = new \Whoops\Run;
+    $errorPage = new Whoops\Handler\PrettyPageHandler();
+    $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
+    $errorPage->setPageTitle("Opss... Algo deu errado!");
+    $errorPage->setEditor("vscode");
+    $whoops->pushHandler($errorPage);
+    $whoops->register();
+}
 $c->run();
