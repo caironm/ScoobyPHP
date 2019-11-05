@@ -16,11 +16,117 @@ class Request
             if (self::has($inputName)) {
                 if (isset($_REQUEST["$inputName"]) and !empty($_REQUEST["$inputName"])) {
                     return htmlspecialchars(strip_tags(addslashes(trim($_REQUEST["$inputName"]))));
-                } else {
-                    Redirect::redirectTo('failure');
-                }
+                } 
+                return false;
             }
+            FlashMessage::msgWithGoBack('Atenção...', "todos os campos são obrigatórios", 'warning', -1);
+            return false;
         }
+    }
+
+    /**
+     * Testa se o valor do input é positivo
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputPositive(string $inputName)
+    {
+        $input = self::input($inputName);
+        if ($input < 1) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é negativo
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputNegative(string $inputName)
+    {
+        $input = self::input($inputName);
+        if ($input > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é um valor numérico
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputIsNumber(string $inputName)
+    {
+        $input = self::input($inputName);
+        if (!is_numeric($input)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é uma string
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputIsString(string $inputName)
+    {
+        $input = self::input($inputName);
+        if (!is_string($input)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é um float
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputIsFloat(string $inputName)
+    {
+        $input = self::input($inputName);
+        if (!is_float($input)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é um int
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputIsInt(string $inputName)
+    {
+        $input = self::input($inputName);
+        if (!is_int($input)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Testa se o valor do input é do tipo file
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function inputIsFile(string $inputName)
+    {
+        $input = self::input($inputName);
+        if (!is_file($input)) {
+            return false;
+        }
+        return true;
     }
 
     /**

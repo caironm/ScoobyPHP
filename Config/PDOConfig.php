@@ -2,26 +2,26 @@
 
 //header("Content-type: text/html;charset=utf-8");
 require_once 'env.php';
+require_once 'config.php';
 global $db;
 $config = [];
-
 if(ENV == 'development'){
 
     //configuração para banco de dados local
 
-    $config['dbname'] = '';
-    $config['host'] = 'localhost';
-    $config['dbuser'] = 'root';
-    $config['dbpass'] = '';
+    $config['dbname'] = DB_NAME;
+    $config['host'] = DB_HOST;
+    $config['dbuser'] = DB_USER;
+    $config['dbpass'] = DB_PASS;
     error_reporting(E_ALL);
     
 }else if(ENV == 'production'){
 
      //configuiração para banco de dados remoto 
-    $config['dbname'] = 'remote_database_name';
-    $config['host'] = 'remote_host';
-    $config['dbuser'] = 'username';
-    $config['dbpass'] = 'pass';
+     $config['dbname'] = DB_NAME;
+     $config['host'] = DB_HOST;
+     $config['dbuser'] = DB_USER;
+     $config['dbpass'] = DB_PASS;
     error_reporting(0);
 }
 try {

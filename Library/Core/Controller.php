@@ -43,7 +43,6 @@ abstract class Controller
             'cache' => 'Config/Cache'
         ]);
 
-
         $twig->addGlobal('csrfToken', $_SESSION['csrfToken']);
         $twig->addGlobal('base_url', BASE_URL);
         $twig->addGlobal('assets', ASSET);

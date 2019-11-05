@@ -3,9 +3,13 @@
 namespace Core;
 
 use Illuminate\Database\Capsule\Manager as db;
+use Illuminate\Database\Eloquent\Model as IlluminateModel;
 
-abstract class Model
+abstract class Model extends IlluminateModel
 {
+    //Seta o Timestamps do eloquent para FALSE
+    //caso queira utilizalo mude o valor para TRUE
+    public $timestamps = false;
 
     /**
      * Metodo construtor da classe

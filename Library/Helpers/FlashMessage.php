@@ -24,7 +24,7 @@ class FlashMessage
             )
         </script>
 HTML;
-        return $msg;
+        echo $msg;
     }
 
     /**
@@ -51,6 +51,32 @@ HTML;
         })
         </script>
 HTML;
-        return $msg;
+        echo $msg;
+    }  
+
+    /**
+     * Exibe uma menssagem para o usuario e faz o redirecionamento do mesmo
+     *
+     * @param string $title
+     * @param string $body
+     * @param string $type
+     * @param integer $value
+     * @return void
+     */
+    public static function msgWithGoBack(string $title, string $body, string $type = "", int $value = -1)
+    {
+        require_once "App/Views/Templates/Header.twig";
+        $msg = <<<HTML
+        <script>
+            Swal.fire(
+            "$title",
+            "$body",
+            "$type"
+        ).then(function(){
+            window.history.go($value);
+        })
+        </script>
+HTML;
+        echo $msg;
     }  
 }

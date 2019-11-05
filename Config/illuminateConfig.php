@@ -1,33 +1,20 @@
 <?php
+require_once 'vendor/autoload.php';
+require_once 'config.php';
 
-require_once 'env.php';
 use Illuminate\Database\Capsule\Manager as db;
-
 $capsule = new db;
 
-if(ENV === 'development'){
     $capsule->addConnection([
-        'driver'    => 'mysql',
-        'host'      => 'localhost',
-        'database'  => '',
-        'username'  => 'root',
-        'password'  => '',
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
+        'driver'    => DB_DRIVER,
+        'host'      => DB_HOST,
+        'database'  => DB_NAME,
+        'username'  => DB_USER,
+        'password'  => DB_PASS,
+        'charset'   => CHARSET,
+        'collation' => COLLATION,
         'prefix'    => '',
     ]);
-}else if (ENV === 'production'){
-    $capsule->addConnection([
-        'driver'    => 'mysql',
-        'host'      => 'Your_database_host',
-        'database'  => 'Your _database_name',
-        'username'  => 'Your_username',
-        'password'  => 'Your_password',
-        'charset'   => 'utf8',
-        'collation' => 'utf8_unicode_ci',
-        'prefix'    => '',
-    ]);
-}
 
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
