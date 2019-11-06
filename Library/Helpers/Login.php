@@ -66,7 +66,7 @@ class Login
      * @param string $pass
      * @return void
      */
-    public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'pass', $idField = 'id')
+    public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id')
     {
         $helper = new Helper;
         if (Csrf::csrfTokenValidate() === true) {

@@ -5,13 +5,17 @@
  */
 $notAutentication = [
     '404',
-    'Home'
+    'Home',
+    'login',
+    'register',
+    'passwordRescue',
 ];
 
 /**
  * Array contendo as views que passarão pela autenticação
  */
 $autentication = [
+    'DashBoard'
 ];
 
 /**
