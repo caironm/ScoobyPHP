@@ -8,7 +8,7 @@ $route = [];
  * --------------------------
  * Ao criar uma rota passa-se um arrai chamado $route, com o padrão desejado
  * para a rota e atribuido a ele, passa-se a rota existente onde ele irá
- *  substituir. $route['/open'] = '/action/open'.
+ * substituir. $route['/open'] = '/action/open'.
  * 
  * *****************************
  * EXEMPLO DE ROTA SEM PARAMETOS

@@ -52,16 +52,4 @@ class Csrf
             return false;
         }
     }
-
-    /**
-     * Metodo temporario para correção de bug no helper csrf no login do usuario
-     *
-     * @return void
-     */
-    public static function fixBugOnLogin()
-    {
-        if(!isset($_SESSION['csrfToken'])){
-            $_SESSION['csrfToken'] = Request::input('csrfToken');
-        }
-    }
 }

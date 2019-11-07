@@ -37,6 +37,7 @@ do {
 | DIGITE: 'v' ou a paravra View para criar uma View                 |
 | DIGITE: 'F' ou a palavra File para criar um Arquivo               |
 | DIGITE: 'r' ou a palavra Route para criar uma rota                |
+| DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig     |
 | DIGITE: 'Make:Auth' para criar uma rotina de cadastro e login     | 
 | DIGITE: 'Sair' para cancelar a operação                           |
 ---------------------------------------------------------------------\r\n";
@@ -240,6 +241,20 @@ $component == 'DATABASE'
         } else {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
         }
+    } elseif ($component == 'clear:cache' or
+    $component == 'Clear:Cache' or
+    $component == 'CLEAR:CACHE' or
+    $component == 'clearcache' or
+    $component == 'clearCache' or
+    $component == 'ClearCache' or
+    $component == 'CLEARCACHE') {
+        $cacheDir = scandir('Config/Cache/');
+        if (count($cacheDir) > 2) {
+            $clearCache = shell_exec('sudo rm -rf Config/Cache/*');
+            echo 'Diretório de Cache limpo com suscesso \r\n';
+        } else {
+            echo 'Você não possui nenhum arquivo de cache disponivel para ser deletado. \r\n';
+        }
     } elseif ($component == 'migration' or
 $component == 'MIGRATION' or
 $component == 'Migration') {
@@ -418,6 +433,26 @@ class UserController extends Controller
     {
         Login::sessionLoginDestroyWithRedirect("login");
     }
+
+    /**
+     * Chama a view de recuperação de usuário
+     *
+     * @return void
+     */
+    public function passwordrescue()
+    {
+        $this->Load("pages", "PasswordRescue");
+    }
+
+    /**
+     * Executa a lógica de recuperação de senha do usuário
+     *
+     * @return void
+     */
+    public function newPass()
+    {
+        $email = Request::input("email");
+    }
 }';
         $userModel =
 '<?php
@@ -438,8 +473,9 @@ class User extends Model
         $loginView = <<<HTML
     {# View criada em '.$date.' Via Scooby_CLI #}
 <div class="bg-login">
-    <div class="container-fluid">
-        <h2 class="center white-text">ScoobYTasks - Login</h2>
+    <div class="container-fluid z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
+    <a href="{{ base_url }}back" class="btn black">voltar</a>
+        <h2 class="center">ScoobYTasks - Login</h2>
         {% if msg %}
         <span class="alert"> {{ msg|raw }} </span>
         {% endif %}
@@ -473,10 +509,10 @@ class User extends Model
                 </form>
                 <div class="row">
                     <div class="col s4">
-                        <a href="{{ base_url }}user/register" class="btn purple">Registrar</a>
+                        <a href="{{ base_url }}register" class="btn purple">Registrar</a>
                     </div>
                     <div class="col s8 right-align">
-                        <a href="#" class="btn red">Esqueci a senha</a>
+                        <a href="{{ base_url }}passwordRescue" class="btn red">Esqueci a senha</a>
                     </div>
                 </div>
             </div>
@@ -486,8 +522,9 @@ class User extends Model
 HTML;
         $registerView = <<<HTML
 {# View criada em '.$date.' Via Scooby_CLI #}
-<div class="container-fluid bg-login">
-    <h3 class="center white-text">ScoobYTasks - Novo Usuário</h3>
+<div class="container-fluid bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
+<a href="{{ base_url }}back" class="btn black">voltar</a>
+    <h3 class="center">ScoobYTasks - Novo Usuário</h3>
     {% if msg %}
     <span class="alert center">{{ msg|raw }}</span>
     {% endif %}
@@ -525,10 +562,10 @@ HTML;
             </form>
             <div class="row">
                 <div class="col s4">
-                    <a href="{{ base_url }}user/index" class="btn purple">Login</a>
+                    <a href="{{ base_url }}login" class="btn purple">Login</a>
                 </div>
                 <div class="col s8 right-align">
-                    <a href="#" class="btn red">Esqueci a senha</a>
+                    <a href="{{ base_url }}passwordRescue" class="btn red">Esqueci a senha</a>
                 </div>
             </div>
         </div>
@@ -536,18 +573,60 @@ HTML;
 </div>
 HTML;
         $passwordRescue = <<<HTML
-Codigo de recuperação de usuario.
+            {# View criada em '.06-11-19 - 19:18:pm.' Via Scooby_CLI #}
+    <div class="bg-login">
+        <div class="container-fluid z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
+                <a href="{{ base_url }}back" class="btn black">voltar</a>
+            <h2 class="center">ScoobYTasks - Recuperação de senha</h2>
+            {% if msg %}
+            <span class="alert"> {{ msg|raw }} </span>
+            {% endif %}
+            <div class="row">
+                <div class="col s12 m8 offset-m2">
+                    <form class="login-form  z-depth-5" method="post" action="{{ base_url }}user/newPass">
+                        <div class="card">
+                            <input type="hidden" name="csrfToken" value="{{ csrfToken }}">
+                            <div class="card-content">
+                                <div class="input-field">
+                                    <input class="validate" id="email" type="email" name="email">
+                                    <label for="email">Digite seu email cadastrado em nosso sistema</label>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <div class="center-align">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Recuperar
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                            <div class="col s8 ">
+                                    <a href="{{ base_url }}login" class="btn red">Login</a>
+                                </div>
+                        <div class="col s4 right-align">
+                            <a href="{{ base_url }}register" class="btn purple">Registrar</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 HTML;
         $dashBoardView = <<<HTML
-<div class='container'>
-    <a href='{{ base_url }}exit' class='btn red waves-light'>Sair</a>
-<h3 class='center'>Se você esta visualizando esta página, quer dizer que o sistema de login do ScoobyPHP funcionou corretamente!</h3>
+<div class='container-fluid z-depth-5' style="margin:3% 10% !important; padding:5%; background-color: #ddd !important">
+    <h2 class="center">ScoobyPHP DashBoard.</h2>    
+<h4 class='center'>Se você esta visualizando esta página, quer dizer que o sistema de login do ScoobyPHP funcionou corretamente!</h4>
+<br>
+<a href='{{ base_url }}exit' class='btn red waves-light'>Sair</a>    
 </div>
 HTML;
         $routesAuth =
 '
 //Rotas de autenticação criadas automaticamente em '.date('d-m-y - H:i:a').' com Scooby_CLI
-
+$route["/back"] = "/home";
 $route["/login"] = "/user/index";
 $route["/register"] = "/user/register";
 $route["/passwordRescue"] = "/user/passwordRescue";
@@ -557,10 +636,11 @@ $route["/exit"] = "/user/exit";
         $navbar = <<<HTML
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper">
-                <a href="#" class="brand-logo">Logo</a>
+            <div class="nav-wrapper black z-depth-5">
+                <a href="#" class="brand-logo center">ScoobyPHP</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{ base_url }}login" class="btn green waves-light">Entrar</a></li>
+                    <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light">Cadastrar</a></li>
                 </ul>
             </div>
         </nav>
@@ -635,18 +715,11 @@ HTML;
         fwrite($f, $navbar);
         fclose($f);
         echo "Navbar criado em 'App/Views/Pages/Home.twig' com sucesso. \r\n";
-        $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth");
+        $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='db/migration_templates/migration_user_auth_template.php.dist'");
         if ($migrationUser) {
-            echo '\r\n Migration User criada com sucesso, por favor preencha os dados em db/migration com:
-
-            $this->table("table")
-            ->addCollum("name", "string", ["null" => false])
-            ->addCollum("email", "string", ["null" => false])
-            ->addCollum("password", "string", ["null" => false])
-            ->create();
-
-            Apos a preencher a migration não esquecer de rodar o comando migrate passando CreateUserAuth
-            ';
+            $migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
+            echo '\r\n Migration UserAuth criada com sucesso';
+            echo "\r\n Migrate executada com sucesso";
         }
         $seedUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:create SeedUserAuth");
         if ($seedUser) {
@@ -671,12 +744,16 @@ HTML;
     }
     echo "
 Deseja continuar ?
-DIGITE: 'OK' para continuar ou
-DIGITE: 's' para sair
+DIGITE: 'Y' para continuar ou
+DIGITE: 'S' para sair
 \r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
-} while ($component == 'ok' or $component == 'OK' or $component == 'Ok');
+} while ($component == 'y' or
+         $component == 'Y' or
+         $component == 'yes' or
+         $component == 'YES' or
+         $component == 'Yes');
 if ($component == 's' or
           $component == 'S' or
           $component == 'sair' or $component == 'Sair') {
