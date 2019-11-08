@@ -1,6 +1,6 @@
 <?php
 
-//Migration criada automaticamente por Scooby_CLI.
+//Migration criada automaticamente por Scooby_CLI em dateNow
 
 use Phinx\Migration\AbstractMigration;
 
