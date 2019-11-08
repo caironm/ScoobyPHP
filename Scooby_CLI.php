@@ -1,9 +1,9 @@
 <?php
-
 error_reporting(E_ALL);
 require_once 'vendor/autoload.php';
 
 use Helpers\FlashMessage;
+use Helpers\Seeders;
 
 if (!empty($_SERVER['HTTP_USER_AGENT'])) {
     FlashMessage::msgWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
@@ -306,11 +306,28 @@ $component == 'Rollback') {
             echo "ERROR: Seed já existente na pasta 'db/seeds/'!\r\n";
             exit;
         }
-        $seed = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:create {$seedName}");
-        if (!$seed) {
-            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
-            exit;
-        }
+        $seed =
+'<?php
+//Seed gerada automaticamente em '.date('d-m-y - H-i-a').'por Scooby_CLI
+require_once "../../vendor/autoload.php"; 
+
+use Helpers\Seeders;
+
+$faker = \Faker\Factory::create("pt_BR");
+
+for ($i=0; $i < 10; $i++) { 
+    $seeder = new Seeders();
+    $seeder->seed("users", [
+        "name" => $faker->name,
+        "email" => $faker->email,
+        "password" => $faker->password
+    ]);
+}
+';
+
+        $f = fopen("db/seeds/$seedName.php", 'w+');
+        fwrite($f, $seed);
+        fclose($f);
         echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
     } elseif ($component == 'RunSeed' or
         $component == 'RUNSEED' or
@@ -324,12 +341,15 @@ $component == 'Rollback') {
         $seedName = fgets(STDIN);
         $seedName = ucfirst($seedName);
         $seedName = rtrim($seedName);
-        $seedRun = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:run -s {$seedName}");
-        if (!$seedRun) {
-            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
-            exit;
-        }
-        echo "Seed {$seedName} criada com sucesso em db/seeds/ \r\n";
+        // $seedRun = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:run -s {$seedName}");
+        // if (!$seedRun) {
+        //     echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+        //     exit;
+        // }
+        chdir('db/seeds');
+        shell_exec('php '.$seedName.'.php');
+
+        echo "Seed {$seedName} executada com sucesso em db/seeds/ \r\n";
     } elseif ($component == 'MakeAuth' or
     $component == 'MAKEAUTH' or
     $component == 'makeAuth'or
@@ -717,22 +737,48 @@ HTML;
         echo "Navbar criado em 'App/Views/Pages/Home.twig' com sucesso. \r\n";
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='db/migration_templates/migration_user_auth_template.php.dist'");
         if ($migrationUser) {
-            $migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
+            $migrate = shell_exec("php vendor/bin/phinx migrate");
             echo '\r\n Migration UserAuth criada com sucesso';
             echo "\r\n Migrate executada com sucesso";
         }
-        $seedUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:create SeedUserAuth");
-        if ($seedUser) {
-            echo '\r\n SeedUserAuth criada com sucesso, por favor preencha os dados em db/seeds com:
+        // $seedUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx seed:create SeedUserAuth");
+        // if ($seedUser) {
+        //     echo '\r\n SeedUserAuth criada com sucesso, por favor preencha os dados em db/seeds com:
                 
-                "name"          => $faker->name,
-                "email"         => $faker->email,
-                "password"      => \Helpers\Login::passwordHash($faker->password)
+        //         "name"          => $faker->name,
+        //         "email"         => $faker->email,
+        //         "password"      => \Helpers\Login::passwordHash($faker->password)
 
 
-            Apos a preencher a UserSeed não esquecer de rodar o comando Run:Seed -s SeedUserAuth 
-            ';
-        }
+        //     Apos a preencher a UserSeed não esquecer de rodar o comando Run:Seed -s SeedUserAuth
+        //     ';
+        // }
+
+        $seed =
+'<?php
+//Seed gerada automaticamente em '.date('d-m-y - H-i-a').'por Scooby_CLI
+require_once "../../vendor/autoload.php"; 
+
+use Helpers\Seeders;
+        
+$faker = \Faker\Factory::create("pt_BR");
+        
+for ($i=0; $i < 10; $i++) { 
+    $seeder = new Seeders();
+    $seeder->seed("users", [
+        "name" => $faker->name,
+        "email" => $faker->email,
+        "password" => \Helpers\Login::passwordHash($faker->password)
+]);
+}
+';
+        $f = fopen("db/seeds/SeedUserAuth.php", 'w+');
+        fwrite($f, $seed);
+        fclose($f);
+        echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
+        // chdir('db/seeds');
+        // shell_exec('php '.$seedName.'.php');
+        // echo "Seed {$seedName} executada com sucesso em db/seeds/ \r\n";
     } elseif ($component == 's' or
           $component == 'S' or
           $component == 'sair' or $component == 'Sair') {
