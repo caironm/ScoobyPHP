@@ -1,9 +1,10 @@
 <?php
 error_reporting(E_ALL);
 require_once 'vendor/autoload.php';
+require_once 'Config/env.php';
+require_once 'Config/config.php';
 
 use Helpers\FlashMessage;
-use Helpers\Seeders;
 
 if (!empty($_SERVER['HTTP_USER_AGENT'])) {
     FlashMessage::msgWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
@@ -67,15 +68,15 @@ do {
             exit;
         }
         if ($ext == 'php') {
-            $content = file_get_contents('Library/shell/templates/php_tpl/phpFile');
+            $content = file_get_contents('Library/shell/templates/php_tpl/phpFile.tpl');
         } elseif ($ext == 'html') {
-            $content = file_get_contents('Library/shell/templates/html_tpl/htmlFile');
+            $content = file_get_contents('Library/shell/templates/html_tpl/htmlFile.tpl');
         } elseif ($ext == 'css') {
-            $content = file_get_contents('Library/shell/templates/css_tpl/cssFile');
+            $content = file_get_contents('Library/shell/templates/css_tpl/cssFile.tpl');
         } elseif ($ext == 'txt') {
-            $content = file_get_contents('Library/shell/templates/txt_tpl/txtFile');
+            $content = file_get_contents('Library/shell/templates/txt_tpl/txtFile.tpl');
         } elseif ($ext == 'js') {
-            $content = file_get_contents('Library/shell/templates/js_tpl/jsFile');
+            $content = file_get_contents('Library/shell/templates/js_tpl/jsFile.tpl');
         }
         $content = strtr($content, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen(__DIR__."/$path/$name.$ext", 'w+');
@@ -98,7 +99,7 @@ $component == 'controler') {
             echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
             exit;
         }
-        $content = file_get_contents('Library/shell/templates/php_tpl/controllerFile');
+        $content = file_get_contents('Library/shell/templates/php_tpl/controllerFile.tpl');
         $content = strtr($content, [
             'dateNow' => date('d-m-y - H:i:a'),
             '$name' => $name
@@ -120,7 +121,7 @@ $component == 'model') {
             echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
             exit;
         }
-        $content = file_get_contents('Library/shell/templates/php_tpl/model_tpl');
+        $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
         $content = strtr($content, [
             'dateNow' => date('d-m-y - H:i:a'),
             '$name' => $name
@@ -160,7 +161,7 @@ $component ==   'VIEW') {
             echo "ERROR: View já existente na pasta 'App/Views/Pages'!\r\n";
             exit;
         }
-        $content = file_get_contents('Library/shell/templates/twig_tpl/view_tpl');
+        $content = file_get_contents('Library/shell/templates/twig_tpl/viewFile.tpl');
         $content = strtr($content, [
             'dateNow' => date('d-m-y - H:i:a'),
             '$name' => $name
@@ -189,12 +190,13 @@ $component == 'DATABASE'
         $name = fgets(STDIN);
         $name = rtrim($name);
         try {
-            $conn = new mysqli("127.0.0.1", "root", "");
+            $conn = new PDO(DB_DRIVER.":host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS,[PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
         } catch (Exception $e) {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
             exit;
         }
-        if (mysqli_select_db($conn, $name)) {
+        $test = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME '".DB_NAME."'");
+        if ($test->fetchColumn()) {
             echo "ERROR: Banco de dados já existente";
             exit;
         }
@@ -269,7 +271,7 @@ $component == 'Rollback') {
             echo "ERROR: Seed já existente na pasta 'db/seeds/'!\r\n";
             exit;
         }
-        $seed = file_get_contents('Library/shell/templates/seeds_tpl/seed_tpl');
+        $seed = file_get_contents('Library/shell/templates/seeds_tpl/seedFile.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen("db/seeds/$seedName.php", 'w+');
         fwrite($f, $seed);
@@ -299,22 +301,23 @@ $component == 'Rollback') {
     $component == 'MAKE:AUTH' or
     $component == 'make:Auth'or
     $component == 'make:auth') {
-        $userController = file_get_contents('Library/shell/templates/php_tpl/userController');
+        $userController = file_get_contents('Library/shell/templates/php_tpl/userController.tpl');
         $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
-        $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel');
+        $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel.tpl');
         $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
-        $loginView = file_get_contents('Library/shell/templates/twig_tpl/login');
+        $loginView = file_get_contents('Library/shell/templates/twig_tpl/login.tpl');
         $loginView = strtr($loginView, ['dateNow' => date('d-m-y - H:i:a')]);
-        $registerView = file_get_contents('Library/shell/templates/twig_tpl/register');
+        $registerView = file_get_contents('Library/shell/templates/twig_tpl/register.tpl');
         $registerView = strtr($registerView, ['dateNow' => date('d-m-y - H:i:a')]);
-        $passwordRescue = file_get_contents('Library/shell/templates/twig_tpl/passwordRescue');
+        $passwordRescue = file_get_contents('Library/shell/templates/twig_tpl/passwordRescue.tpl');
         $passwordRescue = strtr($passwordRescue, ['dateNow' => date('d-m-y - H:i:a')]);
-        $dashBoardView = file_get_contents('Library/shell/templates/twig_tpl/dashboard');
+        $dashBoardView = file_get_contents('Library/shell/templates/twig_tpl/dashboard.tpl');
         $dashBoardView = strtr($dashBoardView, ['dateNow' => date('d-m-y - H:i:a')]);
-        $routesAuth = file_get_contents('Library/shell/templates/php_tpl/routesAuth');
+        $routesAuth = file_get_contents('Library/shell/templates/php_tpl/routesAuth.tpl');
         $routesAuth = strtr($routesAuth, ['dateNow' => date('d-m-y - H:i:a')]);
-        $navbar = file_get_contents('Library/shell/templates/twig_tpl/navbar');
+        $navbar = file_get_contents('Library/shell/templates/twig_tpl/navbar.tpl');
         $navbar = strtr($navbar, ['dateNow' => date('d-m-y - H:i:a')]);
+        $routesAuth = file_get_contents('Library/shell/templates/php_tpl/authConfig.tpl');
         if (file_exists("App/Controllers/UserController.php")) {
             echo "ERROR: Controller UserController já existente na pasta 'App/Controllers'!\r\n";
             exit;
@@ -367,13 +370,16 @@ $component == 'Rollback') {
         fwrite($f, $navbar);
         fclose($f);
         echo "Navbar criado em 'App/Views/Pages/Home.twig' com sucesso. \r\n";
-        $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='Library/shell/templates/migrations_tpl/migration_user_auth_template.php.dist'");
+        $f = fopen("Config/authConfig.php", 'w+');
+        fwrite($f, $routesAuth);
+        fclose($f);
+        $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='Library/shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
         if ($migrationUser) {
             $migrate = shell_exec("php vendor/bin/phinx migrate");
             echo '\r\n Migration UserAuth criada com sucesso';
             echo "\r\n Migrate executada com sucesso";
         }
-        $seed = file_get_contents('Library/shell/templates/seeds_tpl/SeedUserAuth');
+        $seed = file_get_contents('Library/shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen("db/seeds/SeedUserAuth.php", 'w+');
         fwrite($f, $seed);
