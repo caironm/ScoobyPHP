@@ -1,4 +1,5 @@
 <?php
+
 //Seed gerada automaticamente via Scooby_CLI em dateNow
 require_once "../../vendor/autoload.php"; 
 

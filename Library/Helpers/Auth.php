@@ -9,7 +9,6 @@ class Auth
      */
     public function __construct()
     {
-        
         if (
             isset($_SESSION['id'])
             and !empty($_SESSION['id'])
@@ -18,7 +17,7 @@ class Auth
             and $_SESSION['statusLog'] === true
         ) {
             //Session::sessionTokenGenerate();
-            if(!empty($_SESSION['ownerSession'])){
+            if (!empty($_SESSION['ownerSession'])) {
                 Session::sessionTokenValidade();
             }
             return true;

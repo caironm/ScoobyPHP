@@ -41,6 +41,7 @@ if (ENV == 'development') {
     define("ASSET", "http://localhost/".SITE_NAME."/Public/assets/");
 
     error_reporting(E_ALL);
+    
 } elseif (ENV == 'production') {
 
     //Url base para caso o controller não seja indicado na url

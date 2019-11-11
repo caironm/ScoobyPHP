@@ -12,10 +12,9 @@ class Csrf
      */
     public static function csrfTokengenerate()
     {
-        if(!isset($_SESSION['csrfToken'])){
-            
-             $_SESSION['csrfToken'] = md5(uniqid(rand(), true));
-        }   
+        if (!isset($_SESSION['csrfToken'])) {
+            $_SESSION['csrfToken'] = md5(uniqid(rand(), true));
+        }
     }
 
     /**
@@ -31,24 +30,21 @@ class Csrf
     }
 
     /**
-     * Valida o token csrf 
+     * Valida o token csrf
      *
      * @return void
      */
     public static function csrfTokenValidate()
     {
-        
-        if(!isset($_SESSION['csrfToken']) or empty($_SESSION['csrfToken'])){
+        if (!isset($_SESSION['csrfToken']) or empty($_SESSION['csrfToken'])) {
             return false;
         }
-        if(!isset($_REQUEST['csrfToken']) or empty($_REQUEST['csrfToken'])){
+        if (!isset($_REQUEST['csrfToken']) or empty($_REQUEST['csrfToken'])) {
             return false;
-        } 
-        if(isset($_SESSION['csrfToken']) and !empty($_SESSION['csrfToken']) and isset($_REQUEST['csrfToken']) and !empty($_REQUEST['csrfToken']) and $_REQUEST['csrfToken'] === $_SESSION['csrfToken']){
+        }
+        if (isset($_SESSION['csrfToken']) and !empty($_SESSION['csrfToken']) and isset($_REQUEST['csrfToken']) and !empty($_REQUEST['csrfToken']) and $_REQUEST['csrfToken'] === $_SESSION['csrfToken']) {
             return true;
-        }
-        else{
-            
+        } else {
             return false;
         }
     }

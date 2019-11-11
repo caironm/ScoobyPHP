@@ -33,9 +33,9 @@ class UserController extends Controller
     {
             $email =  Request::input("email");
             $pass =  Request::input("pass");
-            if(Login::loginValidate($email, $pass, "users", "email", "password", "id")){
+            if (Login::loginValidate($email, $pass, "users", "email", "password", "id")) {
                 $this->Load("pages", "DashBoard");
-            }else{
+            } else {
                 $this->Load("pages", "login", [
                     "msg" => FlashMessage::msg("Opss", "Falha na autenticação, por favor tente novamente.", "error")
                 ]);
@@ -62,21 +62,21 @@ class UserController extends Controller
             $name = Request::input("name");
             $email = Request::input("email");
             $pass = Login::passwordHash(Request::input("pass"));
-            if(Validation::emailMatch($email, "users", "email")){
+            if (Validation::emailMatch($email, "users", "email")) {
                 $user = new User;
                 $user->name = $name;
                 $user->email= $email;
                 $user->password = $pass; 
-                if($user->save()){
+                if ($user->save()) {
                     $this->Load("pages", "login", [
                         "msg" => FlashMessage::msg("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
                     ]);
-                }else{
+                } else {
                     $this->Load("pages", "Register", [
                         "msg" => FlashMessage::msg("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
                     ]);
                 }
-            }else{
+            } else {
                 $this->Load("pages", "register", [
                     "msg" => FlashMessage::msg("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
                 ]);
@@ -110,6 +110,6 @@ class UserController extends Controller
      */
     public function newPass()
     {
-        $email = Request::input("email");
+        //$email = Request::input("email");
     }
 }

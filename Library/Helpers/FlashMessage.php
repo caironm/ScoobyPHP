@@ -12,7 +12,7 @@ class FlashMessage
      * @param string $type
      * @return void
      */
-    public static function msg(string $title, string $body, string $type = "")
+    public static function msg(string $title, string $body, string $type = null)
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
@@ -36,7 +36,7 @@ HTML;
      * @param string $url
      * @return void
      */
-    public static function msgWithHref(string $title, string $body, string $type = "", string $url)
+    public static function msgWithHref(string $title, string $body, string $type = null, string $url)
     {
         require_once "App/Views/Templates/Header.twig";
         $url = BASE_URL.$url;
@@ -63,7 +63,7 @@ HTML;
      * @param integer $value
      * @return void
      */
-    public static function msgWithGoBack(string $title, string $body, string $type = "", int $value = -1)
+    public static function msgWithGoBack(string $title, string $body, string $type = null, int $value = -1)
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
