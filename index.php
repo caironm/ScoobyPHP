@@ -1,6 +1,7 @@
 <?php
 
 use Helpers\Csrf;
+use Helpers\Session;
 
 session_start();
 require_once 'vendor/autoload.php';
@@ -9,6 +10,8 @@ require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
+Session::sessionTokenGenerate();
+Session::sessionTokenValidade();
 if (ENV !== 'production') {
     $whoops = new \Whoops\Run;
     $errorPage = new Whoops\Handler\PrettyPageHandler();

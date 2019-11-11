@@ -17,7 +17,7 @@ class Auth
             and !empty($_SESSION['statusLog'])
             and $_SESSION['statusLog'] === true
         ) {
-            Session::sessionTokenGenerate();
+            //Session::sessionTokenGenerate();
             if(!empty($_SESSION['ownerSession'])){
                 Session::sessionTokenValidade();
             }
