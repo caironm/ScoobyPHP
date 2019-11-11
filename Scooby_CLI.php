@@ -195,14 +195,22 @@ $component == 'DATABASE'
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
             exit;
         }
-        $test = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME '".DB_NAME."'");
+        $test = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$name'");
         if ($test->fetchColumn()) {
-            echo "ERROR: Banco de dados já existente";
+            echo "ERROR: Banco de dados já existente\r\n";
             exit;
         }
         $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
         if ($create) {
             echo "BANCO DE DADOS $name Criado com sucesso";
+            $configDb = file_get_contents('Config/config.php');
+            $configDb = strtr($configDb, [
+                "'DB_NAME', ''" =>  "'DB_NAME', '$name'"
+            ]);
+            $f = fopen("Config/config.php", 'w+');
+            fwrite($f, $configDb);
+            fclose($f);
+            echo "DB_NAME alterado com sucesso em Config/config.php\r\n";
         } else {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
         }
@@ -317,7 +325,7 @@ $component == 'Rollback') {
         $routesAuth = strtr($routesAuth, ['dateNow' => date('d-m-y - H:i:a')]);
         $navbar = file_get_contents('Library/shell/templates/twig_tpl/navbar.tpl');
         $navbar = strtr($navbar, ['dateNow' => date('d-m-y - H:i:a')]);
-        $routesAuth = file_get_contents('Library/shell/templates/php_tpl/authConfig.tpl');
+        $authConfig = file_get_contents('Library/shell/templates/php_tpl/authConfig.tpl');
         if (file_exists("App/Controllers/UserController.php")) {
             echo "ERROR: Controller UserController já existente na pasta 'App/Controllers'!\r\n";
             exit;
@@ -371,20 +379,20 @@ $component == 'Rollback') {
         fclose($f);
         echo "Navbar criado em 'App/Views/Pages/Home.twig' com sucesso. \r\n";
         $f = fopen("Config/authConfig.php", 'w+');
-        fwrite($f, $routesAuth);
+        fwrite($f, $authConfig);
         fclose($f);
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='Library/shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
         if ($migrationUser) {
             $migrate = shell_exec("php vendor/bin/phinx migrate");
-            echo '\r\n Migration UserAuth criada com sucesso';
-            echo "\r\n Migrate executada com sucesso";
+            echo "Migration UserAuth criada com sucesso\r\n";
+            echo "Migrate executada com sucesso\r\n";
         }
         $seed = file_get_contents('Library/shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen("db/seeds/SeedUserAuth.php", 'w+');
         fwrite($f, $seed);
         fclose($f);
-        echo "Seed SeedUserAuth criada com sucesso em db/seeds/ \r\n";
+        echo "SeedUserAuth criada com sucesso em db/seeds/ \r\n";
     } elseif ($component == 's' or
           $component == 'S' or
           $component == 'sair' or $component == 'Sair') {
@@ -396,9 +404,7 @@ $component == 'Rollback') {
     }
     echo "
 Deseja continuar ?
-DIGITE: 'Y' para continuar ou
-DIGITE: 'S' para sair
-\r\n";
+DIGITE: 'Y' para continuar ou 'S' para sair\r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
 } while ($component == 'y' or
