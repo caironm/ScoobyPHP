@@ -22,5 +22,4 @@ if (ENV !== 'production') {
     $whoops->pushHandler($errorPage);
     $whoops->register();
 }
-dd($_SESSION['ownerSession']);
 $c->run();
