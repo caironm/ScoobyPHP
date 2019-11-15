@@ -1,12 +1,14 @@
 <?php
 
 use Helpers\Csrf;
+use Helpers\Session;
 
 session_start();
 require_once 'vendor/autoload.php';
 require_once 'Config/config.php';
 require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
+Session::sessionTokenGenerate();
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
 if (ENV !== 'production') {
@@ -18,4 +20,5 @@ if (ENV !== 'production') {
     $whoops->pushHandler($errorPage);
     $whoops->register();
 }
+dd($_SESSION['ownerSession']);
 $c->run();

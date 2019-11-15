@@ -13,7 +13,7 @@ class FlashMessage
      * @return void
      */
     public static function msg(string $title, string $body, string $type = "show")
-    {        
+    {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
         <script>
@@ -40,7 +40,7 @@ HTML;
     public static function msgWithHref(string $title, string $body, string $type = "show", string $url)
     {
         require_once "App/Views/Templates/Header.twig";
-        $url = BASE_URL.$url;
+        $url = BASE_URL . $url;
         $msg = <<<HTML
         <script>
             iziToast.$type({
@@ -54,7 +54,7 @@ HTML;
         </script>
 HTML;
         echo $msg;
-    }  
+    }
 
     /**
      * Exibe uma menssagem para o usuario e faz o redirecionamento do mesmo
@@ -81,5 +81,5 @@ HTML;
         </script>
 HTML;
         echo $msg;
-    }  
+    }
 }
