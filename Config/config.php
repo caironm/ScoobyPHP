@@ -40,6 +40,21 @@ if (ENV == 'development') {
     //define a url para a pasta assets
     define("ASSET", "http://localhost/".SITE_NAME."/Public/assets/");
 
+    //Define o endereço do servidor de email a ser utilizado em modo de desenvolvimento 
+    define('SMTP', 'smtp.gmail.com');
+
+    //Define o usuario do servidor de email em modo de desenvolvimento
+    define('SMTP_USER', 'smtpUser');
+
+    //Define a senha do usuario do servidor de email em modo de desenvolvimento 
+    define('SMTP_PASS', 'secret');
+
+    //define a porta do servidor de email em modo de desenvolvimento
+    define('SMTP_PORT', '465');
+
+    //Define o certificado a ser usuado no tranporte do email ex: ssl ou tls em modo de desenvolvimento
+    define('SMTP_CETTIFICATE', 'ssl');
+
     error_reporting(E_ALL);
 } elseif (ENV == 'production') {
 
@@ -78,6 +93,21 @@ if (ENV == 'development') {
 
     //define a url para a pasta node_modules
     define("NODE_MODULES", "http://".SITE_NAME."/node_modules/");
+
+    //Define o endereço do servidor de email a ser utilizado em modo de produção
+    define('SMTP', '');
+
+    //Define o usuario do servidor de email em modo de produção
+    define('SMTP_USER', '');
+
+    //Define a senha do usuario do servidor de email em modo de produção 
+    define('SMTP_PASS', '');
+
+    //define a porta do servidor de email em modo de produção
+    define('SMTP_PORT', '');
+
+    //Define o certificado a ser usuado no tranporte do email ex: ssl ou tls em modo de produção
+    define('SMTP_CETTIFICATE', '');
 
     error_reporting(0);
 }

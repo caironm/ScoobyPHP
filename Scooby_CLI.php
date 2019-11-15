@@ -189,12 +189,17 @@ $component == 'DATABASE'
         $name = fgets(STDIN);
         $name = rtrim($name);
         try {
-            $conn = new mysqli("127.0.0.1", "root", "");
+            //$conn = new mysqli("127.0.0.1", "root", "");
+            require_once 'Config/env.php';
+            require_once 'Config/config.php';
+            $conn = new PDO(DB_DRIVER.":host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS,[PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
         } catch (Exception $e) {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
+            echo $e;
             exit;
         }
-        if (mysqli_select_db($conn, $name)) {
+        $stmt = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'scooby'");
+        if ($stmt->fetchColumn() > 0) { 
             echo "ERROR: Banco de dados já existente";
             exit;
         }
