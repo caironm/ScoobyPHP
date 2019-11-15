@@ -11,6 +11,8 @@ require_once 'Config/routes.php';
 Session::sessionTokenGenerate();
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
+Session::sessionTokenGenerate();
+Session::sessionTokenValidade();
 if (ENV !== 'production') {
     $whoops = new \Whoops\Run;
     $errorPage = new Whoops\Handler\PrettyPageHandler();

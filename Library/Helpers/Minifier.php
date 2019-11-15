@@ -8,7 +8,7 @@ class Minifier
 {
     public static function minify($path, $minifyName, $type)
     {
-        if($type == "css"){
+        if ($type == "css") {
             $sourcePath = $path."/".$minifyName.".css";
             $minifier = new Minify\CSS();
             $minifier->add($sourcePath);
@@ -16,7 +16,7 @@ class Minifier
             $minifier->minify($minifiedPath);
             return true;
         }
-        if($type == "js"){
+        if ($type == "js") {
             $sourcePath = $path."/".$minifyName.".js";
             $minifier = new Minify\JS();
             $minifier->add($sourcePath);

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Helpers;
 
@@ -30,16 +30,16 @@ class Cookie
     }
 
     /**
-     * Retorna o valor do cookie informado 
+     * Retorna o valor do cookie informado
      *
      * @param string $cookieName
      * @return void
      */
     public static function getCookie(string $cookieName)
     {
-        if(!isset($_COOKIE[$cookieName])){
+        if (!isset($_COOKIE[$cookieName])) {
             return false;
-        }else{
+        } else {
             return $_COOKIE[$cookieName];
         }
     }
@@ -52,9 +52,9 @@ class Cookie
      */
     public static function getCookieAndErase($cookieName)
     {
-        if(!isset($_COOKIE[$cookieName])){
+        if (!isset($_COOKIE[$cookieName])) {
             return false;
-        }else{
+        } else {
             echo $_COOKIE[$cookieName];
             return $_COOKIE[$cookieName] = "";
         }
@@ -68,9 +68,9 @@ class Cookie
      */
     public static function cookieDestroy(string $cookieName)
     {
-        if(!isset($_COOKIE[$cookieName])){
+        if (!isset($_COOKIE[$cookieName])) {
             return false;
-        }else{
+        } else {
             unset($_COOKIE[$cookieName]);
             return true;
         }

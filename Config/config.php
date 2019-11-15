@@ -56,6 +56,7 @@ if (ENV == 'development') {
     define('SMTP_CETTIFICATE', 'ssl');
 
     error_reporting(E_ALL);
+    
 } elseif (ENV == 'production') {
 
     //Url base para caso o controller não seja indicado na url

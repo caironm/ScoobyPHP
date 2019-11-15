@@ -9,7 +9,6 @@ class Auth
      */
     public function __construct()
     {
-        
         if (
             isset($_SESSION['id'])
             and !empty($_SESSION['id'])

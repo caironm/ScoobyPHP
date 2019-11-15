@@ -11,7 +11,7 @@ class Session
      */
     public static function sessionTokenGenerate()
     {
-        if(empty($_SESSION['ownerSession'])){
+        if (empty($_SESSION['ownerSession'])) {
             $_SESSION['ownerSession'] = md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']);
         }
     }
@@ -24,10 +24,10 @@ class Session
     public static function sessionTokenValidade()
     {
         $token  = md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']);
-        if(!empty($_SESSION['ownerSession']) and $_SESSION['ownerSession'] == $token){
+        if (!empty($_SESSION['ownerSession']) and $_SESSION['ownerSession'] == $token) {
             return true;
-        }else{
-            Redirect::redirectTo('home');
+        } else {
+            Redirect::redirectTo('failure');
         }
     }
 
@@ -41,7 +41,7 @@ class Session
     public static function setSession(string $sessionName, string $value)
     {
         return $_SESSION[$sessionName] = $value;
-    } 
+    }
 
     /**
      * Recupera o valor de uma variavel de sessão dado o nome dela
