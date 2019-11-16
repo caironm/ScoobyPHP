@@ -20,7 +20,7 @@ class FlashMessage
             iziToast.$type({
                 title: "$title",
                 message: "$body",
-                position: "topCenter"
+                position: "topRight"
 
             });
         </script>
@@ -46,7 +46,7 @@ HTML;
             iziToast.$type({
                 title: "$title",
                 message: "$body",
-                position: "topCenter",
+                position: "topRight",
                 onClosing: function(){
                     window.location.href="$url";
                 }
@@ -73,7 +73,7 @@ HTML;
            iziToast.$type({
                 title: "$title",
                 message: "$body",
-                position: "topCenter",
+                position: "topRight",
                 onClosing: function(){
                     window.history.go($value);
                 }

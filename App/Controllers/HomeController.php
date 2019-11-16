@@ -3,7 +3,6 @@
 namespace Controllers;
 
 use \Core\Controller;
-use Helpers\FlashMessage;
 
 class HomeController extends Controller
 {
