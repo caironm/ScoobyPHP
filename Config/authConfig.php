@@ -12,7 +12,7 @@ $notAutentication = [
  * Array contendo as views que passarão pela autenticação
  */
 $autentication = [
-      
+    
 ];
 
 /**
@@ -22,7 +22,7 @@ $autentication = [
  * Pagina sem autenticação
  */
 $changeTemplate = [
-    'failure'
+    
 ];
 
 /**

@@ -2,7 +2,8 @@
 
 namespace Core;
 
-use Helpers\Helper;
+use Helpers\Auth;
+use Helpers\Redirect;
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 
@@ -22,7 +23,7 @@ abstract class Controller
     {
         require_once 'App/Views/Templates/Template.twig';
         extract($ViewData);
-        require_once "App/Views/".ucfirst($viewPath)."/".ucfirst($ViewName).".twig";
+        require_once "App/Views/" . ucfirst($viewPath) . "/" . ucfirst($ViewName) . ".twig";
     }
 
     /**
@@ -35,7 +36,6 @@ abstract class Controller
      */
     public function Load(string $viewPath, string $ViewName, array $ViewData = [])
     {
-        $helper = new Helper;
         include "Config/authConfig.php";
         $loader = new FilesystemLoader('App/Views');
         $twig = new Environment($loader, [
@@ -54,44 +54,41 @@ abstract class Controller
 
             require_once 'App/Views/Templates/Header.twig';
 
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
+            $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
 
             require_once 'App/Views/Templates/Footer.twig';
-
         } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
-            
-            $auth = $helper->auth();
-            require_once 'App/Views/Templates/Header.twig';
 
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
-            extract($ViewData);
-            echo $template->render($ViewData);
-
-            require_once 'App/Views/Templates/Footer.twig';
-
+            if (Auth::authValidation()) {
+                require_once 'App/Views/Templates/Header.twig';
+                $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
+                extract($ViewData);
+                echo $template->render($ViewData);
+                require_once 'App/Views/Templates/Footer.twig';
+                exit;
+            }
+            return Redirect::redirectTo('login');
         } elseif (in_array($ViewName, $changeTemplate) === true or in_array(strtolower($ViewName), $changeTemplate) === true) {
-            
+
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Header.twig';
-           
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
+
+            $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
-            
+
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
-        
         } else if (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
-           
-            $auth = $helper->auth();
+
+            Auth::authValidation();
             require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Header.twig';
-           
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
+
+            $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
-            
+
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
-        
         } else {
             $this->Load('error', '404');
         }

@@ -7,7 +7,7 @@ class Auth
     /**
      * Metodo construtor que valida o login ou redireciona para o logout
      */
-    public function __construct()
+    public static function authValidation()
     {
         if (
             isset($_SESSION['id'])
@@ -23,7 +23,7 @@ class Auth
         } else {
             $_SESSION['id'] = null;
             $_SESSION['statusLog'] = false;
-            return Redirect::redirectTo('home');
+            return false;
         }
     }
 }

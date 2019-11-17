@@ -25,7 +25,7 @@ $autentication = [
  * Pagina sem autenticação
  */
 $changeTemplate = [
-    'failure'
+
 ];
 
 /**

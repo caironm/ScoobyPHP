@@ -82,9 +82,9 @@ class Core
                     $newUrl = str_replace(':'.$argKey, $argValue, $newUrl);
                 }
                 $url = $newUrl;
-                break;
+                return $url;
             }
         }
-        return $url;
+        return "/NotfoundController";
     }
 }

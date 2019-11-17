@@ -3,5 +3,6 @@
     <h2 class="center">ScoobyPHP DashBoard.</h2>    
 <h4 class='center'>Se você esta visualizando esta página, quer dizer que o sistema de login do ScoobyPHP funcionou corretamente!</h4>
 <br>
-<a href='{{ base_url }}exit' class='btn red waves-light'>Sair</a>    
+<a href='{{ base_url }}exit' class='btn black waves-light'>Sair</a>  
+<a href="{{ base_url }}delete-user/{{ session.id }}" class="btn red"> Apagar usuario</a>  
 </div>

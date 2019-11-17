@@ -8,7 +8,7 @@
         {% endif %}
         <div class="row">
             <div class="col s12 m8 offset-m2">
-                <form class="login-form  z-depth-5" method="post" action="{{ base_url }}user/login">
+                <form class="login-form  z-depth-5" method="post" action="{{ base_url }}make-login">
                     <div class="card">
                         <input type="hidden" name="csrfToken" value="{{ csrfToken }}">
                         <div class="card-content">

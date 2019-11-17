@@ -19,7 +19,7 @@ class Request
                 } 
                 return false;
             }
-            FlashMessage::msgWithGoBack('Atenção...', "todos os campos são obrigatórios", 'warning', -1);
+            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
         }
     }

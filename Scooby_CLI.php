@@ -201,7 +201,7 @@ $component == 'DATABASE'
         }
         $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
         if ($create) {
-            echo "BANCO DE DADOS $name Criado com sucesso";
+            echo "BANCO DE DADOS $name Criado com sucesso\r\n";
             $configDb = file_get_contents('Config/config.php');
             $configDb = strtr($configDb, [
                 "'DB_NAME', ''" =>  "'DB_NAME', '$name'"

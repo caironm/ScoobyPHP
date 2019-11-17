@@ -31,15 +31,15 @@ class UserController extends Controller
      */
     public function login()
     {
-            $email =  Request::input("email");
-            $pass =  Request::input("pass");
-            if (Login::loginValidate($email, $pass, "users", "email", "password", "id")) {
-                $this->Load("pages", "DashBoard");
-            } else {
-                $this->Load("pages", "login", [
-                    "msg" => FlashMessage::msg("Opss", "Falha na autenticação, por favor tente novamente.", "error")
-                ]);
-            }
+        $email =  Request::input("email");
+        $pass =  Request::input("pass");
+        if (Login::loginValidate($email, $pass, "users", "email", "password", "id")) {
+            Redirect::redirectTo('dashboard');
+        } else {
+            $this->Load("pages", "login", [
+                "msg" => FlashMessage::msg("Opss", "Falha na autenticação, por favor tente novamente.", "error")
+            ]);
+        }
     }
 
     /**
@@ -58,15 +58,17 @@ class UserController extends Controller
      * @return void
      */
     public function saveUser()
-    {   
+    {
+        if (Request::input("name") and Request::input("email") and Request::input("pass")) {
             $name = Request::input("name");
             $email = Request::input("email");
             $pass = Login::passwordHash(Request::input("pass"));
+
             if (Validation::emailMatch($email, "users", "email")) {
                 $user = new User;
                 $user->name = $name;
-                $user->email= $email;
-                $user->password = $pass; 
+                $user->email = $email;
+                $user->password = $pass;
                 if ($user->save()) {
                     $this->Load("pages", "login", [
                         "msg" => FlashMessage::msg("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
@@ -76,11 +78,16 @@ class UserController extends Controller
                         "msg" => FlashMessage::msg("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
                     ]);
                 }
-            } else {
+            } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
                 $this->Load("pages", "register", [
                     "msg" => FlashMessage::msg("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
                 ]);
             }
+        } else {
+            $this->Load("pages", "register", [
+                "msg" => FlashMessage::msg("Opss...", "Todos os campos são obrigatórios!", "warning")
+            ]);
+        }
     }
 
     /**
@@ -111,5 +118,29 @@ class UserController extends Controller
     public function newPass()
     {
         //$email = Request::input("email");
+    }
+
+    /**
+     * Faz o redirecionamento para a área logada do sistema
+     *
+     * @return void
+     */
+    public function loged()
+    {
+        $this->Load('pages', 'DashBoard');
+    }
+
+    /**
+     * Deleta o usuario logado
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function deleteUser(int $id)
+    {
+        $user = new User;
+        $u = $user->find($id);
+        $u->delete();
+        return Redirect::redirectTo('login');
     }
 }

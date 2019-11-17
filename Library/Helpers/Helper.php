@@ -11,7 +11,7 @@ class Helper
      *
      * @return void
      */
-    public function auth()
+    public static function auth()
     {
         return new Auth;
     }
