@@ -5,7 +5,10 @@ $route["/register"] = "/user/register";
 $route['/new-user'] = '/user/saveUser';
 $route['/make-login'] = '/user/login';
 $route["/exit"] = "/user/exit";
+$route["/password-rescue"] = "/user/newPass";
 $route["/passwordRescue"] = "/user/passwordRescue";
+$route["/create-password"] = "/user/saveNewPassword";
+$route['/password-reset'] = '/user/passwordReset';
 
 //Rotas Autenticadas
 if(Helpers\Auth::authValidation()){

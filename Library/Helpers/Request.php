@@ -25,6 +25,47 @@ class Request
     }
 
     /**
+    * Valida e retorna o dados vindo do formulario
+    *
+    * @param string $inputName
+    * @return void
+    */
+    public static function get(string $inputName)
+    {
+        if (Csrf::csrfTokenValidate()) {
+            if (self::has($inputName)) {
+                if (isset($_GET["$inputName"]) and !empty($_GET["$inputName"])) {
+                    return htmlspecialchars(strip_tags(addslashes(trim($_GET["$inputName"]))));
+                } 
+                return false;
+            }
+            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
+            return false;
+        }
+    }
+
+    /**
+    * Valida e retorna o dados vindo do formulario
+    *
+    * @param string $inputName
+    * @return void
+    */
+    public static function post(string $inputName)
+    {
+        if (Csrf::csrfTokenValidate()) {
+            if (self::has($inputName)) {
+                if (isset($_POST["$inputName"]) and !empty($_POST["$inputName"])) {
+                    return htmlspecialchars(strip_tags(addslashes(trim($_POST["$inputName"]))));
+                } 
+                return false;
+            }
+            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
+            return false;
+        }
+    }
+
+
+    /**
      * Testa se o valor do input é positivo
      *
      * @param string $inputName

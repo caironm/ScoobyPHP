@@ -9,6 +9,7 @@ $notAutentication = [
     'login',
     'register',
     'PasswordRescue',
+    'NewPassword'
 ];
 
 /**

@@ -22,7 +22,7 @@ $autentication = [
  * Pagina sem autenticação
  */
 $changeTemplate = [
-    
+
 ];
 
 /**

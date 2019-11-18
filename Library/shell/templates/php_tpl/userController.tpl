@@ -1,15 +1,17 @@
 <?php
 
-//Controller de autenticação gerado automaticamente via Scooby-CLI dateNow
+//Controller de autenticação gerado automaticamente via Scooby-CLI em dateNow
 
 namespace Controllers;
 
 use \Core\Controller;
+use Helpers\Email;
 use Helpers\FlashMessage;
 use Helpers\Login;
 use Helpers\Redirect;
 use Helpers\Request;
 use Helpers\Validation;
+use Models\PasswordUserToken;
 use Models\User;
 
 class UserController extends Controller
@@ -112,12 +114,110 @@ class UserController extends Controller
 
     /**
      * Executa a lógica de recuperação de senha do usuário
+     * e envia o email
      *
      * @return void
      */
     public function newPass()
     {
-        //$email = Request::input("email");
+        if(empty(Request::input("email"))){
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::msg('Opss...', 'O campo de email é obrigatório!', 'warning')
+            ]);
+            exit;
+        }
+        $email = Request::input("email");
+        $token = md5(rand(999, 999999));
+        $user = new User;
+        $u = $user->where('email', $email)->first();
+        if($u != null){
+            $newPass = new PasswordUserToken;
+            $newPass->user_id = $u->id;
+            $newPass->token = $token;
+            $newPass->used = 0;
+            $newPass->save();
+
+            $msg = <<<HTML
+                <h3>Recuperação de senha</h3>
+                <p>Este é o link para você efetuar a recuperação de senha do <strong>ScoobyPHP</strong></p>
+                <p>127.0.0.1/App/create-password?token=$token</p>
+                <a href="create-password?token=$token">Clique aqui para redefinir sua senha</a>
+HTML;
+            $send = Email::sendEmailWithSmtp('ScoobyPHP', $msg, ['viniterriani.vt@gmail.com' => 'ScoobyTem'], [$email => $u->name]);
+            if($send){
+                $this->Load('Pages', 'login', [
+                    'msg' => FlashMessage::msg('Ok', 'Email para confirmação enviado com sucesso', 'success')
+    
+                ]);
+            }else{
+                FlashMessage::msg('Opss...', 'Algo saiu errado, Email não enviado', 'error');
+            }
+        } else {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::msg('Opss...', 'Emeil não encontrado em nossa base de dados, por favor tente novamente com um emial diferente', 'error')
+            ]);
+         }
+       
+    }
+
+    /**
+     * Valida o token pasado por url e chama a view de redefinição de senha
+     *
+     * @return void
+     */
+    public function saveNewPassword()
+    {
+        $token = $_GET['token'];
+        $_SESSION['token'] = $token;
+        $newPass = new PasswordUserToken;
+        $p = $newPass->where('token', $token)->first();
+        if(empty($_GET['token'])){
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::msg('Erro...', 'Token Inválido', 'error')
+            ]);
+            exit;
+        }
+        if($p != null and $p->used == 0){
+            $this->Load('pages', 'NewPassword', ['token' => $token]);
+        } else {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::msg('Erro...', 'Link Inválido', 'error')
+            ]);
+            exit;
+        }
+    }
+
+    /**
+     * Executa a redefinição de senha e invalida o token usado
+     *
+     * @return void
+     */
+    public function passwordReset()
+    {
+        $token = $_POST['passwordToken'];
+        if(empty($_POST['new-password']) and empty($_POST['confirm-password'])){
+            $this->Load('pages', 'NewPassword', [
+                'msg' => FlashMessage::msg('Opss...', 'Os campos são obrigatórios', 'warning')
+            ]);
+            exit;
+        } elseif($_POST['new-password'] != $_POST['confirm-password']){
+            $this->Load('pages', 'NewPassword', [
+                'msg' => FlashMessage::msg('Opss...', 'As senhas não batem', 'warning')
+            ]);
+            exit;
+        } 
+        $newPass = new PasswordUserToken;
+        $p = $newPass->where('token', $token)->first();
+        $p->used = 1;
+        $p->save();
+        $user = new User;
+        $id = $p->user_id;
+        $u = $user->where('id', $id)->update(['password' => Login::passwordHash($_POST['new-password'])]);
+        if($u and $p){
+            $this->Load('pages', 'login', [
+                'msg' => FlashMessage::msg('Tudo Certo...', 'Senha alterada com sucesso', 'success')
+            ]);
+        }
     }
 
     /**

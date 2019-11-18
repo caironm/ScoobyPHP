@@ -312,12 +312,16 @@ $component == 'Rollback') {
         $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
         $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel.tpl');
         $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
+        $passwordTokenModel = file_get_contents('Library/shell/templates/php_tpl/passwordRescueModel.tpl');
+        $passwordTokenModel = strtr($passwordTokenModel, ['dateNow' => date('d-m-y - H:i:a')]);
         $loginView = file_get_contents('Library/shell/templates/twig_tpl/login.tpl');
         $loginView = strtr($loginView, ['dateNow' => date('d-m-y - H:i:a')]);
         $registerView = file_get_contents('Library/shell/templates/twig_tpl/register.tpl');
         $registerView = strtr($registerView, ['dateNow' => date('d-m-y - H:i:a')]);
         $passwordRescue = file_get_contents('Library/shell/templates/twig_tpl/passwordRescue.tpl');
         $passwordRescue = strtr($passwordRescue, ['dateNow' => date('d-m-y - H:i:a')]);
+        $newPassword = file_get_contents('Library/shell/templates/twig_tpl/newPassword.tpl');
+        $newPassword = strtr($newPassword, ['dateNow' => date('d-m-y - H:i:a')]);
         $dashBoardView = file_get_contents('Library/shell/templates/twig_tpl/dashboard.tpl');
         $dashBoardView = strtr($dashBoardView, ['dateNow' => date('d-m-y - H:i:a')]);
         $routesAuth = file_get_contents('Library/shell/templates/php_tpl/routesAuth.tpl');
@@ -345,12 +349,19 @@ $component == 'Rollback') {
             echo "ERROR: View Password Rescue já existente na pasta 'App/Views/Pages'!\r\n";
             exit;
         }
+        if (file_exists("App/Views/Pages/NewPassword.twig")) {
+            echo "ERROR: View New Password Rescue já existente na pasta 'App/Views/Pages'!\r\n";
+            exit;
+        }
         $f = fopen("App/Controllers/UserController.php", 'w+');
         fwrite($f, $userController);
         fclose($f);
         echo "UserController criado em 'App/Controllers' com sucesso. \r\n";
         $f = fopen("App/Models/User.php", 'w+');
         fwrite($f, $userModel);
+        fclose($f);
+        $f = fopen("App/Models/PasswordUserToken.php", 'w+');
+        fwrite($f, $passwordTokenModel);
         fclose($f);
         echo "User criado em 'App/Models' com sucesso. \r\n";
         $f = fopen("App/Views/Pages/Login.twig", 'w+');
@@ -363,6 +374,9 @@ $component == 'Rollback') {
         echo "Register criado em 'App/Views/Pages' com sucesso. \r\n";
         $f = fopen("App/Views/Pages/PasswordRescue.twig", 'w+');
         fwrite($f, $passwordRescue);
+        fclose($f);
+        $f = fopen("App/Views/Pages/NewPassword.twig", 'w+');
+        fwrite($f, $newPassword);
         fclose($f);
         echo "PasswordRescue criado em 'App/Views/Pages' com sucesso. \r\n";
         $f = fopen("App/Views/Pages/DashBoard.twig", 'w+');
@@ -381,8 +395,11 @@ $component == 'Rollback') {
         fwrite($f, $authConfig);
         fclose($f);
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='Library/shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
+        $migrate = shell_exec("php vendor/bin/phinx migrate");
+        sleep(1);
+        $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='Library/shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
+        $migrate = shell_exec("php vendor/bin/phinx migrate");
         if ($migrationUser) {
-            $migrate = shell_exec("php vendor/bin/phinx migrate");
             echo "Migration UserAuth criada com sucesso\r\n";
             echo "Migrate executada com sucesso\r\n";
         }

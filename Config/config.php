@@ -44,10 +44,10 @@ if (ENV == 'development') {
     define('SMTP', 'smtp.gmail.com');
 
     //Define o usuario do servidor de email em modo de desenvolvimento
-    define('SMTP_USER', 'smtpUser');
+    define('SMTP_USER', 'viniterriani.vt@gmail.com');
 
     //Define a senha do usuario do servidor de email em modo de desenvolvimento 
-    define('SMTP_PASS', 'secret');
+    define('SMTP_PASS', '3594terriani');
 
     //define a porta do servidor de email em modo de desenvolvimento
     define('SMTP_PORT', '465');
