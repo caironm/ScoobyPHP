@@ -10,6 +10,7 @@ use Helpers\FlashMessage;
 use Helpers\Login;
 use Helpers\Redirect;
 use Helpers\Request;
+use Helpers\Session;
 use Helpers\Validation;
 use Models\PasswordUserToken;
 use Models\User;
@@ -120,7 +121,7 @@ class UserController extends Controller
      */
     public function newPass()
     {
-        if(empty(Request::input("email"))){
+        if (empty(Request::input("email"))) {
             $this->Load('pages', 'PasswordRescue', [
                 'msg' => FlashMessage::msg('Opss...', 'O campo de email é obrigatório!', 'warning')
             ]);
@@ -130,7 +131,7 @@ class UserController extends Controller
         $token = md5(rand(999, 999999));
         $user = new User;
         $u = $user->where('email', $email)->first();
-        if($u != null){
+        if ($u != null) {
             $newPass = new PasswordUserToken;
             $newPass->user_id = $u->id;
             $newPass->token = $token;
@@ -144,20 +145,19 @@ class UserController extends Controller
                 <a href="create-password?token=$token">Clique aqui para redefinir sua senha</a>
 HTML;
             $send = Email::sendEmailWithSmtp('ScoobyPHP', $msg, ['viniterriani.vt@gmail.com' => 'ScoobyTem'], [$email => $u->name]);
-            if($send){
+            if ($send) {
                 $this->Load('Pages', 'login', [
                     'msg' => FlashMessage::msg('Ok', 'Email para confirmação enviado com sucesso', 'success')
-    
+
                 ]);
-            }else{
+            } else {
                 FlashMessage::msg('Opss...', 'Algo saiu errado, Email não enviado', 'error');
             }
         } else {
             $this->Load('pages', 'PasswordRescue', [
                 'msg' => FlashMessage::msg('Opss...', 'Emeil não encontrado em nossa base de dados, por favor tente novamente com um emial diferente', 'error')
             ]);
-         }
-       
+        }
     }
 
     /**
@@ -171,13 +171,13 @@ HTML;
         $_SESSION['token'] = $token;
         $newPass = new PasswordUserToken;
         $p = $newPass->where('token', $token)->first();
-        if(empty($_GET['token'])){
+        if (empty($_GET['token'])) {
             $this->Load('pages', 'PasswordRescue', [
                 'msg' => FlashMessage::msg('Erro...', 'Token Inválido', 'error')
             ]);
             exit;
         }
-        if($p != null and $p->used == 0){
+        if ($p != null and $p->used == 0) {
             $this->Load('pages', 'NewPassword', ['token' => $token]);
         } else {
             $this->Load('pages', 'PasswordRescue', [
@@ -195,17 +195,17 @@ HTML;
     public function passwordReset()
     {
         $token = $_POST['passwordToken'];
-        if(empty($_POST['new-password']) and empty($_POST['confirm-password'])){
+        if (empty($_POST['new-password']) and empty($_POST['confirm-password'])) {
             $this->Load('pages', 'NewPassword', [
                 'msg' => FlashMessage::msg('Opss...', 'Os campos são obrigatórios', 'warning')
             ]);
             exit;
-        } elseif($_POST['new-password'] != $_POST['confirm-password']){
+        } elseif ($_POST['new-password'] != $_POST['confirm-password']) {
             $this->Load('pages', 'NewPassword', [
                 'msg' => FlashMessage::msg('Opss...', 'As senhas não batem', 'warning')
             ]);
             exit;
-        } 
+        }
         $newPass = new PasswordUserToken;
         $p = $newPass->where('token', $token)->first();
         $p->used = 1;
@@ -213,7 +213,7 @@ HTML;
         $user = new User;
         $id = $p->user_id;
         $u = $user->where('id', $id)->update(['password' => Login::passwordHash($_POST['new-password'])]);
-        if($u and $p){
+        if ($u and $p) {
             $this->Load('pages', 'login', [
                 'msg' => FlashMessage::msg('Tudo Certo...', 'Senha alterada com sucesso', 'success')
             ]);
@@ -236,11 +236,80 @@ HTML;
      * @param integer $id
      * @return void
      */
-    public function deleteUser(int $id)
+    public function deleteUser()
     {
+        $id = $_SESSION['id'];
         $user = new User;
         $u = $user->find($id);
         $u->delete();
         return Redirect::redirectTo('login');
+    }
+
+    /**
+     * Busca as informações dos usuario e chama a view de edição
+     *
+     * @return void
+     */
+    public function alterUser()
+    {
+        $id = Session::getSession('id');
+        $user = new User;
+        $u = $user->find($id);
+        if ($u == null) {
+            $this->Load('pages', 'Dashboard', [
+                'msg' => FlashMessage::msg('Error:', 'Algo saiu errado, por favor tente novante', 'error')
+            ]);
+            exit;
+        }
+        $this->Load('pages', 'UpdateUser', [
+            'name' => $u->name,
+            'email' => $u->email
+        ]);
+    }
+
+    /**
+     * Atualiza as informações do usuario
+     *
+     * @return void
+     */
+    public function updateUser()
+    {
+        $id = Session::getSession('id');
+        $name = Request::post('name');
+        $email = Request::post('email');
+        $password = Request::post('pass');
+        $user =  new User;
+        $u = $user->find($id);
+        if (empty($password)) {
+            $u->name = $name;
+            $u->email = $email;
+            $u->save();
+            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            exit;
+        }if (empty($name)) {
+            $u->password = Login::passwordHash($password);
+            $u->email = $email;
+            $u->save();
+            FlashMessage::msgWithHref('Ok...', '123Usuário alterado com sucesso', 'success', 'dashboard');
+            exit;
+        }elseif (empty($email)) {
+            $u->name = $name;
+            $u->password = Login::passwordHash($password);
+            $u->save();
+            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            exit;
+        }elseif (empty($password)) {
+            $u->name = $name;
+            $u->email = $email;
+            $u->save();
+            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            exit;
+        }
+        $u->name = $name;
+        $u->email = $email;
+        $u->password = Login::passwordHash($password);
+        $u->save();
+        FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+        exit;
     }
 }

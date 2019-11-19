@@ -310,25 +310,39 @@ $component == 'Rollback') {
     $component == 'make:auth') {
         $userController = file_get_contents('Library/shell/templates/php_tpl/userController.tpl');
         $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel.tpl');
         $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $passwordTokenModel = file_get_contents('Library/shell/templates/php_tpl/passwordRescueModel.tpl');
         $passwordTokenModel = strtr($passwordTokenModel, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $loginView = file_get_contents('Library/shell/templates/twig_tpl/login.tpl');
         $loginView = strtr($loginView, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $registerView = file_get_contents('Library/shell/templates/twig_tpl/register.tpl');
         $registerView = strtr($registerView, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $passwordRescue = file_get_contents('Library/shell/templates/twig_tpl/passwordRescue.tpl');
         $passwordRescue = strtr($passwordRescue, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $newPassword = file_get_contents('Library/shell/templates/twig_tpl/newPassword.tpl');
         $newPassword = strtr($newPassword, ['dateNow' => date('d-m-y - H:i:a')]);
+        
         $dashBoardView = file_get_contents('Library/shell/templates/twig_tpl/dashboard.tpl');
         $dashBoardView = strtr($dashBoardView, ['dateNow' => date('d-m-y - H:i:a')]);
+
+        $updateUser = file_get_contents('Library/shell/templates/twig_tpl/updateUser.tpl');
+        $updateUser = strtr($updateUser, ['dateNow' => date('d-m-y - H:i:a')]);
+
         $routesAuth = file_get_contents('Library/shell/templates/php_tpl/routesAuth.tpl');
         $routesAuth = strtr($routesAuth, ['dateNow' => date('d-m-y - H:i:a')]);
+
         $navbar = file_get_contents('Library/shell/templates/twig_tpl/navbar.tpl');
         $navbar = strtr($navbar, ['dateNow' => date('d-m-y - H:i:a')]);
+
         $authConfig = file_get_contents('Library/shell/templates/php_tpl/authConfig.tpl');
+
         if (file_exists("App/Controllers/UserController.php")) {
             echo "ERROR: Controller UserController já existente na pasta 'App/Controllers'!\r\n";
             exit;
@@ -383,6 +397,10 @@ $component == 'Rollback') {
         fwrite($f, $dashBoardView);
         fclose($f);
         echo "DashBoard criado em 'App/Views/Pages' com sucesso. \r\n";
+        $f = fopen("App/Views/Pages/UpdateUser.twig", 'w+');
+        fwrite($f, $updateUser);
+        fclose($f);
+        echo "UpdateUser criado em 'App/Views/Pages' com sucesso. \r\n";
         $f = fopen("Config/routes.php", 'a+');
         fwrite($f, $routesAuth);
         fclose($f);

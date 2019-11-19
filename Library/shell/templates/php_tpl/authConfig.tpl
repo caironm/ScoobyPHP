@@ -17,6 +17,7 @@ $notAutentication = [
  */
 $autentication = [
     'DashBoard',
+    'UpdateUser'
 ];
 
 /**
