@@ -16,7 +16,13 @@ for ($i=0; $i < 10; $i++) {
         * https://faker.readthedocs.io/en/master/providers.html
         * Ducumentação completa da biblioteca faker:
         * https://faker.readthedocs.io/en/master/ 
+        *
+        *-----------------------------
+        * Exemplo de uso do faker:    |
+        *------------------------------
+        *
+        * 'colunmName' => $faker->name
+        *
         */
-        'colunmName' => $faker->name
     ]);
 }

@@ -25,34 +25,39 @@ do {
     echo "
 -----------------
 |    OPTION:    |
----------------------------------------------------------------------
-| DIGITE: 'New:DB' ou a palavra DataBase para criar um novo banco   |
-| DIGITE: 'Migration' para criar uma migration                      |
-| DIGITE: 'Migrate' para executar as migration criadas              |
-| DIGITE: 'Rollback' para executar um Rollback na migration criada  |
-| DIGITE: 'New:Seed' para criar uma Seed no Banco de dados          |
-| DIGITE: 'Run:Seed' para executar uma Seed no Banco de dados       |
-| DIGITE: 'C' ou a paravra controller para criar um Controller      |
-| DIGITE: 'C -R' ou as paravras controller --resource para criar um |
-| ResourceController                                                |
-| DIGITE: 'M' ou a palavra model para criar um Model                |
-| DIGITE: 'v' ou a paravra View para criar uma View                 |
-| DIGITE: 'F' ou a palavra File para criar um Arquivo               |
-| DIGITE: 'r' ou a palavra Route para criar uma rota                |
-| DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig     |
-| DIGITE: 'Make:Auth' para criar uma rotina de cadastro e login     |
-| DIGITE: 'Sair' para cancelar a operação                           |
----------------------------------------------------------------------\r\n";
+---------------------------------------------------------------------------------
+| DIGITE: 'new:db' ou a palavra DataBase para criar um novo banco               |
+| DIGITE: 'make:migration' para criar uma migration                             |
+| DIGITE: 'migrate' para executar as migration criadas                          |
+| DIGITE: 'Rollback' para executar um Rollback na migration criada              |
+| DIGITE: 'make:seed' para criar uma Seed no Banco de dados                     |
+| DIGITE: 'Run:Seed' para executar uma Seed no Banco de dados                   |
+| DIGITE: 'make:controller' ou a paravra controller para criar um Controller    |
+| DIGITE: 'make:controller -r' ou a paravra --resource para criar               |
+| um ResourceController                                                         |
+| DIGITE: 'make:model' ou a palavra model para criar um Model                   |
+| DIGITE: 'make:model -m' ou a paravra --migration para criar                   |
+| um model com uma respectiva migration                                         |
+| DIGITE: 'make:model -m -s' ou a paravra --migration --seed para criar         |
+| um model com uma respectiva migration e uma respectiva seed                   |
+| DIGITE: 'make:view' para criar uma View                                       |
+| DIGITE: 'make:file' para criar um Arquivo                                     |
+| DIGITE: 'make:route' para criar uma rota                                      |
+| DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig                 |
+| DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
+| DIGITE: 'y' Para continuar                                                    |
+| DIGITE: 'N' para cancelar a operação                                          |
+---------------------------------------------------------------------------------\r\n";
     echo "Aguardando a opção escolhida... \r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
     if (
-        $component == 'F' or
-        $component == 'f' or
-        $component == 'file' or
-        $component == 'File' or
-        $component == 'arquivo' or
-        $component == 'Arquivo'
+        $component == 'Make:File' or
+        $component == 'make:file' or
+        $component == 'MAKE:FILE' or
+        $component == 'MakeFile' or
+        $component == 'makefile' or
+        $component == 'MAKEFILE'
     ) {
         echo "Você optou por criar um Arquivo. \r\n";
         echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
@@ -87,12 +92,12 @@ do {
         fclose($f);
         echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
     } elseif (
-        $component == 'C' or
-        $component == 'c' or
-        $component == 'Controller' or
-        $component == 'controller' or
-        $component == 'Controler' or
-        $component == 'controler'
+        $component == 'MAKE:CONTROLLER' or
+        $component == 'make:controller' or
+        $component == 'Make:Controller' or
+        $component == 'makecontroller' or
+        $component == 'MakeControler' or
+        $component == 'MAKECONTROLLER'
     ) {
         echo "Você optou por criar um Controller. \r\n";
         echo "Por favor, DIGITE o nome do controller a ser criado \r\n";
@@ -114,12 +119,30 @@ do {
         fclose($f);
         echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
     } elseif (
-        $component == 'C -R' or
-        $component == 'c -r' or
-        $component == 'Controller --Resource' or
-        $component == 'controller --resource' or
-        $component == 'Controller --r' or
-        $component == 'controller --R'
+        $component == 'MAKE:CONTROLLER -r' or
+        $component == 'make:controller -r' or
+        $component == 'Make:Controller -r' or
+        $component == 'makecontroller r-' or
+        $component == 'MakeControler -r' or
+        $component == 'MAKECONTROLLER -r' or
+        $component == 'MAKE:CONTROLLER -R' or
+        $component == 'make:controller -R' or
+        $component == 'Make:Controller -R' or
+        $component == 'makecontroller -R' or
+        $component == 'MakeControler -R' or
+        $component == 'MAKECONTROLLER -R' or
+        $component == 'MAKE:CONTROLLER --resource' or
+        $component == 'make:controller --resource' or
+        $component == 'Make:Controller --resource' or
+        $component == 'makecontroller --resource' or
+        $component == 'MakeControler --resource' or
+        $component == 'MAKECONTROLLER --resource' or
+        $component == 'MAKE:CONTROLLER --RESOURCE' or
+        $component == 'make:controller --RESOURCE' or
+        $component == 'Make:Controller --RESOURCE' or
+        $component == 'makecontroller --RESOURCE' or
+        $component == 'MakeControler --RESOURCE' or
+        $component == 'MAKECONTROLLER --RESOURCE'
     ) {
         echo "Você optou por criar um ResourceController. \r\n";
         echo "Por favor, DIGITE o nome do ResourceController a ser criado \r\n";
@@ -151,10 +174,12 @@ do {
         fclose($f);
         echo "Rotas do controller {$name} criadas em 'Config/routes' com sucesso. \r\n";
     } elseif (
-        $component == 'M' or
-        $component == 'm' or
-        $component == 'Model' or
-        $component == 'model'
+        $component == 'MAKE:MODEL' or
+        $component == 'make:model' or
+        $component == 'Make:Model' or
+        $component == 'makemodel'  or
+        $component == 'MAKEMODEL' or
+        $component == 'MakeModel' 
     ) {
         echo "Você optou por criar um Model. \r\n";
         echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
@@ -175,11 +200,134 @@ do {
         fclose($f);
         echo "$name criado em 'App/Models' com sucesso. \r\n";
     } elseif (
-        $component == 'ROUTE' or
-        $component == 'R' or
-        $component == 'r' or
-        $component == 'Route' or
-        $component == 'route'
+        $component == 'MAKE:MODEL -m' or
+        $component == 'make:model -m' or
+        $component == 'Make:Model -m' or
+        $component == 'makemodel -m'  or
+        $component == 'MAKEMODEL -m' or
+        $component == 'MakeModel -m' or
+        $component == 'MAKE:MODEL -M' or
+        $component == 'make:model -M' or
+        $component == 'Make:Model -M' or
+        $component == 'makemodel -M'  or
+        $component == 'MAKEMODEL -M' or
+        $component == 'MakeModel -M' or
+        $component == 'MAKE:MODEL --MIGRATION' or
+        $component == 'make:model --MIGRATION' or
+        $component == 'Make:Model --MIGRATION' or
+        $component == 'makemodel --MIGRATION'  or
+        $component == 'MAKEMODEL --MIGRATION' or
+        $component == 'MakeModel --MIGRATION' or
+        $component == 'MAKE:MODEL --migration' or
+        $component == 'make:model --migration' or
+        $component == 'Make:Model --migration' or
+        $component == 'makemodel --migration'  or
+        $component == 'MAKEMODEL --migration' or
+        $component == 'MakeModel --migration'
+    ) {
+        echo "Você optou por criar um Model. \r\n";
+        echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
+        $name = fgets(STDIN);
+        $name = rtrim($name);
+        $name = ucfirst($name);
+        $migrationName = $name."CreateTable";
+        if (file_exists("App/Models/$name.php")) {
+            echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
+            exit;
+        }
+        $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
+        $content = strtr($content, [
+            'dateNow' => date('d-m-y - H:i:a'),
+            '$name' => $name
+        ]);
+        $f = fopen("App/Models/$name.php", 'w+');
+        fwrite($f, $content);
+        fclose($f);
+        echo "$name criado em 'App/Models' com sucesso. \r\n";
+        if (file_exists("db/migrations/$migrationName.php")) {
+            echo "ERROR: Migration já existente na pasta 'db/migrations/'!\r\n";
+            exit;
+        }
+        $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
+        if (!$modelMigration) {
+            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+            exit;
+        }
+    }elseif (
+        $component == 'MAKE:MODEL -m -s' or
+        $component == 'make:model -m -s' or
+        $component == 'Make:Model -m -s' or
+        $component == 'makemodel -m -s'  or
+        $component == 'MAKEMODEL -m -s' or
+        $component == 'MakeModel -m -s' or
+        $component == 'MAKE:MODEL -M -S' or
+        $component == 'make:model -M -S' or
+        $component == 'Make:Model -M -S' or
+        $component == 'makemodel -M -S'  or
+        $component == 'MAKEMODEL -M -S' or
+        $component == 'MakeModel -M -S' or
+        $component == 'MAKE:MODEL --MIGRATION --SEED' or
+        $component == 'make:model --MIGRATION --SEED' or
+        $component == 'Make:Model --MIGRATION --SEED' or
+        $component == 'makemodel --MIGRATION --SEED'  or
+        $component == 'MAKEMODEL --MIGRATION --SEED' or
+        $component == 'MakeModel --MIGRATION --SEED' or
+        $component == 'MAKE:MODEL --migration --seed' or
+        $component == 'make:model --migration --seed' or
+        $component == 'Make:Model --migration --seed' or
+        $component == 'makemodel --migration --seed'  or
+        $component == 'MAKEMODEL --migration --seed' or
+        $component == 'MakeModel --migration --seed'
+    ) {
+        echo "Você optou por criar um Model. \r\n";
+        echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
+        $name = fgets(STDIN);
+        $name = rtrim($name);
+        $name = ucfirst($name);
+        $migrationName = $name."CreateTable";
+        $seedName = $name."Seed";
+        if (file_exists("App/Models/$name.php")) {
+            echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
+            exit;
+        }
+        $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
+        $content = strtr($content, [
+            'dateNow' => date('d-m-y - H:i:a'),
+            '$name' => $name
+        ]);
+        $f = fopen("App/Models/$name.php", 'w+');
+        fwrite($f, $content);
+        fclose($f);
+        echo "$name criado em 'App/Models' com sucesso. \r\n";
+        if (file_exists("db/migrations/$migrationName.php")) {
+            echo "ERROR: Migration já existente na pasta 'db/migrations/'!\r\n";
+            exit;
+        }
+        $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
+        if (!$modelMigration) {
+            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+            exit;
+        }
+        if (file_exists("db/seeds/$seedName.php")) {
+            echo "ERROR: Seed já existente na pasta 'db/seeds/'!\r\n";
+            exit;
+        }
+        $seed = file_get_contents('Library/shell/templates/seeds_tpl/seedFile.tpl');
+        $seed = strtr($seed, [
+            'dateNow' => date('d-m-y - H:i:a'),
+            'users' => strtolower($name)."s",
+            ]);
+        $f = fopen("db/seeds/$seedName.php", 'w+');
+        fwrite($f, $seed);
+        fclose($f);
+        echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
+    } elseif (
+        $component == 'MAKE:ROUTE' or
+        $component == 'make:route' or
+        $component == 'Make:Route' or
+        $component == 'MakeRoute' or
+        $component == 'makeroute' or
+        $component == 'MAKEROUTE'
     ) {
         echo "Você optou por criar uma Rota. \r\n";
         echo "Por favor, DIGITE o novo caminho da Rota a ser criado / \r\n";
@@ -194,11 +342,12 @@ do {
         fclose($f);
         echo "Rota criada em 'Config/routes.php' com sucesso. \r\n";
     } elseif (
-        $component == 'V' or
-        $component == 'v' or
-        $component == 'View' or
-        $component == 'view' or
-        $component == 'VIEW'
+        $component == 'make:view' or
+        $component == 'MAKE:VIEW' or
+        $component == 'Make:View' or
+        $component == 'makeview' or
+        $component == 'MAKEVIEW' or
+        $component == 'MakeView' 
     ) {
         echo "Você optou por criar uma View. \r\n";
         echo "Por favor, DIGITE o nome da View a ser criada \r\n";
@@ -280,9 +429,12 @@ do {
             echo 'Você não possui nenhum arquivo de cache disponivel para ser deletado. \r\n';
         }
     } elseif (
-        $component == 'migration' or
-        $component == 'MIGRATION' or
-        $component == 'Migration'
+        $component == 'make:migration' or
+        $component == 'MAKE:MIGRATION' or
+        $component == 'Make:Migration' or 
+        $component == 'makemigration' or
+        $component == 'MAKEMIGRATION' or
+        $component == 'MakeMigration'
     ) {
         echo "Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase \r\n";
         $migrationName = fgets(STDIN);
@@ -321,14 +473,14 @@ do {
         }
         echo "Rollback executado com sucesso. \r\n";
     } elseif (
-        $component == 'NewSeed' or
-        $component == 'NEWSEED' or
-        $component == 'newSeed' or
-        $component == 'newseed' or
-        $component == 'New:Seed' or
-        $component == 'NEW:SEED' or
-        $component == 'new:Seed' or
-        $component == 'new:seed'
+        $component == 'MakeSeed' or
+        $component == 'MAKESEED' or
+        $component == 'makeSeed' or
+        $component == 'makeseed' or
+        $component == 'Make:Seed' or
+        $component == 'MAKE:SEED' or
+        $component == 'make:Seed' or
+        $component == 'make:seed'
     ) {
         echo "Por favor, DIGITE o nome da Seed a ser criada. Use o formato CamelCase \r\n";
         $seedName = fgets(STDIN);
@@ -515,9 +667,9 @@ DIGITE: 'Y' para continuar ou 'S' para sair\r\n";
     $component == 'Yes'
 );
 if (
-    $component == 's' or
-    $component == 'S' or
-    $component == 'sair' or $component == 'Sair'
+    $component == 'n' or
+    $component == 'N' or
+    $component == 'No' or $component == 'Sair'
 ) {
     echo "Operação cancelada pelo usuário!\r\n\r\n";
     exit;
