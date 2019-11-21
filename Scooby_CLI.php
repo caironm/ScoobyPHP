@@ -26,30 +26,34 @@ do {
 -----------------
 |    OPTION:    |
 ---------------------------------------------------------------------
-| DIGITE: 'New:DB' ou a palavra DataBase para criar um novo banco   |                                                 
+| DIGITE: 'New:DB' ou a palavra DataBase para criar um novo banco   |
 | DIGITE: 'Migration' para criar uma migration                      |
 | DIGITE: 'Migrate' para executar as migration criadas              |
-| DIGITE: 'Rollback' para executar um Rollback na migration criada  |                                                            
+| DIGITE: 'Rollback' para executar um Rollback na migration criada  |
 | DIGITE: 'New:Seed' para criar uma Seed no Banco de dados          |
-| DIGITE: 'Run:Seed' para executar uma Seed no Banco de dados       |                                                  
+| DIGITE: 'Run:Seed' para executar uma Seed no Banco de dados       |
 | DIGITE: 'C' ou a paravra controller para criar um Controller      |
+| DIGITE: 'C -R' ou as paravras controller --resource para criar um |
+| ResourceController                                                |
 | DIGITE: 'M' ou a palavra model para criar um Model                |
 | DIGITE: 'v' ou a paravra View para criar uma View                 |
 | DIGITE: 'F' ou a palavra File para criar um Arquivo               |
 | DIGITE: 'r' ou a palavra Route para criar uma rota                |
 | DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig     |
-| DIGITE: 'Make:Auth' para criar uma rotina de cadastro e login     | 
+| DIGITE: 'Make:Auth' para criar uma rotina de cadastro e login     |
 | DIGITE: 'Sair' para cancelar a operação                           |
 ---------------------------------------------------------------------\r\n";
     echo "Aguardando a opção escolhida... \r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
-    if ($component == 'F' or
-    $component == 'f' or
-    $component == 'file' or
-    $component == 'File' or
-    $component == 'arquivo' or
-    $component == 'Arquivo') {
+    if (
+        $component == 'F' or
+        $component == 'f' or
+        $component == 'file' or
+        $component == 'File' or
+        $component == 'arquivo' or
+        $component == 'Arquivo'
+    ) {
         echo "Você optou por criar um Arquivo. \r\n";
         echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
         $ext = fgets(STDIN);
@@ -62,7 +66,7 @@ do {
         echo "Por favor, DIGITE o caminho do arquivo a ser criado \r\n";
         $path = fgets(STDIN);
         $path = rtrim($path);
-        if (file_exists(__DIR__."/$path/$name.$ext")) {
+        if (file_exists(__DIR__ . "/$path/$name.$ext")) {
             echo "ERROR: Arquivo já existente na pasta '$path'!\r\n";
             exit;
         }
@@ -78,22 +82,24 @@ do {
             $content = file_get_contents('Library/shell/templates/js_tpl/jsFile.tpl');
         }
         $content = strtr($content, ['dateNow' => date('d-m-y - H:i:a')]);
-        $f = fopen(__DIR__."/$path/$name.$ext", 'w+');
+        $f = fopen(__DIR__ . "/$path/$name.$ext", 'w+');
         fwrite($f, $content);
         fclose($f);
-        echo "$name.$ext criado em '".__DIR__."/$path/' com sucesso. \r\n";
-    } elseif ($component == 'C' or
-$component == 'c' or
-$component == 'Controller' or
-$component == 'controller' or
-$component == 'Controler' or
-$component == 'controler') {
+        echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
+    } elseif (
+        $component == 'C' or
+        $component == 'c' or
+        $component == 'Controller' or
+        $component == 'controller' or
+        $component == 'Controler' or
+        $component == 'controler'
+    ) {
         echo "Você optou por criar um Controller. \r\n";
         echo "Por favor, DIGITE o nome do controller a ser criado \r\n";
         $name = fgets(STDIN);
         $name = ucfirst($name);
         $name = rtrim($name);
-        $name = $name."Controller";
+        $name = $name . "Controller";
         if (file_exists("App/Controllers/$name.php")) {
             echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
             exit;
@@ -107,10 +113,49 @@ $component == 'controler') {
         fwrite($f, $content);
         fclose($f);
         echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
-    } elseif ($component == 'M' or
-$component == 'm' or
-$component == 'Model' or
-$component == 'model') {
+    } elseif (
+        $component == 'C -R' or
+        $component == 'c -r' or
+        $component == 'Controller --Resource' or
+        $component == 'controller --resource' or
+        $component == 'Controller --r' or
+        $component == 'controller --R'
+    ) {
+        echo "Você optou por criar um ResourceController. \r\n";
+        echo "Por favor, DIGITE o nome do ResourceController a ser criado \r\n";
+        $name = fgets(STDIN);
+        $name = rtrim($name);
+        $routeName = $name;
+        $name = ucfirst($name);
+        $name = $name . "Controller";
+        if (file_exists("App/Controllers/$name.php")) {
+            echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
+            exit;
+        }
+        $content = file_get_contents('Library/shell/templates/php_tpl/resourceControllerFile.tpl');
+        $content = strtr($content, [
+            'dateNow' => date('d-m-y - H:i:a'),
+            '$name' => $name
+        ]);
+        $routeResource = file_get_contents('Library/shell/templates/php_tpl/routesResourceFile.tpl');
+        $routeResource = strtr($routeResource, [
+            'dateNow' => date('d-m-y - H:i:a'),
+            '$name' => $routeName
+        ]);
+        $f = fopen("App/Controllers/$name.php", 'w+');
+        fwrite($f, $content);
+        fclose($f);
+        echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+        $f = fopen("Config/routes.php", 'a+');
+        fwrite($f, $routeResource);
+        fclose($f);
+        echo "Rotas do controller {$name} criadas em 'Config/routes' com sucesso. \r\n";
+    } elseif (
+        $component == 'M' or
+        $component == 'm' or
+        $component == 'Model' or
+        $component == 'model'
+    ) {
         echo "Você optou por criar um Model. \r\n";
         echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
         $name = fgets(STDIN);
@@ -129,11 +174,13 @@ $component == 'model') {
         fwrite($f, $content);
         fclose($f);
         echo "$name criado em 'App/Models' com sucesso. \r\n";
-    } elseif ($component == 'ROUTE' or
-    $component == 'R' or
-    $component == 'r' or
-    $component == 'Route' or
-    $component == 'route') {
+    } elseif (
+        $component == 'ROUTE' or
+        $component == 'R' or
+        $component == 'r' or
+        $component == 'Route' or
+        $component == 'route'
+    ) {
         echo "Você optou por criar uma Rota. \r\n";
         echo "Por favor, DIGITE o novo caminho da Rota a ser criado / \r\n";
         $route = fgets(STDIN);
@@ -141,16 +188,18 @@ $component == 'model') {
         echo "Por favor, DIGITE o padrão que a nova rota buscara começando com / \r\n";
         $partner = fgets(STDIN);
         $partner = rtrim($partner);
-        $content = '$route["'.$route.'"] = "'.$partner.'";'.PHP_EOL;
+        $content = '$route["' . $route . '"] = "' . $partner . '";' . PHP_EOL;
         $f = fopen("Config/routes.php", 'a+');
         fwrite($f, $content);
         fclose($f);
         echo "Rota criada em 'Config/routes.php' com sucesso. \r\n";
-    } elseif ($component == 'V' or
-$component == 'v' or
-$component == 'View' or
-$component == 'view' or
-$component ==   'VIEW') {
+    } elseif (
+        $component == 'V' or
+        $component == 'v' or
+        $component == 'View' or
+        $component == 'view' or
+        $component == 'VIEW'
+    ) {
         echo "Você optou por criar uma View. \r\n";
         echo "Por favor, DIGITE o nome da View a ser criada \r\n";
         $name = fgets(STDIN);
@@ -169,27 +218,28 @@ $component ==   'VIEW') {
         fwrite($f, $content);
         fclose($f);
         echo "$name criado em 'App/Views/Pages' com sucesso. \r\n";
-    } elseif ($component == 'NewDb' or
-$component == 'newDb' or
-$component == 'newdb' or
-$component == 'NEWDB' or
-$component == 'New:Db' or
-$component == 'new:Db' or
-$component == 'new:db' or
-$component == 'NEW:DB' or
-$component == 'database' or
-$component == 'DataBase' or
-$component == 'dataBase' or
-$component == 'Database' or
-$component == 'DATABASE'
-) {
+    } elseif (
+        $component == 'NewDb' or
+        $component == 'newDb' or
+        $component == 'newdb' or
+        $component == 'NEWDB' or
+        $component == 'New:Db' or
+        $component == 'new:Db' or
+        $component == 'new:db' or
+        $component == 'NEW:DB' or
+        $component == 'database' or
+        $component == 'DataBase' or
+        $component == 'dataBase' or
+        $component == 'Database' or
+        $component == 'DATABASE'
+    ) {
         echo "Você optou por criar um novo banco de dados. \r\n";
         $content = "";
         echo "Por favor, DIGITE o nome do Banco a ser criada \r\n";
         $name = fgets(STDIN);
         $name = rtrim($name);
         try {
-            $conn = new PDO(DB_DRIVER.":host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS,[PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
+            $conn = new PDO(DB_DRIVER . ":host=" . DB_HOST . ";charset=utf8", DB_USER, DB_PASS, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
         } catch (Exception $e) {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
             exit;
@@ -213,13 +263,15 @@ $component == 'DATABASE'
         } else {
             echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
         }
-    } elseif ($component == 'clear:cache' or
-    $component == 'Clear:Cache' or
-    $component == 'CLEAR:CACHE' or
-    $component == 'clearcache' or
-    $component == 'clearCache' or
-    $component == 'ClearCache' or
-    $component == 'CLEARCACHE') {
+    } elseif (
+        $component == 'clear:cache' or
+        $component == 'Clear:Cache' or
+        $component == 'CLEAR:CACHE' or
+        $component == 'clearcache' or
+        $component == 'clearCache' or
+        $component == 'ClearCache' or
+        $component == 'CLEARCACHE'
+    ) {
         $cacheDir = scandir('Config/Cache/');
         if (count($cacheDir) > 2) {
             $clearCache = shell_exec('sudo rm -rf Config/Cache/*');
@@ -227,9 +279,11 @@ $component == 'DATABASE'
         } else {
             echo 'Você não possui nenhum arquivo de cache disponivel para ser deletado. \r\n';
         }
-    } elseif ($component == 'migration' or
-$component == 'MIGRATION' or
-$component == 'Migration') {
+    } elseif (
+        $component == 'migration' or
+        $component == 'MIGRATION' or
+        $component == 'Migration'
+    ) {
         echo "Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase \r\n";
         $migrationName = fgets(STDIN);
         $migrationName = ucfirst($migrationName);
@@ -244,32 +298,38 @@ $component == 'Migration') {
             exit;
         }
         echo "Migration $migrationName criada com sucesso em db/migrations/ \r\n";
-    } elseif ($component == 'migrate' or
-$component == 'MIGRATE' or
-$component == 'Migrate') {
+    } elseif (
+        $component == 'migrate' or
+        $component == 'MIGRATE' or
+        $component == 'Migrate'
+    ) {
         $migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
         if (!$migrate) {
             echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
             exit;
         }
         echo "Migrate executada com sucesso. \r\n";
-    } elseif ($component == 'rollback' or
-$component == 'ROLLBACK' or
-$component == 'Rollback') {
+    } elseif (
+        $component == 'rollback' or
+        $component == 'ROLLBACK' or
+        $component == 'Rollback'
+    ) {
         $rollback = shell_exec("php vendor/robmorgan/phinx/bin/phinx rollback");
         if (!$rollback) {
             echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
             exit;
         }
         echo "Rollback executado com sucesso. \r\n";
-    } elseif ($component == 'NewSeed' or
-    $component == 'NEWSEED' or
-    $component == 'newSeed'or
-    $component == 'newseed' or
-    $component == 'New:Seed' or
-    $component == 'NEW:SEED' or
-    $component == 'new:Seed'or
-    $component == 'new:seed') {
+    } elseif (
+        $component == 'NewSeed' or
+        $component == 'NEWSEED' or
+        $component == 'newSeed' or
+        $component == 'newseed' or
+        $component == 'New:Seed' or
+        $component == 'NEW:SEED' or
+        $component == 'new:Seed' or
+        $component == 'new:seed'
+    ) {
         echo "Por favor, DIGITE o nome da Seed a ser criada. Use o formato CamelCase \r\n";
         $seedName = fgets(STDIN);
         $seedName = ucfirst($seedName);
@@ -284,51 +344,55 @@ $component == 'Rollback') {
         fwrite($f, $seed);
         fclose($f);
         echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
-    } elseif ($component == 'RunSeed' or
+    } elseif (
+        $component == 'RunSeed' or
         $component == 'RUNSEED' or
-        $component == 'runSeed'or
+        $component == 'runSeed' or
         $component == 'runseed' or
         $component == 'Run:Seed' or
         $component == 'RUN:SEED' or
-        $component == 'run:Seed'or
-        $component == 'run:seed') {
+        $component == 'run:Seed' or
+        $component == 'run:seed'
+    ) {
         echo "Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo \r\n";
         $seedName = fgets(STDIN);
         $seedName = ucfirst($seedName);
         $seedName = rtrim($seedName);
         chdir('db/seeds');
-        shell_exec('php '.$seedName.'.php');
+        shell_exec('php ' . $seedName . '.php');
 
         echo "Seed {$seedName} executada com sucesso em db/seeds/ \r\n";
-    } elseif ($component == 'MakeAuth' or
-    $component == 'MAKEAUTH' or
-    $component == 'makeAuth'or
-    $component == 'makeauth' or
-    $component == 'Make:Auth' or
-    $component == 'MAKE:AUTH' or
-    $component == 'make:Auth'or
-    $component == 'make:auth') {
+    } elseif (
+        $component == 'MakeAuth' or
+        $component == 'MAKEAUTH' or
+        $component == 'makeAuth' or
+        $component == 'makeauth' or
+        $component == 'Make:Auth' or
+        $component == 'MAKE:AUTH' or
+        $component == 'make:Auth' or
+        $component == 'make:auth'
+    ) {
         $userController = file_get_contents('Library/shell/templates/php_tpl/userController.tpl');
         $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel.tpl');
         $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $passwordTokenModel = file_get_contents('Library/shell/templates/php_tpl/passwordRescueModel.tpl');
         $passwordTokenModel = strtr($passwordTokenModel, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $loginView = file_get_contents('Library/shell/templates/twig_tpl/login.tpl');
         $loginView = strtr($loginView, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $registerView = file_get_contents('Library/shell/templates/twig_tpl/register.tpl');
         $registerView = strtr($registerView, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $passwordRescue = file_get_contents('Library/shell/templates/twig_tpl/passwordRescue.tpl');
         $passwordRescue = strtr($passwordRescue, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $newPassword = file_get_contents('Library/shell/templates/twig_tpl/newPassword.tpl');
         $newPassword = strtr($newPassword, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $dashBoardView = file_get_contents('Library/shell/templates/twig_tpl/dashboard.tpl');
         $dashBoardView = strtr($dashBoardView, ['dateNow' => date('d-m-y - H:i:a')]);
 
@@ -427,9 +491,11 @@ $component == 'Rollback') {
         fwrite($f, $seed);
         fclose($f);
         echo "SeedUserAuth criada com sucesso em db/seeds/ \r\n";
-    } elseif ($component == 's' or
-          $component == 'S' or
-          $component == 'sair' or $component == 'Sair') {
+    } elseif (
+        $component == 's' or
+        $component == 'S' or
+        $component == 'sair' or $component == 'Sair'
+    ) {
         echo "Operação cancelada pelo usuário!\r\n\r\n";
         exit;
     } else {
@@ -441,14 +507,18 @@ Deseja continuar ?
 DIGITE: 'Y' para continuar ou 'S' para sair\r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
-} while ($component == 'y' or
-         $component == 'Y' or
-         $component == 'yes' or
-         $component == 'YES' or
-         $component == 'Yes');
-if ($component == 's' or
-          $component == 'S' or
-          $component == 'sair' or $component == 'Sair') {
+} while (
+    $component == 'y' or
+    $component == 'Y' or
+    $component == 'yes' or
+    $component == 'YES' or
+    $component == 'Yes'
+);
+if (
+    $component == 's' or
+    $component == 'S' or
+    $component == 'sair' or $component == 'Sair'
+) {
     echo "Operação cancelada pelo usuário!\r\n\r\n";
     exit;
 } else {
