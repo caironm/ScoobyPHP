@@ -1,6 +1,6 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
 {% if msg %}
-<span class="alert"> {{ msg|raw }} </span>
+    {{ msg|raw }} 
 {% endif %}
 <div class='container-fluid z-depth-5' style="margin:3% 10% !important; padding:5%; background-color: #ddd !important">
     <h2 class="center">ScoobyPHP DashBoard.</h2>

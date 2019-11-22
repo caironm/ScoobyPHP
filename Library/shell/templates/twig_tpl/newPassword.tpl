@@ -4,7 +4,7 @@
     <a href="{{ base_url }}back" class="btn black">voltar</a>
         <h2 class="center">ScoobYTasks - Recuperação de senha</h2>
         {% if msg %}
-        <span class="alert"> {{ msg|raw }} </span>
+            {{ msg|raw }}
         {% endif %}
         <div class="row">
             <div class="col s12 m8 offset-m2">

@@ -3,7 +3,7 @@
 <a href="{{ base_url }}back" class="btn black">voltar</a>
     <h3 class="center">ScoobYTasks - Novo Usuário</h3>
     {% if msg %}
-    <span class="alert center">{{ msg|raw }}</span>
+        {{ msg|raw }}
     {% endif %}
     <div class="row">
         <div class="col s12 m8 offset-m2">

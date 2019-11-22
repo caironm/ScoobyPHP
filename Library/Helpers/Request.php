@@ -184,4 +184,68 @@ class Request
             return false;
         }
     }
+
+    /**
+     * Valida os inputs de entrada via formulario
+     *
+     * @param string $input
+     * @param array $rules
+     * @param integer $min
+     * @param integer $max
+     * @return void
+     */
+    public static function validate(string $input, array $rules, int $min = null, int $max = null)
+    {
+
+        $inputValue = $_REQUEST[$input];
+        
+        if(in_array('required', $rules)){
+            if(empty($inputValue)){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('email', $rules)){
+            if(!Validation::isEmail($inputValue)){
+                return 'Email Requerido';
+            }
+            
+        }
+
+        if(in_array('number', $rules)){
+            if(!Validation::isNumber($inputValue)){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('negative', $rules)){
+            if(!Validation::isNegative($inputValue)){
+                //Logica para exibir a msg de erro
+            }
+        } 
+        if(in_array('positive', $rules)){
+            if(!Validation::isPositive($inputValue)){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('string', $rules)){
+            if(!Validation::isString($inputValue)){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('min', $rules)){
+            if(strlen($inputValue) < $min){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('max', $rules)){
+            if(strlen($inputValue) > $min){
+                //Logica para exibir a msg de erro
+            }
+        }
+        if(in_array('between', $rules)){
+            if(strlen($inputValue) > $min and strlen($inputValue) < $max){
+                //Logica para exibir a msg de erro
+            }
+        }
+        return true;
+    }
 }

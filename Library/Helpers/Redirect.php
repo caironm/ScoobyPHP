@@ -27,4 +27,26 @@ class Redirect
     {
         echo "<script>window.history.go($value)</script>"; 
     }
+
+    /**
+     * Redireciona passando parametros para a view
+     *
+     * @param string $viewPath
+     * @param string $ViewName
+     * @param array $ViewData
+     * @return void
+     */
+    public static function redirectWithParameters(string $viewPath, string $ViewName, array $ViewData = [])
+    {
+        $loader = new \Twig\Loader\FilesystemLoader('App/Views');
+        $twig = new \Twig\Environment($loader, [
+            'debug' => true,
+            'cache' => 'Config/Cache'
+        ]);
+        $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
+        require_once 'App/Views/Templates/Header.twig';
+        extract($ViewData);
+        require_once 'App/Views/Templates/Footer.twig';
+        echo $template->render($ViewData);
+    }
 }
