@@ -40,7 +40,7 @@ class UserController extends Controller
             Redirect::redirectTo('dashboard');
         } else {
             $this->Load("pages", "login", [
-                "msg" => FlashMessage::msg("Opss", "Falha na autenticação, por favor tente novamente.", "error")
+                "msg" => FlashMessage::toast("Opss", "Falha na autenticação, por favor tente novamente.", "error")
             ]);
         }
     }
@@ -74,21 +74,21 @@ class UserController extends Controller
                 $user->password = $pass;
                 if ($user->save()) {
                     $this->Load("pages", "login", [
-                        "msg" => FlashMessage::msg("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
+                        "msg" => FlashMessage::toast("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
                     ]);
                 } else {
                     $this->Load("pages", "Register", [
-                        "msg" => FlashMessage::msg("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
+                        "msg" => FlashMessage::toast("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
                     ]);
                 }
             } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
                 $this->Load("pages", "register", [
-                    "msg" => FlashMessage::msg("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
+                    "msg" => FlashMessage::toast("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
                 ]);
             }
         } else {
             $this->Load("pages", "register", [
-                "msg" => FlashMessage::msg("Opss...", "Todos os campos são obrigatórios!", "warning")
+                "msg" => FlashMessage::toast("Opss...", "Todos os campos são obrigatórios!", "warning")
             ]);
         }
     }
@@ -123,7 +123,7 @@ class UserController extends Controller
     {
         if (empty(Request::input("email"))) {
             $this->Load('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::msg('Opss...', 'O campo de email é obrigatório!', 'warning')
+                'msg' => FlashMessage::toast('Opss...', 'O campo de email é obrigatório!', 'warning')
             ]);
             exit;
         }
@@ -147,15 +147,15 @@ HTML;
             $send = Email::sendEmailWithSmtp('ScoobyPHP', $msg, ['viniterriani.vt@gmail.com' => 'ScoobyTem'], [$email => $u->name]);
             if ($send) {
                 $this->Load('Pages', 'login', [
-                    'msg' => FlashMessage::msg('Ok', 'Email para confirmação enviado com sucesso', 'success')
+                    'msg' => FlashMessage::toast('Ok', 'Email para confirmação enviado com sucesso', 'success')
 
                 ]);
             } else {
-                FlashMessage::msg('Opss...', 'Algo saiu errado, Email não enviado', 'error');
+                FlashMessage::toast('Opss...', 'Algo saiu errado, Email não enviado', 'error');
             }
         } else {
             $this->Load('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::msg('Opss...', 'Emeil não encontrado em nossa base de dados, por favor tente novamente com um emial diferente', 'error')
+                'msg' => FlashMessage::toast('Opss...', 'Emeil não encontrado em nossa base de dados, por favor tente novamente com um emial diferente', 'error')
             ]);
         }
     }
@@ -173,7 +173,7 @@ HTML;
         $p = $newPass->where('token', $token)->first();
         if (empty($_GET['token'])) {
             $this->Load('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::msg('Erro...', 'Token Inválido', 'error')
+                'msg' => FlashMessage::toast('Erro...', 'Token Inválido', 'error')
             ]);
             exit;
         }
@@ -181,7 +181,7 @@ HTML;
             $this->Load('pages', 'NewPassword', ['token' => $token]);
         } else {
             $this->Load('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::msg('Erro...', 'Link Inválido', 'error')
+                'msg' => FlashMessage::toast('Erro...', 'Link Inválido', 'error')
             ]);
             exit;
         }
@@ -197,12 +197,12 @@ HTML;
         $token = $_POST['passwordToken'];
         if (empty($_POST['new-password']) and empty($_POST['confirm-password'])) {
             $this->Load('pages', 'NewPassword', [
-                'msg' => FlashMessage::msg('Opss...', 'Os campos são obrigatórios', 'warning')
+                'msg' => FlashMessage::toast('Opss...', 'Os campos são obrigatórios', 'warning')
             ]);
             exit;
         } elseif ($_POST['new-password'] != $_POST['confirm-password']) {
             $this->Load('pages', 'NewPassword', [
-                'msg' => FlashMessage::msg('Opss...', 'As senhas não batem', 'warning')
+                'msg' => FlashMessage::toast('Opss...', 'As senhas não batem', 'warning')
             ]);
             exit;
         }
@@ -215,7 +215,7 @@ HTML;
         $u = $user->where('id', $id)->update(['password' => Login::passwordHash($_POST['new-password'])]);
         if ($u and $p) {
             $this->Load('pages', 'login', [
-                'msg' => FlashMessage::msg('Tudo Certo...', 'Senha alterada com sucesso', 'success')
+                'msg' => FlashMessage::toast('Tudo Certo...', 'Senha alterada com sucesso', 'success')
             ]);
         }
     }
@@ -257,7 +257,7 @@ HTML;
         $u = $user->find($id);
         if ($u == null) {
             $this->Load('pages', 'Dashboard', [
-                'msg' => FlashMessage::msg('Error:', 'Algo saiu errado, por favor tente novante', 'error')
+                'msg' => FlashMessage::toast('Error:', 'Algo saiu errado, por favor tente novante', 'error')
             ]);
             exit;
         }
@@ -284,32 +284,32 @@ HTML;
             $u->name = $name;
             $u->email = $email;
             $u->save();
-            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            FlashMessage::modalWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
             exit;
         }if (empty($name)) {
             $u->password = Login::passwordHash($password);
             $u->email = $email;
             $u->save();
-            FlashMessage::msgWithHref('Ok...', '123Usuário alterado com sucesso', 'success', 'dashboard');
+            FlashMessage::modalWithHref('Ok...', '123Usuário alterado com sucesso', 'success', 'dashboard');
             exit;
         }elseif (empty($email)) {
             $u->name = $name;
             $u->password = Login::passwordHash($password);
             $u->save();
-            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            FlashMessage::modalWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
             exit;
         }elseif (empty($password)) {
             $u->name = $name;
             $u->email = $email;
             $u->save();
-            FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+            FlashMessage::modalWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
             exit;
         }
         $u->name = $name;
         $u->email = $email;
         $u->password = Login::passwordHash($password);
         $u->save();
-        FlashMessage::msgWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
+        FlashMessage::modalWithHref('Ok...', 'Usuário alterado com sucesso', 'success', 'dashboard');
         exit;
     }
 }
