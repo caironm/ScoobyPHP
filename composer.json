@@ -1,4 +1,7 @@
 {
+    "type" : "project",
+	"homepage" : "https://github.com/terriani/ScoobyPHP",
+	"description" : "ScoobyPHP, A litle and very simple PHP framework ",
     "require":{
         "twig/twig": "^2.11",
         "illuminate/database": "^5.8",
