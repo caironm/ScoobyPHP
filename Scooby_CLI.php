@@ -89,6 +89,28 @@ function execOptionMakeFile(){
     echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
 }
 
+function execOptionMakeController(){
+    echo "Você optou por criar um Controller. \r\n";
+    echo "Por favor, DIGITE o nome do controller a ser criado \r\n";
+    $name = fgets(STDIN);
+    $name = ucfirst($name);
+    $name = rtrim($name);
+    $name = $name . "Controller";
+    if (file_exists("App/Controllers/$name.php")) {
+        echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
+        exit;
+    }
+    $content = file_get_contents('Library/shell/templates/php_tpl/controllerFile.tpl');
+    $content = strtr($content, [
+        'dateNow' => date('d-m-y - H:i:a'),
+        '$name' => $name
+    ]);
+    $f = fopen("App/Controllers/$name.php", 'w+');
+    fwrite($f, $content);
+    fclose($f);
+    echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+}
+
 $date = date('d-m-y - H:i:a');
 showHeader();
 do {
@@ -98,33 +120,8 @@ do {
     $component = strtolower($component);
     if ( $component == 'make:file' or $component == 'makefile'){
         execOptionMakeFile();
-    } elseif (
-        $component == 'MAKE:CONTROLLER' or
-        $component == 'make:controller' or
-        $component == 'Make:Controller' or
-        $component == 'makecontroller' or
-        $component == 'MakeControler' or
-        $component == 'MAKECONTROLLER'
-    ) {
-        echo "Você optou por criar um Controller. \r\n";
-        echo "Por favor, DIGITE o nome do controller a ser criado \r\n";
-        $name = fgets(STDIN);
-        $name = ucfirst($name);
-        $name = rtrim($name);
-        $name = $name . "Controller";
-        if (file_exists("App/Controllers/$name.php")) {
-            echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
-            exit;
-        }
-        $content = file_get_contents('Library/shell/templates/php_tpl/controllerFile.tpl');
-        $content = strtr($content, [
-            'dateNow' => date('d-m-y - H:i:a'),
-            '$name' => $name
-        ]);
-        $f = fopen("App/Controllers/$name.php", 'w+');
-        fwrite($f, $content);
-        fclose($f);
-        echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+    } elseif ($component == 'make:controller' or $component == 'makecontroller') {
+        execOptionMakeController();
     } elseif (
         $component == 'MAKE:CONTROLLER -r' or
         $component == 'make:controller -r' or
