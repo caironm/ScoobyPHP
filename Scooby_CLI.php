@@ -2,6 +2,7 @@
 require_once 'vendor/autoload.php';
 require_once 'Config/env.php';
 require_once 'Config/config.php';
+require_once 'Library/Helpers/FlashMessage.php';
 
 use Helpers\FlashMessage;
 
@@ -10,19 +11,21 @@ if (!empty($_SERVER['HTTP_USER_AGENT'])) {
     die;
 }
 
-$date = date('d-m-y - H:i:a');
-echo "\r\n
-     ____                  _                      ____ _     ___ 
-    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
-    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
-     ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
-    |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
-                                 |___/                           
-\r\n";
-echo "Bem vindo ao Scooby CLI.
+function showHeader(){
+    echo "\r\n
+    ____                  _                      ____ _     ___ 
+   / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
+   \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
+    ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
+   |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
+                                |___/                           
+    \r\n";
+    echo "Bem vindo ao Scooby CLI.
 Você deseja criar um Model, um Controller ou um Arquivo? \r\n";
-do {
-    echo "
+}
+
+function showHeaderOption(){
+        echo "
 -----------------
 |    OPTION:    |
 ---------------------------------------------------------------------------------
@@ -48,46 +51,53 @@ do {
 | DIGITE: 'y' Para continuar                                                    |
 | DIGITE: 'N' para cancelar a operação                                          |
 ---------------------------------------------------------------------------------\r\n";
-    echo "Aguardando a opção escolhida... \r\n";
+        echo "Aguardando a opção escolhida... \r\n";    
+}
+
+function execOptionMakeFile(){
+    echo "Você optou por criar um Arquivo. \r\n";
+    echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
+    $ext = fgets(STDIN);
+    $ext = strtolower($ext);
+    $ext = rtrim($ext);
+    echo "Por favor, DIGITE o nome do Arquivo a ser criado \r\n";
+    $name = fgets(STDIN);
+    $name = strtolower($name);
+    $name = rtrim($name);
+    echo "Por favor, DIGITE o caminho do arquivo a ser criado \r\n";
+    $path = fgets(STDIN);
+    $path = rtrim($path);
+    if (file_exists(__DIR__ . "/$path/$name.$ext")) {
+        echo "ERROR: Arquivo já existente na pasta '$path'!\r\n";
+        exit;
+    }
+    if ($ext == 'php') {
+        $content = file_get_contents('Library/shell/templates/php_tpl/phpFile.tpl');
+    } elseif ($ext == 'html') {
+        $content = file_get_contents('Library/shell/templates/html_tpl/htmlFile.tpl');
+    } elseif ($ext == 'css') {
+        $content = file_get_contents('Library/shell/templates/css_tpl/cssFile.tpl');
+    } elseif ($ext == 'txt') {
+        $content = file_get_contents('Library/shell/templates/txt_tpl/txtFile.tpl');
+    } elseif ($ext == 'js') {
+        $content = file_get_contents('Library/shell/templates/js_tpl/jsFile.tpl');
+    }
+    $content = strtr($content, ['dateNow' => date('d-m-y - H:i:a')]);
+    $f = fopen(__DIR__ . "/$path/$name.$ext", 'w+');
+    fwrite($f, $content);
+    fclose($f);
+    echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
+}
+
+$date = date('d-m-y - H:i:a');
+showHeader();
+do {
+    showHeaderOption();
     $component = fgets(STDIN);
     $component = rtrim($component);
     $component = strtolower($component);
-    if (
-        $component == 'make:file' or
-        $component == 'makefile'
-    ) {
-        echo "Você optou por criar um Arquivo. \r\n";
-        echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
-        $ext = fgets(STDIN);
-        $ext = strtolower($ext);
-        $ext = rtrim($ext);
-        echo "Por favor, DIGITE o nome do Arquivo a ser criado \r\n";
-        $name = fgets(STDIN);
-        $name = strtolower($name);
-        $name = rtrim($name);
-        echo "Por favor, DIGITE o caminho do arquivo a ser criado \r\n";
-        $path = fgets(STDIN);
-        $path = rtrim($path);
-        if (file_exists(__DIR__ . "/$path/$name.$ext")) {
-            echo "ERROR: Arquivo já existente na pasta '$path'!\r\n";
-            exit;
-        }
-        if ($ext == 'php') {
-            $content = file_get_contents('Library/shell/templates/php_tpl/phpFile.tpl');
-        } elseif ($ext == 'html') {
-            $content = file_get_contents('Library/shell/templates/html_tpl/htmlFile.tpl');
-        } elseif ($ext == 'css') {
-            $content = file_get_contents('Library/shell/templates/css_tpl/cssFile.tpl');
-        } elseif ($ext == 'txt') {
-            $content = file_get_contents('Library/shell/templates/txt_tpl/txtFile.tpl');
-        } elseif ($ext == 'js') {
-            $content = file_get_contents('Library/shell/templates/js_tpl/jsFile.tpl');
-        }
-        $content = strtr($content, ['dateNow' => date('d-m-y - H:i:a')]);
-        $f = fopen(__DIR__ . "/$path/$name.$ext", 'w+');
-        fwrite($f, $content);
-        fclose($f);
-        echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
+    if ( $component == 'make:file' or $component == 'makefile'){
+        execOptionMakeFile();
     } elseif (
         $component == 'MAKE:CONTROLLER' or
         $component == 'make:controller' or
