@@ -8,29 +8,21 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+* NPM
+* PHP 7.0
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
-
+1 - Run composer
 ```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+composer install
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+2 - Open browser on [http://localhost/ScoobyPHP/](http://localhost/ScoobyPHP/). You will see the image below
+
+![strat00](docs/images/screen00.png)
 
 ## Running the tests
 
