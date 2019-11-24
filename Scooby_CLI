@@ -51,13 +51,10 @@ do {
     echo "Aguardando a opção escolhida... \r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
+    $component = strtolower($component);
     if (
-        $component == 'Make:File' or
         $component == 'make:file' or
-        $component == 'MAKE:FILE' or
-        $component == 'MakeFile' or
-        $component == 'makefile' or
-        $component == 'MAKEFILE'
+        $component == 'makefile'
     ) {
         echo "Você optou por criar um Arquivo. \r\n";
         echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
