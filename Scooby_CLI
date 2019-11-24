@@ -656,7 +656,8 @@ do {
     }
     echo "
 Deseja continuar ?
-DIGITE: 'Y' para continuar ou 'S' para sair\r\n";
+DIGITE: ['Y'] para continuar
+DIGITE: ['N'] para sair\r\n";
     $component = fgets(STDIN);
     $component = rtrim($component);
 } while (

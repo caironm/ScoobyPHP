@@ -5,18 +5,18 @@ namespace Helpers;
 class Request
 {
     /**
-    * Valida e retorna o dados vindo do formulario
-    *
-    * @param string $inputName
-    * @return void
-    */
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
     public static function input(string $inputName)
     {
         if (Csrf::csrfTokenValidate()) {
             if (self::has($inputName)) {
                 if (isset($_REQUEST["$inputName"]) and !empty($_REQUEST["$inputName"])) {
                     return htmlspecialchars(strip_tags(addslashes(trim($_REQUEST["$inputName"]))));
-                } 
+                }
                 return false;
             }
             //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
@@ -25,18 +25,18 @@ class Request
     }
 
     /**
-    * Valida e retorna o dados vindo do formulario
-    *
-    * @param string $inputName
-    * @return void
-    */
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
     public static function get(string $inputName)
     {
         if (Csrf::csrfTokenValidate()) {
             if (self::has($inputName)) {
                 if (isset($_GET["$inputName"]) and !empty($_GET["$inputName"])) {
                     return htmlspecialchars(strip_tags(addslashes(trim($_GET["$inputName"]))));
-                } 
+                }
                 return false;
             }
             //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
@@ -45,18 +45,18 @@ class Request
     }
 
     /**
-    * Valida e retorna o dados vindo do formulario
-    *
-    * @param string $inputName
-    * @return void
-    */
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
     public static function post(string $inputName)
     {
         if (Csrf::csrfTokenValidate()) {
             if (self::has($inputName)) {
                 if (isset($_POST["$inputName"]) and !empty($_POST["$inputName"])) {
                     return htmlspecialchars(strip_tags(addslashes(trim($_POST["$inputName"]))));
-                } 
+                }
                 return false;
             }
             //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
@@ -198,52 +198,114 @@ class Request
     {
 
         $inputValue = $_REQUEST[$input];
-        
-        if(in_array('required', $rules)){
-            if(empty($inputValue)){
-                //Logica para exibir a msg de erro
+
+        if (in_array('required', $rules)) {
+            if (empty($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' é obrigatório',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
-        if(in_array('email', $rules)){
-            if(!Validation::isEmail($inputValue)){
-                return 'Email Requerido';
+        if (in_array('email', $rules)) {
+            if (!Validation::isEmail($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a um email válido',
+                        'error'
+                    )
+                ]);
+                return false;
             }
-            
         }
 
-        if(in_array('number', $rules)){
-            if(!Validation::isNumber($inputValue)){
-                //Logica para exibir a msg de erro
+        if (in_array('number', $rules)) {
+            if (!Validation::isNumber($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a um número válido',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
-        if(in_array('negative', $rules)){
-            if(!Validation::isNegative($inputValue)){
-                //Logica para exibir a msg de erro
-            }
-        } 
-        if(in_array('positive', $rules)){
-            if(!Validation::isPositive($inputValue)){
-                //Logica para exibir a msg de erro
-            }
-        }
-        if(in_array('string', $rules)){
-            if(!Validation::isString($inputValue)){
-                //Logica para exibir a msg de erro
+        if (in_array('negative', $rules)) {
+            if (!Validation::isNegative($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a um número negativo válido',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
-        if(in_array('min', $rules)){
-            if(strlen($inputValue) < $min){
-                //Logica para exibir a msg de erro
+        if (in_array('positive', $rules)) {
+            if (!Validation::isPositive($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a um número positivo válido',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
-        if(in_array('max', $rules)){
-            if(strlen($inputValue) > $min){
-                //Logica para exibir a msg de erro
+        if (in_array('string', $rules)) {
+            if (!Validation::isString($inputValue)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a uma string válida',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
-        if(in_array('between', $rules)){
-            if(strlen($inputValue) > $min and strlen($inputValue) < $max){
-                //Logica para exibir a msg de erro
+        if (in_array('min', $rules)) {
+            if (strlen($inputValue) < $min) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' é inferior número mínimo de '.$min.' caracteres válidos',
+                        'error'
+                    )
+                ]);
+                return false;
+            }
+        }
+        if (in_array('max', $rules)) {
+            if (strlen($inputValue) > $min) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' é superior ao número máximo de '.$max.' caracteres válidos',
+                        'error'
+                    )
+                ]);
+                return false;
+            }
+        }
+        if (in_array('between', $rules)) {
+            if (!(strlen($inputValue) > $min and strlen($inputValue) < $max)) {
+                Redirect::redirectWithParameters('back', 'home', [
+                    'msg' => FlashMessage::toast(
+                        'Erro...',
+                        'O campo '.$input.' não corresponde a um intervalo entre '.$min.' e '.$max.' caracteres válidos',
+                        'error'
+                    )
+                ]);
+                return false;
             }
         }
         return true;
