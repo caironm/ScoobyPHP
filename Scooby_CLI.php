@@ -111,6 +111,38 @@ function execOptionMakeController(){
     echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
 }
 
+function execOptionMakeControllerResource(){
+    echo "Você optou por criar um ResourceController. \r\n";
+    echo "Por favor, DIGITE o nome do ResourceController a ser criado \r\n";
+    $name = fgets(STDIN);
+    $name = rtrim($name);
+    $routeName = $name;
+    $name = ucfirst($name);
+    $name = $name . "Controller";
+    if (file_exists("App/Controllers/$name.php")) {
+        echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
+        exit;
+    }
+    $content = file_get_contents('Library/shell/templates/php_tpl/resourceControllerFile.tpl');
+    $content = strtr($content, [
+        'dateNow' => date('d-m-y - H:i:a'),
+        '$name' => $name
+    ]);
+    $routeResource = file_get_contents('Library/shell/templates/php_tpl/routesResourceFile.tpl');
+    $routeResource = strtr($routeResource, [
+        'dateNow' => date('d-m-y - H:i:a'),
+        '$name' => $routeName
+    ]);
+    $f = fopen("App/Controllers/$name.php", 'w+');
+    fwrite($f, $content);
+    fclose($f);
+    echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+    $f = fopen("Config/routes.php", 'a+');
+    fwrite($f, $routeResource);
+    fclose($f);
+    echo "Rotas do controller {$name} criadas em 'Config/routes' com sucesso. \r\n";
+}
+
 $date = date('d-m-y - H:i:a');
 showHeader();
 do {
@@ -122,61 +154,9 @@ do {
         execOptionMakeFile();
     } elseif ($component == 'make:controller' or $component == 'makecontroller') {
         execOptionMakeController();
-    } elseif (
-        $component == 'MAKE:CONTROLLER -r' or
-        $component == 'make:controller -r' or
-        $component == 'Make:Controller -r' or
-        $component == 'makecontroller r-' or
-        $component == 'MakeControler -r' or
-        $component == 'MAKECONTROLLER -r' or
-        $component == 'MAKE:CONTROLLER -R' or
-        $component == 'make:controller -R' or
-        $component == 'Make:Controller -R' or
-        $component == 'makecontroller -R' or
-        $component == 'MakeControler -R' or
-        $component == 'MAKECONTROLLER -R' or
-        $component == 'MAKE:CONTROLLER --resource' or
-        $component == 'make:controller --resource' or
-        $component == 'Make:Controller --resource' or
-        $component == 'makecontroller --resource' or
-        $component == 'MakeControler --resource' or
-        $component == 'MAKECONTROLLER --resource' or
-        $component == 'MAKE:CONTROLLER --RESOURCE' or
-        $component == 'make:controller --RESOURCE' or
-        $component == 'Make:Controller --RESOURCE' or
-        $component == 'makecontroller --RESOURCE' or
-        $component == 'MakeControler --RESOURCE' or
-        $component == 'MAKECONTROLLER --RESOURCE'
-    ) {
-        echo "Você optou por criar um ResourceController. \r\n";
-        echo "Por favor, DIGITE o nome do ResourceController a ser criado \r\n";
-        $name = fgets(STDIN);
-        $name = rtrim($name);
-        $routeName = $name;
-        $name = ucfirst($name);
-        $name = $name . "Controller";
-        if (file_exists("App/Controllers/$name.php")) {
-            echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
-            exit;
-        }
-        $content = file_get_contents('Library/shell/templates/php_tpl/resourceControllerFile.tpl');
-        $content = strtr($content, [
-            'dateNow' => date('d-m-y - H:i:a'),
-            '$name' => $name
-        ]);
-        $routeResource = file_get_contents('Library/shell/templates/php_tpl/routesResourceFile.tpl');
-        $routeResource = strtr($routeResource, [
-            'dateNow' => date('d-m-y - H:i:a'),
-            '$name' => $routeName
-        ]);
-        $f = fopen("App/Controllers/$name.php", 'w+');
-        fwrite($f, $content);
-        fclose($f);
-        echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
-        $f = fopen("Config/routes.php", 'a+');
-        fwrite($f, $routeResource);
-        fclose($f);
-        echo "Rotas do controller {$name} criadas em 'Config/routes' com sucesso. \r\n";
+    } elseif ($component == 'make:controller -r' or $component == 'makecontroller -r'
+           or $component == 'make:controller --resource' or $component == 'makecontroller --resource') {
+            execOptionMakeControllerResource();
     } elseif (
         $component == 'MAKE:MODEL' or
         $component == 'make:model' or
