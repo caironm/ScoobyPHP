@@ -24,6 +24,15 @@ composer install
 
 ![strat00](docs/images/screen00.png)
 
+3 - In Terminal RUN comand below
+
+```
+php Scooby_CLI
+```
+Before you will see the image below
+
+![strat00](docs/images/screen_cli00.png)
+
 ## Running the tests
 
 Explain how to run the automated tests for this system
