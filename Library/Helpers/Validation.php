@@ -37,7 +37,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isNumber(mixed $value)
+    public static function isNumber($value)
     {
         if (!is_numeric($value)) {
             return false;
@@ -51,7 +51,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isBoolean(mixed $value)
+    public static function isBoolean($value)
     {
         if (!is_bool($value)) {
             return false;
@@ -65,7 +65,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isInteger(mixed $value)
+    public static function isInteger($value)
     {
         if (!is_int($value)) {
             return false;
@@ -79,7 +79,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isString(mixed $value)
+    public static function isString($value)
     {
         if (!is_string($value)) {
             return false;
@@ -107,7 +107,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isNull(mixed $value)
+    public static function isNull($value)
     {
         if (!is_null($value)) {
             return false;
@@ -121,7 +121,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isAarray(mixed $value)
+    public static function isAarray($value)
     {
         if (!is_array($value)) {
             return false;
@@ -135,7 +135,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isWritable(mixed $value)
+    public static function isWritable($value)
     {
         if (!is_writable($value)) {
             return false;
@@ -149,7 +149,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isReadable(mixed $value)
+    public static function isReadable($value)
     {
         if (!is_readable($value)) {
             return false;
@@ -163,7 +163,7 @@ class Validation
      * @param string $value
      * @return boolean
      */
-    public static function isEmail(string $value)
+    public static function isEmail($value)
     {
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
             return false;
@@ -177,7 +177,7 @@ class Validation
      * @param string $value
      * @return void
      */
-    public static function sanitizeEmail(string $value)
+    public static function sanitizeEmail($value)
     {
         if (self::isEmail($value) === false) {
             return false;
@@ -192,7 +192,7 @@ class Validation
      * @param array $arr
      * @return boolean
      */
-    public static function hasInArray(mixed $value, array $arr)
+    public static function hasInArray($value, array $arr)
     {
         if (!in_array($value, $arr)) {
             return false;
@@ -206,7 +206,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isPositive(mixed $value)
+    public static function isPositive($value)
     {
         if (self::isNumber($value) === false) {
             return false;
@@ -222,7 +222,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isNegative(mixed $value)
+    public static function isNegative($value)
     {
         if (self::isNumber($value) === false) {
             return false;
@@ -260,7 +260,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isCpf(mixed $value)
+    public static function isCpf($value)
     {
         // Extrai somente os números
         $value = preg_replace('/[^0-9]/is', '', $value);
@@ -292,7 +292,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isCnpj(mixed $value)
+    public static function isCnpj($value)
     {
         if (! isset($value) || isset($value) && empty($value)) {
             return false;
@@ -344,7 +344,7 @@ class Validation
     * @param boolean $cvc
     * @return boolean
     */
-    public static function isCredcard(string $card, $cvc=false)
+    public static function isCredcard($card, $cvc=false)
     {
         $card = preg_replace("/[^0-9]/", "", $card);
         if ($cvc) {
@@ -449,7 +449,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isTelphone(mixed $value)
+    public static function isTelphone($value)
     {
         if (preg_match('/^\([0-9]{2}\)?\s?[0-9]{4,5}-[0-9]{4}$/', $value)){
             return true;
@@ -463,7 +463,7 @@ class Validation
      * @param mixed $value
      * @return boolean
      */
-    public static function isCep(mixed $value)
+    public static function isCep($value)
     {
         if (preg_match('/[0-9]{5,5}([-]?[0-9]{3})?$/', $value)){
             return true;

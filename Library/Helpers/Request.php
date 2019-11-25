@@ -189,123 +189,73 @@ class Request
      * Valida os inputs de entrada via formulario
      *
      * @param string $input
+     * @param string $redirect
      * @param array $rules
      * @param integer $min
      * @param integer $max
+     * @param string $inputAlias
      * @return void
      */
-    public static function validate(string $input, array $rules, int $min = null, int $max = null)
+    public static function validate(string $input, array $rules, string $inputAlias = null, int $min = null, int $max  = null)
     {
-
         $inputValue = $_REQUEST[$input];
-
+        if($inputAlias === null){
+            $inputAlias = $input;
+        }
+        
         if (in_array('required', $rules)) {
             if (empty($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' é obrigatório',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' é obrigatório', true);
+                exit;
             }
         }
         if (in_array('email', $rules)) {
             if (!Validation::isEmail($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a um email válido',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um E-mail válido', true);
+                exit;
             }
         }
 
         if (in_array('number', $rules)) {
             if (!Validation::isNumber($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a um número válido',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um número válido', true);
+                exit;
             }
         }
         if (in_array('negative', $rules)) {
             if (!Validation::isNegative($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a um número negativo válido',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor negativo válido', true);
+                exit;
             }
         }
         if (in_array('positive', $rules)) {
             if (!Validation::isPositive($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a um número positivo válido',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor positivo válido', true);
+                exit;
             }
         }
         if (in_array('string', $rules)) {
             if (!Validation::isString($inputValue)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a uma string válida',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um um valor do tipo text válido', true);
+                exit;
             }
         }
         if (in_array('min', $rules)) {
             if (strlen($inputValue) < $min) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' é inferior número mínimo de '.$min.' caracteres válidos',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor mínimo de '.$min.' caracteres válidos', true);
+                exit;
             }
         }
         if (in_array('max', $rules)) {
             if (strlen($inputValue) > $min) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' é superior ao número máximo de '.$max.' caracteres válidos',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor máximo de '.$min.' caracteres válidos', true);
+                exit;
             }
         }
         if (in_array('between', $rules)) {
             if (!(strlen($inputValue) > $min and strlen($inputValue) < $max)) {
-                Redirect::redirectWithParameters('back', 'home', [
-                    'msg' => FlashMessage::toast(
-                        'Erro...',
-                        'O campo '.$input.' não corresponde a um intervalo entre '.$min.' e '.$max.' caracteres válidos',
-                        'error'
-                    )
-                ]);
-                return false;
+                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um E-mail válido', true);
+                exit;
             }
         }
         return true;

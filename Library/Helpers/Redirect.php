@@ -28,33 +28,28 @@ class Redirect
         echo "<script>window.history.go($value)</script>"; 
     }
 
-    /**
-     * Redireciona passando parametros para a view
+    
+   /**
+     * Redireciona passando uma msg via url
      *
-     * @param string $viewPath
-     * @param string $ViewName
-     * @param array $ViewData
+     * @param string $url
+     * @param string $msg
      * @return void
      */
-    public static function redirectWithParameters(string $back = null, string $ViewName, array $ViewData = [])
+    public static function redirectWithMessage($url, $msg)
     {
-        if($back == 'back' and isset($_SESSION['ACTION_PREVIOUS'])){
-            $previousRoute = $_SESSION['ACTION_PREVIOUS'];
-            $ViewName = $previousRoute;
-        }elseif($back == null or $back != 'back'){
-            $ViewName = $ViewName;
-        }elseif(!isset($previousRoute)){
-            $ViewName = $ViewName;
-        }
-        $loader = new \Twig\Loader\FilesystemLoader('App/Views');
-        $twig = new \Twig\Environment($loader, [
-            'debug' => true,
-            'cache' => 'Config/Cache'
-        ]);
-        $template = $twig->load('Pages/' . ucfirst($ViewName) . '.twig');
-        require_once 'App/Views/Templates/Header.twig';
-        extract($ViewData);
-        require_once 'App/Views/Templates/Footer.twig';
-        echo $template->render($ViewData);
+        $msg = base64_encode($msg);
+        header("Location:$url?msg=$msg");
     }
+
+    /**
+     * Exibe a menssagem passada pela url
+     *
+     * @param string $msg
+     * @return void
+     */
+    public static function getUrlError(string $msg)
+    {
+        FlashMessage::toast('Erro:', base64_decode($msg), 'error');
+    } 
 }

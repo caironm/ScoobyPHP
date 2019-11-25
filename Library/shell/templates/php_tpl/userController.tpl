@@ -52,7 +52,12 @@ class UserController extends Controller
      */
     public function register()
     {
-        $this->Load("pages", "register");
+        $msg = null;
+        if(!empty($_GET['msg'])){
+            $msg = $_GET['msg'];
+            Redirect::getUrlError($msg);
+        }
+        $this->Load("pages", "register", ['error' => $msg]);
     }
 
     /**
@@ -62,35 +67,29 @@ class UserController extends Controller
      */
     public function saveUser()
     {
+        Request::validate('name', ['required', 'string', 'max'], 'nome', 60);
+        Request::validate('email', ['required', 'email'], 'email');
+        Request::validate('pass', ['required', 'string', 'min'], 'senha', 4);
         if (Request::input("name") and Request::input("email") and Request::input("pass")) {
             $name = Request::input("name");
             $email = Request::input("email");
             $pass = Login::passwordHash(Request::input("pass"));
-
             if (Validation::emailMatch($email, "users", "email")) {
                 $user = new User;
                 $user->name = $name;
                 $user->email = $email;
                 $user->password = $pass;
                 if ($user->save()) {
-                    $this->Load("pages", "login", [
+                    $this->Load("pages", "Login", [
                         "msg" => FlashMessage::toast("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
                     ]);
-                } else {
-                    $this->Load("pages", "Register", [
-                        "msg" => FlashMessage::toast("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
-                    ]);
-                }
+                } 
             } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
-                $this->Load("pages", "register", [
+                $this->Load("pages", 'Register', [
                     "msg" => FlashMessage::toast("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
                 ]);
             }
-        } else {
-            $this->Load("pages", "register", [
-                "msg" => FlashMessage::toast("Opss...", "Todos os campos são obrigatórios!", "warning")
-            ]);
-        }
+        } 
     }
 
     /**
