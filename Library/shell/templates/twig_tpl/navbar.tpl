@@ -4,13 +4,13 @@
             <div class="nav-wrapper black z-depth-5">
                 <a href="#" class="brand-logo center">ScoobyPHP</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ base_url }}login" class="btn green waves-light">Entrar</a></li>
-                    <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light">Cadastrar</a></li>
+                    <li><a href="{{ base_url }}login" class="btn green waves-light">{{ btn_sign_in }}</a></li>
+                    <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light">{{ btn_sign_up }}</a></li>
                 </ul>
             </div>
         </nav>
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="{{ base_url }}login" class="btn green waves-light">Entrar</a></li>
+            <li><a href="{{ base_url }}login" class="btn green waves-light">{{ btn_sign_in }}</a></li>
         </ul>
     </div>
     <div id="home">

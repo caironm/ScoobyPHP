@@ -196,65 +196,109 @@ class Request
      * @param string $inputAlias
      * @return void
      */
-    public static function validate(string $input, array $rules, string $inputAlias = null, int $min = null, int $max  = null)
+    public static function validate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
     {
         $inputValue = $_REQUEST[$input];
-        if($inputAlias === null){
+        if ($inputAlias == '') {
             $inputAlias = $input;
         }
-        
         if (in_array('required', $rules)) {
+            $msg = strtr($GLOBALS['REQUIRED_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (empty($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' é obrigatório', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('email', $rules)) {
+            $msg = strtr($GLOBALS['EMAIL_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!Validation::isEmail($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um E-mail válido', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
 
         if (in_array('number', $rules)) {
+            $msg = strtr($GLOBALS['NUMBER_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!Validation::isNumber($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um número válido', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('negative', $rules)) {
+            $msg = strtr($GLOBALS['NEGATIVE_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!Validation::isNegative($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor negativo válido', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('positive', $rules)) {
+            $msg = strtr($GLOBALS['POSITIVE_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!Validation::isPositive($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor positivo válido', true);
+                Redirect::redirectWithMessage($redirect, 'O campo ' . $inputAlias . ' Requer um valor positivo válido', true);
                 exit;
             }
         }
         if (in_array('string', $rules)) {
+            $msg = strtr($GLOBALS['STRING_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!Validation::isString($inputValue)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um um valor do tipo text válido', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('min', $rules)) {
+            $msg = strtr($GLOBALS['MIN_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (strlen($inputValue) < $min) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor mínimo de '.$min.' caracteres válidos', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('max', $rules)) {
+            $msg = strtr($GLOBALS['MAX_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (strlen($inputValue) > $min) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um valor máximo de '.$min.' caracteres válidos', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }
         if (in_array('between', $rules)) {
+            $msg = strtr($GLOBALS['BETWEEN_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
             if (!(strlen($inputValue) > $min and strlen($inputValue) < $max)) {
-                Redirect::redirectWithMessage('register', 'O campo '.$inputAlias.' Requer um E-mail válido', true);
+                Redirect::redirectWithMessage($redirect, $msg, true);
                 exit;
             }
         }

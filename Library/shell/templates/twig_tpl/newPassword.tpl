@@ -1,7 +1,7 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
 <div class="bg-login">
     <div class="container-fluid z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
-    <a href="{{ base_url }}back" class="btn black">voltar</a>
+    <a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
         <h2 class="center">ScoobYTasks - Recuperação de senha</h2>
         {% if msg %}
             {{ msg|raw }}
@@ -38,10 +38,10 @@
                 </form>
                 <div class="row">
                     <div class="col s4">
-                        <a href="{{ base_url }}register" class="btn purple">Registrar</a>
+                        <a href="{{ base_url }}register" class="btn purple">{{ btn_sign_up }}</a>
                     </div>
                     <div class="col s8 right-align">
-                        <a href="{{ base_url }}passwordRescue" class="btn red">Esqueci a senha</a>
+                        <a href="{{ base_url }}passwordRescue" class="btn red">{{ btn_password_reset }}</a>
                     </div>
                 </div>
             </div>

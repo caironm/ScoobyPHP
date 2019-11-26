@@ -7,7 +7,7 @@
     <h4 class='center'>Se você esta visualizando esta página, quer dizer que o sistema de login do ScoobyPHP funcionou
         corretamente!</h4>
     <br>
-    <a href='{{ base_url }}exit' class='btn black waves-light'>Sair</a>
-    <a href="{{ base_url }}delete-user" class="btn red"> Apagar usuario</a>
-    <a href="{{ base_url }}alter-user" class="btn green"> Atualizar usuario</a>
+    <a href='{{ base_url }}exit' class='btn black waves-light'>{{ btn_sign_out }}</a>
+    <a href="{{ base_url }}delete-user" class="btn red">{{ btn_delete }}</a>
+    <a href="{{ base_url }}alter-user" class="btn green">{{ btn_update }}</a>
 </div>

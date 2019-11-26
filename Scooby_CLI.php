@@ -535,13 +535,13 @@ do {
     ) {
         execOptionMakeView();
     } elseif (
-        $component == 'newDb' or
-        $component == 'new:Db'
+        $component == 'newdb' or
+        $component == 'new:db'
     ) {
         execOptionMakeNewDb();
     } elseif (
         $component == 'clear:cache' or
-        $component == 'clearCache'
+        $component == 'clearcache'
     ) {
         execOptionMakeClearCache();
     } elseif (

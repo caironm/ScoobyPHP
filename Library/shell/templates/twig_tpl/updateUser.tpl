@@ -1,6 +1,6 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
 <div class="container-fluid bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
-    <a href="{{ base_url }}back" class="btn black">voltar</a>
+    <a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
         <h3 class="center">ScoobYTasks - Atualizar Usuário</h3>
         {% if msg %}
             {{ msg|raw }}
@@ -31,7 +31,7 @@
                         </div>
                         <div class="card-action">
                             <div class="center-align">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Criar Conta
+                                <button class="btn waves-effect waves-light" type="submit" name="action">{{ btn_update }}
                                     <i class="material-icons right">send</i>
                                 </button> </div>
                         </div>

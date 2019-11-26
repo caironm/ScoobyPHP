@@ -10,6 +10,9 @@ if (ENV == 'development') {
      //define o nome do site em desenvolvimento
      define('SITE_NAME', 'ScoobyPHP');
 
+     //define o idioma das menssagens exibidas automaticamente pelo o frameowok em desenvolvimento
+     define('SITE_LANG', 'pt_br');
+
     //Define o nome do banco de dados a ser usado em desenvolvimento
     define('DB_NAME', '');
 
@@ -64,6 +67,9 @@ if (ENV == 'development') {
 
      //define o nome do site em produção
      define('SITE_NAME', 'YOUR_URL');
+
+      //define o idioma das menssagens exibidas automaticamente pelo o frameowok em produção
+      define('SITE_LANG', 'en');
 
     //Define o nome do banco de dados a ser usado em produção
     define('DB_NAME', 'YOUR_DATABASE_NAME');

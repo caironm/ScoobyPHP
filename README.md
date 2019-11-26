@@ -37,7 +37,7 @@ Before you will see the image below
 
 ![strat00](docs/images/screen_cli00.png)
 
-4 - In CLI run make:newdb
+4 - In CLI run new:db
 
 5 - Insert the database name
 

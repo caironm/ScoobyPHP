@@ -8,6 +8,7 @@ require_once 'vendor/autoload.php';
 require_once 'Config/config.php';
 require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
+require_once 'Config/lang/'.SITE_LANG.'.php';
 Session::sessionTokenGenerate();
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
