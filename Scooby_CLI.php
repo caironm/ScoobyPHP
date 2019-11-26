@@ -2,8 +2,8 @@
 require_once 'vendor/autoload.php';
 require_once 'Config/env.php';
 require_once 'Config/config.php';
-//require_once 'Library/Helpers/FlashMessage.php';
 
+use Helpers\Cli;
 use Helpers\FlashMessage;
 
 if (!empty($_SERVER['HTTP_USER_AGENT'])) {
@@ -13,15 +13,15 @@ if (!empty($_SERVER['HTTP_USER_AGENT'])) {
 
 function showHeader()
 {
-    echo "\r\n
+    echo PHP_EOL."
     ____                  _                      ____ _     ___ 
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
     ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
    |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
                                 |___/                           
-    \r\n";
-    echo "Bem vindo ao Scooby CLI.\r\n";
+    ".PHP_EOL;
+    Cli::println('Bem vindo ao Scooby CLI');
 }
 
 function showHeaderOption()
@@ -51,24 +51,18 @@ function showHeaderOption()
 | DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
 | DIGITE: 'y' Para continuar                                                    |
 | DIGITE: 'N' para cancelar a operação                                          |
----------------------------------------------------------------------------------\r\n";
-    echo "Aguardando a opção escolhida... \r\n";
+---------------------------------------------------------------------------------".PHP_EOL;
+    echo "Aguardando a opção escolhida...".PHP_EOL;
 }
 
 function execOptionMakeFile()
 {
-    echo "Você optou por criar um Arquivo. \r\n";
-    echo "Por favor, DIGITE a extensão do Arquivo a ser criado \r\n";
-    $ext = fgets(STDIN);
+    Cli::println('Você optou por criar um Arquivo.');
+    $ext = Cli::getParam('Por favor, DIGITE a extensão do Arquivo a ser criado');
     $ext = strtolower($ext);
-    $ext = rtrim($ext);
-    echo "Por favor, DIGITE o nome do Arquivo a ser criado \r\n";
-    $name = fgets(STDIN);
+    $name = Cli::getParam('Por favor, DIGITE o nome do Arquivo a ser criado');
     $name = strtolower($name);
-    $name = rtrim($name);
-    echo "Por favor, DIGITE o caminho do arquivo a ser criado \r\n";
-    $path = fgets(STDIN);
-    $path = rtrim($path);
+    $path = Cli::getParam('Por favor, DIGITE o caminho do arquivo a ser criado');
     if (file_exists(__DIR__ . "/$path/$name.$ext")) {
         echo "ERROR: Arquivo já existente na pasta '$path'!\r\n";
         exit;
@@ -287,20 +281,19 @@ function execOptionMakeView()
 
 function execOptionMakeNewDb()
 {
-    echo "Você optou por criar um novo banco de dados. \r\n";
-    $content = "";
-    echo "Por favor, DIGITE o nome do Banco a ser criada \r\n";
-    $name = fgets(STDIN);
-    $name = rtrim($name);
+    Cli::println('Você optou por criar um novo banco de dados.');
+    $name = Cli::getParam('Por favor, DIGITE o nome do Banco a ser criada');
     try {
         $conn = new PDO(DB_DRIVER . ":host=" . DB_HOST . ";charset=utf8", DB_USER, DB_PASS, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
     } catch (Exception $e) {
-        echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
+        Cli::println('Um erro inesperado ocorreu, por favor tente mais tarde.');
+        Cli::println('');
+        Cli::println($e->getMessage());
         exit;
     }
     $test = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$name'");
     if ($test->fetchColumn()) {
-        echo "ERROR: Banco de dados já existente\r\n";
+        Cli::println('ERROR: Banco de dados já existente');
         exit;
     }
     $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
@@ -313,7 +306,7 @@ function execOptionMakeNewDb()
         $f = fopen("Config/config.php", 'w+');
         fwrite($f, $configDb);
         fclose($f);
-        echo "DB_NAME alterado com sucesso em Config/config.php\r\n";
+        Cli::println('DB_NAME alterado com sucesso em Config/config.php');
     } else {
         echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
     }
