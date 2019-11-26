@@ -27,7 +27,7 @@ class Cli
     {
         echo $msg.PHP_EOL;
         $param = fgets(STDIN);
-        $param = rtrim($param);
+        $param = trim($param);
         return $param;
     }
 }

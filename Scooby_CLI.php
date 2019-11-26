@@ -13,20 +13,20 @@ if (!empty($_SERVER['HTTP_USER_AGENT'])) {
 
 function showHeader()
 {
-    echo PHP_EOL."
+    Cli::println(PHP_EOL."
     ____                  _                      ____ _     ___ 
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
     ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
    |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
                                 |___/                           
-    ".PHP_EOL;
+    ");
     Cli::println('Bem vindo ao Scooby CLI');
 }
 
 function showHeaderOption()
 {
-    echo "
+    Cli::println("
 -----------------
 |    OPTION:    |
 ---------------------------------------------------------------------------------
@@ -51,8 +51,7 @@ function showHeaderOption()
 | DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
 | DIGITE: 'y' Para continuar                                                    |
 | DIGITE: 'N' para cancelar a operação                                          |
----------------------------------------------------------------------------------".PHP_EOL;
-    echo "Aguardando a opção escolhida...".PHP_EOL;
+---------------------------------------------------------------------------------");
 }
 
 function execOptionMakeFile()
@@ -64,7 +63,7 @@ function execOptionMakeFile()
     $name = strtolower($name);
     $path = Cli::getParam('Por favor, DIGITE o caminho do arquivo a ser criado');
     if (file_exists(__DIR__ . "/$path/$name.$ext")) {
-        echo "ERROR: Arquivo já existente na pasta '$path'!\r\n";
+        Cli::println("ERROR: Arquivo já existente na pasta '$path'");
         exit;
     }
     if ($ext == 'php') {
@@ -82,19 +81,17 @@ function execOptionMakeFile()
     $f = fopen(__DIR__ . "/$path/$name.$ext", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso. \r\n";
+    Cli::println("$name.$ext criado em '" . __DIR__ . "/$path/' com sucesso.");
 }
 
 function execOptionMakeController()
 {
-    echo "Você optou por criar um Controller. \r\n";
-    echo "Por favor, DIGITE o nome do controller a ser criado \r\n";
-    $name = fgets(STDIN);
+    Cli::println("Você optou por criar um Controller.");
+    $name = Cli::getParam('Por favor, DIGITE o nome do controller a ser criado');
     $name = ucfirst($name);
-    $name = rtrim($name);
     $name = $name . "Controller";
     if (file_exists("App/Controllers/$name.php")) {
-        echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
+        Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/php_tpl/controllerFile.tpl');
@@ -105,20 +102,18 @@ function execOptionMakeController()
     $f = fopen("App/Controllers/$name.php", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+    Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
 }
 
 function execOptionMakeControllerResource()
 {
-    echo "Você optou por criar um ResourceController. \r\n";
-    echo "Por favor, DIGITE o nome do ResourceController a ser criado \r\n";
-    $name = fgets(STDIN);
-    $name = rtrim($name);
+    Cli::println("Você optou por criar um ResourceController.");
+    $name = Cli::getParam('Por favor, DIGITE o nome do ResourceController a ser criado');
     $routeName = $name;
     $name = ucfirst($name);
     $name = $name . "Controller";
     if (file_exists("App/Controllers/$name.php")) {
-        echo "ERROR: Controller já existente na pasta 'App/Controllers'!\r\n";
+        Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/php_tpl/resourceControllerFile.tpl');
@@ -134,22 +129,20 @@ function execOptionMakeControllerResource()
     $f = fopen("App/Controllers/$name.php", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "{$name} criado em 'App/Controllers' com sucesso. \r\n";
+    Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
     $f = fopen("Config/routes.php", 'a+');
     fwrite($f, $routeResource);
     fclose($f);
-    echo "Rotas do controller {$name} criadas em 'Config/routes' com sucesso. \r\n";
+    Cli::println("Rotas do controller {$name} criadas em 'Config/routes' com sucesso.");
 }
 
 function execOptionMakeModel()
 {
-    echo "Você optou por criar um Model. \r\n";
-    echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
-    $name = fgets(STDIN);
+    Cli::println("Você optou por criar um Model.");
+    $name = Cli::getParam('Por favor, DIGITE o nome do Model a ser criado');
     $name = ucfirst($name);
-    $name = rtrim($name);
     if (file_exists("App/Models/$name.php")) {
-        echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
+        Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
@@ -160,19 +153,17 @@ function execOptionMakeModel()
     $f = fopen("App/Models/$name.php", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "$name criado em 'App/Models' com sucesso. \r\n";
+    Cli::println("$name criado em 'App/Models' com sucesso.");
 }
 
 function execOptionMakeModelMigration()
 {
-    echo "Você optou por criar um Model. \r\n";
-    echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
-    $name = fgets(STDIN);
-    $name = rtrim($name);
+    Cli::println("Você optou por criar um Model.");
+    $name = Cli::getParam('Por favor, DIGITE o nome do Model a ser criado');
     $name = ucfirst($name);
     $migrationName = $name . "CreateTable";
     if (file_exists("App/Models/$name.php")) {
-        echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
+        Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
@@ -183,29 +174,27 @@ function execOptionMakeModelMigration()
     $f = fopen("App/Models/$name.php", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "$name criado em 'App/Models' com sucesso. \r\n";
+    Cli::println("$name criado em 'App/Models' com sucesso.");
     if (file_exists("db/migrations/$migrationName.php")) {
-        echo "ERROR: Migration já existente na pasta 'db/migrations/'!\r\n";
+        Cli::println("ERROR: Migration já existente na pasta 'db/migrations/'");
         exit;
     }
     $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
     if (!$modelMigration) {
-        echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+        Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
         exit;
     }
 }
 
 function execOptionMakeModelMigrationAndSeed()
 {
-    echo "Você optou por criar um Model. \r\n";
-    echo "Por favor, DIGITE o nome do Model a ser criado \r\n";
-    $name = fgets(STDIN);
-    $name = rtrim($name);
+    Cli::println("Você optou por criar um Model.");
+    $name = Cli::getParam('Por favor, DIGITE o nome do Model a ser criado');
     $name = ucfirst($name);
     $migrationName = $name . "CreateTable";
     $seedName = $name . "Seed";
     if (file_exists("App/Models/$name.php")) {
-        echo "ERROR: Model já existente na pasta 'App/Models'!\r\n";
+        Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/php_tpl/modelFile.tpl');
@@ -216,18 +205,18 @@ function execOptionMakeModelMigrationAndSeed()
     $f = fopen("App/Models/$name.php", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "$name criado em 'App/Models' com sucesso. \r\n";
+    Cli::println("$name criado em 'App/Models' com sucesso.");
     if (file_exists("db/migrations/$migrationName.php")) {
-        echo "ERROR: Migration já existente na pasta 'db/migrations/'!\r\n";
+        Cli::println("ERROR: Migration já existente na pasta 'db/migrations/'");
         exit;
     }
     $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
     if (!$modelMigration) {
-        echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+        Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
         exit;
     }
     if (file_exists("db/seeds/$seedName.php")) {
-        echo "ERROR: Seed já existente na pasta 'db/seeds/'!\r\n";
+        Cli::println("ERROR: Seed já existente na pasta 'db/seeds/'");
         exit;
     }
     $seed = file_get_contents('Library/shell/templates/seeds_tpl/seedFile.tpl');
@@ -238,34 +227,28 @@ function execOptionMakeModelMigrationAndSeed()
     $f = fopen("db/seeds/$seedName.php", 'w+');
     fwrite($f, $seed);
     fclose($f);
-    echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
+    Cli::println("Seed {$seedName}Seed criada com sucesso em db/seeds/");
 }
 
 function execOptionMakeRoute()
 {
-    echo "Você optou por criar uma Rota. \r\n";
-    echo "Por favor, DIGITE o novo caminho da Rota a ser criado / \r\n";
-    $route = fgets(STDIN);
-    $route = rtrim($route);
-    echo "Por favor, DIGITE o padrão que a nova rota buscara começando com / \r\n";
-    $partner = fgets(STDIN);
-    $partner = rtrim($partner);
+    Cli::println("Você optou por criar uma Rota.");
+    $route = Cli::getParam('Por favor, DIGITE o novo caminho da Rota a ser criado');
+    $partner = Cli::getParam('Por favor, DIGITE o padrão que a nova rota buscara começando com');
     $content = '$route["' . $route . '"] = "' . $partner . '";' . PHP_EOL;
     $f = fopen("Config/routes.php", 'a+');
     fwrite($f, $content);
     fclose($f);
-    echo "Rota criada em 'Config/routes.php' com sucesso. \r\n";
+    Cli::println("Rota criada em 'Config/routes.php' com sucesso.");
 }
 
 function execOptionMakeView()
 {
-    echo "Você optou por criar uma View. \r\n";
-    echo "Por favor, DIGITE o nome da View a ser criada \r\n";
-    $name = fgets(STDIN);
+    Cli::println("Você optou por criar uma View.");
+    $name = Cli::getParam('Por favor, DIGITE o nome da View a ser criada');
     $name = ucfirst($name);
-    $name = rtrim($name);
     if (file_exists("App/Views/Pages/$name.twig")) {
-        echo "ERROR: View já existente na pasta 'App/Views/Pages'!\r\n";
+        Cli::println("ERROR: View já existente na pasta 'App/Views/Pages'");
         exit;
     }
     $content = file_get_contents('Library/shell/templates/twig_tpl/viewFile.tpl');
@@ -276,7 +259,7 @@ function execOptionMakeView()
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     fwrite($f, $content);
     fclose($f);
-    echo "$name criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("$name criado em 'App/Views/Pages' com sucesso.");
 }
 
 function execOptionMakeNewDb()
@@ -293,12 +276,29 @@ function execOptionMakeNewDb()
     }
     $test = $conn->query("SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$name'");
     if ($test->fetchColumn()) {
-        Cli::println('ERROR: Banco de dados já existente');
-        exit;
+        Cli::println('Opss...: Banco de dados já existente, deseja se conectar a ele ?');
+        $connect = Cli::getParam('DIGITE: Y para sim ou N para não');
+        if($connect == 'y' or $connect == 'Y'){
+            $dbUser = Cli::getParam('Por favor digite o usuÃ¡rio do banco de dados '. $name);
+            $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados '. $name);
+            $connectionUpdate = file_get_contents('Config/config.php');
+            $connectionUpdate = strtr($connectionUpdate, [
+                "'DB_NAME', ''" =>  "'DB_NAME', '$name'",
+                "'DB_USER', 'root'" =>  "'DB_USER', '$dbUser'",
+                "'DB_PASS', ''" =>  "'DB_PASS', '$dbpass'"
+            ]);
+        $f = fopen("Config/config.php", 'w+');
+        fwrite($f, $connectionUpdate);
+        fclose($f);
+        Cli::println('Banco de dados '.$name.' conectado com sucesso em Config/config.php');
+        }else{
+            Cli::println('Operação cancelada pelo usuário');
+            exit;
+        }
     }
     $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
     if ($create) {
-        echo "BANCO DE DADOS $name Criado com sucesso\r\n";
+        Cli::println("BANCO DE DADOS $name Criado com sucess");
         $configDb = file_get_contents('Config/config.php');
         $configDb = strtr($configDb, [
             "'DB_NAME', ''" =>  "'DB_NAME', '$name'"
@@ -308,7 +308,7 @@ function execOptionMakeNewDb()
         fclose($f);
         Cli::println('DB_NAME alterado com sucesso em Config/config.php');
     } else {
-        echo "Um erro inesperado ocorreu, por favor tente mais tarde.";
+        Cli::println("Um erro inesperado ocorreu, por favor tente mais tarde.");
     }
 }
 
@@ -317,38 +317,35 @@ function execOptionMakeClearCache()
     $cacheDir = scandir('Config/Cache/');
     if (count($cacheDir) > 2) {
         $clearCache = shell_exec('sudo rm -rf Config/Cache/*');
-        echo 'Diretório de Cache limpo com suscesso \r\n';
+        Cli::println('Diretório de Cache limpo com suscesso');
     } else {
-        echo 'Você não possui nenhum arquivo de cache disponivel para ser deletado. \r\n';
+        Cli::println('Você não possui nenhum arquivo de cache disponivel para ser deletado.');
     }
 }
 
 function execOptionMakeMigration()
 {
-    echo "Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase \r\n";
-    $migrationName = fgets(STDIN);
+    Cli::println("Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase");
+    $migrationName = Cli::getParam('Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase');
     $migrationName = ucfirst($migrationName);
-    $migrationName = rtrim($migrationName);
     if (file_exists("db/migrations/$migrationName.php")) {
-        echo "ERROR: Migration já existente na pasta 'db/migrations/'!\r\n";
+        Cli::println("ERROR: Migration já existente na pasta 'db/migrations/'");
         exit;
     }
     $migration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
     if (!$migration) {
-        echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+        Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
         exit;
     }
-    echo "Migration $migrationName criada com sucesso em db/migrations/ \r\n";
+    Cli::println("Migration $migrationName criada com sucesso em db/migrations/");
 }
 
 function execOptionMakeSeed()
 {
-    echo "Por favor, DIGITE o nome da Seed a ser criada. Use o formato CamelCase \r\n";
-    $seedName = fgets(STDIN);
+    $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser criada. Use o formato CamelCase');
     $seedName = ucfirst($seedName);
-    $seedName = rtrim($seedName);
     if (file_exists("db/seeds/$seedName.php")) {
-        echo "ERROR: Seed já existente na pasta 'db/seeds/'!\r\n";
+        Cli::println("ERROR: Seed já existente na pasta 'db/seeds/'");
         exit;
     }
     $seed = file_get_contents('Library/shell/templates/seeds_tpl/seedFile.tpl');
@@ -356,7 +353,7 @@ function execOptionMakeSeed()
     $f = fopen("db/seeds/$seedName.php", 'w+');
     fwrite($f, $seed);
     fclose($f);
-    echo "Seed {$seedName}Seed criada com sucesso em db/seeds/ \r\n";
+    Cli::println("Seed {$seedName}Seed criada com sucesso em db/seeds/");
 }
 
 function execOptionMakeAuth()
@@ -397,71 +394,71 @@ function execOptionMakeAuth()
     $authConfig = file_get_contents('Library/shell/templates/php_tpl/authConfig.tpl');
 
     if (file_exists("App/Controllers/UserController.php")) {
-        echo "ERROR: Controller UserController já existente na pasta 'App/Controllers'!\r\n";
+        Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
         exit;
     }
     if (file_exists("App/Models/User.php")) {
-        echo "ERROR: Model User já existente na pasta 'App/Models'!\r\n";
+        Cli::println("ERROR: Model User já existente na pasta 'App/Models'");
         exit;
     }
     if (file_exists("App/Views/Pages/Login.twig")) {
-        echo "ERROR: View Login já existente na pasta 'App/Views/Pages'!\r\n";
+        Cli::println("ERROR: View Login já existente na pasta 'App/Views/Pages'");
         exit;
     }
     if (file_exists("App/Views/Pages/Register.twig")) {
-        echo "ERROR: View Register já existente na pasta 'App/Views/Pages'!\r\n";
+        Cli::println("ERROR: View Register já existente na pasta 'App/Views/Pages'");
         exit;
     }
     if (file_exists("App/Views/Pages/passwordRescue.twig")) {
-        echo "ERROR: View Password Rescue já existente na pasta 'App/Views/Pages'!\r\n";
+        Cli::println("ERROR: View Password Rescue já existente na pasta 'App/Views/Pages'");
         exit;
     }
     if (file_exists("App/Views/Pages/NewPassword.twig")) {
-        echo "ERROR: View New Password Rescue já existente na pasta 'App/Views/Pages'!\r\n";
+        Cli::println("ERROR: View New Password Rescue já existente na pasta 'App/Views/Pages'");
         exit;
     }
     $f = fopen("App/Controllers/UserController.php", 'w+');
     fwrite($f, $userController);
     fclose($f);
-    echo "UserController criado em 'App/Controllers' com sucesso. \r\n";
+    Cli::println("UserController criado em 'App/Controllers' com sucesso.");
     $f = fopen("App/Models/User.php", 'w+');
     fwrite($f, $userModel);
     fclose($f);
     $f = fopen("App/Models/PasswordUserToken.php", 'w+');
     fwrite($f, $passwordTokenModel);
     fclose($f);
-    echo "User criado em 'App/Models' com sucesso. \r\n";
+    Cli::println("User criado em 'App/Models' com sucesso.");
     $f = fopen("App/Views/Pages/Login.twig", 'w+');
     fwrite($f, $loginView);
     fclose($f);
-    echo "Login criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("Login criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/Register.twig", 'w+');
     fwrite($f, $registerView);
     fclose($f);
-    echo "Register criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("Register criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/PasswordRescue.twig", 'w+');
     fwrite($f, $passwordRescue);
     fclose($f);
     $f = fopen("App/Views/Pages/NewPassword.twig", 'w+');
     fwrite($f, $newPassword);
     fclose($f);
-    echo "PasswordRescue criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("PasswordRescue criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/DashBoard.twig", 'w+');
     fwrite($f, $dashBoardView);
     fclose($f);
-    echo "DashBoard criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("DashBoard criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/UpdateUser.twig", 'w+');
     fwrite($f, $updateUser);
     fclose($f);
-    echo "UpdateUser criado em 'App/Views/Pages' com sucesso. \r\n";
+    Cli::println("UpdateUser criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("Config/routes.php", 'a+');
     fwrite($f, $routesAuth);
     fclose($f);
-    echo "Rotas de Autenticação criadas em 'Config/routes.php' com sucesso. \r\n";
+    Cli::println("Rotas de Autenticação criadas em 'Config/routes.php' com sucesso.");
     $f = fopen("App/Views/Pages/Home.twig", 'w+');
     fwrite($f, $navbar);
     fclose($f);
-    echo "Navbar criado em 'App/Views/Pages/Home.twig' com sucesso. \r\n";
+    Cli::println("Navbar criado em 'App/Views/Pages/Home.twig' com sucesso.");
     $f = fopen("Config/authConfig.php", 'w+');
     fwrite($f, $authConfig);
     fclose($f);
@@ -471,23 +468,22 @@ function execOptionMakeAuth()
     $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='Library/shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
     $migrate = shell_exec("php vendor/bin/phinx migrate");
     if ($migrationUser) {
-        echo "Migration UserAuth criada com sucesso\r\n";
-        echo "Migrate executada com sucesso\r\n";
+        Cli::println("Migration UserAuth criada com sucess");
+        Cli::println("Migrate executada com sucess");
     }
     $seed = file_get_contents('Library/shell/templates/seeds_tpl/SeedUserAuth.tpl');
     $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("db/seeds/SeedUserAuth.php", 'w+');
     fwrite($f, $seed);
     fclose($f);
-    echo "SeedUserAuth criada com sucesso em db/seeds/ \r\n";
+    Cli::println("SeedUserAuth criada com sucesso em db/seeds/");
 }
 
 $date = date('d-m-y - H:i:a');
 showHeader();
 do {
     showHeaderOption();
-    $component = fgets(STDIN);
-    $component = rtrim($component);
+    $component = Cli::getParam('Aguardando a opção escolhida...');
     $component = strtolower($component);
     if ($component == 'make:file' or $component == 'makefile') {
         execOptionMakeFile();
@@ -549,10 +545,10 @@ do {
     ) {
         $migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
         if (!$migrate) {
-            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+            Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
             exit;
         }
-        echo "Migrate executada com sucesso. \r\n";
+        Cli::println("Migrate executada com sucesso.");
     } elseif (
         $component == 'rollback' or
         $component == 'ROLLBACK' or
@@ -560,10 +556,10 @@ do {
     ) {
         $rollback = shell_exec("php vendor/robmorgan/phinx/bin/phinx rollback");
         if (!$rollback) {
-            echo "Ocorreu um erro inesperado, por favor tente novamente. \r\n";
+            Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
             exit;
         }
-        echo "Rollback executado com sucesso. \r\n";
+        Cli::println("Rollback executado com sucesso.");
     } elseif (
         $component == 'makeseed' or
         $component == 'make:seed'
@@ -573,14 +569,12 @@ do {
         $component == 'runSeed' or
         $component == 'run:seed'
     ) {
-        echo "Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo \r\n";
-        $seedName = fgets(STDIN);
+        $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo');
         $seedName = ucfirst($seedName);
-        $seedName = rtrim($seedName);
         chdir('db/seeds');
         shell_exec('php ' . $seedName . '.php');
 
-        echo "Seed {$seedName} executada com sucesso em db/seeds/ \r\n";
+        Cli::println("Seed {$seedName} executada com sucesso em db/seeds/");
     } elseif (
         $component == 'makeauth' or
         $component == 'make:auth'
@@ -591,18 +585,17 @@ do {
         $component == 'S' or
         $component == 'sair' or $component == 'Sair'
     ) {
-        echo "Operação cancelada pelo usuário!\r\n\r\n";
+        Cli::println("Operação cancelada pelo usuário!");
         exit;
     } else {
-        echo "Opção inválida \r\n\r\n";
+        Cli::println("Opção inválida");
         exit;
     }
-    echo "
-Deseja continuar ?
-DIGITE: ['Y'] para continuar
-DIGITE: ['N'] para sair\r\n";
-    $component = fgets(STDIN);
-    $component = rtrim($component);
+    $component = Cli::getParam(
+    'Deseja continuar ?
+DIGITE: Y para continuar
+DIGITE: N para sai'
+    );
 } while (
     $component == 'y' or
     $component == 'Y' or
@@ -615,9 +608,9 @@ if (
     $component == 'N' or
     $component == 'No' or $component == 'Sair'
 ) {
-    echo "Operação cancelada pelo usuário!\r\n\r\n";
+    Cli::println("Operação cancelada pelo usuário!");
     exit;
 } else {
-    echo "Opção inválida \r\n\r\n";
+    Cli::println("Opção inválida");
     exit;
 }
