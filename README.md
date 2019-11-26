@@ -16,11 +16,14 @@ These instructions will get you a copy of the project up and running on your loc
 A step by step series of examples that tell you how to get a development env running
 
 1 - Run composer
-```
+
+```bash
 composer install
 ```
+
 2 - Run npm
-```
+
+```bash
 npm install
 ```
 
@@ -30,9 +33,10 @@ npm install
 
 3 - In Terminal RUN comand below
 
-```
+```bash
 php Scooby_CLI
 ```
+
 Before you will see the image below
 
 ![strat00](docs/images/screen_cli00.png)
@@ -45,7 +49,7 @@ Before you will see the image below
 
 ## Skelethon aplication folder
 
-Explain how to run the automated tests for this system
+In this session we will take a tour of the folder and file structure of a ScoobyPHP project, see its main features and configuration files.
 
 ### App
 
@@ -84,6 +88,10 @@ Explain what these tests test and why
 Explain what these tests test and why
 
 #### Config/Cache
+
+Explain what these tests test and why
+
+#### Config/lang
 
 Explain what these tests test and why
 
