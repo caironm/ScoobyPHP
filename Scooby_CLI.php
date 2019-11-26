@@ -279,7 +279,7 @@ function execOptionMakeNewDb()
         Cli::println('Opss...: Banco de dados já existente, deseja se conectar a ele ?');
         $connect = Cli::getParam('DIGITE: Y para sim ou N para não');
         if($connect == 'y' or $connect == 'Y'){
-            $dbUser = Cli::getParam('Por favor digite o usuÃ¡rio do banco de dados '. $name);
+            $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados '. $name);
             $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados '. $name);
             $connectionUpdate = file_get_contents('Config/config.php');
             $connectionUpdate = strtr($connectionUpdate, [
