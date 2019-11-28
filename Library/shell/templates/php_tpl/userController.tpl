@@ -1,15 +1,18 @@
 <?php
 
-//Controller de autenticação gerado automaticamente via Scooby-CLI dateNow
+//Controller de autenticação gerado automaticamente via Scooby-CLI em dateNow
 
 namespace Controllers;
 
 use \Core\Controller;
+use Helpers\Email;
 use Helpers\FlashMessage;
 use Helpers\Login;
 use Helpers\Redirect;
 use Helpers\Request;
+use Helpers\Session;
 use Helpers\Validation;
+use Models\PasswordUserToken;
 use Models\User;
 
 class UserController extends Controller
@@ -37,7 +40,7 @@ class UserController extends Controller
             Redirect::redirectTo('dashboard');
         } else {
             $this->Load("pages", "login", [
-                "msg" => FlashMessage::msg("Opss", "Falha na autenticação, por favor tente novamente.", "error")
+                "msg" => FlashMessage::toast("Opss", LOGIN_AUTHENTICATION_FAILED, "error")
             ]);
         }
     }
@@ -49,7 +52,12 @@ class UserController extends Controller
      */
     public function register()
     {
-        $this->Load("pages", "register");
+        $msg = null;
+        if(!empty($_GET['msg'])){
+            $msg = $_GET['msg'];
+            Redirect::getUrlError($msg);
+        }
+        $this->Load("pages", "register", ['error' => $msg]);
     }
 
     /**
@@ -59,35 +67,29 @@ class UserController extends Controller
      */
     public function saveUser()
     {
+        Request::validate('name', 'nome', 'register', ['required', 'string', 'max'], 60);
+        Request::validate('email', 'email', 'register', ['required', 'email']);
+        Request::validate('pass', 'senha', 'register', ['required', 'string', 'min'], 4);
         if (Request::input("name") and Request::input("email") and Request::input("pass")) {
             $name = Request::input("name");
             $email = Request::input("email");
             $pass = Login::passwordHash(Request::input("pass"));
-
             if (Validation::emailMatch($email, "users", "email")) {
                 $user = new User;
                 $user->name = $name;
                 $user->email = $email;
                 $user->password = $pass;
                 if ($user->save()) {
-                    $this->Load("pages", "login", [
-                        "msg" => FlashMessage::msg("Tudo Certo...", "Usuário cadastrado com sucesso.", "success")
+                    $this->Load("pages", "Login", [
+                        "msg" => FlashMessage::toast("Ok...", REGISTERED_USER, "success")
                     ]);
-                } else {
-                    $this->Load("pages", "Register", [
-                        "msg" => FlashMessage::msg("Opss...", "Algo saiu errado, por favor tente mais tarde.", "error")
-                    ]);
-                }
+                } 
             } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
-                $this->Load("pages", "register", [
-                    "msg" => FlashMessage::msg("Opss...", "Email já cadastrado, por favor tente com um email diferente", "warning")
+                $this->Load("pages", 'Register', [
+                    "msg" => FlashMessage::toast("Opss...", EMAIL_USED, "warning")
                 ]);
             }
-        } else {
-            $this->Load("pages", "register", [
-                "msg" => FlashMessage::msg("Opss...", "Todos os campos são obrigatórios!", "warning")
-            ]);
-        }
+        } 
     }
 
     /**
@@ -112,12 +114,109 @@ class UserController extends Controller
 
     /**
      * Executa a lógica de recuperação de senha do usuário
+     * e envia o email
      *
      * @return void
      */
     public function newPass()
     {
-        //$email = Request::input("email");
+        if (empty(Request::input("email"))) {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::toast('Opss...', EMAIL_REQUIRED, 'warning')
+            ]);
+            exit;
+        }
+        $email = Request::input("email");
+        $token = md5(rand(999, 999999));
+        $user = new User;
+        $u = $user->where('email', $email)->first();
+        if ($u != null) {
+            $newPass = new PasswordUserToken;
+            $newPass->user_id = $u->id;
+            $newPass->token = $token;
+            $newPass->used = 0;
+            $newPass->save();
+
+            $msg = <<<HTML
+                <h3>Recuperação de senha</h3>
+                <p>Este é o link para você efetuar a recuperação de senha do <strong>ScoobyPHP</strong></p>
+                <p>127.0.0.1/App/create-password?token=$token</p>
+                <a href="create-password?token=$token">Clique aqui para redefinir sua senha</a>
+HTML;
+            $send = Email::sendEmailWithSmtp('ScoobyPHP', $msg, ['viniterriani.vt@gmail.com' => 'ScoobyTem'], [$email => $u->name]);
+            if ($send) {
+                $this->Load('Pages', 'login', [
+                    'msg' => FlashMessage::toast('Ok', EMAIL_SUCCESSFULLY_SEND, 'success')
+
+                ]);
+            } else {
+                FlashMessage::toast('Opss...', EMAIL_NOT_SEND, 'error');
+            }
+        } else {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::toast('Opss...', EMAIL_NOT_FOUND, 'error')
+            ]);
+        }
+    }
+
+    /**
+     * Valida o token pasado por url e chama a view de redefinição de senha
+     *
+     * @return void
+     */
+    public function saveNewPassword()
+    {
+        $token = $_GET['token'];
+        $_SESSION['token'] = $token;
+        $newPass = new PasswordUserToken;
+        $p = $newPass->where('token', $token)->first();
+        if (empty($_GET['token'])) {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::toast('Erro...', TOKEN_INVALID, 'error')
+            ]);
+            exit;
+        }
+        if ($p != null and $p->used == 0) {
+            $this->Load('pages', 'NewPassword', ['token' => $token]);
+        } else {
+            $this->Load('pages', 'PasswordRescue', [
+                'msg' => FlashMessage::toast('Erro...', LINK_INVALID, 'error')
+            ]);
+            exit;
+        }
+    }
+
+    /**
+     * Executa a redefinição de senha e invalida o token usado
+     *
+     * @return void
+     */
+    public function passwordReset()
+    {
+        $token = $_POST['passwordToken'];
+        if (empty($_POST['new-password']) and empty($_POST['confirm-password'])) {
+            $this->Load('pages', 'NewPassword', [
+                'msg' => FlashMessage::toast('Opss...', INPUTS_REQUIRED, 'warning')
+            ]);
+            exit;
+        } elseif ($_POST['new-password'] != $_POST['confirm-password']) {
+            $this->Load('pages', 'NewPassword', [
+                'msg' => FlashMessage::toast('Opss...', PASSWORDS_DO_NOT_MATCH, 'warning')
+            ]);
+            exit;
+        }
+        $newPass = new PasswordUserToken;
+        $p = $newPass->where('token', $token)->first();
+        $p->used = 1;
+        $p->save();
+        $user = new User;
+        $id = $p->user_id;
+        $u = $user->where('id', $id)->update(['password' => Login::passwordHash($_POST['new-password'])]);
+        if ($u and $p) {
+            $this->Load('pages', 'login', [
+                'msg' => FlashMessage::toast('Ok...', PASSWORD_UPDATE, 'success')
+            ]);
+        }
     }
 
     /**
@@ -136,11 +235,80 @@ class UserController extends Controller
      * @param integer $id
      * @return void
      */
-    public function deleteUser(int $id)
+    public function deleteUser()
     {
+        $id = $_SESSION['id'];
         $user = new User;
         $u = $user->find($id);
         $u->delete();
         return Redirect::redirectTo('login');
+    }
+
+    /**
+     * Busca as informações dos usuario e chama a view de edição
+     *
+     * @return void
+     */
+    public function alterUser()
+    {
+        $id = Session::getSession('id');
+        $user = new User;
+        $u = $user->find($id);
+        if ($u == null) {
+            $this->Load('pages', 'Dashboard', [
+                'msg' => FlashMessage::toast('Error:', SOMETHING_WRONG, 'error')
+            ]);
+            exit;
+        }
+        $this->Load('pages', 'UpdateUser', [
+            'name' => $u->name,
+            'email' => $u->email
+        ]);
+    }
+
+    /**
+     * Atualiza as informações do usuario
+     *
+     * @return void
+     */
+    public function updateUser()
+    {
+        $id = Session::getSession('id');
+        $name = Request::post('name');
+        $email = Request::post('email');
+        $password = Request::post('pass');
+        $user =  new User;
+        $u = $user->find($id);
+        if (empty($password)) {
+            $u->name = $name;
+            $u->email = $email;
+            $u->save();
+            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            exit;
+        }if (empty($name)) {
+            $u->password = Login::passwordHash($password);
+            $u->email = $email;
+            $u->save();
+            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            exit;
+        }elseif (empty($email)) {
+            $u->name = $name;
+            $u->password = Login::passwordHash($password);
+            $u->save();
+            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            exit;
+        }elseif (empty($password)) {
+            $u->name = $name;
+            $u->email = $email;
+            $u->save();
+            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            exit;
+        }
+        $u->name = $name;
+        $u->email = $email;
+        $u->password = Login::passwordHash($password);
+        $u->save();
+        FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+        exit;
     }
 }

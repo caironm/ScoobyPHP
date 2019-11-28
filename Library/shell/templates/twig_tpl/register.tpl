@@ -1,9 +1,9 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
 <div class="container-fluid bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
-<a href="{{ base_url }}back" class="btn black">voltar</a>
+<a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
     <h3 class="center">ScoobYTasks - Novo Usuário</h3>
     {% if msg %}
-    <span class="alert center">{{ msg|raw }}</span>
+        {{ msg|raw }}
     {% endif %}
     <div class="row">
         <div class="col s12 m8 offset-m2">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="card-action">
                         <div class="center-align">
-                            <button class="btn waves-effect waves-light" type="submit" name="action">Criar Conta
+                            <button class="btn waves-effect waves-light" type="submit" name="action">{{ btn_sign_up }}
                                 <i class="material-icons right">send</i>
                             </button> </div>
                     </div>
@@ -39,10 +39,10 @@
             </form>
             <div class="row">
                 <div class="col s4">
-                    <a href="{{ base_url }}login" class="btn purple">Login</a>
+                    <a href="{{ base_url }}login" class="btn purple">{{ btn_sign_in }}</a>
                 </div>
                 <div class="col s8 right-align">
-                    <a href="{{ base_url }}passwordRescue" class="btn red">Esqueci a senha</a>
+                    <a href="{{ base_url }}passwordRescue" class="btn red">{{ btn_password_reset }}</a>
                 </div>
             </div>
         </div>

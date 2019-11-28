@@ -27,4 +27,29 @@ class Redirect
     {
         echo "<script>window.history.go($value)</script>"; 
     }
+
+    
+   /**
+     * Redireciona passando uma msg via url
+     *
+     * @param string $url
+     * @param string $msg
+     * @return void
+     */
+    public static function redirectWithMessage($url, $msg)
+    {
+        $msg = base64_encode($msg);
+        header("Location:$url?msg=$msg");
+    }
+
+    /**
+     * Exibe a menssagem passada pela url
+     *
+     * @param string $msg
+     * @return void
+     */
+    public static function getUrlError(string $msg)
+    {
+        FlashMessage::toast('Erro:', base64_decode($msg), 'error');
+    } 
 }

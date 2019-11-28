@@ -2,32 +2,34 @@
 <div class="bg-login">
     <div class="container-fluid z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
     <a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
-        <h2 class="center">ScoobYTasks - Login</h2>
+        <h2 class="center">ScoobYTasks - Recuperação de senha</h2>
         {% if msg %}
             {{ msg|raw }}
         {% endif %}
         <div class="row">
             <div class="col s12 m8 offset-m2">
-                <form class="login-form  z-depth-5" method="post" action="{{ base_url }}make-login">
+                <form class="login-form  z-depth-5" method="post" action="{{ base_url }}password-reset">
                     <div class="card">
                         <input type="hidden" name="csrfToken" value="{{ csrfToken }}">
+                        <input type="hidden" name="passwordToken" value='{{ token }}'>
                         <div class="card-content">
-                            <div class="input-field">
-                                <input class="validate" id="email" type="email" name="email">
-                                <label for="email">Email</label>
+                            <div class="input-field col s12">
+                                <input placeholder="Digite a nova senha" id='new-pass' name="new-password" type="password" class="validate">
+                                <label for="new-pass">Nova Senha</label>
                             </div>
                             <div class="row">
                                 <div class="col s12 m12 l12">
-                                    <div class="input-field">
-                                        <input id="password" type="password" name="pass">
-                                        <label for="password">Senha</label>
+                                    <div class="input-field col s12">
+                                        <input placeholder="Confirme a nova senha" id='confirm-pass' name="confirm-password" type="password"
+                                            class="validate">
+                                        <label for="confirm-pass">Confirme Nova Senha</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-action">
                             <div class="center-align">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">{{ btn_sign_in }}
+                                <button class="btn waves-effect waves-light" type="submit" name="action">Entrar
                                     <i class="material-icons right">send</i>
                                 </button>
                             </div>

@@ -35,10 +35,10 @@ $route = [];
  * ******************************  
  */
 
-//Rotas sem autenticação
+//Rotas sem autenticação geradas pelo desenvolvedor
 $route['/'] = '/home';
 
-//Rotas Autenticadas
+//Rotas Autenticadas geradas pelo desenvolvedor
 if(Helpers\Auth::authValidation()){
-    
+       
 }

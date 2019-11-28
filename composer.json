@@ -1,4 +1,8 @@
 {
+    "name":"Vinicius Terriani - viniterriani.vt@gmail.com",
+    "type" : "project",
+	"homepage" : "https://github.com/terriani/ScoobyPHP",
+	"description" : "ScoobyPHP, A litle and very simple PHP framework ",
     "require":{
         "twig/twig": "^2.11",
         "illuminate/database": "^5.8",
@@ -14,7 +18,8 @@
             "Helpers\\":"Library/Helpers/",
             "Core\\":"Library/Core/",
             "Controllers\\":"App/Controllers/",
-            "Models\\":"App/Models/"
+            "Models\\":"App/Models/",
+            "Class\\":"App/Class/"
         }
     },
     "require-dev": {

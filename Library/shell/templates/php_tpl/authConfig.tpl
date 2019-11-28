@@ -9,6 +9,7 @@ $notAutentication = [
     'login',
     'register',
     'PasswordRescue',
+    'NewPassword'
 ];
 
 /**
@@ -16,6 +17,7 @@ $notAutentication = [
  */
 $autentication = [
     'DashBoard',
+    'UpdateUser'
 ];
 
 /**

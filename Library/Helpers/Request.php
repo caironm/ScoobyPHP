@@ -5,24 +5,65 @@ namespace Helpers;
 class Request
 {
     /**
-    * Valida e retorna o dados vindo do formulario
-    *
-    * @param string $inputName
-    * @return void
-    */
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
     public static function input(string $inputName)
     {
         if (Csrf::csrfTokenValidate()) {
             if (self::has($inputName)) {
                 if (isset($_REQUEST["$inputName"]) and !empty($_REQUEST["$inputName"])) {
                     return htmlspecialchars(strip_tags(addslashes(trim($_REQUEST["$inputName"]))));
-                } 
+                }
                 return false;
             }
             //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
         }
     }
+
+    /**
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function get(string $inputName)
+    {
+        if (Csrf::csrfTokenValidate()) {
+            if (self::has($inputName)) {
+                if (isset($_GET["$inputName"]) and !empty($_GET["$inputName"])) {
+                    return htmlspecialchars(strip_tags(addslashes(trim($_GET["$inputName"]))));
+                }
+                return false;
+            }
+            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
+            return false;
+        }
+    }
+
+    /**
+     * Valida e retorna o dados vindo do formulario
+     *
+     * @param string $inputName
+     * @return void
+     */
+    public static function post(string $inputName)
+    {
+        if (Csrf::csrfTokenValidate()) {
+            if (self::has($inputName)) {
+                if (isset($_POST["$inputName"]) and !empty($_POST["$inputName"])) {
+                    return htmlspecialchars(strip_tags(addslashes(trim($_POST["$inputName"]))));
+                }
+                return false;
+            }
+            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
+            return false;
+        }
+    }
+
 
     /**
      * Testa se o valor do input é positivo
@@ -142,5 +183,125 @@ class Request
         } else {
             return false;
         }
+    }
+
+    /**
+     * Valida os inputs de entrada via formulario
+     *
+     * @param string $input
+     * @param string $redirect
+     * @param array $rules
+     * @param integer $min
+     * @param integer $max
+     * @param string $inputAlias
+     * @return void
+     */
+    public static function validate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
+    {
+        $inputValue = $_REQUEST[$input];
+        if ($inputAlias == '') {
+            $inputAlias = $input;
+        }
+        if (in_array('required', $rules)) {
+            $msg = strtr($GLOBALS['REQUIRED_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (empty($inputValue)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('email', $rules)) {
+            $msg = strtr($GLOBALS['EMAIL_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!Validation::isEmail($inputValue)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+
+        if (in_array('number', $rules)) {
+            $msg = strtr($GLOBALS['NUMBER_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!Validation::isNumber($inputValue)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('negative', $rules)) {
+            $msg = strtr($GLOBALS['NEGATIVE_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!Validation::isNegative($inputValue)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('positive', $rules)) {
+            $msg = strtr($GLOBALS['POSITIVE_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!Validation::isPositive($inputValue)) {
+                Redirect::redirectWithMessage($redirect, 'O campo ' . $inputAlias . ' Requer um valor positivo válido', true);
+                exit;
+            }
+        }
+        if (in_array('string', $rules)) {
+            $msg = strtr($GLOBALS['STRING_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!Validation::isString($inputValue)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('min', $rules)) {
+            $msg = strtr($GLOBALS['MIN_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (strlen($inputValue) < $min) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('max', $rules)) {
+            $msg = strtr($GLOBALS['MAX_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (strlen($inputValue) > $min) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        if (in_array('between', $rules)) {
+            $msg = strtr($GLOBALS['BETWEEN_VALIDATION'], [
+                ':atribute' => $inputAlias,
+                ':min' => $min,
+                ':max' => $max
+            ]);
+            if (!(strlen($inputValue) > $min and strlen($inputValue) < $max)) {
+                Redirect::redirectWithMessage($redirect, $msg, true);
+                exit;
+            }
+        }
+        return true;
     }
 }
