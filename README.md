@@ -1,6 +1,6 @@
 # ScoobyPHP
 
-A simple framework for small projects, studies, and first contact with architecture. **MVC**
+A simple framework for small projects, studies, and first contact with architecture **MVC**
 
 ## Getting Started
 
@@ -10,42 +10,65 @@ These instructions will get you a copy of the project up and running on your loc
 
 * NPM
 * PHP >= 7.0
+* COMPOSER
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-1 - Run composer
+#### Run composer
+
+First you need to run the command to install php dependencies via composer
 
 ```bash
 composer install
 ```
 
-2 - Run npm
+#### Run npm
+
+Then you need to execute the command to install dependencies of front-end via npm.
 
 ```bash
 npm install
 ```
 
-2 - Open browser on [http://localhost/ScoobyPHP/](http://localhost/ScoobyPHP/). You will see the image below
+### Open browser on [http://localhost/ScoobyPHP/](http://localhost/ScoobyPHP/). You will see the image below
 
 ![strat00](docs/images/screen_wellcome.png)
 
-3 - In Terminal RUN comand below
+#### Using CLI by run commands
+
+Often we need to create classes, controllers, views, miscellaneous files, databases, and even complete routines, this part of web development ends up exhausting by code repetition. With that in mind we created a command line tool to help create them, with some commands, you can have a complete application running with database connection, login routine, login, logout, and password recovery all functional. is done through Scooby_CLI, when executing this command in the root of the project, in the terminal will appear a welcome screen with the possible commands.
 
 ```bash
-php Scooby_CLI
+php Scooby_CLI.php
 ```
 
 Before you will see the image below
 
 ![strat00](docs/images/screen_cli00.png)
 
-4 - In CLI run new:db
+#### In CLI run
 
-5 - Insert the database name
+To create, or even connect to an already exisatente database, it is necessary to run the new ***new:db*** in CLI mode
 
-6 - If you need a registration, login and password recovery routine, run the make:auth command in the application CLI
+```bash
+new:db
+```
+
+#### Insert the database name or case the existing database, enter with your user and password db
+
+As stated above, to create or connect a database to your project you need to execute the ***new:db*** command, after executing this command, if a database with the same name already exists, you will be asked The password and user of this same DB, by informing this data you will be being connected with it automatically.
+
+#### If you need a registration, login and password recovery routine
+
+Almost all applications require one of a ***new user registration***, ***login***, ***logout*** and ***password recovery*** routine, thinking about this ScoobyPHP automates the entire process of creating, views, passing the necessary controllers, models, and routes, authenticated and unauthenticated and, the main thing, it's all done by executing just one command in the CLI
+
+run the make:auth command in the application CLI
+
+```bash
+make:auth
+```
 
 ## Skelethon aplication folder
 
@@ -53,35 +76,31 @@ In this session we will take a tour of the folder and file structure of a Scooby
 
 ### App
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+The App folder is one of the most important folders to the development of an application, since it is there is the structure of models, controllers, views and generics
 
 #### App/Controllers
 
-Explain what these tests test and why
+Folder where all application controllers will be created
 
 #### App/Models
 
-Explain what these tests test and why
+Folder where all application models will be created
 
 #### App/Views
 
-Explain what these tests test and why
+Folder where all application views will be created
 
 ##### App/Views/Error
 
-Explain what these tests test and why
+In this folder will be the system error views, such as the already existing error 404 view
 
 ##### App/Views/Pages
 
-Explain what these tests test and why
+In this folder are the system pages, such as the existing view home and all others to be created, such as the user registration page, login and etc ...
 
 ##### App/Views/Templates
 
-Explain what these tests test and why
+In this folder are the default Scooby PHP templates, with css, js and similar uploads.
 
 ### Config
 
