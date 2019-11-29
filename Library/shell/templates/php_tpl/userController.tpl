@@ -67,9 +67,9 @@ class UserController extends Controller
      */
     public function saveUser()
     {
-        Request::validate('name', 'nome', 'register', ['required', 'string', 'max'], 60);
-        Request::validate('email', 'email', 'register', ['required', 'email']);
-        Request::validate('pass', 'senha', 'register', ['required', 'string', 'min'], 4);
+        Request::formValidate('name', 'nome', 'register', ['required', 'string', 'max'], 60);
+        Request::formValidate('email', 'email', 'register', ['required', 'email']);
+        Request::formValidate('pass', 'senha', 'register', ['required', 'string', 'min'], 4);
         if (Request::input("name") and Request::input("email") and Request::input("pass")) {
             $name = Request::input("name");
             $email = Request::input("email");

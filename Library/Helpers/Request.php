@@ -196,7 +196,7 @@ class Request
      * @param string $inputAlias
      * @return void
      */
-    public static function validate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
+    public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
     {
         $inputValue = $_REQUEST[$input];
         if ($inputAlias == '') {
