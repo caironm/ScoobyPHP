@@ -10,11 +10,11 @@ require_once 'Library/Core/Minifier.php';
 require_once 'Config/routes.php';
 require_once 'Config/lang/'.SITE_LANG.'.php';
 Session::sessionTokenGenerate();
+if(!Session::sessionTokenValidade()){
+    die('Opss... Algo saiu errado por favor tente novamente');
+}
 Csrf::csrfTokengenerate();
 $c = new Core\Core;
-Session::sessionTokenGenerate();
-Session::sessionTokenValidade();
-
 if (ENV !== 'production') {
     $whoops = new \Whoops\Run;
     $errorPage = new Whoops\Handler\PrettyPageHandler();
