@@ -1,7 +1,5 @@
 <?php
 
-//Migration criada automaticamente por Scooby_CLI em dateNow
-
 use Phinx\Migration\AbstractMigration;
 
 class PasswordRescue extends AbstractMigration

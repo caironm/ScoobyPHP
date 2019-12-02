@@ -325,13 +325,13 @@ function execOptionMakeClearCache()
 
 function execOptionMakeMigration()
 {
-    Cli::println("Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase");
     $migrationName = Cli::getParam('Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase');
     $migrationName = ucfirst($migrationName);
     if (file_exists("db/migrations/$migrationName.php")) {
         Cli::println("ERROR: Migration já existente na pasta 'db/migrations/'");
         exit;
     }
+
     $migration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
     if (!$migration) {
         Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");

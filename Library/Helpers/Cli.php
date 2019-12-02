@@ -8,12 +8,13 @@ namespace Helpers;
 class Cli
 {
     /**
-     * mostram uma mensagem iniando em uma nova linha
+     * mostra uma mensagem iniando em uma nova linha
      *
      * @param string $msg
      * @return void
      */
-    public static function println($msg){
+    public static function println($msg)
+    {
         echo $msg.PHP_EOL;
     }
 

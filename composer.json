@@ -10,7 +10,8 @@
         "filp/whoops": "^2.5",
         "robmorgan/phinx": "0.10.0",
         "swiftmailer/swiftmailer": "^6.2",
-        "dfridrich/php-mime-type": "^2.0"
+        "dfridrich/php-mime-type": "^2.0",
+        "jasongrimes/paginator": "^1.0"
     },
     "autoload":{
         "psr-4": {
