@@ -22,7 +22,7 @@ class Pagination
             $currentPage = $_GET['page'];
         }
         $offset = ($currentPage * $limit) - $limit;
-        $urlPattern = '/Paginator/blog?page=(:num)';
+        $urlPattern = $urlPattern.'?p=(:num)';
         $totalItems = $model::count();
         $info = $model->skip($offset)->take($limit)->get();
         $paginator = new Paginator($totalItems, $limit, $currentPage, $urlPattern);
