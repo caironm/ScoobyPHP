@@ -4,6 +4,8 @@ use Helpers\Csrf;
 use Helpers\Session;
 
 session_start();
+if(!file_exists('vendor/autoload.php')) 
+die('Falha ao executar o autoload, por favor rode o comando composer install no termainal e recarregue a pagina novamente');
 require_once 'vendor/autoload.php';
 require_once 'Config/config.php';
 require_once 'Library/Core/Minifier.php';
