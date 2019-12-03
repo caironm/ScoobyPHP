@@ -66,3 +66,5 @@ define('BTN_DELETE', 'Apagar');
 define('BTN_PASSWORD_RESET', 'Esqueci a senha');
 
 define('BTN_SEND', 'Enviar');
+
+define('MSG_UPLOAD_FAIL', 'Erro ao fazer o upload');

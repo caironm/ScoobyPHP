@@ -160,4 +160,17 @@ HTML;
 HTML;
         echo $msg;
     }
+
+    /**
+     * Exibe a menssagem passada pela url
+     *
+     * @param string $msg
+     * @return void
+     */
+    public static function getUrlError()
+    {
+        if(!empty($_GET['msg'])){
+            self::toast('Ok...', base64_decode($_GET['msg']), ''.base64_decode($_GET['type']).'');
+        }
+    } 
 }

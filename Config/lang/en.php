@@ -67,3 +67,5 @@ define ('BTN_PASSWORD_RESET', 'I forgot the password');
 
 define ('BTN_SEND', 'Submit');
 
+define ('MSG_UPLOAD_FAIL', 'Error uploading');
+

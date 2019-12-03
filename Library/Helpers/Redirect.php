@@ -34,22 +34,14 @@ class Redirect
      *
      * @param string $url
      * @param string $msg
+     * @param string $type
      * @return void
      */
-    public static function redirectWithMessage($url, $msg)
+    public static function redirectWithMessage($url, $title, $msg, $type = '')
     {
+        $title = base64_encode($title);
         $msg = base64_encode($msg);
-        header("Location:$url?msg=$msg");
+        $type = base64_encode($type);
+        header("Location:$url?type=$type&msg=$msg");
     }
-
-    /**
-     * Exibe a menssagem passada pela url
-     *
-     * @param string $msg
-     * @return void
-     */
-    public static function getUrlError(string $msg)
-    {
-        FlashMessage::toast('Erro:', base64_decode($msg), 'error');
-    } 
 }
