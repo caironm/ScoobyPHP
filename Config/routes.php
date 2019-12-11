@@ -14,7 +14,6 @@ $route = [];
  * EXEMPLO DE ROTA SEM PARAMETOS
  * 
  * $route['/'] = '/home';
- * $route['/ops'] = '/failure';
  * $route['/ops/404'] = '/404';
  * 
  * *****************************
@@ -37,6 +36,7 @@ $route = [];
 
 //Rotas sem autenticação geradas pelo desenvolvedor
 $route['/'] = '/home';
+$route['/404'] = '/notfound';
 
 //Rotas Autenticadas geradas pelo desenvolvedor
 if(Helpers\Auth::authValidation()){

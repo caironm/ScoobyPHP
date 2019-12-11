@@ -47,10 +47,10 @@ if (ENV == 'development') {
     define('SMTP', 'smtp.gmail.com');
 
     //Define o usuario do servidor de email em modo de desenvolvimento
-    define('SMTP_USER', 'smtp_user');
+    define('SMTP_USER', '');
 
     //Define a senha do usuario do servidor de email em modo de desenvolvimento 
-    define('SMTP_PASS', 'secret');
+    define('SMTP_PASS', '');
 
     //define a porta do servidor de email em modo de desenvolvimento
     define('SMTP_PORT', '465');
@@ -66,25 +66,25 @@ if (ENV == 'development') {
     define("HOME", "home");
 
      //define o nome do site em produção
-     define('SITE_NAME', 'YOUR_URL');
+     define('SITE_NAME', 'ghost-network');
 
       //define o idioma das menssagens exibidas automaticamente pelo o frameowok em produção
-      define('SITE_LANG', 'en');
+      define('SITE_LANG', 'pt_br');
 
     //Define o nome do banco de dados a ser usado em produção
-    define('DB_NAME', 'YOUR_DATABASE_NAME');
+    define('DB_NAME', '');
 
     //Define o usuário do banco de dados em produção 
-    define('DB_USER', 'YOUR_USER');
+    define('DB_USER', '');
 
     //Define a senha do usuário do banco de dados em produção
-    define('DB_PASS', 'YOUR_PASS');
+    define('DB_PASS', '');
 
     //Define o driver de banco de dados
     define('DB_DRIVER', 'mysql');
 
     //Define o host do banco de dados em desenvolvimento
-    define('DB_HOST', 'YOUR_DRIVER');
+    define('DB_HOST', '');
 
     //Define o charset para utf8 
     define('CHARSET', 'utf8');
@@ -93,16 +93,16 @@ if (ENV == 'development') {
     define('COLLATION', 'utf8_unicode_ci');
 
      //define a url base do sistema
-    define("BASE_URL", "http://".SITE_NAME."/");
+    define("BASE_URL", "/");
 
     //define a url para a pasta assets
-    define("ASSET", "http://".SITE_NAME."/Public/assets/");
+    define("ASSET", "/Public/assets/");
 
     //define a url para a pasta node_modules
-    define("NODE_MODULES", "http://".SITE_NAME."/node_modules/");
+    define("NODE_MODULES", "/node_modules/");
 
     //Define o endereço do servidor de email a ser utilizado em modo de produção
-    define('SMTP', '');
+    define('SMTP', 'smtp.gmail.com');
 
     //Define o usuario do servidor de email em modo de produção
     define('SMTP_USER', '');
@@ -111,10 +111,10 @@ if (ENV == 'development') {
     define('SMTP_PASS', '');
 
     //define a porta do servidor de email em modo de produção
-    define('SMTP_PORT', '');
+    define('SMTP_PORT', '465');
 
     //Define o certificado a ser usuado no tranporte do email ex: ssl ou tls em modo de produção
-    define('SMTP_CETTIFICATE', '');
+    define('SMTP_CETTIFICATE', 'ssl');
 
     error_reporting(0);
 }

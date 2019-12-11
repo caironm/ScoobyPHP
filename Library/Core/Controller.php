@@ -43,7 +43,7 @@ abstract class Controller
             'cache' => 'Config/Cache'
         ]);
 
-        require_once 'Config/lang/langAlias.php';
+        require_once 'Config/twigGlobals.php';
 
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 

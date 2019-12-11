@@ -21,6 +21,8 @@ class Request
             }
             //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
+        } else {
+            Redirect::redirectTo('404');
         }
     }
 
@@ -86,7 +88,7 @@ class Request
                     move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path . $fileName . "." . $ext);
                     $arrPath[$i] = $path.$fileName.'.'.$ext;  
                 }
-                return $arrPath;
+                return [true, $arrPath];
             }else{
                 FlashMessage::modalWithGoBack('Opss', MSG_UPLOAD_FAIL, 'error');
             }
@@ -238,7 +240,7 @@ class Request
                 ':max' => $max
             ]);
             if (empty($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -249,7 +251,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isEmail($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -261,7 +263,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isNumber($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -272,7 +274,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isNegative($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -283,7 +285,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isPositive($inputValue)) {
-                Redirect::redirectWithMessage($redirect, 'O campo ' . $inputAlias . ' Requer um valor positivo válido', 'success');
+                Redirect::redirectWithMessage($redirect, 'O campo ' . $inputAlias . ' Requer um valor positivo válido', 'error');
                 exit;
             }
         }
@@ -294,7 +296,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isString($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -305,7 +307,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) < $min) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -316,7 +318,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) > $min) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }
@@ -327,7 +329,7 @@ class Request
                 ':max' => $max
             ]);
             if ((strlen($inputValue) < $min and strlen($inputValue) > $max)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'success');
+                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
                 exit;
             }
         }

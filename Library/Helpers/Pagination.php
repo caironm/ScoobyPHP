@@ -15,16 +15,16 @@ class Pagination
      * @param string $urlPattern
      * @return array
      */
-    public static function paginate(Model $model, int $limit, string $urlPattern): array
+    public static function paginate(Model $model, int $limit, string $orderBy = 'DESC'): array
     {
         $currentPage = 1;
         if (!empty($_GET['page'])) {
             $currentPage = $_GET['page'];
         }
         $offset = ($currentPage * $limit) - $limit;
-        $urlPattern = $urlPattern.'?p=(:num)';
+        $urlPattern = '?page=(:num)';
         $totalItems = $model::count();
-        $info = $model->skip($offset)->take($limit)->get();
+        $info = $model->orderBy('id', $orderBy)->skip($offset)->take($limit)->get();
         $paginator = new Paginator($totalItems, $limit, $currentPage, $urlPattern);
         return ['data' => $info, 'pages' => $paginator];
     }
