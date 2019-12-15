@@ -27,21 +27,4 @@ class Redirect
     {
         echo "<script>window.history.go($value)</script>"; 
     }
-
-    
-   /**
-     * Redireciona passando uma msg via url
-     *
-     * @param string $url
-     * @param string $msg
-     * @param string $type
-     * @return void
-     */
-    public static function redirectWithMessage($url, $title, $msg, $type = '')
-    {
-        $title = base64_encode($title);
-        $msg = base64_encode($msg);
-        $type = base64_encode($type);
-        header("Location:$url?type=$type&msg=$msg");
-    }
 }

@@ -46,7 +46,6 @@ function showHeaderOption()
 | um model com uma respectiva migration e uma respectiva seed                   |
 | DIGITE: 'make:view' para criar uma View                                       |
 | DIGITE: 'make:file' para criar um Arquivo                                     |
-| DIGITE: 'make:route' para criar uma rota                                      |
 | DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig                 |
 | DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
 | DIGITE: 'y' Para continuar                                                    |
@@ -124,7 +123,8 @@ function execOptionMakeControllerResource()
     $routeResource = file_get_contents('Library/shell/templates/php_tpl/routesResourceFile.tpl');
     $routeResource = strtr($routeResource, [
         'dateNow' => date('d-m-y - H:i:a'),
-        '$name' => $routeName
+        '$name' => $name,
+        '$routeName' => $routeName
     ]);
     $f = fopen("App/Controllers/$name.php", 'w+');
     fwrite($f, $content);
@@ -228,18 +228,6 @@ function execOptionMakeModelMigrationAndSeed()
     fwrite($f, $seed);
     fclose($f);
     Cli::println("Seed {$seedName}Seed criada com sucesso em db/seeds/");
-}
-
-function execOptionMakeRoute()
-{
-    Cli::println("Você optou por criar uma Rota.");
-    $route = Cli::getParam('Por favor, DIGITE o novo caminho da Rota a ser criado');
-    $partner = Cli::getParam('Por favor, DIGITE o padrão que a nova rota buscara começando com');
-    $content = '$route["' . $route . '"] = "' . $partner . '";' . PHP_EOL;
-    $f = fopen("Config/routes.php", 'a+');
-    fwrite($f, $content);
-    fclose($f);
-    Cli::println("Rota criada em 'Config/routes.php' com sucesso.");
 }
 
 function execOptionMakeView()
@@ -513,11 +501,6 @@ do {
         $component == 'makemodel --migration --seed'
     ) {
         execOptionMakeModelMigrationAndSeed();
-    } elseif (
-        $component == 'make:route' or
-        $component == 'makeroute'
-    ) {
-        execOptionMakeRoute();
     } elseif (
         $component == 'make:view' or
         $component == 'makeview'

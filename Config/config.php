@@ -66,7 +66,7 @@ if (ENV == 'development') {
     define("HOME", "home");
 
      //define o nome do site em produção
-     define('SITE_NAME', 'ghost-network');
+     define('SITE_NAME', 'ScoobyPHP');
 
       //define o idioma das menssagens exibidas automaticamente pelo o frameowok em produção
       define('SITE_LANG', 'pt_br');

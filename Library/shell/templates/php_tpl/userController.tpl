@@ -52,12 +52,8 @@ class UserController extends Controller
      */
     public function register()
     {
-        $msg = null;
-        if(!empty($_GET['msg'])){
-            $msg = $_GET['msg'];
-            Redirect::getUrlError($msg);
-        }
-        $this->Load("pages", "register", ['error' => $msg]);
+        FlashMessage::getFlashMessage('errMessage');
+        $this->Load("pages", "register");
     }
 
     /**
@@ -107,7 +103,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function passwordrescue()
+    public function passwordRescue()
     {
         $this->Load("pages", "PasswordRescue");
     }

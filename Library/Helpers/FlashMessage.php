@@ -162,16 +162,35 @@ HTML;
     }
 
     /**
+     * passa uma msg via session
+     *
+     * @param string $url
+     * @param string $msg
+     * @param string $type
+     * @return void
+     */
+    public static function flashMessage($key, $title, $msg, $type = '')
+    {
+        $_SESSION['flash'][$key] = [
+            'title' => $title,
+            'msg' => $msg,
+            'type' => $type
+        ];
+        Redirect::redirectBack();
+    }
+
+    /**
      * Exibe a menssagem passada pela url
      *
      * @param string $msg
      * @return void
      */
-    public static function getUrlError()
+    public static function getFlashMessage($key)
     {
-        if(!empty($_GET['msg'])){
-            self::toast('Ok...', base64_decode($_GET['msg']), ''.base64_decode($_GET['type']).'');
-            unset($_GET['msg']);
+        if(!empty($_SESSION['flash'][$key])){
+            $flashMessage = $_SESSION['flash'][$key]; 
+            unset($_SESSION['flash'][$key]);
+            self::toast($flashMessage['title'], $flashMessage['msg'], $flashMessage['type']);
         }
-    } 
+    }
 }

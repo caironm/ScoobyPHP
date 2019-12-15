@@ -298,14 +298,6 @@ Explain what these tests test and why
 Give an example
 ```
 
-### Generete a new route via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
 ### using routes
 
 Explain what these tests test and why

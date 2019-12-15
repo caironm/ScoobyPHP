@@ -240,7 +240,7 @@ class Request
                 ':max' => $max
             ]);
             if (empty($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -251,7 +251,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isEmail($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -263,7 +263,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isNumber($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -274,7 +274,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isNegative($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessageWithRedirect('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -296,7 +296,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isString($inputValue)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -307,7 +307,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) < $min) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -318,7 +318,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) > $min) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -329,7 +329,7 @@ class Request
                 ':max' => $max
             ]);
             if ((strlen($inputValue) < $min and strlen($inputValue) > $max)) {
-                Redirect::redirectWithMessage($redirect, '', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }

@@ -42,9 +42,7 @@ abstract class Controller
             'debug' => true,
             'cache' => 'Config/Cache'
         ]);
-
         require_once 'Config/twigGlobals.php';
-
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 
             require_once 'App/Views/Templates/Header.twig';

@@ -2,6 +2,7 @@
 
 use Helpers\Csrf;
 use Helpers\Session;
+use CoffeeCode\Router\Router;
 
 session_start();
 if(!file_exists('vendor/autoload.php')) 
@@ -9,14 +10,12 @@ die('Falha ao executar o autoload, por favor rode o comando composer install no 
 require_once 'vendor/autoload.php';
 require_once 'Config/config.php';
 require_once 'Library/Core/Minifier.php';
-require_once 'Config/routes.php';
 require_once 'Config/lang/'.SITE_LANG.'.php';
 Session::sessionTokenGenerate();
-// if(!Session::sessionTokenValidade()){
-//     die('Opss... Algo saiu errado por favor tente novamente');
-// }
+if(!Session::sessionTokenValidade()){
+    die('Opss... Algo saiu errado por favor tente novamente');
+}
 Csrf::csrfTokengenerate();
-$c = new Core\Core;
 if (ENV === 'development') {
     $whoops = new \Whoops\Run;
     $errorPage = new Whoops\Handler\PrettyPageHandler();
@@ -26,4 +25,12 @@ if (ENV === 'development') {
     $whoops->pushHandler($errorPage);
     $whoops->register();
 }
-$c->run();
+$router = new Router(BASE_URL);
+$router->namespace('Controllers');
+require_once 'Config/routes.php';
+$router->group('ooops');
+$router->get('/{errcode}', 'NotfoundController:index');
+ $router->dispatch();
+ if($router->error()){
+     $router->redirect("/ooops/{$router->error()}");
+ }
