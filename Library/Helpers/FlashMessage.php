@@ -12,7 +12,7 @@ class FlashMessage
      * @param string $type
      * @return void
      */
-    public static function toast(string $title, string $body, string $type = "show")
+    public static function toast(string $title, string $body, string $type = "show"): void
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
@@ -37,7 +37,7 @@ HTML;
      * @param string $url
      * @return void
      */
-    public static function toastWithHref(string $title, string $body, string $type = "show", string $url)
+    public static function toastWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "App/Views/Templates/Header.twig";
         $url = BASE_URL . $url;
@@ -65,7 +65,7 @@ HTML;
      * @param integer $value
      * @return void
      */
-    public static function toastWithGoBack(string $title, string $body, string $type = "show", int $value = -1)
+    public static function toastWithGoBack(string $title, string $body, string $type = "show", int $value = -1): void
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
@@ -91,7 +91,7 @@ HTML;
      * @param string $type
      * @return void
      */
-    public static function modal(string $title, string $body, string $type = "show")
+    public static function modal(string $title, string $body, string $type = "show"): void
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
@@ -115,7 +115,7 @@ HTML;
      * @param string $url
      * @return void
      */
-    public static function modalWithHref(string $title, string $body, string $type = "show", string $url)
+    public static function modalWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "App/Views/Templates/Header.twig";
         $url = BASE_URL . $url;
@@ -144,7 +144,7 @@ HTML;
      * @param integer $value
      * @return void
      */
-    public static function modalWithGoBack(string $title, string $body, string $type = "show", int $value = -1)
+    public static function modalWithGoBack(string $title, string $body, string $type = "show", int $value = -1): void
     {
         require_once "App/Views/Templates/Header.twig";
         $msg = <<<HTML
@@ -169,7 +169,7 @@ HTML;
      * @param string $type
      * @return void
      */
-    public static function flashMessage($key, $title, $msg, $type = '')
+    public static function flashMessage($key, $title, $msg, $type = ''): void
     {
         $_SESSION['flash'][$key] = [
             'title' => $title,
@@ -185,7 +185,7 @@ HTML;
      * @param string $msg
      * @return void
      */
-    public static function getFlashMessage($key)
+    public static function getFlashMessage($key): void
     {
         if(!empty($_SESSION['flash'][$key])){
             $flashMessage = $_SESSION['flash'][$key]; 

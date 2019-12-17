@@ -7,7 +7,7 @@ class CreateUserAuth extends AbstractMigration
     /**
      * Migration criada - Via Scooby_CLI.
      */
-    public function change()
+    public function change(): void
     {
         $this->Table('users')
         ->addColumn('name', 'string', ['null' => false])

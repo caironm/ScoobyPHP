@@ -7,7 +7,7 @@ class PasswordRescue extends AbstractMigration
     /**
      * Migration criada - Via Scooby_CLI.
      */
-    public function change()
+    public function change(): void
     {
         $this->Table('password_user_tokens')
         ->addColumn('user_id', 'integer', ['null' => false])

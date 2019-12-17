@@ -54,7 +54,7 @@ abstract class Controller
             require_once 'App/Views/Templates/Footer.twig';
         } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
 
-            if (Auth::authValidation()) {
+            if (Auth::authValidOrFail()) {
                 require_once 'App/Views/Templates/Header.twig';
                 $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
                 extract($ViewData);
@@ -74,7 +74,7 @@ abstract class Controller
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
         } else if (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
 
-            Auth::authValidation();
+            Auth::authValidOrFail();
             require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Header.twig';
 
             $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');

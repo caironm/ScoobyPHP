@@ -21,7 +21,7 @@ class Email
      * @param string $attch
      * @return void
      */
-    public static function sendEmailWithSmtp(string $title, $msg, array $from, array $to, string $attch = null)
+    public static function sendEmailWithSmtp(string $title, $msg, array $from, array $to, string $attch = null): bool
     {
         $transport = (new Swift_SmtpTransport(SMTP, SMTP_PORT, SMTP_CETTIFICATE))
             ->setUsername(SMTP_USER)

@@ -13,7 +13,7 @@ class Cli
      * @param string $msg
      * @return void
      */
-    public static function println($msg)
+    public static function println(string $msg): void
     {
         echo $msg.PHP_EOL;
     }
@@ -24,7 +24,7 @@ class Cli
      * @param string $msg
      * @return string
      */
-    public static function getParam($msg)
+    public static function getParam(string $msg): string
     {
         echo $msg.PHP_EOL;
         $param = fgets(STDIN);

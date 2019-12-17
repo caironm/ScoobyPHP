@@ -9,7 +9,7 @@ class Session
      *
      * @return void
      */
-    public static function sessionTokenGenerate()
+    public static function sessionTokenGenerate(): void
     {
         if (empty($_SESSION['ownerSession'])) {
             $_SESSION['ownerSession'] = md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']);
@@ -38,7 +38,7 @@ class Session
      * @param string $value
      * @return void
      */
-    public static function setSession(string $sessionName, string $value)
+    public static function setSession(string $sessionName, string $value): string
     {
         return $_SESSION[$sessionName] = $value;
     }
@@ -49,7 +49,7 @@ class Session
      * @param string $sessionName
      * @return void
      */
-    public static function getSession(string $sessionName)
+    public static function getSession(string $sessionName): string
     {
         return $_SESSION[$sessionName];
     }
@@ -60,7 +60,7 @@ class Session
      * @param string $sessionName
      * @return void
      */
-    public static function getAndEraseSession(string $sessionName)
+    public static function getAndEraseSession(string $sessionName): string
     {
         echo $_SESSION[$sessionName];
         return $_SESSION[$sessionName] = '';
@@ -72,7 +72,7 @@ class Session
      * @param string $sessionName
      * @return void
      */
-    public static function sessionDestroy(string $sessionName)
+    public static function sessionDestroy(string $sessionName): void
     {
         unset($_SESSION[$sessionName]);
     }

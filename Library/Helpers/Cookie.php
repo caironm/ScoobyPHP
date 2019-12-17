@@ -12,7 +12,7 @@ class Cookie
      * @param string $expire
      * @return void
      */
-    public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999)
+    public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999): string
     {
         return setCookie($cookieName, $cookieValue, time() + ($expire));
     }
@@ -24,7 +24,7 @@ class Cookie
      * @param string $cookieValue
      * @return void
      */
-    public static function setCookieForever(string $cookieName, string $cookieValue)
+    public static function setCookieForever(string $cookieName, string $cookieValue): string
     {
         return setCookie($cookieName, $cookieValue);
     }
@@ -35,13 +35,12 @@ class Cookie
      * @param string $cookieName
      * @return void
      */
-    public static function getCookie(string $cookieName)
+    public static function getCookie(string $cookieName): string
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;
-        } else {
-            return $_COOKIE[$cookieName];
         }
+        return $_COOKIE[$cookieName];
     }
 
     /**
@@ -50,14 +49,13 @@ class Cookie
      * @param string $cookieName
      * @return void
      */
-    public static function getCookieAndErase($cookieName)
+    public static function getCookieAndErase($cookieName): string
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;
-        } else {
-            echo $_COOKIE[$cookieName];
-            return $_COOKIE[$cookieName] = "";
         }
+        echo $_COOKIE[$cookieName];
+        return $_COOKIE[$cookieName] = "";
     }
 
     /**
@@ -66,13 +64,12 @@ class Cookie
      * @param sting $cookieName
      * @return void
      */
-    public static function cookieDestroy(string $cookieName)
+    public static function cookieDestroy(string $cookieName): bool
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;
-        } else {
-            unset($_COOKIE[$cookieName]);
-            return true;
         }
+        unset($_COOKIE[$cookieName]);
+        return true;
     }
 }

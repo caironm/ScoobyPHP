@@ -22,7 +22,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $this->Load("pages", "login");
     }
@@ -32,7 +32,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function login()
+    public function login(): void
     {
         $email =  Request::input("email");
         $pass =  Request::input("pass");
@@ -50,7 +50,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         FlashMessage::getFlashMessage('errMessage');
         $this->Load("pages", "register");
@@ -61,7 +61,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function saveUser()
+    public function saveUser(): void
     {
         Request::formValidate('name', 'nome', 'register', ['required', 'string', 'max'], 60);
         Request::formValidate('email', 'email', 'register', ['required', 'email']);
@@ -93,7 +93,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function exit()
+    public function exit(): void
     {
         Login::sessionLoginDestroyWithRedirect("login");
     }
@@ -103,7 +103,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function passwordRescue()
+    public function passwordRescue(): void
     {
         $this->Load("pages", "PasswordRescue");
     }
@@ -114,7 +114,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    public function newPass()
+    public function newPass(): void
     {
         if (empty(Request::input("email"))) {
             $this->Load('pages', 'PasswordRescue', [
@@ -160,7 +160,7 @@ HTML;
      *
      * @return void
      */
-    public function saveNewPassword()
+    public function saveNewPassword(): void
     {
         $token = $_GET['token'];
         $_SESSION['token'] = $token;
@@ -187,7 +187,7 @@ HTML;
      *
      * @return void
      */
-    public function passwordReset()
+    public function passwordReset(): void
     {
         $token = $_POST['passwordToken'];
         if (empty($_POST['new-password']) and empty($_POST['confirm-password'])) {
@@ -220,7 +220,7 @@ HTML;
      *
      * @return void
      */
-    public function loged()
+    public function loged(): void
     {
         $this->Load('pages', 'DashBoard');
     }
@@ -231,13 +231,13 @@ HTML;
      * @param integer $id
      * @return void
      */
-    public function deleteUser()
+    public function deleteUser(): void
     {
         $id = $_SESSION['id'];
         $user = new User;
         $u = $user->find($id);
         $u->delete();
-        return Redirect::redirectTo('login');
+        Redirect::redirectTo('login');
     }
 
     /**
@@ -245,7 +245,7 @@ HTML;
      *
      * @return void
      */
-    public function alterUser()
+    public function alterUser(): void
     {
         $id = Session::getSession('id');
         $user = new User;
@@ -267,7 +267,7 @@ HTML;
      *
      * @return void
      */
-    public function updateUser()
+    public function updateUser(): void
     {
         $id = Session::getSession('id');
         $name = Request::post('name');

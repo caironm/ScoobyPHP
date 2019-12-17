@@ -14,7 +14,7 @@ class Login
      * @param string $email
      * @return void
      */
-    private static function sessionLoginGenerate(int $id, string $email)
+    private static function sessionLoginGenerate(int $id, string $email): void
     {
         $_SESSION['id'] = $id;
         $_SESSION['email'] = $email;
@@ -26,7 +26,7 @@ class Login
      *
      * @return void
      */
-    public static function sessionLoginDestroy()
+    public static function sessionLoginDestroy(): void
     {
         $_SESSION['id'] = "";
         $_SESSION['email'] = "";
@@ -66,7 +66,7 @@ class Login
      * @param string $pass
      * @return void
      */
-    public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id')
+    public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id'): bool
     {
         $helper = new Helper;
         if (Csrf::csrfTokenValidate() === true) {

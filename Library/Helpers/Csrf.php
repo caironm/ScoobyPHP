@@ -10,7 +10,7 @@ class Csrf
      *
      * @return void
      */
-    public static function csrfTokengenerate()
+    public static function csrfTokengenerate(): void
     {
         if (!isset($_SESSION['csrfToken'])) {
             $_SESSION['csrfToken'] = md5(uniqid(rand(), true));
@@ -22,7 +22,7 @@ class Csrf
      *
      * @return void
      */
-    public static function csrfTokenField()
+    public static function csrfTokenField(): bool
     {
         self::csrfTokengenerate();
         echo "<input type='hidden' name='csrfToken' value=".$_SESSION['csrfToken'].">";
@@ -34,7 +34,7 @@ class Csrf
      *
      * @return void
      */
-    public static function csrfTokenValidate()
+    public static function csrfTokenValidate(): bool
     {
         if (!isset($_SESSION['csrfToken']) or empty($_SESSION['csrfToken'])) {
             return false;

@@ -11,7 +11,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $this->Load('pages', 'Home', [
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']

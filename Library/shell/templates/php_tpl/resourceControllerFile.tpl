@@ -12,7 +12,7 @@ class $name extends Controller
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
          $this->Load("Pages", "", []);
     }
@@ -22,7 +22,7 @@ class $name extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         $this->Load("Pages", "", []);
     }
@@ -43,7 +43,7 @@ class $name extends Controller
      * @param array $data
      * @return void
      */
-    public function show($data)
+    public function show($data): void
     {
         $id = $data['id'];
         $this->Load("Pages", "", []);
@@ -56,7 +56,7 @@ class $name extends Controller
      * @param array $data
      * @return void
      */
-    public function edit($data)
+    public function edit($data): void
     {
         $id = $data['id'];
         $this->Load("Pages", "", []);

@@ -23,7 +23,7 @@ class Redirect
      * @param integer $value
      * @return void
      */
-    public static function redirectBack(int $value = -1)
+    public static function redirectBack(int $value = -1): void
     {
         echo "<script>window.history.go($value)</script>"; 
     }

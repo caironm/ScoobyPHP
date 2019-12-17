@@ -6,7 +6,7 @@ use \MatthiasMullie\Minify;
 
 class Minifier
 {
-    public static function minify($path, $minifyName, $type)
+    public static function minify($path, $minifyName, $type): bool
     {
         if ($type == "css") {
             $sourcePath = $path."/".$minifyName.".css";
@@ -24,6 +24,6 @@ class Minifier
             $minifier->minify($minifiedPath);
             return true;
         }
-        return "Arquivo inválido";
+        return false;
     }
 }
