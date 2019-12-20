@@ -34,10 +34,12 @@ class Auth
      *
      * @return void
      */
-    public static function authValidOrFail(): void
+    public static function authValidOrFail(): bool
     {
         if(!self::authValidation()){
             Redirect::redirectTo('ooops/404');
+            return false;
         }
+        return true;
     }
 }

@@ -8,7 +8,7 @@ if (ENV == 'development') {
      define("HOME", "home");
 
      //define o nome do site em desenvolvimento
-     define('SITE_NAME', 'ScoobyPHP');
+     define('SITE_NAME', 'ScoobyPHP-new');
 
      //define o idioma das menssagens exibidas automaticamente pelo o frameowok em desenvolvimento
      define('SITE_LANG', 'pt_br');

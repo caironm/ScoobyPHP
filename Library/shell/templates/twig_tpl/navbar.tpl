@@ -15,15 +15,17 @@
     </div>
     <div id="home">
     <div class="container">
-        <h2 class="center">
-            <b>ScoobY Framework</b>
-        </h2>
-        <h3>
-            {{ wellcomeMessage }}
-        </h3>
-        <footer class="">
-            <span class="right footer-msg"> Feito em <i class="green-text"><strong>PG</strong></i> com muito <i
-                    class="material-icons right red-text">favorite</i></span>
-        </footer>
+        <div class="home">
+            <h2 class="center">
+                <b>ScoobY Framework</b>
+            </h2>
+            <h3>
+                {{ wellcomeMessage }}
+            </h3>
+            <footer class="">
+                <span class="right footer-msg"> Feito em <i class="green-text"><strong>PG</strong></i> com muito <i
+                        class="material-icons right red-text">favorite</i></span>
+            </footer>
+        </div>
     </div>
-</div>    
+</div>

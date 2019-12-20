@@ -274,7 +274,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isNegative($inputValue)) {
-                FlashMessage::flashMessageWithRedirect('errMessage',  'Opss...', $msg, 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }
@@ -285,7 +285,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isPositive($inputValue)) {
-                Redirect::redirectWithMessage($redirect, 'O campo ' . $inputAlias . ' Requer um valor positivo válido', 'error');
+                FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
                 exit;
             }
         }

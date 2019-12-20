@@ -45,6 +45,7 @@ function showHeaderOption()
 | DIGITE: 'make:model -m -s' ou a paravra --migration --seed para criar         |
 | um model com uma respectiva migration e uma respectiva seed                   |
 | DIGITE: 'make:view' para criar uma View                                       |
+| DIGITE: 'make:view -a' para criar uma View autenticada                        |
 | DIGITE: 'make:file' para criar um Arquivo                                     |
 | DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig                 |
 | DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
@@ -244,8 +245,44 @@ function execOptionMakeView()
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
     ]);
+    $register = file_get_contents('Config/authConfig.php');
+    $register = strtr($register, [
+        '$notAutentication = [' => '$notAutentication = [
+    '."'$name'".','
+    ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     fwrite($f, $content);
+    fclose($f);
+    $f = fopen('Config/authConfig.php', 'w+');
+    fwrite($f, $register);
+    fclose($f);
+    Cli::println("$name criado em 'App/Views/Pages' com sucesso.");
+}
+
+function execOptionMakeViewAuth()
+{
+    Cli::println("Você optou por criar uma View.");
+    $name = Cli::getParam('Por favor, DIGITE o nome da View a ser criada');
+    $name = ucfirst($name);
+    if (file_exists("App/Views/Pages/$name.twig")) {
+        Cli::println("ERROR: View já existente na pasta 'App/Views/Pages'");
+        exit;
+    }
+    $content = file_get_contents('Library/shell/templates/twig_tpl/viewFile.tpl');
+    $content = strtr($content, [
+        'dateNow' => date('d-m-y - H:i:a'),
+        '$name' => $name
+    ]);
+    $register = file_get_contents('Config/authConfig.php');
+    $register = strtr($register, [
+        '$autentication = [' => '$autentication = [
+    '."'$name'".','
+    ]);
+    $f = fopen("App/Views/Pages/$name.twig", 'w+');
+    fwrite($f, $content);
+    fclose($f);
+    $f = fopen('Config/authConfig.php', 'w+');
+    fwrite($f, $register);
     fclose($f);
     Cli::println("$name criado em 'App/Views/Pages' com sucesso.");
 }
@@ -349,6 +386,10 @@ function execOptionMakeAuth()
     $userController = file_get_contents('Library/shell/templates/php_tpl/userController.tpl');
     $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
 
+    $dashboardController = file_get_contents('Library/shell/templates/php_tpl/dashboardController.tpl');
+    $dashboardController = strtr($dashboardController, ['dateNow' => date('d-m-y - H:i:a')]);
+
+
     $userModel = file_get_contents('Library/shell/templates/php_tpl/userModel.tpl');
     $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
 
@@ -385,6 +426,10 @@ function execOptionMakeAuth()
         Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
         exit;
     }
+    if (file_exists("App/Controllers/DashboardController.php")) {
+        Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
+        exit;
+    }
     if (file_exists("App/Models/User.php")) {
         Cli::println("ERROR: Model User já existente na pasta 'App/Models'");
         exit;
@@ -407,6 +452,10 @@ function execOptionMakeAuth()
     }
     $f = fopen("App/Controllers/UserController.php", 'w+');
     fwrite($f, $userController);
+    fclose($f);
+    Cli::println("UserController criado em 'App/Controllers' com sucesso.");
+    $f = fopen("App/Controllers/DashboardController.php", 'w+');
+    fwrite($f, $dashboardController);
     fclose($f);
     Cli::println("UserController criado em 'App/Controllers' com sucesso.");
     $f = fopen("App/Models/User.php", 'w+');
@@ -506,6 +555,11 @@ do {
         $component == 'makeview'
     ) {
         execOptionMakeView();
+    }elseif (
+        $component == 'make:view -a' or
+        $component == 'makeview -a'
+    ) {
+        execOptionMakeViewAuth();
     } elseif (
         $component == 'newdb' or
         $component == 'new:db'

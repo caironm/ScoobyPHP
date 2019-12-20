@@ -10,7 +10,6 @@ use Helpers\FlashMessage;
 use Helpers\Login;
 use Helpers\Redirect;
 use Helpers\Request;
-use Helpers\Session;
 use Helpers\Validation;
 use Models\PasswordUserToken;
 use Models\User;
@@ -38,6 +37,7 @@ class UserController extends Controller
         $pass =  Request::input("pass");
         if (Login::loginValidate($email, $pass, "users", "email", "password", "id")) {
             Redirect::redirectTo('dashboard');
+            exit;
         } else {
             $this->Load("pages", "login", [
                 "msg" => FlashMessage::toast("Opss", LOGIN_AUTHENTICATION_FAILED, "error")
@@ -86,16 +86,6 @@ class UserController extends Controller
                 ]);
             }
         } 
-    }
-
-    /**
-     * Faz o logout do usuario
-     *
-     * @return void
-     */
-    public function exit(): void
-    {
-        Login::sessionLoginDestroyWithRedirect("login");
     }
 
     /**
@@ -213,98 +203,5 @@ HTML;
                 'msg' => FlashMessage::toast('Ok...', PASSWORD_UPDATE, 'success')
             ]);
         }
-    }
-
-    /**
-     * Faz o redirecionamento para a área logada do sistema
-     *
-     * @return void
-     */
-    public function loged(): void
-    {
-        $this->Load('pages', 'DashBoard');
-    }
-
-    /**
-     * Deleta o usuario logado
-     *
-     * @param integer $id
-     * @return void
-     */
-    public function deleteUser(): void
-    {
-        $id = $_SESSION['id'];
-        $user = new User;
-        $u = $user->find($id);
-        $u->delete();
-        Redirect::redirectTo('login');
-    }
-
-    /**
-     * Busca as informações dos usuario e chama a view de edição
-     *
-     * @return void
-     */
-    public function alterUser(): void
-    {
-        $id = Session::getSession('id');
-        $user = new User;
-        $u = $user->find($id);
-        if ($u == null) {
-            $this->Load('pages', 'Dashboard', [
-                'msg' => FlashMessage::toast('Error:', SOMETHING_WRONG, 'error')
-            ]);
-            exit;
-        }
-        $this->Load('pages', 'UpdateUser', [
-            'name' => $u->name,
-            'email' => $u->email
-        ]);
-    }
-
-    /**
-     * Atualiza as informações do usuario
-     *
-     * @return void
-     */
-    public function updateUser(): void
-    {
-        $id = Session::getSession('id');
-        $name = Request::post('name');
-        $email = Request::post('email');
-        $password = Request::post('pass');
-        $user =  new User;
-        $u = $user->find($id);
-        if (empty($password)) {
-            $u->name = $name;
-            $u->email = $email;
-            $u->save();
-            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
-            exit;
-        }if (empty($name)) {
-            $u->password = Login::passwordHash($password);
-            $u->email = $email;
-            $u->save();
-            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
-            exit;
-        }elseif (empty($email)) {
-            $u->name = $name;
-            $u->password = Login::passwordHash($password);
-            $u->save();
-            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
-            exit;
-        }elseif (empty($password)) {
-            $u->name = $name;
-            $u->email = $email;
-            $u->save();
-            FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
-            exit;
-        }
-        $u->name = $name;
-        $u->email = $email;
-        $u->password = Login::passwordHash($password);
-        $u->save();
-        FlashMessage::modalWithHref('Ok...',UPDATE_DATA_SUCCESS, 'success', 'dashboard');
-        exit;
     }
 }

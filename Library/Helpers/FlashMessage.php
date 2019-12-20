@@ -169,14 +169,18 @@ HTML;
      * @param string $type
      * @return void
      */
-    public static function flashMessage($key, $title, $msg, $type = ''): void
+    public static function flashMessage($key, $title, $msg, $type = 'info', $redirect = null): void
     {
         $_SESSION['flash'][$key] = [
             'title' => $title,
             'msg' => $msg,
             'type' => $type
         ];
-        Redirect::redirectBack();
+        if($redirect === null){
+            Redirect::redirectBack();
+            exit;
+        }
+        Redirect::redirectTo($redirect);
     }
 
     /**

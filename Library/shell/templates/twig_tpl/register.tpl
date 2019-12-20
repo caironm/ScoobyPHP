@@ -1,5 +1,5 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
-<div class="container-fluid bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
+<div class="container bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
 <a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
     <h3 class="center">ScoobYTasks - Novo Usuário</h3>
     {% if msg %}

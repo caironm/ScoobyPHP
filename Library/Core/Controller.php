@@ -42,7 +42,16 @@ abstract class Controller
             'debug' => true,
             'cache' => 'Config/Cache'
         ]);
-        require_once 'Config/twigGlobals.php';
+        $twig->addGlobal('csrfToken', $_SESSION['csrfToken']);
+        $twig->addGlobal('base_url', BASE_URL);
+        $twig->addGlobal('assets', ASSET);
+        $twig->addGlobal('session', $_SESSION);
+        $twig->addGlobal('session', $_SESSION);
+        $twig->addGlobal('upload', "Public/uploaded/");
+        $twig->addGlobal('method_put', '<input type="hidden" name="_method" value="PUT">');
+        $twig->addGlobal('method_delete', '<input type="hidden" name="_method" value="DELETE">');
+        $twig->addGlobal('method_patch', '<input type="hidden" name="_method" value="PATCH">');
+        require_once 'Config/twigGlobalVariables.php';
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
 
             require_once 'App/Views/Templates/Header.twig';
@@ -53,7 +62,6 @@ abstract class Controller
 
             require_once 'App/Views/Templates/Footer.twig';
         } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
-
             if (Auth::authValidOrFail()) {
                 require_once 'App/Views/Templates/Header.twig';
                 $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');

@@ -7,16 +7,6 @@ use Carbon\Carbon;
 class Helper
 {
     /**
-     * Metodo que instancia a classe Auth
-     *
-     * @return void
-     */
-    public static function auth()
-    {
-        return new Auth;
-    }
-
-    /**
      * Metodo que instancia a classe externa Carbon
      *
      * @return void

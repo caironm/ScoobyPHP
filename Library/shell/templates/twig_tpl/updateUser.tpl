@@ -1,5 +1,5 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
-<div class="container-fluid bg-login z-depth-5" style="margin:3% 10% !important; padding:0; background-color: #ddd !important">
+<div class="container bg-login z-depth-5" style="margin:3% auto !important; padding:0; background-color: #ddd !important">
     <a href="{{ base_url }}back" class="btn black">{{ btn_back }}</a>
         <h3 class="center">ScoobYTasks - Atualizar Usuário</h3>
         {% if msg %}
@@ -8,6 +8,7 @@
         <div class="row">
             <div class="col s12 m8 offset-m2">
                 <form class="login-form  z-depth-5" method="post" action="{{ base_url }}update-user">
+                    {{ method_put|raw }}
                     <div class="card">
                         <input type="hidden" name="csrfToken" value="{{ csrfToken }}">
                         <div class="card-content">

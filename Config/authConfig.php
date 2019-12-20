@@ -12,7 +12,6 @@ $notAutentication = [
  * Array contendo as views que passarão pela autenticação
  */
 $autentication = [
-    
 ];
 
 /**
