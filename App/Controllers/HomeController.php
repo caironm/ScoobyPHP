@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index(): void
     {
-        $this->Load('pages', 'Home', [
+        $this->view('pages', 'Home', [
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']
         ]);
     }

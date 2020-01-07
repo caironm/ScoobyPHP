@@ -13,6 +13,6 @@ class NotfoundController extends Controller
      */
     public function index($data): void
     {
-        $this->Load('error', '404', ['code' => $data['errcode']]);
+        $this->view('error', '404', ['code' => $data['errcode']]);
     }
 }

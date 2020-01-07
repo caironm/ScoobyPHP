@@ -102,67 +102,65 @@ In this folder are the system pages, such as the existing view home and all othe
 
 In this folder are the default Scooby PHP templates, with css, js and similar uploads.
 
-### Config
+#### App/Config
 
 Explain what these tests test and why
 
-#### Config/Cache
+##### App/Config/lang
 
 Explain what these tests test and why
 
-#### Config/lang
+#### App/Db
 
 Explain what these tests test and why
 
-### Db
+##### App/Db/Migrations
 
 Explain what these tests test and why
 
-#### Db/Migrations
+##### App/Db/Seeds
 
 Explain what these tests test and why
 
-#### Db/Seeds
+#### App/Public
 
 Explain what these tests test and why
 
-### Library
+##### App/Public/assets
 
 Explain what these tests test and why
 
-#### Library/Core
+###### App/Public/assets/css
 
 Explain what these tests test and why
 
-#### Library/Helpers
+###### App/Public/assets/img
 
 Explain what these tests test and why
 
-#### Library/Shell
+###### App/Public/assets/js
 
 Explain what these tests test and why
 
-##### Library/Shell/Templates
+### System
+
+#### System/SysConfig/Cache
 
 Explain what these tests test and why
 
-### Public
+#### System/Core
 
 Explain what these tests test and why
 
-#### Public/assets
+#### System/Helpers
 
 Explain what these tests test and why
 
-##### Public/assets/css
+#### System/Shell
 
 Explain what these tests test and why
 
-##### Public/assets/img
-
-Explain what these tests test and why
-
-##### Public/assets/js
+##### System/Shell/Templates
 
 Explain what these tests test and why
 
@@ -258,7 +256,7 @@ Explain what these tests test and why
 Give an example
 ```
 
-## Public
+### App/Public
 
 Add additional notes about how to deploy this on a live system
 
@@ -508,6 +506,7 @@ Give an example
 * [Robmorgan/phinx](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 * [Swiftmailer](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 * [dfridrich/php-mime-type](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [coffecode/router](https://rometools.github.io/rome/) - Used to generate RSS
 
 ### Front-End
 
@@ -516,6 +515,7 @@ Give an example
 * [SweetAlert-2](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 * [IziToast](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 * [Animate.css](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Axios](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
