@@ -66,6 +66,7 @@ trait RouterTrait
         preg_match_all("~\{\s* ([a-zA-Z_][a-zA-Z0-9_-]*) \}~x", $route, $keys, PREG_SET_ORDER);
         $routeDiff = array_values(array_diff(explode("/", $this->patch), explode("/", $route)));
 
+        /** @scrutinizer ignore-call */
         $this->formSpoofing();
         $offset = ($this->group ? 1 : 0);
         foreach ($keys as $key) {

@@ -11,9 +11,9 @@ class Seeders
      *
      * @param string $table
      * @param array $arr
-     * @return bool
+     * @return string|bool
      */
-    public function Seed($table, $arr = []): bool
+    public function Seed($table, $arr = [])
     {
         if (!empty($_SERVER['HTTP_USER_AGENT'])) {
             return("ERROR: Um erro desconhecido ocorreu.");

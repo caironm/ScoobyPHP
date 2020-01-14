@@ -53,6 +53,9 @@ class ExtendsRequestFormValidate extends Request
                 //exit;
             }
         }
+        /** @scrutinizer ignore-type */
+        /** @scrutinizer ignore-call */ 
+        /** @scrutinizer ignore-unused */ 
         parent::formValidate($input, $inputAlias, $redirect, $rules, $min = null, $max = null);
     }
 }

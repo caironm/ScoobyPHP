@@ -2,7 +2,6 @@
 
 use Scooby\Helpers\Csrf;
 use Scooby\Helpers\Session;
-use CoffeeCode\Router\Router;
 
 session_start();
 if(!file_exists('vendor/autoload.php'))
