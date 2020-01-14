@@ -41,13 +41,13 @@ if (ENV == 'development') {
     define('COLLATION', 'utf8_unicode_ci');
 
     //define a url base do sistema
-    define("BASE_URL", "http://localhost/" . SITE_NAME . "/");
+    define("BASE_URL", "http://localhost/".SITE_NAME."/");
 
     //define a url para a pasta node_modules
-    define("NODE_MODULES", "http://localhost/" . SITE_NAME . "/node_modules/");
+    define("NODE_MODULES", "http://localhost/".SITE_NAME."/node_modules/");
 
     //define a url para a pasta assets
-    define("ASSET", "http://localhost/" . SITE_NAME . "/App/Public/assets/");
+    define("ASSET", "http://localhost/".SITE_NAME."/App/Public/assets/");
 
     //Define o endereço do servidor de email a ser utilizado em modo de desenvolvimento 
     define('SMTP', 'smtp.gmail.com');

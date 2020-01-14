@@ -13,7 +13,7 @@ class Redirect
      */
     public static function redirectTo(string $url): void
     {
-        header("Location:" . BASE_URL . "$url");
+        header("Location:".BASE_URL."$url");
     }
 
     /**
