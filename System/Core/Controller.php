@@ -73,17 +73,4 @@ abstract class Controller
             $this->view('error', '404');
         }
     }
-
-    /**
-     * Retorna um array no formato json
-     *
-     * @param array $array
-     * @return void
-     */
-    public function json(array $array = []): void
-    {
-        header('Content-type: application/json');
-        echo json_encode($array);
-        return;
-    }
 }
