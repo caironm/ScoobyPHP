@@ -36,7 +36,9 @@ class Email
             $message->attach(Swift_Attachment::fromPath($attch, $mimeType));
         }
         $result = $mailer->send($message);
-        if ($result < 1) return false;
+        if ($result < 1) {
+            return false;
+        }
         return true;
     }
 }
