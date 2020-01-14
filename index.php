@@ -4,12 +4,13 @@ use Scooby\Helpers\Csrf;
 use Scooby\Helpers\Session;
 
 session_start();
-if (!file_exists('vendor/autoload.php'))
+if (!file_exists('vendor/autoload.php')) {
     die('Falha ao executar o autoload, por favor rode o comando composer install no termainal e recarregue a pagina novamente');
+}
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/Minifier.php';
-require_once 'App/Config/lang/' . SITE_LANG . '.php';
+require_once 'App/Config/lang/'.SITE_LANG.'.php';
 Session::sessionTokenGenerate();
 if (!Session::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');

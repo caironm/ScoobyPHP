@@ -40,7 +40,7 @@ HTML;
     public static function toastWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "App/Views/Templates/Header.twig";
-        $url = BASE_URL . $url;
+        $url = BASE_URL.$url;
         $msg = <<<HTML
         <script>
             iziToast.$type({
@@ -118,7 +118,7 @@ HTML;
     public static function modalWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "App/Views/Templates/Header.twig";
-        $url = BASE_URL . $url;
+        $url = BASE_URL.$url;
         $msg = <<<HTML
         <script>
             Swal.fire({

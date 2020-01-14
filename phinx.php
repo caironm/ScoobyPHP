@@ -3,8 +3,8 @@ require_once 'App/Config/config.php';
 require_once 'App/Config/env.php';
 return [
     'paths' => [
-        'migrations' => __DIR__ . '/App/db/migrations',
-        'seeds' => __DIR__ . '/App/db/seeds'
+        'migrations' => __DIR__.'/App/db/migrations',
+        'seeds' => __DIR__.'/App/db/seeds'
     ],
     'environments' => [
         'default_migration_table' => 'migrations_log',

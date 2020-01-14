@@ -76,7 +76,7 @@ trait RouterTrait
         $route = (!$this->group ? $route : "/{$this->group}{$route}");
         $data = $this->data;
         $namespace = $this->namespace;
-        $router = function () use ($method, $handler, $data, $route, $name, $namespace) {
+        $router = function() use ($method, $handler, $data, $route, $name, $namespace) {
             return [
                 "route" => $route,
                 "name" => $name,
@@ -98,7 +98,7 @@ trait RouterTrait
      */
     private function handler($handler, $namespace)
     {
-        return (!is_string($handler) ? $handler : "{$namespace}\\" . explode($this->separator, $handler)[0]);
+        return (!is_string($handler) ? $handler : "{$namespace}\\".explode($this->separator, $handler)[0]);
     }
 
     /**
@@ -141,7 +141,7 @@ trait RouterTrait
      */
     private function process(string $route, array $arguments, array $params = null): string
     {
-        $params = (!empty($params) ? "?" . http_build_query($params) : null);
-        return str_replace(array_keys($arguments), array_values($arguments), $route) . "{$params}";
+        $params = (!empty($params) ? "?".http_build_query($params) : null);
+        return str_replace(array_keys($arguments), array_values($arguments), $route)."{$params}";
     }
 }

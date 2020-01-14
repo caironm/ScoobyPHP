@@ -15,7 +15,7 @@ class Cli
      */
     public static function println(string $msg): void
     {
-        echo $msg . PHP_EOL;
+        echo $msg.PHP_EOL;
     }
 
     /**
@@ -26,7 +26,7 @@ class Cli
      */
     public static function getParam(string $msg): string
     {
-        echo $msg . PHP_EOL;
+        echo $msg.PHP_EOL;
         $param = fgets(STDIN);
         $param = trim($param);
         return $param;
