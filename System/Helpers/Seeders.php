@@ -16,7 +16,7 @@ class Seeders
     public function Seed($table, $arr = []): bool
     {
         if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-            die("ERROR: Um erro desconhecido ocorreu.");
+            return("ERROR: Um erro desconhecido ocorreu.");
         }
         require_once '../../../App/Config/env.php';
         require_once '../../../App/Config/config.php';

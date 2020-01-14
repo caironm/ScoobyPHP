@@ -12,7 +12,6 @@
         "swiftmailer/swiftmailer": "^6.2",
         "dfridrich/php-mime-type": "^2.0",
         "jasongrimes/paginator": "^1.0",
-        "coffeecode/router": "^1.0",
         "coffeecode/optimizer": "^2.0"
     },
     "autoload":{
@@ -21,7 +20,8 @@
             "Scooby\\Core\\":"System/Core/",
             "Scooby\\Controllers\\":"App/Controllers/",
             "Scooby\\Models\\":"App/Models/",
-            "Scooby\\Generics\\":"App/Generics/"
+            "Scooby\\Generics\\":"App/Generics/",
+            "Scooby\\Router\\":"System/Router/"
         }
     },
     "require-dev": {

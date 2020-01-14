@@ -32,11 +32,11 @@ define('OPTIMIZE', $op->optimize(
     BASE_URL,
     SITE_ICON
 )->render());
-$router = new Router(BASE_URL);
+$router = new Scooby\Router\Router(BASE_URL);
 $router->namespace('Scooby\Controllers');
 require_once 'App/Routes/routes.php';
 $router->group('ooops');
-$router->get('/{errcode}', 'NotfoundController:index');
+$router->get('/{errcode}', 'NotfoundController@index');
  $router->dispatch();
  if($router->error()){
      $router->redirect("/ooops/{$router->error()}");

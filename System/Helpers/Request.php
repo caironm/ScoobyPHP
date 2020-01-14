@@ -8,7 +8,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return string
+     * @return string|bool
      */
     public static function input(string $inputName)
     {
@@ -30,7 +30,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return string
+     * @return string|bool
      */
     public static function get(string $inputName)
     {
@@ -50,7 +50,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return string
+     * @return string|bool
      */
     public static function post(string $inputName)
     {
@@ -71,7 +71,7 @@ class Request
      *
      * @param string $name
      * @param string $path
-     * @return array
+     * @return array|bool
      */
     public static function upload(string $name, string $path = 'Public/uploaded/')
     {
@@ -222,7 +222,7 @@ class Request
      * @param string $inputAlias
      * @return bool
      */
-    public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
+    public static function formValidate(string $input, string $inputAlias, array $rules, int $min = null, int $max  = null)
     {
         $inputValue = $_REQUEST[$input];
         if ($inputAlias == '') {
@@ -236,7 +236,7 @@ class Request
             ]);
             if (empty($inputValue)) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('email', $rules)) {
@@ -247,7 +247,7 @@ class Request
             ]);
             if (!Validation::isEmail($inputValue)) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
 
@@ -257,9 +257,9 @@ class Request
                 ':min' => $min,
                 ':max' => $max
             ]);
-            if (!Validation::isNumber($inputValue)) {
+            if (!is_numeric($inputValue)) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('negative', $rules)) {
@@ -268,9 +268,9 @@ class Request
                 ':min' => $min,
                 ':max' => $max
             ]);
-            if (!Validation::isNegative($inputValue)) {
+            if (!is_numeric($inputValue) or $inputValue >= 0) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('positive', $rules)) {
@@ -279,9 +279,9 @@ class Request
                 ':min' => $min,
                 ':max' => $max
             ]);
-            if (!Validation::isPositive($inputValue)) {
+            if (!is_numeric($inputValue) or $inputValue < 0) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('string', $rules)) {
@@ -290,9 +290,9 @@ class Request
                 ':min' => $min,
                 ':max' => $max
             ]);
-            if (!Validation::isString($inputValue)) {
+            if (!is_string($inputValue)) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('min', $rules)) {
@@ -303,7 +303,7 @@ class Request
             ]);
             if (strlen($inputValue) < $min) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('max', $rules)) {
@@ -314,7 +314,7 @@ class Request
             ]);
             if (strlen($inputValue) > $min) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         if (in_array('between', $rules)) {
@@ -325,7 +325,7 @@ class Request
             ]);
             if ((strlen($inputValue) < $min and strlen($inputValue) > $max)) {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                return;
             }
         }
         return true;
