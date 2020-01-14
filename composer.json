@@ -17,11 +17,11 @@
     },
     "autoload":{
         "psr-4": {
-            "Helpers\\":"System/Helpers/",
-            "Core\\":"System/Core/",
-            "Controllers\\":"App/Controllers/",
-            "Models\\":"App/Models/",
-            "Generics\\":"App/Generics/"
+            "Scooby\\Helpers\\":"System/Helpers/",
+            "Scooby\\Core\\":"System/Core/",
+            "Scooby\\Controllers\\":"App/Controllers/",
+            "Scooby\\Models\\":"App/Models/",
+            "Scooby\\Generics\\":"App/Generics/"
         }
     },
     "require-dev": {

@@ -3,7 +3,7 @@
 //Seed gerada automaticamente via Scooby_CLI em dateNow
 require_once "../../../vendor/autoload.php"; 
 
-use Helpers\Seeders;
+use Scooby\Helpers\Seeders;
         
 $faker = \Faker\Factory::create("pt_BR");
         

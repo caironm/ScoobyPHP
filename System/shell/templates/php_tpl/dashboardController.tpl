@@ -1,17 +1,15 @@
 <?php
 //Controller gerado automaticamente via - Scooby-CLI em dateNow
 
-namespace Controllers;
+namespace Scooby\Controllers;
 
-namespace Controllers;
-
-use \Core\Controller;
-use \Models\User;
-use \Helpers\Redirect;
-use \Helpers\FlashMessage;
-use \Helpers\Login;
-use \Helpers\Session;
-use \Helpers\Request;
+use Scooby\Core\Controller;
+use Scooby\Models\User;
+use Scooby\Helpers\Redirect;
+use Scooby\Helpers\FlashMessage;
+use Scooby\Helpers\Login;
+use Scooby\Helpers\Session;
+use Scooby\Helpers\Request;
 
 
 class DashboardController extends Controller

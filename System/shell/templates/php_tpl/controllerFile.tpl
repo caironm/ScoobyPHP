@@ -1,9 +1,9 @@
 <?php
 //Controller gerado automaticamente via - Scooby-CLI em dateNow
 
-namespace Controllers;
+namespace Scooby\Controllers;
 
-use \Core\Controller;
+use Scooby\Core\Controller;
 
 class $name extends Controller
 {

@@ -1,5 +1,7 @@
 <?php
 
+use PDOException;
+
 //header("Content-type: text/html;charset=utf-8");
 require_once 'App/Config/env.php';
 require_once 'App/Config/config.php';

@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Scooby\Core;
 
 use Illuminate\Database\Capsule\Manager as db;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;

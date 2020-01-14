@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as db;
@@ -51,16 +51,16 @@ class Login
         $_SESSION['name'] = "";
         $_SESSION['logedIn'] = null;
         $_SESSION['statusLog'] = false;
-        return Redirect::redirectTo($viewName);
+        Redirect::redirectTo($viewName);
     }
 
     /**
      * Criptografa a senha do usuario
      *
      * @param string $pass
-     * @return void
+     * @return string
      */
-    public static function passwordHash($pass)
+    public static function passwordHash($pass): string
     {
         return password_hash($pass, PASSWORD_BCRYPT);
     }
@@ -71,7 +71,7 @@ class Login
      *
      * @param string $email
      * @param string $pass
-     * @return void
+     * @return bool
      */
     public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id', $nameField = 'name'): bool
     {

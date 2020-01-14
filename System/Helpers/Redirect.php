@@ -1,6 +1,6 @@
 <?php 
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Redirect
 {
@@ -11,9 +11,9 @@ class Redirect
      * @param string $url
      * @return void
      */
-    public static function redirectTo(string $url)
+    public static function redirectTo(string $url): void
     {
-        return header("Location:".BASE_URL."$url");
+        header("Location:".BASE_URL."$url");
     }
 
     /**

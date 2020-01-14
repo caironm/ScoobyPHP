@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 use PDO;
 
@@ -11,7 +11,7 @@ class Seeders
      *
      * @param string $table
      * @param array $arr
-     * @return void
+     * @return bool
      */
     public function Seed($table, $arr = []): bool
     {
@@ -31,7 +31,7 @@ class Seeders
         $fieldsList = substr($fieldsList, 0, -1);
         $valuesList = substr($valuesList, 0, -1);
         $sql .= $fieldsList.") values (".$valuesList.")";
-        if (!$insert = $conn->query($sql)) {
+        if (!$conn->query($sql)) {
             return false;
         }
         return true;

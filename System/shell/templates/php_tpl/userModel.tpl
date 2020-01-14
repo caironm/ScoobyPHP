@@ -2,9 +2,9 @@
 
 //Model de autenticação gerado automaticamente via Scooby-CLI em dateNow
 
-namespace Models;
+namespace Scooby\Models;
 
-use \Core\Model;
+use Scooby\Core\Model;
 
 class User extends Model
 {

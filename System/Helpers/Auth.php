@@ -1,11 +1,13 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Auth
 {
     /**
      * Metodo construtor que valida o login ou redireciona para o logout
+     *
+     * @return boolean
      */
     public static function authValidation(): bool
     {
@@ -31,13 +33,13 @@ class Auth
      * auxilia na validação de login de usuario caso o 
      * mesmo não esteja logado ele sera redirecionado para a tela de erro
      *
-     * @return void
+     * @return bool
      */
     public static function authValidOrFail($redirect = 'ooops/404'): bool
     {
         if(!self::authValidation()){
             Redirect::redirectTo($redirect);
-            exit;
+            return false;
         }
         return true;
     }

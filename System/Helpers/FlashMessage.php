@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class FlashMessage
 {
@@ -178,7 +178,6 @@ HTML;
         ];
         if($redirect === null){
             Redirect::redirectBack();
-            exit;
         }
         Redirect::redirectTo($redirect);
     }

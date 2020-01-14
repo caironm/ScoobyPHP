@@ -2,8 +2,8 @@
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 
-use Illuminate\Database\Capsule\Manager as db;
-$capsule = new db;
+use Illuminate\Database\Capsule\Manager as database;
+$capsule = new database;
 
     $capsule->addConnection([
         'driver'    => DB_DRIVER,

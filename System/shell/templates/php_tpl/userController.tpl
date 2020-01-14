@@ -2,17 +2,17 @@
 
 //Controller de autenticação gerado automaticamente via Scooby-CLI em dateNow
 
-namespace Controllers;
+namespace Scooby\Controllers;
 
-use \Core\Controller;
-use Helpers\Email;
-use Helpers\FlashMessage;
-use Helpers\Login;
-use Helpers\Redirect;
-use Helpers\Request;
-use Helpers\Validation;
-use Models\PasswordUserToken;
-use Models\User;
+use Scooby\Core\Controller;
+use Scooby\Helpers\Email;
+use Scooby\Helpers\FlashMessage;
+use Scooby\Helpers\Login;
+use Scooby\Helpers\Redirect;
+use Scooby\Helpers\Request;
+use Scooby\Helpers\Validation;
+use Scooby\Models\PasswordUserToken;
+use Scooby\Models\User;
 
 class UserController extends Controller
 {

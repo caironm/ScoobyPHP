@@ -1,7 +1,7 @@
 <?php
 
-use Helpers\Csrf;
-use Helpers\Session;
+use Scooby\Helpers\Csrf;
+use Scooby\Helpers\Session;
 use CoffeeCode\Router\Router;
 
 session_start();
@@ -33,7 +33,7 @@ define('OPTIMIZE', $op->optimize(
     SITE_ICON
 )->render());
 $router = new Router(BASE_URL);
-$router->namespace('Controllers');
+$router->namespace('Scooby\Controllers');
 require_once 'App/Routes/routes.php';
 $router->group('ooops');
 $router->get('/{errcode}', 'NotfoundController:index');

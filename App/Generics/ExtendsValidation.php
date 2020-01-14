@@ -1,6 +1,6 @@
 <?php
 
-namespace Generics;
+namespace Scooby\Generics;
 
 use Helpers\Validation;
 

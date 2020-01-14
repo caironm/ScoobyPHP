@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 use Carbon\Carbon;
 
@@ -8,8 +8,6 @@ class Helper
 {
     /**
      * Metodo que instancia a classe externa Carbon
-     *
-     * @return void
      */
     public function date()
     {
@@ -18,8 +16,6 @@ class Helper
 
     /**
      * Metodo que instancia a classe IlluminateDatabase
-     *
-     * @return void
      */
     public function illuminateDb()
     {
@@ -29,8 +25,6 @@ class Helper
     
     /**
      * Metodo que instancia a classe PDODatabase
-     *
-     * @return void
      */
     public function pdoDb()
     {

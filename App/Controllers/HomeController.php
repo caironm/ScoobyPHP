@@ -1,8 +1,9 @@
 <?php
 
-namespace Controllers;
+namespace Scooby\Controllers;
 
-use \Core\Controller;
+use Scooby\Core\Controller;
+use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Csrf
 {
@@ -20,7 +20,7 @@ class Csrf
     /**
      * Cria um campo do tipo hidden com o value possuindo um token csrf
      *
-     * @return void
+     * @return bool
      */
     public static function csrfTokenField(): bool
     {
@@ -32,7 +32,7 @@ class Csrf
     /**
      * Valida o token csrf
      *
-     * @return void
+     * @return bool
      */
     public static function csrfTokenValidate(): bool
     {

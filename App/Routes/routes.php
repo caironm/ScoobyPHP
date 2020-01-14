@@ -1,6 +1,6 @@
 <?php
 
-use Helpers\Auth;
+use Scooby\Helpers\Auth;
 
 //rotas sem autenticação
 $router->group(null);

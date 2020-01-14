@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Session
 {
@@ -19,7 +19,7 @@ class Session
     /**
      * Testa a validade do token de sessão
      *
-     * @return void
+     * @return bool
      */
     public static function sessionTokenValidade()
     {
@@ -36,7 +36,7 @@ class Session
      *
      * @param string $name
      * @param string $value
-     * @return void
+     * @return string
      */
     public static function setSession(string $sessionName, string $value): string
     {
@@ -47,7 +47,7 @@ class Session
      * Recupera o valor de uma variavel de sessão dado o nome dela
      *
      * @param string $sessionName
-     * @return void
+     * @return string
      */
     public static function getSession(string $sessionName): string
     {
@@ -58,7 +58,7 @@ class Session
      * Recupera e apaga o valor de uma variavel de sessão
      *
      * @param string $sessionName
-     * @return void
+     * @return string
      */
     public static function getAndEraseSession(string $sessionName): string
     {

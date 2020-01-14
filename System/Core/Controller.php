@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Scooby\Core;
 
 use Helpers\Auth;
 use Helpers\Redirect;
@@ -21,6 +21,10 @@ abstract class Controller
      */
     public function view(string $viewPath, string $ViewName, array $ViewData = [])
     {
+        $autentication = [];
+        $notAutentication = [];
+        $changeTemplate = [];
+        $changeAuthTemplate = [];
         include "App/Config/authConfig.php";
         $loader = new FilesystemLoader('App/Views');
         $twig = new Environment($loader, [
@@ -38,13 +42,10 @@ abstract class Controller
         $twig->addGlobal('method_patch', '<input type="hidden" name="_method" value="PATCH">');
         require_once 'App/Config/twigGlobalVariables.php';
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
-
             require_once 'App/Views/Templates/Header.twig';
-
             $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
-
             require_once 'App/Views/Templates/Footer.twig';
         } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
             if (Auth::authValidOrFail()) {
@@ -53,27 +54,20 @@ abstract class Controller
                 extract($ViewData);
                 echo $template->render($ViewData);
                 require_once 'App/Views/Templates/Footer.twig';
-                exit;
             }
             return Redirect::redirectTo('login');
         } elseif (in_array($ViewName, $changeTemplate) === true or in_array(strtolower($ViewName), $changeTemplate) === true) {
-
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Header.twig';
-
             $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
-
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
         } else if (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
-
             Auth::authValidOrFail();
             require_once 'App/Views/Templates' . ucfirst($ViewName) . 'Header.twig';
-
             $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
             extract($ViewData);
             echo $template->render($ViewData);
-
             require_once 'App/Views/Templates/' . ucfirst($ViewName) . 'Footer.twig';
         } else {
             $this->view('error', '404');
@@ -90,6 +84,6 @@ abstract class Controller
     {
         header('Content-type: application/json');
         echo json_encode($array);
-        exit;
+        return;
     }
 }

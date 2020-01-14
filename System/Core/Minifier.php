@@ -14,6 +14,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
         $cssFile = dirname(__DIR__, 2) . "/App/Public/assets/css/$cssItem";
         if (is_file($cssFile) and pathinfo($cssFile)['extension'] == "css") {
             if($_SERVER['SERVER_NAME'] == 'localhost'){
+                /** @scrutinizer ignore-unhandled */
                 @unlink(dirname(__DIR__, 2) . "/App/Public/assets/css/scooby.min.css");
             }
             $minifierCss->add($cssFile);

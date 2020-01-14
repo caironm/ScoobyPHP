@@ -1,9 +1,9 @@
 <?php
 
-namespace Generics;
+namespace Scooby\Generics;
 
-use Helpers\Request;
-use Helpers\FlashMessage;
+use Scooby\Helpers\Request;
+use Scooby\Helpers\FlashMessage;
 
 class ExtendsRequestFormValidate extends Request
 {
@@ -16,11 +16,10 @@ class ExtendsRequestFormValidate extends Request
      * @param array $rules
      * @param integer $min
      * @param integer $max
-     * @return void
+     * @return bool
      */
     public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max = null)
     {
-        $inputValue = self::input('name');
         if (in_array('validation_name', $rules)) {
 
             $msg = null;
@@ -51,7 +50,7 @@ class ExtendsRequestFormValidate extends Request
 
             if ('validation condition') {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                exit;
+                //exit;
             }
         }
         parent::formValidate($input, $inputAlias, $redirect, $rules, $min = null, $max = null);

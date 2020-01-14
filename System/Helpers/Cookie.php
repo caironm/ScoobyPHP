@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Cookie
 {
@@ -10,9 +10,9 @@ class Cookie
      * @param string $cookieName
      * @param string $cookieValue
      * @param string $expire
-     * @return void
+     * @return bool
      */
-    public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999): string
+    public static function setCookie(string $cookieName, string $cookieValue, int $expire = 999999): bool
     {
         return setCookie($cookieName, $cookieValue, time() + ($expire));
     }
@@ -22,9 +22,9 @@ class Cookie
      *
      * @param string $cookieName
      * @param string $cookieValue
-     * @return void
+     * @return bool
      */
-    public static function setCookieForever(string $cookieName, string $cookieValue): string
+    public static function setCookieForever(string $cookieName, string $cookieValue): bool
     {
         return setCookie($cookieName, $cookieValue);
     }
@@ -33,9 +33,9 @@ class Cookie
      * Retorna o valor do cookie informado
      *
      * @param string $cookieName
-     * @return void
+     * @return bool
      */
-    public static function getCookie(string $cookieName): string
+    public static function getCookie(string $cookieName): bool
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;
@@ -47,7 +47,7 @@ class Cookie
      * Recupera o valor do cookie e apaga o seu valor
      *
      * @param string $cookieName
-     * @return void
+     * @return string
      */
     public static function getCookieAndErase($cookieName): string
     {
@@ -61,8 +61,8 @@ class Cookie
     /**
      * Apaga o cookie existente
      *
-     * @param sting $cookieName
-     * @return void
+     * @param string $cookieName
+     * @return bool
      */
     public static function cookieDestroy(string $cookieName): bool
     {

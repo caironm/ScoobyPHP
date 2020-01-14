@@ -1,8 +1,8 @@
 <?php
 
-namespace Controllers;
+namespace Scooby\Controllers;
 
-use \Core\Controller;
+use Scooby\Core\Controller;
 
 class NotfoundController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 use Swift_SmtpTransport;
 use Swift_Mailer;
@@ -19,7 +19,7 @@ class Email
      * @param array $from
      * @param array $to
      * @param string $attch
-     * @return void
+     * @return bool
      */
     public static function sendEmailWithSmtp(string $title, $msg, array $from, array $to, string $attch = null): bool
     {

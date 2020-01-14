@@ -1,6 +1,6 @@
 <?php
 
-namespace Helpers;
+namespace Scooby\Helpers;
 
 class Request
 {
@@ -8,7 +8,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return void
+     * @return string
      */
     public static function input(string $inputName)
     {
@@ -30,7 +30,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return void
+     * @return string
      */
     public static function get(string $inputName)
     {
@@ -50,7 +50,7 @@ class Request
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
-     * @return void
+     * @return string
      */
     public static function post(string $inputName)
     {
@@ -71,16 +71,18 @@ class Request
      *
      * @param string $name
      * @param string $path
-     * @return void
+     * @return array
      */
     public static function upload(string $name, string $path = 'Public/uploaded/')
     {
+        $arrPath = [];
         if (Csrf::csrfTokenValidate()) {
             if (!isset($_FILES[$name]) or empty($_FILES[$name])) {
                 return false;
             }
-            if (count($_FILES[$name]['tmp_name']) > 0) {
-                for ($i = 0; $i < count($_FILES[$name]['tmp_name']); $i++) {
+            $count = count($_FILES[$name]['tmp_name']);
+            if ($count > 0) {
+                for ($i = 0; $count; $i++) {
                     $mimeType = $_FILES[$name]['type'][$i];
                     $arrMimeType = explode('/', $mimeType);
                     $ext = end($arrMimeType);
@@ -100,12 +102,11 @@ class Request
      * Testa se o valor do input é positivo
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputPositive(string $inputName)
     {
-        $input = self::input($inputName);
-        if ($input < 1) {
+        if (self::input($inputName) < 1) {
             return false;
         }
         return true;
@@ -115,12 +116,11 @@ class Request
      * Testa se o valor do input é negativo
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputNegative(string $inputName)
     {
-        $input = self::input($inputName);
-        if ($input > 0) {
+        if (self::input($inputName) > 0) {
             return false;
         }
         return true;
@@ -130,12 +130,11 @@ class Request
      * Testa se o valor do input é um valor numérico
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputIsNumber(string $inputName)
     {
-        $input = self::input($inputName);
-        if (!is_numeric($input)) {
+        if (!is_numeric(self::input($inputName))) {
             return false;
         }
         return true;
@@ -145,12 +144,11 @@ class Request
      * Testa se o valor do input é uma string
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputIsString(string $inputName)
     {
-        $input = self::input($inputName);
-        if (!is_string($input)) {
+        if (!is_string(self::input($inputName))) {
             return false;
         }
         return true;
@@ -160,12 +158,11 @@ class Request
      * Testa se o valor do input é um float
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputIsFloat(string $inputName)
     {
-        $input = self::input($inputName);
-        if (!is_float($input)) {
+        if (!is_float(self::input($inputName))) {
             return false;
         }
         return true;
@@ -175,12 +172,11 @@ class Request
      * Testa se o valor do input é um int
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputIsInt(string $inputName)
     {
-        $input = self::input($inputName);
-        if (!is_int($input)) {
+        if (!is_int(self::input($inputName))) {
             return false;
         }
         return true;
@@ -190,12 +186,11 @@ class Request
      * Testa se o valor do input é do tipo file
      *
      * @param string $inputName
-     * @return void
+     * @return bool
      */
     public static function inputIsFile(string $inputName)
     {
-        $input = self::input($inputName);
-        if (!is_file($input)) {
+        if (!is_file(self::input($inputName))) {
             return false;
         }
         return true;
@@ -205,7 +200,7 @@ class Request
      * Testa se o conteudo vindo do nput existe e não é vazio
      *
      * @param string $inputName
-     * @return boolean
+     * @return bool
      */
     public static function has(string $inputName)
     {
@@ -225,7 +220,7 @@ class Request
      * @param integer $min
      * @param integer $max
      * @param string $inputAlias
-     * @return void
+     * @return bool
      */
     public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max  = null)
     {
