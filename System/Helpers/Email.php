@@ -23,7 +23,7 @@ class Email
      */
     public static function sendEmailWithSmtp(string $title, $msg, array $from, array $to, string $attch = null): bool
     {
-        $transport = (new Swift_SmtpTransport(SMTP, SMTP_PORT, SMTP_CETTIFICATE))
+        $transport = (new Swift_SmtpTransport(SMTP, (int) SMTP_PORT, SMTP_CETTIFICATE))
             ->setUsername(SMTP_USER)
             ->setPassword(SMTP_PASS);
         $mailer = new Swift_Mailer($transport);

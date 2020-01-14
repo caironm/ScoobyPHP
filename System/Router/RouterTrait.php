@@ -13,6 +13,9 @@ trait RouterTrait
     /** @var string */
     protected $httpMethod;
 
+    /** @var array */
+    protected $data;
+
     /**
      * @param string $name
      * @param array|null $data

@@ -50,12 +50,8 @@ class ExtendsRequestFormValidate extends Request
 
             if ('validation condition') {
                 FlashMessage::flashMessage('errMessage',  'Opss...', $msg, 'error');
-                //exit;
             }
         }
-        /** @scrutinizer ignore-type */
-        /** @scrutinizer ignore-call */
-        /** @scrutinizer ignore-unused */
         parent::formValidate($input, $inputAlias, $redirect, $rules, $min = null, $max = null);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Scooby\Helpers;
 
-use Core\Model;
+use Scooby\Core\Model;
 use JasonGrimes\Paginator;
 
 class Pagination

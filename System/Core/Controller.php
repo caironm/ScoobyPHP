@@ -2,8 +2,8 @@
 
 namespace Scooby\Core;
 
-use Helpers\Auth;
-use Helpers\Redirect;
+use Scooby\Helpers\Auth;
+use Scooby\Helpers\Redirect;
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 

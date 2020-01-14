@@ -1,7 +1,7 @@
 <?php
 
 use Scooby\Helpers\Csrf;
-use Scooby\Helpers\Session;
+use Scooby\Helpers\Session as session;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
@@ -11,8 +11,8 @@ require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/Minifier.php';
 require_once 'App/Config/lang/'.SITE_LANG.'.php';
-Session::sessionTokenGenerate();
-if (!Session::sessionTokenValidade()) {
+session::sessionTokenGenerate();
+if (!session::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');
 }
 Csrf::csrfTokengenerate();
@@ -22,7 +22,7 @@ if (ENV === 'development') {
     $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);
     $errorPage->setPageTitle("Opss... Algo deu errado!");
     $errorPage->setEditor("vscode");
-    $whoops->pushHandler($errorPage);
+    $whoops->prependHandler($errorPage);
     $whoops->register();
 }
 $op = new \CoffeeCode\Optimizer\Optimizer();

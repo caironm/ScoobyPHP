@@ -47,9 +47,9 @@ class Cookie
      * Recupera o valor do cookie e apaga o seu valor
      *
      * @param string $cookieName
-     * @return string
+     * @return string|bool
      */
-    public static function getCookieAndErase($cookieName): string
+    public static function getCookieAndErase($cookieName)
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;

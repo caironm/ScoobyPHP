@@ -32,6 +32,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
         $jsFile = dirname(__DIR__, 2)."/App/Public/assets/js/$jsItem";
         if (is_file($jsFile) and pathinfo($jsFile)['extension'] == "js") {
             if ($_SERVER['SERVER_NAME'] == 'localhost') {
+                /** @scrutinizer ignore-unhandled */
                 @unlink(dirname(__DIR__, 2)."/App/Public/assets/js/scooby.min.js");
             }
             $minifierJs->add($jsFile);

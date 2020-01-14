@@ -1,8 +1,5 @@
 <?php
 
-use PDOException;
-
-//header("Content-type: text/html;charset=utf-8");
 require_once 'App/Config/env.php';
 require_once 'App/Config/config.php';
 global $db;
@@ -27,6 +24,6 @@ if (ENV == 'development') {
 }
 try {
     $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'].";charset=utf8", $config['dbuser'], $config['dbpass'], [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
-} catch (PDOExeption $e) {
+} catch (Exception $e) {
     die($e->getMessage());
 }

@@ -32,7 +32,7 @@ class Validation
      * Sanitiza o email
      *
      * @param string $value
-     * @return string
+     * @return string|bool
      */
     public static function sanitizeEmail($value)
     {
