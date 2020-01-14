@@ -176,7 +176,7 @@ HTML;
             'msg' => $msg,
             'type' => $type
         ];
-        if($redirect === null){
+        if ($redirect === null) {
             Redirect::redirectBack();
         }
         Redirect::redirectTo($redirect);
@@ -190,8 +190,8 @@ HTML;
      */
     public static function getFlashMessage($key): void
     {
-        if(!empty($_SESSION['flash'][$key])){
-            $flashMessage = $_SESSION['flash'][$key]; 
+        if (!empty($_SESSION['flash'][$key])) {
+            $flashMessage = $_SESSION['flash'][$key];
             unset($_SESSION['flash'][$key]);
             self::toast($flashMessage['title'], $flashMessage['msg'], $flashMessage['type']);
         }

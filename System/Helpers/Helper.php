@@ -22,7 +22,7 @@ class Helper
         return new IlluminateDatabase;
     }
 
-    
+
     /**
      * Metodo que instancia a classe PDODatabase
      */
@@ -30,5 +30,4 @@ class Helper
     {
         return new PDODatabase;
     }
-
 }

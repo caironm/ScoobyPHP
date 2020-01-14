@@ -23,7 +23,7 @@ class ExtendsRequestFormValidate extends Request
         if (in_array('validation_name', $rules)) {
 
             $msg = null;
-            
+
             /**
              * Definindo a menssagem de falha da validação na extenção da classe Request::validate
              *
@@ -54,8 +54,8 @@ class ExtendsRequestFormValidate extends Request
             }
         }
         /** @scrutinizer ignore-type */
-        /** @scrutinizer ignore-call */ 
-        /** @scrutinizer ignore-unused */ 
+        /** @scrutinizer ignore-call */
+        /** @scrutinizer ignore-unused */
         parent::formValidate($input, $inputAlias, $redirect, $rules, $min = null, $max = null);
     }
 }

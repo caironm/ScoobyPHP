@@ -31,10 +31,10 @@ class Email
             ->setFrom($from)
             ->setTo($to)
             ->setBody($msg, 'text/html');
-            if(!empty($attch) and $attch != null){
-                $mimeType = MimeType::get($attch);
-                $message->attach(Swift_Attachment::fromPath($attch, $mimeType));
-            }
+        if (!empty($attch) and $attch != null) {
+            $mimeType = MimeType::get($attch);
+            $message->attach(Swift_Attachment::fromPath($attch, $mimeType));
+        }
         $result = $mailer->send($message);
         if ($result <  1) return false;
         return true;

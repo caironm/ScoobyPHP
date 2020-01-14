@@ -35,7 +35,7 @@ class Login
         $_SESSION['email'] = "";
         $_SESSION['name'] = "";
         $_SESSION['logedIn'] = null;
-        $_SESSION['statusLog'] = false;        
+        $_SESSION['statusLog'] = false;
     }
 
     /**
@@ -108,9 +108,9 @@ class Login
     public static function userInfo(string $info = 'userId'): ?string
     {
         Auth::authValidOrFail();
-        if(!class_exists('User')){
+        if (!class_exists('User')) {
             $user = Models\User::find($_SESSION['id']);
-                return null;
+            return null;
         }
         $arr = [
             'userName' => $user->name,
@@ -120,7 +120,7 @@ class Login
         ];
         return $arr[$info];
     }
-    
+
     /**
      * Caso o susario esteja logado ele sera redirecionado para a tela de dashboad
      * não acessando mais a tela de login
@@ -129,8 +129,8 @@ class Login
      */
     public static function isLogedRedirect(): void
     {
-        if(Auth::authValidation()){
-            Redirect::redirectTo('dashboard');            
+        if (Auth::authValidation()) {
+            Redirect::redirectTo('dashboard');
         }
     }
 }

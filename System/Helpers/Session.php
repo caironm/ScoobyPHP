@@ -12,7 +12,7 @@ class Session
     public static function sessionTokenGenerate(): void
     {
         if (empty($_SESSION['ownerSession'])) {
-            $_SESSION['ownerSession'] = md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']);
+            $_SESSION['ownerSession'] = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
         }
     }
 
@@ -23,7 +23,7 @@ class Session
      */
     public static function sessionTokenValidade()
     {
-        $token  = md5($_SERVER['REMOTE_ADDR'].$_SERVER['HTTP_USER_AGENT']);
+        $token  = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
         if (!empty($_SESSION['ownerSession']) and $_SESSION['ownerSession'] == $token) {
             return true;
         } else {

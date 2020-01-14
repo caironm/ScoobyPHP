@@ -56,7 +56,7 @@ class Validation
         }
         return true;
     }
-    
+
     /**
      * Retorna true se o email não existir nobanco de dados informado 
      *

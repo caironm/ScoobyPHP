@@ -21,7 +21,6 @@ $autentication = [
  * Pagina sem autenticação
  */
 $changeTemplate = [
-
 ];
 
 /**
@@ -31,5 +30,4 @@ $changeTemplate = [
  * Pagina com autenticação
  */
 $changeAuthTemplate = [
-    
 ];

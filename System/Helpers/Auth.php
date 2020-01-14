@@ -18,7 +18,7 @@ class Auth
             and !empty($_SESSION['statusLog'])
             and $_SESSION['statusLog'] === true
         ) {
-            if(!empty($_SESSION['ownerSession'])){
+            if (!empty($_SESSION['ownerSession'])) {
                 Session::sessionTokenValidade();
             }
             return true;
@@ -37,7 +37,7 @@ class Auth
      */
     public static function authValidOrFail($redirect = 'ooops/404'): bool
     {
-        if(!self::authValidation()){
+        if (!self::authValidation()) {
             Redirect::redirectTo($redirect);
             return false;
         }

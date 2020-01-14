@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Scooby\Helpers;
 
@@ -13,7 +13,7 @@ class Redirect
      */
     public static function redirectTo(string $url): void
     {
-        header("Location:".BASE_URL."$url");
+        header("Location:" . BASE_URL . "$url");
     }
 
     /**
@@ -25,6 +25,6 @@ class Redirect
      */
     public static function redirectBack(int $value = -1): void
     {
-        echo "<script>window.history.go($value)</script>"; 
+        echo "<script>window.history.go($value)</script>";
     }
 }

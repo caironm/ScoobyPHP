@@ -88,14 +88,14 @@ class Request
                     $ext = end($arrMimeType);
                     $fileName = md5($_FILES[$name]['name'][$i] . time() . rand(0, 99999));
                     move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path . $fileName . "." . $ext);
-                    $arrPath[$i] = $path.$fileName.'.'.$ext;  
+                    $arrPath[$i] = $path . $fileName . '.' . $ext;
                 }
                 return [true, $arrPath];
-            }else{
+            } else {
                 FlashMessage::modalWithGoBack('Opss', MSG_UPLOAD_FAIL, 'error');
             }
-        } else 
-        FlashMessage::modalWithGoBack('Opss', SOMETHING_WRONG, 'error');
+        } else
+            FlashMessage::modalWithGoBack('Opss', SOMETHING_WRONG, 'error');
     }
 
     /**
@@ -135,48 +135,6 @@ class Request
     public static function inputIsNumber(string $inputName)
     {
         if (!is_numeric(self::input($inputName))) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Testa se o valor do input é uma string
-     *
-     * @param string $inputName
-     * @return bool
-     */
-    public static function inputIsString(string $inputName)
-    {
-        if (!is_string(self::input($inputName))) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Testa se o valor do input é um float
-     *
-     * @param string $inputName
-     * @return bool
-     */
-    public static function inputIsFloat(string $inputName)
-    {
-        if (!is_float(self::input($inputName))) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Testa se o valor do input é um int
-     *
-     * @param string $inputName
-     * @return bool
-     */
-    public static function inputIsInt(string $inputName)
-    {
-        if (!is_int(self::input($inputName))) {
             return false;
         }
         return true;

@@ -13,7 +13,7 @@ if (!empty($_SERVER['HTTP_USER_AGENT'])) {
 
 function showHeader()
 {
-    Cli::println(PHP_EOL."
+    Cli::println(PHP_EOL . "
     ____                  _                      ____ _     ___ 
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
@@ -248,7 +248,7 @@ function execOptionMakeView()
     $register = file_get_contents('App/Config/authConfig.php');
     $register = strtr($register, [
         '$notAutentication = [' => '$notAutentication = [
-    '."'$name'".','
+    ' . "'$name'" . ','
     ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     fwrite($f, $content);
@@ -276,7 +276,7 @@ function execOptionMakeViewAuth()
     $register = file_get_contents('App/Config/authConfig.php');
     $register = strtr($register, [
         '$autentication = [' => '$autentication = [
-    '."'$name'".','
+    ' . "'$name'" . ','
     ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     fwrite($f, $content);
@@ -303,20 +303,20 @@ function execOptionMakeNewDb()
     if ($test->fetchColumn()) {
         Cli::println('Opss...: Banco de dados já existente, deseja se conectar a ele ?');
         $connect = Cli::getParam('DIGITE: Y para sim ou N para não');
-        if($connect == 'y' or $connect == 'Y'){
-            $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados '. $name);
-            $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados '. $name);
+        if ($connect == 'y' or $connect == 'Y') {
+            $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados ' . $name);
+            $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados ' . $name);
             $connectionUpdate = file_get_contents('App/Config/config.php');
             $connectionUpdate = strtr($connectionUpdate, [
                 "'DB_NAME', ''" =>  "'DB_NAME', '$name'",
                 "'DB_USER', 'root'" =>  "'DB_USER', '$dbUser'",
                 "'DB_PASS', ''" =>  "'DB_PASS', '$dbpass'"
             ]);
-        $f = fopen("App/Config/config.php", 'w+');
-        fwrite($f, $connectionUpdate);
-        fclose($f);
-        Cli::println('Banco de dados '.$name.' conectado com sucesso em App/Config/config.php');
-        }else{
+            $f = fopen("App/Config/config.php", 'w+');
+            fwrite($f, $connectionUpdate);
+            fclose($f);
+            Cli::println('Banco de dados ' . $name . ' conectado com sucesso em App/Config/config.php');
+        } else {
             Cli::println('Operação cancelada pelo usuário');
             exit;
         }
@@ -557,7 +557,7 @@ do {
         $component == 'makeview'
     ) {
         execOptionMakeView();
-    }elseif (
+    } elseif (
         $component == 'make:view -a' or
         $component == 'makeview -a'
     ) {
@@ -631,7 +631,7 @@ do {
         exit;
     }
     $component = Cli::getParam(
-    'Deseja continuar ?
+        'Deseja continuar ?
 DIGITE: Y para continuar
 DIGITE: N para sai'
     );

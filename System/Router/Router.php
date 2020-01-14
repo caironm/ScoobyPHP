@@ -23,7 +23,7 @@ class Router extends Dispatch
      */
     public function match(array $methods, string $route, $handler, string $name = null): void
     {
-        foreach($methods as $method) {
+        foreach ($methods as $method) {
             $this->addRoute(strtoupper($method), $route, $handler, $name);
         }
     }
@@ -37,7 +37,7 @@ class Router extends Dispatch
     public function any(string $route, $handler, string $name = null): void
     {
         $methods = ['get', 'post', 'put', 'delete', 'patch'];
-        foreach($methods as $method) {
+        foreach ($methods as $method) {
             $this->addRoute(strtoupper($method), $route, $handler, $name);
         }
     }

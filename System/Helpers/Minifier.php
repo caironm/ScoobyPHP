@@ -9,18 +9,18 @@ class Minifier
     public static function minify($path, $minifyName, $type): bool
     {
         if ($type == "css") {
-            $sourcePath = $path."/".$minifyName.".css";
+            $sourcePath = $path . "/" . $minifyName . ".css";
             $minifier = new Minify\CSS();
             $minifier->add($sourcePath);
-            $minifiedPath = $path."/".$minifyName.".min.css";
+            $minifiedPath = $path . "/" . $minifyName . ".min.css";
             $minifier->minify($minifiedPath);
             return true;
         }
         if ($type == "js") {
-            $sourcePath = $path."/".$minifyName.".js";
+            $sourcePath = $path . "/" . $minifyName . ".js";
             $minifier = new Minify\JS();
             $minifier->add($sourcePath);
-            $minifiedPath = $path."/".$minifyName.".min.js";
+            $minifiedPath = $path . "/" . $minifyName . ".min.js";
             $minifier->minify($minifiedPath);
             return true;
         }

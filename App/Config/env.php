@@ -1,3 +1,3 @@
 <?php
-define ("ENV", "development");
-//define ("ENV", "production");
+define("ENV", "development");
+//define("ENV", "production");
