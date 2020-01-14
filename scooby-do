@@ -27,31 +27,31 @@ function showHeader()
 function showHeaderOption()
 {
     Cli::println("
------------------
-|    OPTION:    |
----------------------------------------------------------------------------------
-| DIGITE: 'new:db' ou a palavra DataBase para criar um novo banco               |
-| DIGITE: 'make:migration' para criar uma migration                             |
-| DIGITE: 'migrate' para executar as migration criadas                          |
-| DIGITE: 'Rollback' para executar um Rollback na migration criada              |
-| DIGITE: 'make:seed' para criar uma Seed no Banco de dados                     |
-| DIGITE: 'Run:Seed' para executar uma Seed no Banco de dados                   |
-| DIGITE: 'make:controller' ou a paravra controller para criar um Controller    |
-| DIGITE: 'make:controller -r' ou a paravra --resource para criar               |
-| um ResourceController                                                         |
-| DIGITE: 'make:model' ou a palavra model para criar um Model                   |
-| DIGITE: 'make:model -m' ou a paravra --migration para criar                   |
-| um model com uma respectiva migration                                         |
-| DIGITE: 'make:model -m -s' ou a paravra --migration --seed para criar         |
-| um model com uma respectiva migration e uma respectiva seed                   |
-| DIGITE: 'make:view' para criar uma View                                       |
-| DIGITE: 'make:view -a' para criar uma View autenticada                        |
-| DIGITE: 'make:file' para criar um Arquivo                                     |
-| DIGITE: 'Clear:Cache para apagar os arquivos de cache do twig                 |
-| DIGITE: 'make:auth' para criar uma rotina de cadastro e login                 |
-| DIGITE: 'y' Para continuar                                                    |
-| DIGITE: 'N' para cancelar a operação                                          |
----------------------------------------------------------------------------------");
+    \033[1;32m *** Bem vindo ao Scooby CLI *** \033[1;97m
+    \033[4;32m 
+COMANDOS DISPONÍVEIS: \033[;97m
+
+  \033[1;90m - DIGITE: \033[;97m 'new:db' ou a palavra DataBase para criar um novo banco
+  \033[1;90m - DIGITE: \033[;97m 'make:migration' para criar uma migration
+  \033[1;90m - DIGITE: \033[;97m 'migrate' para executar as migration criadas
+  \033[1;90m - DIGITE: \033[;97m 'Rollback' para executar um Rollback na migration criada
+  \033[1;90m - DIGITE: \033[;97m 'make:seed' para criar uma Seed no Banco de dados
+  \033[1;90m - DIGITE: \033[;97m 'Run:Seed' para executar uma Seed no Banco de dados
+  \033[1;90m - DIGITE: \033[;97m 'make:controller' ou a paravra controller para criar um 
+  Controller
+  \033[1;90m - DIGITE: \033[;97m 'make:controller -r' ou a paravra --resource para criar um 
+  ResourceController
+  \033[1;90m - DIGITE: \033[;97m 'make:model' ou a palavra model para criar um Model
+  \033[1;90m - DIGITE: \033[;97m 'make:model -m' ou a paravra --migration para criar um model 
+  com uma respectiva migration
+  \033[1;90m - DIGITE: \033[;97m 'make:model -m -s' ou a paravra --migration --seed para criar 
+  um model com uma respectiva migration e uma respectiva seed
+  \033[1;90m - DIGITE: \033[;97m 'make:view' para criar uma View
+  \033[1;90m - DIGITE: \033[;97m 'make:view -a' para criar uma View autenticada
+  \033[1;90m - DIGITE: \033[;97m 'make:file' para criar um Arquivo
+  \033[1;90m - DIGITE: \033[;97m 'Clear:Cache para apagar os arquivos de cache do twig
+  \033[1;90m - DIGITE: \033[;97m 'make:auth' para criar uma rotina de cadastro e login
+");
 }
 
 function execOptionMakeFile()
@@ -518,11 +518,11 @@ function execOptionMakeAuth()
     Cli::println("SeedUserAuth criada com sucesso em App/db/seeds/");
 }
 
-$date = date('d-m-y - H:i:a');
-showHeader();
+$date = date('d-m-y - //H:i:a');
+//showHeader();
 do {
     showHeaderOption();
-    $component = Cli::getParam('Aguardando a opção escolhida...');
+    $component = Cli::getParam("\033[1;32m Aguardando a opção escolhida... \033[1;97m");
     $component = strtolower($component);
     if ($component == 'make:file' or $component == 'makefile') {
         execOptionMakeFile();
@@ -624,16 +624,24 @@ do {
         $component == 'S' or
         $component == 'sair' or $component == 'Sair'
     ) {
-        Cli::println("Operação cancelada pelo usuário!");
+        Cli::println("\033[1;91m Operação cancelada pelo usuário! \033[1;97m");
         exit;
     } else {
-        Cli::println("Opção inválida");
+        Cli::println("\033[1;91m Opção inválida \033[1;97m");
         exit;
     }
+    Cli::println(
+        "
+        ----------------------------------------
+        |          DESEJA CONTINUAR ?          |
+        |--------------------------------------|
+        | DIGITE: 'Y' Para continuar           |
+        | DIGITE: 'N' para cancelar a operação |
+        ----------------------------------------
+        "
+    );
     $component = Cli::getParam(
-        'Deseja continuar ?
-DIGITE: Y para continuar
-DIGITE: N para sai'
+       " \033[1;32m Digite a opção desejada \033[1;97m" 
     );
 } while (
     $component == 'y' or
@@ -647,9 +655,9 @@ if (
     $component == 'N' or
     $component == 'No' or $component == 'Sair'
 ) {
-    Cli::println("Operação cancelada pelo usuário!");
+    Cli::println("\033[1;91m Operação cancelada pelo usuário! \033[1;97m");
     exit;
 } else {
-    Cli::println("Opção inválida");
+    Cli::println("\033[1;91m Opção inválida \033[1;97m");
     exit;
 }
