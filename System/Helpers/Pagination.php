@@ -24,9 +24,8 @@ class Pagination
         $offset = ($currentPage * $limit) - $limit;
         $urlPattern = '?page=(:num)';
         $totalItems = $model::count();
-        /** @scrutinizer ignore-type */
         $info = $model->orderBy('id', $orderBy)->skip($offset)->take($limit)->get();
-        $paginator = new Paginator($totalItems, $limit, $currentPage, $urlPattern);
+        $paginator = new Paginator((int) $totalItems, $limit, $currentPage, $urlPattern);
         return ['data' => $info, 'pages' => $paginator];
     }
 }

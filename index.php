@@ -1,7 +1,7 @@
 <?php
 
 use Scooby\Helpers\Csrf;
-use Scooby\Helpers\Session as session;
+use Scooby\Helpers\Session as sess;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
@@ -11,8 +11,8 @@ require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/Minifier.php';
 require_once 'App/Config/lang/'.SITE_LANG.'.php';
-session::sessionTokenGenerate();
-if (!session::sessionTokenValidade()) {
+sess::sessionTokenGenerate();
+if (!sess::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');
 }
 Csrf::csrfTokengenerate();
