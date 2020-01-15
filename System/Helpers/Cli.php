@@ -26,7 +26,7 @@ class Cli
      */
     public static function getParam(string $msg): string
     {
-        echo "  ".$msg.PHP_EOL."\033[1;32m -> \033[1;97m";
+        echo "  ".$msg.PHP_EOL."\033[1;32m -> \033[;97m";
         $param = fgets(STDIN);
         $param = trim($param);
         return $param;
