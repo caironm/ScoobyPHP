@@ -10,7 +10,7 @@ if (!file_exists('vendor/autoload.php')) {
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/Minifier.php';
-require_once 'App/Config/lang/'.SITE_LANG.'.php';
+require_once 'App/Config/lang/' . SITE_LANG . '.php';
 sess::sessionTokenGenerate();
 if (!sess::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');
@@ -34,7 +34,12 @@ define('OPTIMIZE', $op->optimize(
 )->render());
 $router = new Scooby\Router\Router(BASE_URL);
 $router->namespace('Scooby\Controllers');
-require_once 'App/Routes/routes.php';
+$dir = scandir("App/Routes/");
+array_shift($dir);
+array_shift($dir);
+foreach ($dir as $file) {
+    require_once "App/Routes/$file";
+}
 $router->group('ooops');
 $router->get('/{errcode}', 'NotfoundController@index');
 $router->dispatch();
