@@ -25,5 +25,5 @@ if (ENV == 'development') {
 try {
     $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'].";charset=utf8", $config['dbuser'], $config['dbpass'], [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
 } catch (Exception $e) {
-    die($e->getMessage());
+    throw new Exception($e->getMessage());
 }

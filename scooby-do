@@ -4,12 +4,6 @@ require_once 'App/Config/env.php';
 require_once 'App/Config/config.php';
 
 use Scooby\Helpers\Cli;
-use Scooby\Helpers\FlashMessage;
-
-if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-    FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
-    die;
-}
 
 function showHeader()
 {

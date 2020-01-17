@@ -1,6 +1,7 @@
 <?php
 
 use Scooby\Helpers\Csrf;
+use Scooby\Helpers\FlashMessage;
 use Scooby\Helpers\Session as sess;
 
 session_start();
@@ -40,6 +41,9 @@ array_shift($dir);
 foreach ($dir as $file) {
     require_once "App/Routes/$file";
 }
+$router->get('/denied', function(){
+    FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
+});
 $router->group('ooops');
 $router->get('/{errcode}', 'NotfoundController@index');
 $router->dispatch();
