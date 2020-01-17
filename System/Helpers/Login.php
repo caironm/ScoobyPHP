@@ -104,7 +104,7 @@ class Login
      * Retorna as informações do usuário logado
      *
      * @param string $info
-     * @return string
+     * @return object
      */
     public static function userInfo(): object
     {
