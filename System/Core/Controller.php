@@ -41,6 +41,7 @@ abstract class Controller
         $twig->addGlobal('method_delete', '<input type="hidden" name="_method" value="DELETE">');
         $twig->addGlobal('method_patch', '<input type="hidden" name="_method" value="PATCH">');
         require_once 'App/Config/twigGlobalVariables.php';
+        $ViewName = ucwords($ViewName);
         if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
             require_once 'App/Views/Templates/Header.twig';
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
