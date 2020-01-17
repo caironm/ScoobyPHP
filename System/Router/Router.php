@@ -2,6 +2,8 @@
 
 namespace Scooby\Router;
 
+use Exception;
+
 class Router extends Dispatch
 {
     /**
@@ -24,6 +26,9 @@ class Router extends Dispatch
     public function match(array $methods, string $route, $handler, string $name = null): void
     {
         foreach ($methods as $method) {
+            if (!in_array($method, ['get', 'post', 'put', 'delete', 'patch'])) {
+                throw new Exception('HTTP request method [ '.$method.' ] not allowed');
+            }
             $this->addRoute(strtoupper($method), $route, $handler, $name);
         }
     }
