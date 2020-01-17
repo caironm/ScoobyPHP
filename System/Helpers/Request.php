@@ -53,7 +53,7 @@ class Request
                 break;
             }
         } else {
-           Redirect::redirectTo('ooops/404');
+            Redirect::redirectTo('ooops/404');
         }
     }
 
