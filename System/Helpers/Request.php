@@ -19,31 +19,41 @@ class Request
      * caso setado na chamada do metodo como false ele retornará os dados da request
      * no formato de array
      *
-     * @param boolean $returnType
+     * @param boolean $obj
      * @return object|array
      */
-    public static function getRequestData(bool $returnType = true)
+    public static function getRequestData(bool $obj = true)
     {
-        switch(self::getMethod()) {
-        case 'GET':
-            $data = $_GET;
-            return (object) $data;
-        break;
-        case 'PUT':
-        case 'DELETE':
-            parse_str(file_get_contents('php://input'), $data);
-            return (object) $data;
-        break;
-        case 'POST':
-            $data = json_decode(file_get_contents('php://input'));
-            if(is_null($data)) {
-                $data = $_POST;
+        if (Csrf::csrfTokenValidate()) {
+            switch (self::getMethod()) {
+                case 'GET':
+                    $data = $_GET;
+                    if (!$obj) {
+                        return (array) $data;
+                    }
+                    return (object) $data;
+                break;
+                case 'PUT':
+                case 'DELETE':
+                    parse_str(file_get_contents('php://input'), $data);
+                    if (!$obj) {
+                        return (array) $data;
+                    }
+                    return (object) $data;
+                break;
+                case 'POST':
+                    $data = json_decode(file_get_contents('php://input'));
+                    if (is_null($data)) {
+                        $data = $_POST;
+                    }
+                    if (!$obj) {
+                        return (array) $data;
+                    }
+                    return (object) $data;
+                break;
             }
-            if(!$returnType){
-                return (array) $data;
-            }
-            return (object) $data;
-        break;
+        } else {
+           Redirect::redirectTo('ooops/404');
         }
     }
 
@@ -62,10 +72,9 @@ class Request
                 }
                 return false;
             }
-            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
         } else {
-            Redirect::redirectTo('404');
+            Redirect::redirectTo('ooops/404');
         }
     }
 
@@ -84,8 +93,9 @@ class Request
                 }
                 return false;
             }
-            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
+        } else {
+            Redirect::redirectTo('ooops/404');
         }
     }
 
@@ -104,8 +114,9 @@ class Request
                 }
                 return false;
             }
-            //FlashMessage::msgWithGoBack('Atenção...', "O campo $inputName é obrigatório!", 'warning', -1);
             return false;
+        } else {
+            Redirect::redirectTo('ooops/404');
         }
     }
 
@@ -138,7 +149,7 @@ class Request
                 FlashMessage::modalWithGoBack('Opss', MSG_UPLOAD_FAIL, 'error');
             }
         } else {
-                    FlashMessage::modalWithGoBack('Opss', SOMETHING_WRONG, 'error');
+            FlashMessage::modalWithGoBack('Opss', SOMETHING_WRONG, 'error');
         }
     }
 

@@ -33,20 +33,20 @@ define('OPTIMIZE', $op->optimize(
     BASE_URL,
     SITE_ICON
 )->render());
-$router = new Scooby\Router\Router(BASE_URL);
-$router->namespace('Scooby\Controllers');
+$route = new Scooby\Router\Router(BASE_URL);
+$route->namespace('Scooby\Controllers');
 $dir = scandir("App/Routes/");
 array_shift($dir);
 array_shift($dir);
 foreach ($dir as $file) {
     require_once "App/Routes/$file";
 }
-$router->get('/denied', function(){
+$route->get('/denied', function(){
     FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
 });
-$router->group('ooops');
-$router->get('/{errcode}', 'NotfoundController@index');
-$router->dispatch();
-if ($router->error()) {
-    $router->redirect("/ooops/{$router->error()}");
+$route->group('ooops');
+$route->get('/{errcode}', 'NotfoundController@index');
+$route->dispatch();
+if ($route->error()) {
+    $route->redirect("/ooops/{$route->error()}");
 }

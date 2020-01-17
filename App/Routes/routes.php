@@ -3,8 +3,8 @@
 use Scooby\Helpers\Auth as autentication;
 
 //rotas sem autenticação
-$router->group(null);
-$router->get('/', 'HomeController@index');
+$route->group(null);
+$route->get('/', 'HomeController@index');
 
 //rotas autenticadas 
 if (autentication::authValidation()) {

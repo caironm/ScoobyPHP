@@ -7,15 +7,14 @@ use Scooby\Helpers\Cli;
 
 function showHeader()
 {
-    Cli::println(PHP_EOL . "
+    Cli::println(PHP_EOL . "\033[1;90m
     ____                  _                      ____ _     ___ 
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
     ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
    |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
                                 |___/                           
-    ");
-    Cli::println('Bem vindo ao Scooby CLI');
+    \033[1;97m");
 }
 
 function showHeaderOption()
@@ -513,7 +512,7 @@ function execOptionMakeAuth()
 }
 
 $date = date('d-m-y - //H:i:a');
-//showHeader();
+showHeader();
 do {
     showHeaderOption();
     $component = Cli::getParam("\033[1;32m Aguardando a opção escolhida... \033[1;97m");
