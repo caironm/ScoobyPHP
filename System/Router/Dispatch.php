@@ -65,7 +65,7 @@ abstract class Dispatch
      * @param null|string $namespace
      * @return Dispatch
      */
-    public function namespace(?string $namespace): Dispatch
+    public function namespace(?string $namespace) : Dispatch
     {
         $this->namespace = ($namespace ? ucwords($namespace) : null);
         return $this;
