@@ -4,6 +4,7 @@ namespace Scooby\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as db;
+use Scooby\Models\User;
 
 class Login
 {
@@ -84,7 +85,7 @@ class Login
                 if (password_verify($pass, $storagePass)) {
                     $id = DB::table($table)->where($emailField, $email)->value($idField);
                     $name = DB::table($table)->where($emailField, $email)->value($nameField);
-                    $time = Carbon::now();
+                    $time = date('Y-m-d h:m:s');
                     self::sessionLoginGenerate($id, $storageEmail, $name, $time);
                     return true;
                 } else {
@@ -105,20 +106,17 @@ class Login
      * @param string $info
      * @return string
      */
-    public static function userInfo(string $info = 'userId'): ?string
+    public static function userInfo(): object
     {
         Auth::authValidOrFail();
-        if (!class_exists('User')) {
-            $user = Models\User::find($_SESSION['id']);
-            return null;
-        }
+        $user = User::find($_SESSION['id']);
         $arr = [
             'userName' => $user->name,
             'userId' => $_SESSION['id'],
             'userEmail' => $user->email,
             'logedIn' => $_SESSION['logedIn']
         ];
-        return $arr[$info];
+        return (object) $arr;
     }
 
     /**

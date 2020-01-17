@@ -55,8 +55,9 @@ abstract class Controller
                 extract($ViewData);
                 echo $template->render($ViewData);
                 require_once 'App/Views/Templates/Footer.twig';
+            } else {
+                Redirect::redirectTo('login');
             }
-            Redirect::redirectTo('login');
         } elseif (in_array($ViewName, $changeTemplate) === true or in_array(strtolower($ViewName), $changeTemplate) === true) {
             require_once 'App/Views/Templates/'.ucfirst($ViewName).'Header.twig';
             $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');

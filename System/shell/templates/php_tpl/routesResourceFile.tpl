@@ -1,9 +1,9 @@
 //Rotas do ResourceController $name automaticamente via - Scooby_CLI em dateNow
-$router->group("$routeName");
-$router->get('/', "$name@index");
-$router->get('/create', "$name@create");
-$router->post('/store', "$name@store");
-$router->get('/show/{id}', "$name@show");
-$router->get('/edit/{id}', "$name@edit");
-$router->post('/update/{id}', "$name@update");
-$router->get('/destroy/{id}', "$name@destroy");
+$route->group("$routeName");
+$route->get('/', "$name@index");
+$route->get('/create', "$name@create");
+$route->post('/store', "$name@store");
+$route->get('/show/{id}', "$name@show");
+$route->get('/edit/{id}', "$name@edit");
+$route->post('/update/{id}', "$name@update");
+$route->get('/destroy/{id}', "$name@destroy");

@@ -23,6 +23,7 @@ class UserController extends Controller
      */
     public function index(): void
     {
+        FlashMessage::getFlashMessage('errMessage');
         Login::isLogedRedirect();
         $this->view("pages", "login");
     }
@@ -44,6 +45,8 @@ class UserController extends Controller
      */
     public function login(): void
     {
+        Request::formValidate('email', 'email', ['required', 'email']);
+        Request::formValidate('pass', 'senha', ['required', 'string', 'min'], 4);
         $email =  Request::input("email");
         $pass =  Request::input("pass");
         if (Login::loginValidate($email, $pass, "users", "email", "password", "id")) {
@@ -74,9 +77,9 @@ class UserController extends Controller
      */
     public function saveUser(): void
     {
-        Request::formValidate('name', 'nome', 'register', ['required', 'string', 'max'], 60);
-        Request::formValidate('email', 'email', 'register', ['required', 'email']);
-        Request::formValidate('pass', 'senha', 'register', ['required', 'string', 'min'], 4);
+        Request::formValidate('name', 'nome', ['required', 'string', 'max'], 60);
+        Request::formValidate('email', 'email', ['required', 'email']);
+        Request::formValidate('pass', 'senha', ['required', 'string', 'min'], 4);
         if (Request::input("name") and Request::input("email") and Request::input("pass")) {
             $name = Request::input("name");
             $email = Request::input("email");

@@ -178,8 +178,9 @@ HTML;
         ];
         if ($redirect === null) {
             Redirect::redirectBack();
+        } else {
+            Redirect::redirectTo($redirect);
         }
-        Redirect::redirectTo($redirect);
     }
 
     /**

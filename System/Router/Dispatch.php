@@ -109,7 +109,7 @@ abstract class Dispatch
 
         $this->route = null;
         foreach ($this->routes[$this->httpMethod] as $key => $route) {
-            if (preg_match("~^" . $key . "$~", $this->patch, $found)) {
+            if (preg_match("~^".$key."$~", $this->patch, $found)) {
                 $this->route = $route;
             }
         }

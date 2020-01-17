@@ -11,7 +11,7 @@ if (!file_exists('vendor/autoload.php')) {
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/Minifier.php';
-require_once 'App/Config/lang/' . SITE_LANG . '.php';
+require_once 'App/Config/lang/'.SITE_LANG . '.php';
 sess::sessionTokenGenerate();
 if (!sess::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');
@@ -41,7 +41,7 @@ array_shift($dir);
 foreach ($dir as $file) {
     require_once "App/Routes/$file";
 }
-$route->get('/denied', function(){
+$route->get('/denied', function () {
     FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
 });
 $route->group('ooops');

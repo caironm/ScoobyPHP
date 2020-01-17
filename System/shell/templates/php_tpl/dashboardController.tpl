@@ -16,8 +16,9 @@ class DashboardController extends Controller
 {
    public function index(): void
    {
+        $userInfo = (Login::userInfo());
         FlashMessage::getFlashMessage('error');
-    	$this->view("Pages", "DashBoard", ['userName' => Login::userInfo('userName')]);
+    	$this->view("Pages", "DashBoard", ['userName' => $userInfo->userName]);
    }
 
     /**

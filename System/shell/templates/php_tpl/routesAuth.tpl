@@ -1,20 +1,20 @@
 //Rotas de autenticação geradas automaticamente via Scooby_CLI em 19-11-19 - 00@07@am
-$router->group(null);
-$router->get('/back', 'UserController@goBack');
-$router->get('/login', 'UserController@index');
-$router->get('/register', 'UserController@register');
-$router->post('/new-user', 'UserController@saveUser');
-$router->post('/make-login', 'UserController@login');
-$router->post('/password-rescue', 'UserController@newPass');
-$router->get('/passwordRescue', 'UserController@passwordRescue');
-$router->get('/create-password', 'UserController@saveNewPassword');
-$router->post('/password-reset', 'UserController@passwordReset');
+$route->group(null);
+$route->get('/back', 'UserController@goBack');
+$route->get('/login', 'UserController@index');
+$route->get('/register', 'UserController@register');
+$route->post('/new-user', 'UserController@saveUser');
+$route->post('/make-login', 'UserController@login');
+$route->post('/password-rescue', 'UserController@newPass');
+$route->get('/passwordRescue', 'UserController@passwordRescue');
+$route->get('/create-password', 'UserController@saveNewPassword');
+$route->post('/password-reset', 'UserController@passwordReset');
 
 //Rotas Autenticadas
-if(Auth::authValidation()){
-    $router->get('/dashboard', 'DashboardController@index');
-    $router->get('/exit', 'DashboardController@exit');
-    $router->delete('/delete-user', 'DashboardController@deleteUser');
-    $router->get('/alter-user', 'DashboardController@alterUser');
-    $router->put('/update-user', 'DashboardController@updateUser');
+if(autentication::authValidation()){
+    $route->get('/dashboard', 'DashboardController@index');
+    $route->get('/exit', 'DashboardController@exit');
+    $route->delete('/delete-user', 'DashboardController@deleteUser');
+    $route->get('/alter-user', 'DashboardController@alterUser');
+    $route->put('/update-user', 'DashboardController@updateUser');
 }
