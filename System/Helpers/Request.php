@@ -5,6 +5,49 @@ namespace Scooby\Helpers;
 class Request
 {
     /**
+     * Retorna o tipo do método da requisição http
+     *
+     * @return string
+     */
+    public static function getMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
+    /**
+     * por padrão retorna os dados da requisição no formato de objeto,
+     * caso setado na chamada do metodo como false ele retornará os dados da request
+     * no formato de array
+     *
+     * @param boolean $returnType
+     * @return object|array
+     */
+    public static function getRequestData(bool $returnType = true)
+    {
+        switch(self::getMethod()) {
+        case 'GET':
+            $data = $_GET;
+            return (object) $data;
+        break;
+        case 'PUT':
+        case 'DELETE':
+            parse_str(file_get_contents('php://input'), $data);
+            return (object) $data;
+        break;
+        case 'POST':
+            $data = json_decode(file_get_contents('php://input'));
+            if(is_null($data)) {
+                $data = $_POST;
+            }
+            if(!$returnType){
+                return (array) $data;
+            }
+            return (object) $data;
+        break;
+        }
+    }
+
+    /**
      * Valida e retorna o dados vindo do formulario
      *
      * @param string $inputName
