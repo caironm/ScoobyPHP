@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS  = [
+$GLOBALS = [
     'WELLCOME_MSG' => 'Bem vindo ao Scooby framework. Se Você esta visualizando esta página, quer dizer que o scooby foi instalado corretamente!',
 
     'REQUIRED_VALIDATION' => 'O campo :atribute é obrigatório',
