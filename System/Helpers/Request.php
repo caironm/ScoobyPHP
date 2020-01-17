@@ -137,9 +137,9 @@ class Request
                     $mimeType = $_FILES[$name]['type'][$i];
                     $arrMimeType = explode('/', $mimeType);
                     $ext = end($arrMimeType);
-                    $fileName = md5($_FILES[$name]['name'][$i] . time() . rand(0, 99999));
-                    move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path . $fileName . "." . $ext);
-                    $arrPath[$i] = $path . $fileName . '.' . $ext;
+                    $fileName = md5($_FILES[$name]['name'][$i].time().rand(0, 99999));
+                    move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path.$fileName.".".$ext);
+                    $arrPath[$i] = $path.$fileName.'.'.$ext;
                 }
                 return [true, $arrPath];
             } else {
