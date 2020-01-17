@@ -3,7 +3,6 @@
 namespace Scooby\Controllers;
 
 use Scooby\Core\Controller;
-use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
