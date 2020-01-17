@@ -124,7 +124,7 @@ function execOptionMakeControllerResource()
     fwrite($f, $content);
     fclose($f);
     Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
-    $f = fopen("App/Config/routes.php", 'a+');
+    $f = fopen("App/Routes/routes.php", 'a+');
     fwrite($f, $routeResource);
     fclose($f);
     Cli::println("Rotas do controller {$name} criadas em 'App/Config/routes' com sucesso.");
@@ -483,10 +483,10 @@ function execOptionMakeAuth()
     fwrite($f, $updateUser);
     fclose($f);
     Cli::println("UpdateUser criado em 'App/Views/Pages' com sucesso.");
-    $f = fopen("App/Config/routes.php", 'a+');
+    $f = fopen("App/Routes/routes.php", 'a+');
     fwrite($f, $routesAuth);
     fclose($f);
-    Cli::println("Rotas de Autenticação criadas em 'App/Config/routes.php' com sucesso.");
+    Cli::println("Rotas de Autenticação criadas em 'App/Routes/routes.php' com sucesso.");
     $f = fopen("App/Views/Pages/Home.twig", 'w+');
     fwrite($f, $navbar);
     fclose($f);
