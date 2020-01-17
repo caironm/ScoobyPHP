@@ -18,6 +18,7 @@ class ExtendsRequestFormValidate extends Request
      * @param integer $max
      * @return bool
      */
+    /** @scrutinizer ignore-unused */
     public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max = null)
     {
         if (in_array('validation_name', $rules)) {
@@ -52,6 +53,8 @@ class ExtendsRequestFormValidate extends Request
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
             }
         }
+        /** @scrutinizer ignore-call */ 
+        /** @scrutinizer ignore-type */ 
         parent::formValidate($input, $inputAlias, $redirect, $rules, $min = null, $max = null);
     }
 }

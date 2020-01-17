@@ -36,6 +36,7 @@ define('OPTIMIZE', $op->optimize(
 $route = new Scooby\Router\Router(BASE_URL);
 $route->namespace('Scooby\Controllers');
 $dir = scandir("App/Routes/");
+$dir = (array) $dir;
 array_shift($dir);
 array_shift($dir);
 foreach ($dir as $file) {

@@ -2,7 +2,7 @@
 
 namespace Scooby\Generics;
 
-use Helpers\Validation;
+use Scooby\Helpers\Validation;
 
 class ExtendsValidation extends Validation
 {
