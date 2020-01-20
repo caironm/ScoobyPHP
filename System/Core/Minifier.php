@@ -7,6 +7,8 @@ $minify = filter_input(INPUT_GET, 'minify', FILTER_VALIDATE_BOOLEAN);
 if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
     $jsDir = scandir(dirname(__DIR__, 2)."/App/Public/assets/js/");
     $cssDir = scandir(dirname(__DIR__, 2)."/App/Public/assets/css/");
+    $cssDir = (array) $cssDir;
+    $jsDir = (array) $jsDir;
     array_shift($cssDir);
     array_shift($cssDir);
     array_shift($jsDir);
@@ -29,14 +31,14 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
         $file = explode('.', $MinFile);
         if (!file_exists('App/Public/assets/css/'.$file[0].'.css')) {
             $remove = $file[0].'.min.css';
-            @unlink('System/MinifyFiles/min-css/'.$remove);
+            unlink('System/MinifyFiles/min-css/'.$remove);
         }
     }
     foreach ($jsMinDir as $MinFile) {
         $file = explode('.', $MinFile);
         if (!file_exists('App/Public/assets/js/'.$file[0].'.js')) {
             $remove = $file[0].'.min.js';
-            @unlink('System/MinifyFiles/min-js/'.$remove);
+            unlink('System/MinifyFiles/min-js/'.$remove);
         }
     }
     foreach ($cssDir as $cssFile) {

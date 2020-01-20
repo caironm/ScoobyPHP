@@ -4,14 +4,24 @@ namespace Scooby\Helpers;
 
 class Request
 {
-   /**
-     * por padrão retorna os dados da requisição no formato de objeto,
-     * caso setado na chamada do metodo como false ele retornará os dados da request
-     * no formato de array
+    /**
+     * Retorna o tipo do método da requisição http
      *
-     * @param boolean $obj
-     * @return object|array
+     * @return string
      */
+    public static function getMethod(): string
+    {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
+    /**
+      * por padrão retorna os dados da requisição no formato de objeto,
+      * caso setado na chamada do metodo como false ele retornará os dados da request
+      * no formato de array
+      *
+      * @param boolean $obj
+      * @return object|array
+      */
     public static function getRequestData(bool $obj = true)
     {
         if (Csrf::csrfTokenValidate()) {
@@ -22,7 +32,6 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
-                break;
                 case 'PUT':
                 case 'DELETE':
                     parse_str(file_get_contents('php://input'), $data);
@@ -30,7 +39,6 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
-                break;
                 case 'POST':
                     $data = json_decode(file_get_contents('php://input'));
                     if (is_null($data)) {
@@ -40,7 +48,6 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
-                break;
             }
         } else {
             Redirect::redirectTo('ooops/404');
