@@ -7,7 +7,7 @@ use Scooby\Helpers\Cli;
 
 function showHeader()
 {
-    Cli::println(PHP_EOL . "\033[1;90m
+    Cli::println(PHP_EOL."\033[1;90m
     ____                  _                      ____ _     ___ 
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
    \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
@@ -54,7 +54,7 @@ function execOptionMakeFile()
     $name = Cli::getParam('Por favor, DIGITE o nome do Arquivo a ser criado');
     $name = strtolower($name);
     $path = Cli::getParam('Por favor, DIGITE o caminho do arquivo a ser criado');
-    if (file_exists(__DIR__ . "/$path/$name.$ext")) {
+    if (file_exists(__DIR__."/$path/$name.$ext")) {
         Cli::println("ERROR: Arquivo já existente na pasta '$path'");
         return;
     }
@@ -72,12 +72,12 @@ function execOptionMakeFile()
     }
     $content = strtr((string) $content, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("$path/$name.$ext", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -90,7 +90,7 @@ function execOptionMakeController()
     Cli::println("Você optou por criar um Controller.");
     $name = Cli::getParam('Por favor, DIGITE o nome do controller a ser criado');
     $name = ucfirst($name);
-    $name = $name . "Controller";
+    $name = $name."Controller";
     if (file_exists("App/Controllers/$name.php")) {
         Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         return;
@@ -101,12 +101,12 @@ function execOptionMakeController()
         '$name' => $name
     ]);
     $f = fopen("App/Controllers/$name.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -120,7 +120,7 @@ function execOptionMakeControllerResource()
     $name = Cli::getParam('Por favor, DIGITE o nome do ResourceController a ser criado');
     $routeName = $name;
     $name = ucfirst($name);
-    $name = $name . "Controller";
+    $name = $name."Controller";
     if (file_exists("App/Controllers/$name.php")) {
         Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         return;
@@ -137,24 +137,24 @@ function execOptionMakeControllerResource()
         '$routeName' => $routeName
     ]);
     $f = fopen("App/Controllers/$name.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
     $f = fopen("App/Routes/routes.php", 'a+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $routeResource);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -177,12 +177,12 @@ function execOptionMakeModel()
         '$name' => $name
     ]);
     $f = fopen("App/Models/$name.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -195,7 +195,7 @@ function execOptionMakeModelMigration()
     Cli::println("Você optou por criar um Model.");
     $name = Cli::getParam('Por favor, DIGITE o nome do Model a ser criado');
     $name = ucfirst($name);
-    $migrationName = $name . "CreateTable";
+    $migrationName = $name."CreateTable";
     if (file_exists("App/Models/$name.php")) {
         Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         return;
@@ -206,12 +206,12 @@ function execOptionMakeModelMigration()
         '$name' => $name
     ]);
     $f = fopen("App/Models/$name.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -233,8 +233,8 @@ function execOptionMakeModelMigrationAndSeed()
     Cli::println("Você optou por criar um Model.");
     $name = Cli::getParam('Por favor, DIGITE o nome do Model a ser criado');
     $name = ucfirst($name);
-    $migrationName = $name . "CreateTable";
-    $seedName = $name . "Seed";
+    $migrationName = $name."CreateTable";
+    $seedName = $name."Seed";
     if (file_exists("App/Models/$name.php")) {
         Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         return;
@@ -245,12 +245,12 @@ function execOptionMakeModelMigrationAndSeed()
         '$name' => $name
     ]);
     $f = fopen("App/Models/$name.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -272,15 +272,15 @@ function execOptionMakeModelMigrationAndSeed()
     $seed = file_get_contents('System/shell/templates/seeds_tpl/seedFile.tpl');
     $seed = strtr($seed, [
         'dateNow' => date('d-m-y - H:i:a'),
-        'users' => strtolower($name) . "s",
+        'users' => strtolower($name)."s",
     ]);
     $f = fopen("App/db/seeds/$seedName.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $seed);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -305,26 +305,26 @@ function execOptionMakeView()
     $register = file_get_contents('App/Config/authConfig.php');
     $register = strtr($register, [
         '$notAutentication = [' => '$notAutentication = [
-    ' . "'$name'" . ','
+    ' . "'$name'".','
     ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     $f = fopen('App/Config/authConfig.php', 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $register);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -349,26 +349,26 @@ function execOptionMakeViewAuth()
     $register = file_get_contents('App/Config/authConfig.php');
     $register = strtr($register, [
         '$autentication = [' => '$autentication = [
-    ' . "'$name'" . ','
+    ' . "'$name'".','
     ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     $f = fopen('App/Config/authConfig.php', 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $register);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -381,7 +381,7 @@ function execOptionMakeNewDb()
     Cli::println('Você optou por criar um novo banco de dados.');
     $name = Cli::getParam('Por favor, DIGITE o nome do Banco a ser criada');
     try {
-        $conn = new PDO(DB_DRIVER . ":host=" . DB_HOST . ";charset=utf8", DB_USER, DB_PASS, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
+        $conn = new PDO(DB_DRIVER.":host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
     } catch (Exception $e) {
         Cli::println('Um erro inesperado ocorreu, por favor tente mais tarde.');
         Cli::println('');
@@ -393,8 +393,8 @@ function execOptionMakeNewDb()
         Cli::println('Opss...: Banco de dados já existente, deseja se conectar a ele ?');
         $connect = Cli::getParam('DIGITE: Y para sim ou N para não');
         if ($connect == 'y' or $connect == 'Y') {
-            $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados ' . $name);
-            $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados ' . $name);
+            $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados '.$name);
+            $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados '.$name);
             $connectionUpdate = file_get_contents('App/Config/config.php');
             $connectionUpdate = strtr($connectionUpdate, [
                 "'DB_NAME', ''" =>  "'DB_NAME', '$name'",
@@ -402,17 +402,17 @@ function execOptionMakeNewDb()
                 "'DB_PASS', ''" =>  "'DB_PASS', '$dbpass'"
             ]);
             $f = fopen("App/Config/config.php", 'w+');
-            if($f == false){
+            if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
             fwrite($f, $connectionUpdate);
-            if($f == false){
+            if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
             fclose($f);
-            Cli::println('Banco de dados ' . $name . ' conectado com sucesso em App/Config/config.php');
+            Cli::println('Banco de dados '.$name.' conectado com sucesso em App/Config/config.php');
         } else {
             Cli::println('Operação cancelada pelo usuário');
             return;
@@ -426,12 +426,12 @@ function execOptionMakeNewDb()
             "'DB_NAME', ''" =>  "'DB_NAME', '$name'"
         ]);
         $f = fopen("App/Config/config.php", 'w+');
-        if($f == false){
+        if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
         fwrite($f, $configDb);
-        if($f == false){
+        if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -445,7 +445,7 @@ function execOptionMakeNewDb()
 function execOptionMakeClearCache()
 {
     $cacheDir = scandir('System/SysConfig/Cache/');
-    if($cacheDir == false){
+    if ($cacheDir == false) {
         Cli::println('Um erro desconhecido ocorreu ao limpar o cache da aplicação');
         return;
     }
@@ -485,12 +485,12 @@ function execOptionMakeSeed()
     $seed = file_get_contents('System/shell/templates/seeds_tpl/seedFile.tpl');
     $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("App/db/seeds/$seedName.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $seed);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -570,154 +570,154 @@ function execOptionMakeAuth()
         return;
     }
     $f = fopen("App/Controllers/UserController.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $userController);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("UserController criado em 'App/Controllers' com sucesso.");
     $f = fopen("App/Controllers/DashboardController.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $dashboardController);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("UserController criado em 'App/Controllers' com sucesso.");
     $f = fopen("App/Models/User.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $userModel);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     $f = fopen("App/Models/PasswordUserToken.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $passwordTokenModel);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("User criado em 'App/Models' com sucesso.");
     $f = fopen("App/Views/Pages/Login.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $loginView);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("Login criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/Register.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $registerView);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("Register criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/PasswordRescue.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $passwordRescue);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     $f = fopen("App/Views/Pages/NewPassword.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $newPassword);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("PasswordRescue criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/DashBoard.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $dashBoardView);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("DashBoard criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Views/Pages/UpdateUser.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $updateUser);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("UpdateUser criado em 'App/Views/Pages' com sucesso.");
     $f = fopen("App/Routes/routes.php", 'a+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $routesAuth);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("Rotas de Autenticação criadas em 'App/Routes/routes.php' com sucesso.");
     $f = fopen("App/Views/Pages/Home.twig", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $navbar);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fclose($f);
     Cli::println("Navbar criado em 'App/Views/Pages/Home.twig' com sucesso.");
     $f = fopen("App/Config/authConfig.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $authConfig);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -734,12 +734,12 @@ function execOptionMakeAuth()
     $seed = file_get_contents('System/shell/templates/seeds_tpl/SeedUserAuth.tpl');
     $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("App/db/seeds/SeedUserAuth.php", 'w+');
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $seed);
-    if($f == false){
+    if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
@@ -840,7 +840,7 @@ do {
         $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo');
         $seedName = ucfirst($seedName);
         chdir('App/db/seeds');
-        shell_exec('php ' . $seedName . '.php');
+        shell_exec('php '.$seedName.'.php');
 
         Cli::println("Seed {$seedName} executada com sucesso em App/db/seeds/");
     } elseif (
