@@ -1,4 +1,4 @@
-//Rotas de autenticação geradas automaticamente via Scooby_CLI em 19-11-19 - 00@07@am
+//Rotas de autenticação geradas automaticamente via Scooby_CLI em dateNow
 $route->group(null);
 $route->get('/back', 'UserController@goBack');
 $route->get('/login', 'UserController@index');

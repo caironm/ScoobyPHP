@@ -4,17 +4,7 @@ namespace Scooby\Helpers;
 
 class Request
 {
-    /**
-     * Retorna o tipo do método da requisição http
-     *
-     * @return string
-     */
-    public static function getMethod(): string
-    {
-        return $_SERVER['REQUEST_METHOD'];
-    }
-
-    /**
+   /**
      * por padrão retorna os dados da requisição no formato de objeto,
      * caso setado na chamada do metodo como false ele retornará os dados da request
      * no formato de array
@@ -32,6 +22,7 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
+                break;
                 case 'PUT':
                 case 'DELETE':
                     parse_str(file_get_contents('php://input'), $data);
@@ -39,6 +30,7 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
+                break;
                 case 'POST':
                     $data = json_decode(file_get_contents('php://input'));
                     if (is_null($data)) {
@@ -48,10 +40,57 @@ class Request
                         return (array) $data;
                     }
                     return (object) $data;
+                break;
             }
         } else {
             Redirect::redirectTo('ooops/404');
         }
+    }
+
+    /**
+     * por padrão retorna os dados selecionados da requisição no formato de objeto,
+     * caso setado na chamada do metodo como false ele retornará os dados da request
+     * no formato de array
+     *
+     * @param array $inputs
+     * @param boolean $obj
+     * @return object|array
+     */
+    public static function getRequestOnly(array $inputs, bool $obj = true)
+    {
+        $data = [];
+        $arr = (array) self::getRequestData();
+        foreach ($inputs as $input) {
+            $data[$input] = $arr[$input];
+        }
+        if (!$obj) {
+            return (array) $data;
+        }
+        return (object) $data;
+    }
+
+    /**
+     * por padrão retorna os dados da requisição exceto os selecionados no formato de objeto,
+     * caso setado na chamada do metodo como false ele retornará os dados da request
+     * no formato de array
+     *
+     * @param  array $inputs
+     * @param boolean $obj
+     * @return object|array
+     */
+    public static function getRequestExcept(array $inputs, bool $obj = true)
+    {
+        $data = [];
+        $arr = (array) self::getRequestData();
+        foreach ($arr as $key => $value) {
+            if (!in_array($key, $inputs)) {
+                $data[$key] = $arr[$key];
+            }
+        }
+        if (!$obj) {
+            return (array) $data;
+        }
+        return (object) $data;
     }
 
     /**

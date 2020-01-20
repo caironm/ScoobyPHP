@@ -2,17 +2,21 @@
 
 namespace Scooby\Helpers;
 
+use Exception;
 use \MatthiasMullie\Minify;
 
 class Minifier
 {
-    public static function minify($path, $minifyName, $type): bool
+    public static function minify($path, $pathSave, $minifyName, $type): bool
     {
+        if ($type == 'css' and $type == 'js') {
+            throw new Exception('[ '.$type.' ] Invalid format');
+        }
         if ($type == "css") {
             $sourcePath = $path."/".$minifyName.".css";
             $minifier = new Minify\CSS();
             $minifier->add($sourcePath);
-            $minifiedPath = $path."/".$minifyName.".min.css";
+            $minifiedPath = $pathSave."/".$minifyName.".min.css";
             $minifier->minify($minifiedPath);
             return true;
         }
@@ -20,7 +24,7 @@ class Minifier
             $sourcePath = $path."/".$minifyName.".js";
             $minifier = new Minify\JS();
             $minifier->add($sourcePath);
-            $minifiedPath = $path."/".$minifyName.".min.js";
+            $minifiedPath = $pathSave."/".$minifyName.".min.js";
             $minifier->minify($minifiedPath);
             return true;
         }
