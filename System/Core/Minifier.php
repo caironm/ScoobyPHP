@@ -23,6 +23,8 @@ if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
     }
     $jsMinDir = scandir("System/MinifyFiles/min-js/");
     $cssMinDir = scandir("System/MinifyFiles/min-css/");
+    $cssMinDir = (array) $cssMinDir;
+    $jsMinDir = (array) $jsMinDir;
     array_shift($cssMinDir);
     array_shift($cssMinDir);
     array_shift($jsMinDir);

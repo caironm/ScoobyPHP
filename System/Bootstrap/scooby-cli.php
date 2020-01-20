@@ -70,7 +70,7 @@ function execOptionMakeFile()
     } elseif ($ext == 'js') {
         $content = file_get_contents('System/shell/templates/js_tpl/jsFile.tpl');
     }
-    $content = strtr($content, ['dateNow' => date('d-m-y - H:i:a')]);
+    $content = strtr((string) $content, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("$path/$name.$ext", 'w+');
     if($f == false){
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
