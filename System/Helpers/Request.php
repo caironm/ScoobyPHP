@@ -15,13 +15,13 @@ class Request
     }
 
     /**
-      * por padrão retorna os dados da requisição no formato de objeto,
-      * caso setado na chamada do metodo como false ele retornará os dados da request
-      * no formato de array
-      *
-      * @param boolean $obj
-      * @return object|array
-      */
+     * por padrão retorna os dados da requisição no formato de objeto,
+     * caso setado na chamada do metodo como false ele retornará os dados da request
+     * no formato de array
+     *
+     * @param boolean $obj
+     * @return object|array
+     */
     public static function getRequestData(bool $obj = true)
     {
         if (Csrf::csrfTokenValidate()) {
