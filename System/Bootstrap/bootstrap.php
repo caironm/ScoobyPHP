@@ -6,7 +6,7 @@ use Scooby\Helpers\Session as sess;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
-    die('Falha ao executar o autoload, por favor rode o comando composer install no termainal e recarregue a pagina novamente');
+    die('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente');
 }
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
