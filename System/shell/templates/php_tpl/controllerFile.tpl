@@ -7,8 +7,13 @@ use Scooby\Core\Controller;
 
 class $name extends Controller
 {
+   /**
+    * Undocumented function
+    *
+    * @return void
+    */
    public function index(): void
    {
-    	$this->view("Pages", "Home", []);
+    	//
    }
 }

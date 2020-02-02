@@ -206,13 +206,13 @@ use Scooby\Core\Controller;
 
 class HomeController extends Controller
 {
-/**
-* @return void
-*/
-public function index(): void
-{
-//
-}
+    /**
+    * @return void
+    */
+    public function index(): void
+    {
+        //
+    }
 }
 ```
 
@@ -229,15 +229,15 @@ use Scooby\Core\Controller;
 
 class HomeController extends Controller
 {
-/**
-* Metodo index esta chamando uma view na pasta Pages com o nome Home.twig
-*
-* @return void
-*/
-public function index(): void
-{
-$this->view('pages', 'Home', []);
-}
+    /**
+    * Metodo index esta chamando uma view na pasta Pages com o nome Home.twig
+    *
+    * @return void
+    */
+    public function index(): void
+    {
+        $this->view('pages', 'Home', []);
+    }
 }
 ```
 
@@ -254,21 +254,23 @@ use Scooby\Core\Controller;
 
 class HomeController extends Controller
 {
-/**
-* Envio de msg de boas vindas para a view home.twig que se encontra em: App/* Views/pages/
-*
-* @return void
-*/
-public function index(): void
-{
-$this->view('pages', 'Home', [
-'wellcomeMessage' => 'Sejam Bem Vindos ao SccobyPHP!!!'
-]);
-}
+    /**
+    * Envio de msg de boas vindas para a view home.twig que se encontra em: App/* Views/pages/
+    *
+    * @return void
+    */
+    public function index(): void
+    {
+        $this->view('pages', 'Home', [
+            'wellcomeMessage' => 'Sejam Bem Vindos ao SccobyPHP!!!'
+        ]);
+    }
 }
 ```
 
 Para passarmos o valor para a view usamos um array associativo, onde a chave do array, que no nosso exemplo é ' wellcomeMessage ', será a variável que acessaremos na view, neste momento não precisa se preocupar e caso não tenha entendido como será feita esta tarefa, quando entrarmos no estudo de views todas as dúvidas serão sanadas.
+
+### [***ATENÇÃO*** - ESCRITA DA DOCUMETAÇÃO EM ANDAMENTO...]
 
 ## Histórico de lançamentos
 

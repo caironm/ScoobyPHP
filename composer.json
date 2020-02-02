@@ -1,4 +1,5 @@
 {
+    "name" : "ScoobyPHP",
     "type" : "project",
 	"homepage" : "https://github.com/terriani/ScoobyPHP",
 	"description" : "ScoobyPHP, A litle and very simple PHP framework ",
