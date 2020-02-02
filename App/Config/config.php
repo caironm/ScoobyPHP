@@ -9,7 +9,7 @@ define('SITE_DESCRIPTION', 'descrição do site');
 define('SITE_ICON', 'icone do projeto');
 
 // Framework css para uso no frot-end, bootstrap e materialize disponíveis
-define('CSS', 'bootstrap');
+define('CSS', 'materialize');
 
 if (ENV == 'development') {
 
