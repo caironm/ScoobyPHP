@@ -8,6 +8,9 @@ define('SITE_DESCRIPTION', 'descrição do site');
 // Icone do site a ser desenvolvido
 define('SITE_ICON', 'icone do projeto');
 
+// Framework css para uso no frot-end, bootstrap e materialize disponíveis
+define('CSS', 'bootstrap');
+
 if (ENV == 'development') {
 
     //Url base para caso o controller não seja indicado na url
