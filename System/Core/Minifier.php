@@ -4,7 +4,7 @@ use MatthiasMullie\Minify;
 use Scooby\Helpers\Minifier;
 
 $minify = filter_input(INPUT_GET, 'minify', FILTER_VALIDATE_BOOLEAN);
-if ($_SERVER['SERVER_NAME'] == 'localhost' or $minify) {
+if ($_SERVER['SERVER_NAME'] == 'localhost' or $_SERVER['SERVER_NAME'] == '127.0.0.1' or ENV == 'development' or $minify) {
     $jsDir = scandir(dirname(__DIR__, 2)."/App/Public/assets/js/");
     $cssDir = scandir(dirname(__DIR__, 2)."/App/Public/assets/css/");
     $cssDir = (array) $cssDir;

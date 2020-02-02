@@ -48,6 +48,20 @@ class Router extends Dispatch
     }
 
     /**
+     * @param  array $methods
+     * @param string $route
+     * @param $handler
+     * @param string|null $name
+     */
+    public function form(string $route, $handler, string $name = null): void
+    {
+        $methods = ['get', 'post'];
+        foreach ($methods as $method) {
+            $this->addRoute(strtoupper($method), $route, $handler, $name);
+        }
+    }
+
+    /**
      * @param string $route
      * @param $handler
      * @param string|null $name

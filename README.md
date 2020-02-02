@@ -1,542 +1,292 @@
 # ScoobyPHP
 
-A simple framework for small projects, studies, and first contact with architecture **MVC**
+> Mais um framework MVC feito com amor e PHP.
 
-## Getting Started
+O desenvolvimento de aplicações web tem se tornado cada vez mais necessário no cenário atual, seguindo esta tendência, a padronização de escrita de código, estruturação de projeto e etc tem evoluído cada dia mais, não é difícil nos depararmos com novos padrões adotados pela comunidade. Levando em consideração toda essa evolução e necessidade, proporcionamos aos desenvolvedores, principalmente aqueles que estão tendo um primeiro contato com um framework
+php
+, uma maior facilidade e conforto na estruturação dos diretórios, agilidade e desempenho nas entregas, segurança e organização do projeto.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Instalação
 
-### Prerequisites
+### OS X & Linux
 
-* NPM
-* PHP >= 7.0
-* COMPOSER
+O modo mais fácil de instalar o ScoobyPHP é clonar o repositório do instalador no github, ou baixar o instalador no site oficial.
+Lembrando que será necessário ter o composer e o npm instalado no computador em questão.
 
-### Installing
+Clonando o instalador:
 
-A step by step series of examples that tell you how to get a development env running
+```sh
+git clone https://github.com/terriani/ScoobyNewProject.git
+```
 
-#### Run composer
+Baixando o instalador pelo site oficial:
 
-First you need to run the command to install php dependencies via composer
+vá ate o site oficial que se encontra em ScoobyPHP.tech/install, baixe o instalador, descompacte no diretório onde será criado o projeto, htdocs/ ou www/ por exemplo e pronto isso será o bastante para iniciarmos com o ScoobyPHP.
 
-```bash
+Após clonar o repositório ScoobyNewProject acesse ele e copie o arquivo que encontra-se em seu interior, caso tenha efetuado o download no site o arquivo estará pronto para o uso, não sendo necessário entrar na pasta e copiar o mesmo.
+
+para rodarmos o instalador do ScoobyPHP basta e entrar na pasta onde o arquivo scooby-create-app se encontra e executar o comando:
+
+```sh
+php scooby-create-app
+```
+
+Ao executar este comando, será solicitado no terminal que o programador de um nome para o novo projeto, informe este nome e aguarde o termino da instalação. Pode ser que o instalador necessite da senha do usuário logado para a manipulação do cache e para dar as devidas permissões no projeto, caso isso aconteça, informe a senha requerida e aguarde o fim da instalação.
+
+Quando a instalação chegar ao final uma mensagem de informando o sucesso desta operação sera apresentada, note que também será criado um repositório com o nome que foi informado no começo da instalação. Este diretório contem tudo que será necessário para o desenvolvimento da sua nova aplicação web.
+
+### Windows
+
+Primeiramente será necessário fazer o download do git bash no site: git-scm.com
+
+Após o download e instalação do git bash siga o guia de instalação para LINUX e OS X
+
+### Clonando o ScoobyPHP direto do github
+
+Também é possível clonar o repositório do ScoobyPHP direto do github, para isso basta entrar no terminal, ou caso esteja usando windows, será necessário utilizar o git bash e navegar ate a pasta onde ficam os projetos, por exemplo, htdocs/ ou www/, execute o comando:
+
+```sh
+git clone https://github.com/terriani/ScoobyPHP.git
+```
+
+Após clonar o projeto será necessário instalar as suas dependências, para isto basta rodar dois comandos no terminal na na pasta raiz do projeto. Primeiro instale as dependências do composer, para isto execute:
+
+```sh
 composer install
 ```
 
-#### Run npm
+Após o termino da instalação das dependências do composer, vamos instalar as dependências do javascript:
 
-Then you need to execute the command to install dependencies of front-end via npm.
-
-```bash
+```sh
 npm install
 ```
 
-### Open browser on [http://localhost/ScoobyPHP/](http://localhost/ScoobyPHP/). You will see the image below
+Pronto agora com as dependências instaladas, já é possível renomear a pasta do ScoobyPHP para o nome do seu projeto, Lembrando que será necessário entrar na pasta que do projeto, lá dentro entre em: App/Config/config.php e altere o nome do seu projeto na constante SITE_NAME, trocando o scoobyPHP para o nome que do projeto. Caso a instalação tenha sido feito com o instalador não será necessário fazer nenhuma alteração nas configurações do framework.
+
+## Executando o projeto no navegador
+
+Levando em consideração que todos os passos anteriores foram executados corretamente e seu servidor local, por exemplo o xampp, esteja rodando sem error,abra seu navegador e digite na barra de endereço:
+
+```sh
+http://localhost/NomeDoProjeto/
+```
+
+Caso a instalação tenha dado tudo cero, uma tela de boas vindas será apresentada.
 
 ![strat00](docs/images/screen_wellcome.png)
 
-#### Using CLI by run commands
+## Estrutura de pastas
 
-Often we need to create classes, controllers, views, miscellaneous files, databases, and even complete routines, this part of web development ends up exhausting by code repetition. With that in mind we created a command line tool to help create them, with some commands, you can have a complete application running with database connection, login routine, login, logout, and password recovery all functional. is done through Scooby_CLI, when executing this command in the root of the project, in the terminal will appear a welcome screen with the possible commands.
+A pasta App será onde toda a regra de negócio ficará, esta pasta contém os controllers, models, rotas, arquivos de configuração, seeds, migrations, a pasta public onde ficaram os arquivos css, javascript, imagens utilizadas na aplicação,imagens vindas de uploads, views e uma pasta nomeada de Grenerics, que será explicada sua função no decorrer deste guia.
 
-```bash
-php Scooby_CLI.php
-```
+Estrutura de pasta App/:
 
-Before you will see the image below
+![strat00](docs/images/skeleton.png)
 
-![strat00](docs/images/screen_cli00.png)
+### Breve descrição de cada pasta dentro do diretório App/
 
-#### In CLI run
+#### App/
 
-To create, or even connect to an already exisatente database, it is necessary to run the new ***new:db*** in CLI mode
-
-```bash
-new:db
-```
-
-#### Insert the database name or case the existing database, enter with your user and password db
-
-As stated above, to create or connect a database to your project you need to execute the ***new:db*** command, after executing this command, if a database with the same name already exists, you will be asked The password and user of this same DB, by informing this data you will be being connected with it automatically.
-
-#### If you need a registration, login and password recovery routine
-
-Almost all applications require one of a ***new user registration***, ***login***, ***logout*** and ***password recovery*** routine, thinking about this ScoobyPHP automates the entire process of creating, views, passing the necessary controllers, models, and routes, authenticated and unauthenticated and, the main thing, it's all done by executing just one command in the CLI
-
-run the make:auth command in the application CLI
-
-```bash
-make:auth
-```
-
-## Skelethon aplication folder
-
-In this session we will take a tour of the folder and file structure of a ScoobyPHP project, see its main features and configuration files.
-
-### App
-
-The App folder is one of the most important folders to the development of an application, since it is there is the structure of models, controllers, views and generics
-
-#### App/Controllers
-
-Folder where all application controllers will be created
-
-#### App/Models
-
-Folder where all application models will be created
-
-#### App/Views
-
-Folder where all application views will be created
-
-##### App/Views/Error
-
-In this folder will be the system error views, such as the already existing error 404 view
-
-##### App/Views/Pages
-
-In this folder are the system pages, such as the existing view home and all others to be created, such as the user registration page, login and etc ...
-
-##### App/Views/Templates
-
-In this folder are the default Scooby PHP templates, with css, js and similar uploads.
+Pasta onde será criada toda a regra de negócios da aplicação, em todo o ciclo de vida do web app só será necessário ter conhecimento desta pasta em questão.
 
 #### App/Config
 
-Explain what these tests test and why
+Esta pasta conterá todas as configurações da aplicação, como por exemplo, configurações de banco de dados, envio de e-mail e etc...
 
-##### App/Config/lang
+#### App/Config/lang
 
-Explain what these tests test and why
+Nesta pasta ficam os arquivos de tradução do systema, caso deseje fazer um sistema multilinguagem será abordado mais a diante deste guia como implementar esta funcionalidade.
 
-#### App/Db
+#### App/Controllers
 
-Explain what these tests test and why
+Aqui ficam todos os controlers da aplicação, esta pasta não aceita outras pastas dentro dela, ou seja, o ScoobyPHP até a versão atual não aceita pastas especificas para a criação de controllers específicos, por exemplo: App/Controllers/Auth/UserController, essa arquitetura de organização dos controllers separados em pastas irá gerar um erro na aplicação.
 
-##### App/Db/Migrations
+#### App/db
 
-Explain what these tests test and why
+Nesta pasta ficam os arquivos de migrations e seeds
 
-##### App/Db/Seeds
+#### App/db/migration
 
-Explain what these tests test and why
+Dentro desta pasta ficaram todas as migrations geradas pelo sistema.
+
+#### App/db/seeds
+
+Dentro desta pasta ficaram todas as seeds geradas pelo sistema, ao decorrer deste guia sera abordado como gerar migrations, seeds e muito mais utilizando o scooby-do, uma ferramenta de linha de comando.
+
+#### App/Generics
+
+Nesta pasta pode ser usada para um propósito geral, para a criação de metodos auxiliares, extensão dos helpres, validações, etc...
+
+#### App/Models
+
+Aqui ficaram todo os models da aplicação, ao decorrer deste guia sera abordado como gerar models via terminal utilizando o scooby-do.
 
 #### App/Public
 
-Explain what these tests test and why
+Nesta pasta ficaram os arquivos públicos da aplicação.
 
-##### App/Public/assets
+#### App/Public/assats/css
 
-Explain what these tests test and why
+Neste local ficará todos os arquivos css da aplicação, não deverá ser criadas pastas aqui dentro, pois o ScoobyPHP mapeia esta pasta para minificar os arquivos e inclui-los no template.
 
-###### App/Public/assets/css
+#### App/Public/assets/img
 
-Explain what these tests test and why
+Aqui ficaram as imagem utilizadas pela aplicação
 
-###### App/Public/assets/img
+#### App/Public/assats/js
 
-Explain what these tests test and why
+Neste local ficará todos os arquivos javascript da aplicação, não deverá ser criadas pastas aqui dentro, pois o ScoobyPHP mapeia esta pasta para minificar os arquivos e incluí-los no template.
 
-###### App/Public/assets/js
+#### App/Public/uploaded
 
-Explain what these tests test and why
+Nesta pasta ficará todos os arquivos upados da aplicação
 
-### System
+#### App/Routes
 
-#### System/SysConfig/Cache
+Nesta pasta ficaram todos os arquivos de rotas, caso necessário poderá ser criado mais de um arquivo contendo diferentes rotas do sistema.
 
-Explain what these tests test and why
+#### App/tests
 
-#### System/Core
+Aqui ficará todos os testes da aplicação [Ainda não está em funcionamento]
 
-Explain what these tests test and why
+#### App/Views
 
-#### System/Helpers
+Aqui ficam as paginas da aplicação, templates e paginas de erro
 
-Explain what these tests test and why
+#### App/Views/Error
 
-#### System/Shell
+Nesta pasta ficam as páginas de erro do sistema, como por exemplo a página de erro 404.
 
-Explain what these tests test and why
+#### App/Views/pages
 
-##### System/Shell/Templates
+Aqui ficam todas as páginas da aplicação, sendo assim o diretório responsável pelo frontend do app.
 
-Explain what these tests test and why
+#### App/Views/templates
 
-## Controllers
+Nesta página ficam todos os arquivos de template frontend da aplicação.
 
-Explain how to run the automated tests for this system
+## Os componentes do MVC
 
-### Basic usage
+Tradicionalmente usado para interfaces gráficas de usuário (GUIs), esta arquitetura tornou-se popular para projetar aplicações web e até mesmo para aplicações móveis, para desktop e para outros clientes. Linguagens de programação populares como Java, C#, Ruby, PHP e outras possuem frameworks MVC populares que são atualmente usados no desenvolvimentos de aplicações web.
 
-Explain what these tests test and why
+### Camada de modelo ou da lógica da aplicação (Model)
 
-```
-Give an example
-```
-
-### Create a new controller via code
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Generete a new controller via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Using controllers
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Models
-
-Add additional notes about how to deploy this on a live system
-
-### Generete a new Model via code
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Generete a new Model via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### using models
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Views
-
-Add additional notes about how to deploy this on a live system
-
-### Generete a new view via code
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Generete a new view via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### using views
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### App/Public
-
-Add additional notes about how to deploy this on a live system
-
-### Generete a new css file via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Generete a new JS file via CLI
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Working on css and javascript files
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Routers
-
-Add additional notes about how to deploy this on a live system
-
-### Generete a new route via code
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### using routes
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Helpers
-
-Add additional notes about how to deploy this on a live system
-
-### Using helpers
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Auth
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Cookie
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Csrf
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Email
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### FlashMessage
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Helper
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### IlluminateDataBase
-
-Explain what these tests test and why
+Modelo é a ponte entre as camadas Visão (View) e Controle (Controller), consiste na parte lógica da aplicação, que gerencia o comportamento dos dados através de regras de negócios, lógica e funções. Esta fica apenas esperando a chamada das funções, que permite o acesso para os dados serem coletados, gravados e, exibidos.
 
-```
-Give an example
-```
-
-### Login
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### Minifier
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### PDODataBase
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+É o coração da execução, responsável por tudo que a aplicação vai fazer a partir dos comandos da camada de controle em um ou mais elementos de dados, respondendo a perguntas sobre o sua condição e a instruções para mudá-las. O modelo sabe o que o aplicativo quer fazer e é a principal estrutura computacional da arquitetura, pois é ele quem modela o problema que está se tentando resolver. Modela os dados e o comportamento por trás do processo de negócios. Se preocupa apenas com o armazenamento, manipulação e geração de dados. É um encapsulamento de dados e de comportamento independente da apresentação.
 
-### Redirect
+### Camada de apresentação ou visualização (View)
 
-Explain what these tests test and why
+Visão pode ser qualquer saída de representação dos dados, como uma tabela ou um diagrama. É onde os dados solicitados do Modelo (Model) são exibidos. É possível ter várias visões do mesmo dado, como um gráfico de barras para gerenciamento e uma visão tabular para contadores. A Visão também provoca interações com o usuário, que interage com o Controle (Controller). O exemplo básico disso é um botão gerado por uma Visão, no qual um usuário clica e aciona uma ação no Controle.
 
-```
-Give an example
-```
+Não se dedica em saber como o conhecimento foi retirado ou de onde ela foi obtida, apenas mostra a referência. Segundo Gamma et al (2006), ”A abordagem MVC separa a View e Model por meio de um protocolo inserção/notificação (subscribe/notify). Uma View deve garantir que sua expressão reflita o estado do Model. Sempre que os dados do Model mudam, o Model altera as Views que dependem dele. Em resposta, cada View tem a oportunidade de modificar-se”. Adiciona os elementos de exibição ao usuário : HTML, ASP, XML, Applets. É a camada de interface com o usuário. É utilizada para receber a entrada de dados e apresentar visualmente o resultado.
 
-### Request
+### Camada de controle ou controlador (Controller)
 
-Explain what these tests test and why
+Controle é o componente final da tríade, faz a mediação da entrada e saída, comandando a visão e o modelo para serem alterados de forma apropriada conforme o usuário solicitou através do mouse e teclado. O foco do Controle é a ação do usuário, onde são manipulados os dados que o usuário insere ou atualiza, chamando em seguida o Modelo.
 
-```
-Give an example
-```
+O Controle (Controller) envia essas ações para o Modelo (Model) e para a janela de visualização (View) onde serão realizadas as operações necessárias.
 
-### seeders
+## Desvendadndo os Controllers
 
-Explain what these tests test and why
+Ao se trabalhar com o padrão MVC grande parte do projeto será desenvolvido nos controllers, neste tópico iremos criar nosso primeiro controller, descobrir como chamar uma view, como instanciar um model, como utilizar os helpers do ScoobyPHP, como user o método dd() do laravel, para debugar a aplicação e muito mais...
 
-```
-Give an example
-```
+### Criando um controller
 
-### Session
+para criarmos um controller, basta irmos ate a pasta Controllers, que se encontra em App/Controllers/, lá criaremos um novo arquivo com o nome desejado, com a primeira letra maiúscula e acompanhado da palavra Controller e finalizando com .php, ficando deste jeito por exemplo: HomeController.php.
 
-Explain what these tests test and why
+Ao abrir o Controller recém criado basta adicionar o código abaixo:
 
-```
-Give an example
-```
+```php
+<?php
 
-### validation
+namespace Scooby\Controllers;
 
-Explain what these tests test and why
+use Scooby\Core\Controller;
 
+class HomeController extends Controller
+{
+/**
+* @return void
+*/
+public function index(): void
+{
+//
+}
+}
 ```
-Give an example
-```
-
-## Database
 
-Add additional notes about how to deploy this on a live system
+Pronto, com algumas linhas de código já temos um controller criado e pronto para o uso. Uma rotina muito comum de se fazer nos controllers é o ato de chamar uma view, seja ela um formulário, uma tela de login ou qualquer outra tela existente na aplicação e para exibirmos uma view no navegador do usuário é muito simples, por estarmos estendendo o controller base do Scooby, temos acesso aos seus métodos e um deles é o metodo view, que é responsável por exibir uma view para o usuário final do app.
 
-### Eloquent
+Para chamar uma view no navegador do usuário, levando em consideração que a view já foi previamente criada na pasta App/Views/Pages/, basta escrever o seguinte código dentro do método desejado. Exemplo de um controller chamando uma view na action index.
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+```php
+<?php
 
-### Query Builder
+namespace Scooby\Controllers;
 
-Explain what these tests test and why
+use Scooby\Core\Controller;
 
+class HomeController extends Controller
+{
+/**
+* Metodo index esta chamando uma view na pasta Pages com o nome Home.twig
+*
+* @return void
+*/
+public function index(): void
+{
+$this->view('pages', 'Home', []);
+}
+}
 ```
-Give an example
-```
 
-### Migrations
+Note que o método view mapeia a chamada para dentro da pasta App/Views, sendo necessário somente informar a pasta em que você deseja chamar o arquivo de visualização. Note também que o método view recebe como terceiro parâmetro um array, que no caso do exemplo está vazio, porém neste array mandamos informações para a view, podendo ser strings, retornos de métodos, ou qualquer coisa que desejarmos.
 
-Explain what these tests test and why
+Exemplo de envio de um texto de boa vindas do metodo index para a view home.
 
-```
-Give an example
-```
+```php
+<?php
 
-### Seeds
+namespace Scooby\Controllers;
 
-Explain what these tests test and why
+use Scooby\Core\Controller;
 
+class HomeController extends Controller
+{
+/**
+* Envio de msg de boas vindas para a view home.twig que se encontra em: App/* Views/pages/
+*
+* @return void
+*/
+public function index(): void
+{
+$this->view('pages', 'Home', [
+'wellcomeMessage' => 'Sejam Bem Vindos ao SccobyPHP!!!'
+]);
+}
+}
 ```
-Give an example
-```
-
-## Scooby_CLI
 
-Explain what these tests test and why
+Para passarmos o valor para a view usamos um array associativo, onde a chave do array, que no nosso exemplo é ' wellcomeMessage ', será a variável que acessaremos na view, neste momento não precisa se preocupar e caso não tenha entendido como será feita esta tarefa, quando entrarmos no estudo de views todas as dúvidas serão sanadas.
 
-### Start Scooby_CLI
+## Histórico de lançamentos
 
-Explain what these tests test and why
+* 1.0
+LANÇAMENTO: Lançamento da versão 1.0
 
-```
-Give an example
-```
+## Autor
 
-### Commands
+* **Vinicius Terriani** – [@vinicius_terriani](https://twitter.com/VTerriani) – viniciusterriani.esy.es
 
-Explain what these tests test and why
-
-```
-Give an example
-```
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais informações.
 
-## Built With
-
-### Back-End
-
-* [Composer](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [PHP](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Twig](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Illuminate/Database](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Larapack/dd](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Matthiasmullie/minify](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Flip/whoops](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Robmorgan/phinx](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Swiftmailer](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [dfridrich/php-mime-type](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [coffecode/router](https://rometools.github.io/rome/) - Used to generate RSS
-
-### Front-End
-
-* [NPM](https://maven.apache.org/) - Dependency Management
-* [Materialize-css](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [SweetAlert-2](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [IziToast](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Animate.css](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-* [Axios](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+[https://github.com/terriani/ScoobyPHP](https://github.com/terriani/)
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [Semantic Versioning 2.0.0](http://semver.org/). For the versions available, see the [tags on this repository](https://github.com/terriani/ScoobyPHP).
-
-## Authors
-
-* **Vinicius Terriani**  - [Terriani](https://github.com/Terriani)
-
-See also the list of [contributors](https://github.com/terriani/ScoobyPHP/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+1. Faça o _fork_ do projeto (<https://github.com/terriani/ScoobyPHP/fork>)
+2. Crie uma _branch_ para sua modificação (`git checkout -b feature/fooBar`)
+3. Faça o _commit_ (`git commit -am 'Add some fooBar'`)
+4. _Push_ (`git push origin feature/fooBar`)
+5. Crie um novo _Pull Request_
