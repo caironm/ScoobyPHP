@@ -179,7 +179,7 @@ class Request
             }
             $count = count($_FILES[$name]['tmp_name']);
             if ($count > 0) {
-                for ($i = 0; $count; $i++) {
+                for ($i = 0; $i < $count; $i++) {
                     $mimeType = $_FILES[$name]['type'][$i];
                     $arrMimeType = explode('/', $mimeType);
                     $ext = end($arrMimeType);
