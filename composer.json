@@ -1,5 +1,4 @@
 {
-    "name" : "ScoobyPHP",
     "type" : "project",
 	"homepage" : "https://github.com/terriani/ScoobyPHP",
 	"description" : "ScoobyPHP, A litle and very simple PHP framework ",
@@ -21,7 +20,7 @@
             "Scooby\\Core\\":"System/Core/",
             "Scooby\\Controllers\\":"App/Controllers/",
             "Scooby\\Models\\":"App/Models/",
-            "Scooby\\Generics\\":"App/Generics/",
+            "Scooby\\Extensions\\":"App/Extensions/",
             "Scooby\\Router\\":"System/Router/"
         }
     },

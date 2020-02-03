@@ -113,9 +113,9 @@ Dentro desta pasta ficaram todas as migrations geradas pelo sistema.
 
 Dentro desta pasta ficaram todas as seeds geradas pelo sistema, ao decorrer deste guia sera abordado como gerar migrations, seeds e muito mais utilizando o scooby-do, uma ferramenta de linha de comando.
 
-#### App/Generics
+#### App/Extensions
 
-Nesta pasta pode ser usada para um propósito geral, para a criação de metodos auxiliares, extensão dos helpres, validações, etc...
+Nesta pasta pode ser usada para um propósito geral, para a criação de metodos auxiliares, extensão dos helpers, validações, etc...
 
 #### App/Models
 
