@@ -20,7 +20,7 @@
             "Scooby\\Core\\":"System/Core/",
             "Scooby\\Controllers\\":"App/Controllers/",
             "Scooby\\Models\\":"App/Models/",
-            "Scooby\\Extensions\\":"App/Extensions/",
+            "Scooby\\Utils\\":"App/Utils/",
             "Scooby\\Router\\":"System/Router/"
         }
     },

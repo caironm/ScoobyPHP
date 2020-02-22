@@ -21,13 +21,8 @@
         <script src='node_mudules/materialize-css/dist/js/materialize.min.js'></script>
       ";
     }
-    $cssDir = scandir("System/MinifyFiles/min-css");
-    array_shift($cssDir);
-    array_shift($cssDir);
-    foreach($cssDir as $file){
-      echo "<link rel='stylesheet' href='System/MinifyFiles/min-css/$file'>";
-    }
   ?>
+  <link rel="stylesheet" href="System/MinifyFiles/min-css/scooby<?=ASSETS_HASH?>.min.css?111">
   <?php echo OPTIMIZE ?>
 </head>
 <body>
@@ -35,11 +30,4 @@
 <script src="<?=NODE_MODULES?>sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script src="<?=NODE_MODULES?>izitoast/dist/js/iziToast.min.js"></script>
 <script src="<?=NODE_MODULES?>axios/dist/axios.min.js"></script>
-<?php
-$jsDir = scandir("System/MinifyFiles/min-js");
-    array_shift($jsDir);
-    array_shift($jsDir);
-    foreach($jsDir as $file){
-      echo "<script src='System/MinifyFiles/min-js/$file'></script>";
-    }
-?>
+<script src="System/MinifyFiles/min-js/scooby<?=ASSETS_HASH?>.min.js"></script>

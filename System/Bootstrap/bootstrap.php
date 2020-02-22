@@ -10,7 +10,7 @@ if (!file_exists('vendor/autoload.php')) {
 }
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
-require_once 'System/Core/Minifier.php';
+require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/lang/'.SITE_LANG.'.php';
 sess::sessionTokenGenerate();
 if (!sess::sessionTokenValidade()) {
@@ -33,6 +33,8 @@ define('OPTIMIZE', $op->optimize(
     BASE_URL,
     SITE_ICON
 )->render());
+MiniFiles::miniCss('App/Public/assets/css/');
+MiniFiles::miniJs('App/Public/assets/js/');
 $route = new Scooby\Router\Router(BASE_URL);
 $route->namespace('Scooby\Controllers');
 $dir = scandir("App/Routes/");
@@ -46,8 +48,9 @@ $route->get('/denied', function() {
     FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
 });
 $route->group('ooops');
-$route->get('/{errcode}', 'NotfoundController@index');
+$route->get('/', 'NotfoundController@index');
 $route->dispatch();
 if ($route->error()) {
-    $route->redirect("/ooops/{$route->error()}");
+    $_SESSION['httpCode'] = $route->error();
+    $route->redirect("/ooops/");
 }

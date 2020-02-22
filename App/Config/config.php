@@ -13,11 +13,15 @@ define('CSS', 'materialize');
 
 if (ENV == 'development') {
 
+    define('ASSETS_VERSION', 2);
+
+    define('ASSETS_HASH', '-'.md5(ASSETS_VERSION));
+
     //Url base para caso o controller não seja indicado na url
     define("HOME", "home");
 
     //define o nome do site em desenvolvimento
-    define('SITE_NAME', 'ScoobyPHP-v1.1');
+    define('SITE_NAME', 'ScoobyPHP.com');
 
     //define o idioma das menssagens exibidas automaticamente pelo o frameowok em desenvolvimento
     define('SITE_LANG', 'pt_br');
@@ -44,13 +48,13 @@ if (ENV == 'development') {
     define('COLLATION', 'utf8_unicode_ci');
 
     //define a url base do sistema
-    define("BASE_URL", "http://localhost/".SITE_NAME."/");
+    define("BASE_URL", "http://".SITE_NAME."/");
 
     //define a url para a pasta node_modules
-    define("NODE_MODULES", "http://localhost/".SITE_NAME."/node_modules/");
+    define("NODE_MODULES", "http://".SITE_NAME."/node_modules/");
 
     //define a url para a pasta assets
-    define("ASSET", "http://localhost/".SITE_NAME."/App/Public/assets/");
+    define("ASSET", "http://".SITE_NAME."/App/Public/assets/");
 
     //Define o endereço do servidor de email a ser utilizado em modo de desenvolvimento 
     define('SMTP', 'smtp.gmail.com');
@@ -74,7 +78,7 @@ if (ENV == 'development') {
     define("HOME", "home");
 
     //define o nome do site em produção
-    define('SITE_NAME', 'ScoobyPHP-v1.1');
+    define('SITE_NAME', 'ScoobyPHP');
 
     //define o idioma das menssagens exibidas automaticamente pelo o frameowok em produção
     define('SITE_LANG', 'pt_br');

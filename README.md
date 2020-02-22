@@ -65,11 +65,13 @@ Pronto agora com as dependências instaladas, já é possível renomear a pasta 
 
 ## Executando o projeto no navegador
 
-Levando em consideração que todos os passos anteriores foram executados corretamente e seu servidor local, por exemplo o xampp, esteja rodando sem error,abra seu navegador e digite na barra de endereço:
+Levando em consideração que todos os passos anteriores foram executados corretamente e seu servidor local, por exemplo o xampp, esteja rodando sem error, abra seu navegador e digite na barra de endereço:
 
 ```sh
 http://localhost/NomeDoProjeto/
 ```
+
+Ou caso esteja utilizando um virtual host, digite no navegador o link setado nos arquivos de configuração da sua VHost.
 
 Caso a instalação tenha dado tudo cero, uma tela de boas vindas será apresentada.
 
@@ -113,7 +115,7 @@ Dentro desta pasta ficaram todas as migrations geradas pelo sistema.
 
 Dentro desta pasta ficaram todas as seeds geradas pelo sistema, ao decorrer deste guia sera abordado como gerar migrations, seeds e muito mais utilizando o scooby-do, uma ferramenta de linha de comando.
 
-#### App/Extensions
+#### App/Utils
 
 Nesta pasta pode ser usada para um propósito geral, para a criação de metodos auxiliares, extensão dos helpers, validações, etc...
 
@@ -230,7 +232,7 @@ use Scooby\Core\Controller;
 class HomeController extends Controller
 {
     /**
-    * Metodo index esta chamando uma view na pasta Pages com o nome Home.twig
+    * Metodo index está chamando uma view na pasta Pages com o nome Home.twig
     *
     * @return void
     */
@@ -255,7 +257,7 @@ use Scooby\Core\Controller;
 class HomeController extends Controller
 {
     /**
-    * Envio de msg de boas vindas para a view home.twig que se encontra em: App/* Views/pages/
+    * Envio de msg de boas vindas para a view home.twig que se encontra em: App/Views/pages/
     *
     * @return void
     */

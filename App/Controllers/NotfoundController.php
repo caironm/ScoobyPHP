@@ -3,6 +3,7 @@
 namespace Scooby\Controllers;
 
 use Scooby\Core\Controller;
+use Scooby\Helpers\HttpErrorResponse;
 
 class NotfoundController extends Controller
 {
@@ -11,8 +12,11 @@ class NotfoundController extends Controller
      *
      * @return void
      */
-    public function index($data): void
+    public function index(): void
     {
-        $this->view('error', '404', ['code' => $data['errcode']]);
+        $this->view('error', '404', [
+            'code' => HttpErrorResponse::httpGetCodeError(),
+            'httpErrorMessage' => HttpErrorResponse::httpGetMsgError(),
+        ]);
     }
 }

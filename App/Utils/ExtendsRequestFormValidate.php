@@ -1,6 +1,6 @@
 <?php
 
-namespace Scooby\Generics;
+namespace Scooby\Utils;
 
 use Scooby\Helpers\Request;
 use Scooby\Helpers\FlashMessage;
