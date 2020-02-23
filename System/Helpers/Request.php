@@ -189,10 +189,10 @@ class Request
                 }
                 return [true, $arrPath];
             } else {
-                FlashMessage::modalWithGoBack('Opss', MSG_UPLOAD_FAIL, 'error');
+                FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
             }
         } else {
-            FlashMessage::modalWithGoBack('Opss', SOMETHING_WRONG, 'error');
+            FlashMessage::modalWithGoBack('Opss', $GLOBALS['SOMETHING_WRONG'], 'error');
         }
     }
 

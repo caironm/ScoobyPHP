@@ -3,12 +3,20 @@
     overflow-y:  hidden !important;
 }
 .error-message{
-    padding-top: calc(50vh - 20vh);
+    padding-top: calc(50vh - 25vh);
     text-align: center;
     color: #222;
-    font-size: 20pt;
+    font-size: 30pt;
 }
 
 .title{
-    font-size: 100pt;
+    font-size: 150pt;
+    font-weight: bolder;
+    color: #222;
+}
+
+@media screen and (max-width: 900px) and (orientation: landscape){
+    .error-message{
+        padding-top: 0 !important;
+    }
 }

@@ -13,7 +13,7 @@ define('CSS', 'materialize');
 
 if (ENV == 'development') {
 
-    define('ASSETS_VERSION', 2);
+    define('ASSETS_VERSION', 1);
 
     define('ASSETS_HASH', '-'.md5(ASSETS_VERSION));
 

@@ -15,7 +15,7 @@ class NotfoundController extends Controller
     public function index(): void
     {
         $this->view('error', '404', [
-            'code' => HttpErrorResponse::httpGetCodeError(),
+            'httpErrorCode' => HttpErrorResponse::httpGetCodeError(),
             'httpErrorMessage' => HttpErrorResponse::httpGetMsgError(),
         ]);
     }
