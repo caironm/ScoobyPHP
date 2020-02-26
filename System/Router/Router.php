@@ -3,6 +3,7 @@
 namespace Scooby\Router;
 
 use Exception;
+use Scooby\Helpers\Auth;
 
 class Router extends Dispatch
 {
@@ -31,6 +32,24 @@ class Router extends Dispatch
             }
             $this->addRoute(strtoupper($method), $route, $handler, $name);
         }
+    }
+
+    /**
+     * @param  array $methods
+     * @param string $route
+     * @param $handler
+     * @param string|null $name
+     */
+    public function auth(array $methods, string $route, $handler, string $name = null): void
+    {
+        if (Auth::authValidation()) {
+            foreach ($methods as $method) {
+                if (!in_array($method, ['get', 'post', 'put', 'delete', 'patch'])) {
+                    throw new Exception('HTTP request method [ '.$method.' ] not allowed');
+                }
+                $this->addRoute(strtoupper($method), $route, $handler, $name);
+            }
+        } 
     }
 
     /**

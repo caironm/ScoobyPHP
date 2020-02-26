@@ -69,149 +69,151 @@ $GLOBALS = [
 
     'MSG_UPLOAD_FAIL' => 'Erro ao fazer o upload',
 
-    100 => "Continuar",
+    100 => 'Continuar',
 
-    101 => "Protocolos de comutação",
+    101 => 'Protocolos de comutação',
 
-    102 => "Processando",
+    102 => 'Processando',
 
-    200 => "OK",
+    200 => 'OK',
 
-    201 => "Criado",
+    201 => 'Criado',
 
-    202 => "Aceito",
+    202 => 'Aceito',
 
-    203 => "Informações Não Autorizadas",
+    203 => 'Informações Não Autorizadas',
 
-    204 => "Sem conteúdo",
+    204 => 'Sem conteúdo',
 
-    205 => "Redefinir conteúdo",
+    205 => 'Redefinir conteúdo',
 
-    206 => "Conteúdo parcial",
+    206 => 'Conteúdo parcial',
 
-    207 => "Multi-Status",
+    207 => 'Multi-Status',
 
-    300 => "Múltiplas opções",
+    300 => 'Múltiplas opções',
 
-    301 => "Movido permanentemente",
+    301 => 'Movido permanentemente',
 
-    302 => "Encontrado",
+    302 => 'Encontrado',
 
-    303 => "Ver outros",
+    303 => 'Ver outros',
 
-    304 => "Não modificado",
+    304 => 'Não modificado',
 
-    305 => "Usar proxy",
+    305 => 'Usar proxy',
 
-    306 => "(Não utilizado)",
+    306 => '(Não utilizado)',
 
-    307 => "Redirecionamento temporário",
+    307 => 'Redirecionamento temporário',
 
-    308 => "Redirecionamento permanente",
+    308 => 'Redirecionamento permanente',
 
-    400 => "Solicitação incorreta",
+    400 => 'Solicitação incorreta',
 
-    401 => "Não autorizado",
+    401 => 'Não autorizado',
 
-    402 => "Pagamento obrigatório",
+    402 => 'Pagamento obrigatório',
 
-    403 => "Proibido",
+    403 => 'Proibido',
 
-    404 => "Não encontrado",
+    404 => 'Não encontrado',
 
-    405 => "Método não permitido",
+    405 => 'Método não permitido',
 
-    406 => "Não aceitável",
+    406 => 'Não aceitável',
 
-    407 => "Autenticação de proxy necessária",
+    407 => 'Autenticação de proxy necessária',
 
-    408 => "Tempo limite da solicitação",
+    408 => 'Tempo limite da solicitação',
 
-    409 => "Conflito",
+    409 => 'Conflito',
 
-    410 => "ido",
+    410 => 'ido',
 
-    411 => "Comprimento necessário",
+    411 => 'Comprimento necessário',
 
-    412 => "Falha na pré-condição",
+    412 => 'Falha na pré-condição',
 
-    413 => "Solicitar entidade muito grande",
+    413 => 'Solicitar entidade muito grande',
 
-    414 => "URI de solicitação muito longo",
+    414 => 'URI de solicitação muito longo',
 
-    415 => "Tipo de mídia não suportado",
+    415 => 'Tipo de mídia não suportado',
 
-    416 => "Intervalo solicitado não satisfatório",
+    416 => 'Intervalo solicitado não satisfatório',
 
-    417 => "Expectativa falhada",
+    417 => 'Expectativa falhada',
 
-    418 => "Eu sou um bule de chá",
+    418 => 'Eu sou um bule de chá',
 
-    419 => "Tempo limite da autenticação",
+    419 => 'Tempo limite da autenticação',
 
-    420 => "Melhore a sua calma",
+    420 => 'Melhore a sua calma',
 
-    422 => "Entidade não processável",
+    422 => 'Entidade não processável',
 
-    423 => "Bloqueado",
+    423 => 'Bloqueado',
 
-    424 => "Falha na dependência",
+    424 => 'Falha na dependência',
 
-    424 => "Falha no método",
+    424 => 'Falha no método',
 
-    425 => "Coleção não ordenada",
+    425 => 'Coleção não ordenada',
 
-    426 => "Atualização necessária",
+    426 => 'Atualização necessária',
 
-    428 => "Pré-requisito necessário",
+    428 => 'Pré-requisito necessário',
 
-    429 => "Muitas solicitações",
+    429 => 'Muitas solicitações',
 
-    431 => "Campos do cabeçalho da solicitação muito grandes",
+    431 => 'Campos do cabeçalho da solicitação muito grandes',
 
-    444 => "Sem resposta",
+    444 => 'Sem resposta',
 
-    449 => "Repetir com",
+    449 => 'Repetir com',
 
-    450 => "Bloqueado pelos controles dos pais do Windows",
+    450 => 'Bloqueado pelos controles dos pais do Windows',
 
-    451 => "Indisponível por motivos legais",
+    451 => 'Indisponível por motivos legais',
 
-    494 => "Solicitar cabeçalho muito grande",
+    494 => 'Solicitar cabeçalho muito grande',
 
-    495 => "Erro de certificação",
+    495 => 'Erro de certificação',
 
-    496 => "Sem certificado",
+    496 => 'Sem certificado',
 
-    497 => "HTTP para HTTPS",
+    497 => 'HTTP para HTTPS',
 
-    499 => "Solicitação fechada do cliente",
+    499 => 'Solicitação fechada do cliente',
 
-    500 => "Erro interno do servidor",
+    500 => 'Erro interno do servidor',
 
-    501 => "Não implementado",
+    501 => 'Não implementado',
 
-    502 => "Gateway incorreto",
+    502 => 'Gateway incorreto',
 
-    503 => "Serviço indisponível",
+    503 => 'Serviço indisponível',
 
-    504 => "Tempo limite do gateway",
+    504 => 'Tempo limite do gateway',
 
-    505 => "Versão HTTP não suportada",
+    505 => 'Versão HTTP não suportada',
 
-    506 => "A variante também negocia",
+    506 => 'A variante também negocia',
 
-    507 => "Armazenamento insuficiente",
+    507 => 'Armazenamento insuficiente',
 
-    508 => "Loop detectado",
+    508 => 'Loop detectado',
 
-    509 => "Limite de largura de banda excedido",
+    509 => 'Limite de largura de banda excedido',
 
-    510 => "Não estendido",
+    510 => 'Não estendido',
 
-    511 => "Autenticação de rede necessária",
+    511 => 'Autenticação de rede necessária',
 
-    598 => "Erro de tempo limite de leitura da rede",
+    598 => 'Erro de tempo limite de leitura da rede',
 
-    599 => "Erro de tempo limite de conexão à rede"
+    599 => 'Erro de tempo limite de conexão à rede',
+
+    'UNKNOWN ERROR' => 'Erro desconhecido'
 ];

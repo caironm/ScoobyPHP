@@ -9,10 +9,12 @@ class HttpErrorResponse
      *
      * @return integer
      */
-    public static function httpGetCodeError(): int
+    public static function httpGetErrorCode(): int
     {
-        if (isset($_SESSION['httpCode'])) {
+        if (in_array($_SESSION['httpCode'], array_keys($GLOBALS))) {
             $code = $_SESSION['httpCode'];
+        } else {
+            $code = 0;
         }
         return $code;
     }
@@ -23,12 +25,12 @@ class HttpErrorResponse
      * @param string $errorCode
      * @return string
      */
-    public static function httpGetMsgError(): string
+    public static function httpGetErrorMsg(): string
     {
         if (in_array($_SESSION['httpCode'], array_keys($GLOBALS))) {
             $code = $GLOBALS[$_SESSION['httpCode']];
         } else {
-            $code = 'Unknown error';
+            $code = $GLOBALS['UNKNOWN ERROR'];
         }
         return $code;
     }
