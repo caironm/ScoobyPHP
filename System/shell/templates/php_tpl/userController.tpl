@@ -54,7 +54,7 @@ class UserController extends Controller
             exit;
         } else {
             $this->view("pages", "login", [
-                "msg" => FlashMessage::toast("Opss", LOGIN_AUTHENTICATION_FAILED, "error")
+                "msg" => FlashMessage::toast("Opss", $GLOBALS['LOGIN_AUTHENTICATION_FAILED'], "error")
             ]);
         }
     }
@@ -91,12 +91,12 @@ class UserController extends Controller
                 $user->password = $pass;
                 if ($user->save()) {
                     $this->view("pages", "Login", [
-                        "msg" => FlashMessage::toast("Ok...", REGISTERED_USER, "success")
+                        "msg" => FlashMessage::toast("Ok...", $GLOBALS['REGISTERED_USER'], "success")
                     ]);
                 } 
             } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
                 $this->view("pages", 'Register', [
-                    "msg" => FlashMessage::toast("Opss...", EMAIL_USED, "warning")
+                    "msg" => FlashMessage::toast("Opss...", $GLOBALS['EMAIL_USED'], "warning")
                 ]);
             }
         } 
@@ -122,7 +122,7 @@ class UserController extends Controller
     {
         if (empty(Request::input("email"))) {
             $this->view('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::toast('Opss...', EMAIL_REQUIRED, 'warning')
+                'msg' => FlashMessage::toast('Opss...', $GLOBALS['EMAIL_REQUIRED'], 'warning')
             ]);
             exit;
         }
@@ -146,15 +146,15 @@ HTML;
             $send = Email::sendEmailWithSmtp('ScoobyPHP', $msg, ['viniterriani.vt@gmail.com' => 'ScoobyTem'], [$email => $u->name]);
             if ($send) {
                 $this->view('Pages', 'login', [
-                    'msg' => FlashMessage::toast('Ok', EMAIL_SUCCESSFULLY_SEND, 'success')
+                    'msg' => FlashMessage::toast('Ok', $GLOBALS['EMAIL_SUCCESSFULLY_SEND'], 'success')
 
                 ]);
             } else {
-                FlashMessage::toast('Opss...', EMAIL_NOT_SEND, 'error');
+                FlashMessage::toast('Opss...', $GLOBALS['EMAIL_NOT_SEND'], 'error');
             }
         } else {
             $this->view('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::toast('Opss...', EMAIL_NOT_FOUND, 'error')
+                'msg' => FlashMessage::toast('Opss...', $GLOBALS['EMAIL_NOT_FOUND'], 'error')
             ]);
         }
     }
@@ -172,7 +172,7 @@ HTML;
         $p = $newPass->where('token', $token)->first();
         if (empty($_GET['token'])) {
             $this->view('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::toast('Erro...', TOKEN_INVALID, 'error')
+                'msg' => FlashMessage::toast('Erro...', $GLOBALS['TOKEN_INVALID'], 'error')
             ]);
             exit;
         }
@@ -180,7 +180,7 @@ HTML;
             $this->view('pages', 'NewPassword', ['token' => $token]);
         } else {
             $this->view('pages', 'PasswordRescue', [
-                'msg' => FlashMessage::toast('Erro...', LINK_INVALID, 'error')
+                'msg' => FlashMessage::toast('Erro...', $GLOBALS['LINK_INVALID'], 'error')
             ]);
             exit;
         }
@@ -196,12 +196,12 @@ HTML;
         $token = $_POST['passwordToken'];
         if (empty($_POST['new-password']) and empty($_POST['confirm-password'])) {
             $this->view('pages', 'NewPassword', [
-                'msg' => FlashMessage::toast('Opss...', INPUTS_REQUIRED, 'warning')
+                'msg' => FlashMessage::toast('Opss...', $GLOBALS['INPUTS_REQUIRED'], 'warning')
             ]);
             exit;
         } elseif ($_POST['new-password'] != $_POST['confirm-password']) {
             $this->view('pages', 'NewPassword', [
-                'msg' => FlashMessage::toast('Opss...', PASSWORDS_DO_NOT_MATCH, 'warning')
+                'msg' => FlashMessage::toast('Opss...', $GLOBALS['PASSWORDS_DO_NOT_MATCH'], 'warning')
             ]);
             exit;
         }
@@ -214,7 +214,7 @@ HTML;
         $u = $user->where('id', $id)->update(['password' => Login::passwordHash($_POST['new-password'])]);
         if ($u and $p) {
             $this->view('pages', 'login', [
-                'msg' => FlashMessage::toast('Ok...', PASSWORD_UPDATE, 'success')
+                'msg' => FlashMessage::toast('Ok...', $GLOBALS['PASSWORD_UPDATE'], 'success')
             ]);
         }
     }

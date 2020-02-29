@@ -7,7 +7,7 @@ use Scooby\Helpers\Seeders;
         
 $faker = \Faker\Factory::create("pt_BR");
         
-for ($i=0; $i < 10; $i++) { 
+for ($i = 0; $i < 10; $i++) { 
     $seeder = new Seeders();
     $seeder->seed("users", [
         "name" => $faker->name,

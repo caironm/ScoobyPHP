@@ -57,7 +57,7 @@ class DashboardController extends Controller
         $u = $user->find($id);
         if ($u == null) {
             $this->view('pages', 'Dashboard', [
-                'msg' => FlashMessage::toast('Error:', SOMETHING_WRONG, 'error')
+                'msg' => FlashMessage::toast('Error:', $GLOBALS['SOMETHING_WRONG'], 'error')
             ]);
             exit;
         }
@@ -84,32 +84,32 @@ class DashboardController extends Controller
             $u->name = $name;
             $u->email = $email;
             $u->save();
-            FlashMessage::flashMessage('error', 'Ok...', UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            FlashMessage::flashMessage('error', 'Ok...', $GLOBALS['UPDATE_DATA_SUCCESS'], 'success', 'dashboard');
             exit;
         }if (empty($name)) {
             $u->password = Login::passwordHash($password);
             $u->email = $email;
             $u->save();
-            FlashMessage::flashMessage('error', 'Ok...', UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            FlashMessage::flashMessage('error', 'Ok...', $GLOBALS['UPDATE_DATA_SUCCESS'], 'success', 'dashboard');
             exit;
         }elseif (empty($email)) {
             $u->name = $name;
             $u->password = Login::passwordHash($password);
             $u->save();
-            FlashMessage::flashMessage('error', 'Ok...', UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            FlashMessage::flashMessage('error', 'Ok...', $GLOBALS['UPDATE_DATA_SUCCESS'], 'success', 'dashboard');
             exit;
         }elseif (empty($password)) {
             $u->name = $name;
             $u->email = $email;
             $u->save();
-            FlashMessage::flashMessage('error', 'Ok...', UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+            FlashMessage::flashMessage('error', 'Ok...', $GLOBALS['UPDATE_DATA_SUCCESS'], 'success', 'dashboard');
             exit;
         }
         $u->name = $name;
         $u->email = $email;
         $u->password = Login::passwordHash($password);
         $u->save();
-        FlashMessage::flashMessage('error', 'Ok...', UPDATE_DATA_SUCCESS, 'success', 'dashboard');
+        FlashMessage::flashMessage('error', 'Ok...', $GLOBALS['UPDATE_DATA_SUCCESS'], 'success', 'dashboard');
         exit;
     }
 }

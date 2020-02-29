@@ -10,11 +10,9 @@ $route->get('/passwordRescue', 'UserController@passwordRescue');
 $route->get('/create-password', 'UserController@saveNewPassword');
 $route->post('/password-reset', 'UserController@passwordReset');
 
-//Rotas Autenticadas
-if(autentication::authValidation()){
-    $route->get('/dashboard', 'DashboardController@index');
-    $route->get('/exit', 'DashboardController@exit');
-    $route->delete('/delete-user', 'DashboardController@deleteUser');
-    $route->get('/alter-user', 'DashboardController@alterUser');
-    $route->put('/update-user', 'DashboardController@updateUser');
-}
+// Para a criação de rotas autenticadas pode-se usar o metodo auth da classe route
+$route->auth(['get'], '/dashboard', 'DashboardController@index');
+$route->auth(['get'], '/exit', 'DashboardController@exit');
+$route->auth(['delete'], '/delete-user', 'DashboardController@deleteUser');
+$route->auth(['get'], '/alter-user', 'DashboardController@alterUser');
+$route->auth(['put'], '/update-user', 'DashboardController@updateUser'); 
