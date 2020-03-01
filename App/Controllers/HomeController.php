@@ -17,8 +17,4 @@ class HomeController extends Controller
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']
         ]);
     }
-
-    public function teste() {
-        echo 'teste aqui a rota com nome teste funciona';
-    }
 }
