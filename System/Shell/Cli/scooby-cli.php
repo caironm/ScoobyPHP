@@ -60,15 +60,15 @@ function execOptionMakeFile()
     }
     $content = null;
     if ($ext == 'php') {
-        $content = file_get_contents('System/shell/templates/php_tpl/phpFile.tpl');
+        $content = file_get_contents('System/Shell/templates/php_tpl/phpFile.tpl');
     } elseif ($ext == 'html') {
-        $content = file_get_contents('System/shell/templates/html_tpl/htmlFile.tpl');
+        $content = file_get_contents('System/Shell/templates/html_tpl/htmlFile.tpl');
     } elseif ($ext == 'css') {
-        $content = file_get_contents('System/shell/templates/css_tpl/cssFile.tpl');
+        $content = file_get_contents('System/Shell/templates/css_tpl/cssFile.tpl');
     } elseif ($ext == 'txt') {
-        $content = file_get_contents('System/shell/templates/txt_tpl/txtFile.tpl');
+        $content = file_get_contents('System/Shell/templates/txt_tpl/txtFile.tpl');
     } elseif ($ext == 'js') {
-        $content = file_get_contents('System/shell/templates/js_tpl/jsFile.tpl');
+        $content = file_get_contents('System/Shell/templates/js_tpl/jsFile.tpl');
     }
     $content = strtr((string) $content, ['dateNow' => date('d-m-y - H:i:a')]);
     $f = fopen("$path/$name.$ext", 'w+');
@@ -95,7 +95,7 @@ function execOptionMakeController()
         Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/php_tpl/controllerFile.tpl');
+    $content = file_get_contents('System/Shell/templates/php_tpl/controllerFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -125,12 +125,12 @@ function execOptionMakeControllerResource()
         Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/php_tpl/resourceControllerFile.tpl');
+    $content = file_get_contents('System/Shell/templates/php_tpl/resourceControllerFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
     ]);
-    $routeResource = file_get_contents('System/shell/templates/php_tpl/routesResourceFile.tpl');
+    $routeResource = file_get_contents('System/Shell/templates/php_tpl/routesResourceFile.tpl');
     $routeResource = strtr($routeResource, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name,
@@ -171,7 +171,7 @@ function execOptionMakeModel()
         Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/php_tpl/modelFile.tpl');
+    $content = file_get_contents('System/Shell/templates/php_tpl/modelFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -200,7 +200,7 @@ function execOptionMakeModelMigration()
         Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/php_tpl/modelFile.tpl');
+    $content = file_get_contents('System/Shell/templates/php_tpl/modelFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -217,8 +217,8 @@ function execOptionMakeModelMigration()
     }
     fclose($f);
     Cli::println("$name criado em 'App/Models' com sucesso.");
-    if (file_exists("App/db/migrations/$migrationName.php")) {
-        Cli::println("ERROR: Migration já existente na pasta 'App/db/migrations/'");
+    if (file_exists("App/Db/Migrations/$migrationName.php")) {
+        Cli::println("ERROR: Migration já existente na pasta 'App/Db/Migrations/'");
         return;
     }
     $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
@@ -239,7 +239,7 @@ function execOptionMakeModelMigrationAndSeed()
         Cli::println("ERROR: Model já existente na pasta 'App/Models'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/php_tpl/modelFile.tpl');
+    $content = file_get_contents('System/Shell/templates/php_tpl/modelFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -256,8 +256,8 @@ function execOptionMakeModelMigrationAndSeed()
     }
     fclose($f);
     Cli::println("$name criado em 'App/Models' com sucesso.");
-    if (file_exists("App/db/migrations/$migrationName.php")) {
-        Cli::println("ERROR: Migration já existente na pasta 'App/db/migrations/'");
+    if (file_exists("App/Db/Migrations/$migrationName.php")) {
+        Cli::println("ERROR: Migration já existente na pasta 'App/Db/Migrations/'");
         return;
     }
     $modelMigration = shell_exec("php vendor/robmorgan/phinx/bin/phinx create $migrationName");
@@ -265,16 +265,16 @@ function execOptionMakeModelMigrationAndSeed()
         Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
         return;
     }
-    if (file_exists("App/db/seeds/$seedName.php")) {
-        Cli::println("ERROR: Seed já existente na pasta 'App/db/seeds/'");
+    if (file_exists("App/Db/Seeds/$seedName.php")) {
+        Cli::println("ERROR: Seed já existente na pasta 'App/Db/Seeds/'");
         return;
     }
-    $seed = file_get_contents('System/shell/templates/seeds_tpl/seedFile.tpl');
+    $seed = file_get_contents('System/Shell/templates/seeds_tpl/seedFile.tpl');
     $seed = strtr($seed, [
         'dateNow' => date('d-m-y - H:i:a'),
         'users' => strtolower($name)."s",
     ]);
-    $f = fopen("App/db/seeds/$seedName.php", 'w+');
+    $f = fopen("App/Db/Seeds/$seedName.php", 'w+');
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -285,7 +285,7 @@ function execOptionMakeModelMigrationAndSeed()
         return;
     }
     fclose($f);
-    Cli::println("Seed {$seedName}Seed criada com sucesso em App/db/seeds/");
+    Cli::println("Seed {$seedName}Seed criada com sucesso em App/Db/Seeds/");
 }
 
 function execOptionMakeView()
@@ -297,7 +297,7 @@ function execOptionMakeView()
         Cli::println("ERROR: View já existente na pasta 'App/Views/Pages'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/twig_tpl/viewFile.tpl');
+    $content = file_get_contents('System/Shell/templates/twig_tpl/viewFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -341,7 +341,7 @@ function execOptionMakeViewAuth()
         Cli::println("ERROR: View já existente na pasta 'App/Views/Pages'");
         return;
     }
-    $content = file_get_contents('System/shell/templates/twig_tpl/viewFile.tpl');
+    $content = file_get_contents('System/Shell/templates/twig_tpl/viewFile.tpl');
     $content = strtr($content, [
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
@@ -461,8 +461,8 @@ function execOptionMakeMigration()
 {
     $migrationName = Cli::getParam('Por favor, DIGITE o nome da Migration a ser criada. Use o formato CamelCase');
     $migrationName = ucfirst($migrationName);
-    if (file_exists("App/db/migrations/$migrationName.php")) {
-        Cli::println("ERROR: Migration já existente na pasta 'App/db/migrations/'");
+    if (file_exists("App/Db/Migrations/$migrationName.php")) {
+        Cli::println("ERROR: Migration já existente na pasta 'App/Db/Migrations/'");
         return;
     }
 
@@ -471,20 +471,20 @@ function execOptionMakeMigration()
         Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
         return;
     }
-    Cli::println("Migration $migrationName criada com sucesso em App/db/migrations/");
+    Cli::println("Migration $migrationName criada com sucesso em App/Db/Migrations/");
 }
 
 function execOptionMakeSeed()
 {
     $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser criada. Use o formato CamelCase');
     $seedName = ucfirst($seedName);
-    if (file_exists("App/db/seeds/$seedName.php")) {
-        Cli::println("ERROR: Seed já existente na pasta 'App/db/seeds/'");
+    if (file_exists("App/Db/Seeds/$seedName.php")) {
+        Cli::println("ERROR: Seed já existente na pasta 'App/Db/Seeds/'");
         return;
     }
-    $seed = file_get_contents('System/shell/templates/seeds_tpl/seedFile.tpl');
+    $seed = file_get_contents('System/Shell/templates/seeds_tpl/seedFile.tpl');
     $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
-    $f = fopen("App/db/seeds/$seedName.php", 'w+');
+    $f = fopen("App/Db/Seeds/$seedName.php", 'w+');
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -495,51 +495,51 @@ function execOptionMakeSeed()
         return;
     }
     fclose($f);
-    Cli::println("Seed {$seedName}Seed criada com sucesso em App/db/seeds/");
+    Cli::println("Seed {$seedName}Seed criada com sucesso em App/Db/Seeds/");
 }
 
 function execOptionMakeAuth()
 {
     Cli::println('Por favor digite sua senha para dar permissão de escrita no cache da aplicação');
     shell_exec('sudo chmod 777 -R System/SysConfig/Cache');
-    $userController = file_get_contents('System/shell/templates/php_tpl/userController.tpl');
+    $userController = file_get_contents('System/Shell/templates/php_tpl/userController.tpl');
     $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $dashboardController = file_get_contents('System/shell/templates/php_tpl/dashboardController.tpl');
+    $dashboardController = file_get_contents('System/Shell/templates/php_tpl/dashboardController.tpl');
     $dashboardController = strtr($dashboardController, ['dateNow' => date('d-m-y - H:i:a')]);
 
 
-    $userModel = file_get_contents('System/shell/templates/php_tpl/userModel.tpl');
+    $userModel = file_get_contents('System/Shell/templates/php_tpl/userModel.tpl');
     $userModel = strtr($userModel, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $passwordTokenModel = file_get_contents('System/shell/templates/php_tpl/passwordRescueModel.tpl');
+    $passwordTokenModel = file_get_contents('System/Shell/templates/php_tpl/passwordRescueModel.tpl');
     $passwordTokenModel = strtr($passwordTokenModel, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $loginView = file_get_contents('System/shell/templates/twig_tpl/login.tpl');
+    $loginView = file_get_contents('System/Shell/templates/twig_tpl/login.tpl');
     $loginView = strtr($loginView, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $registerView = file_get_contents('System/shell/templates/twig_tpl/register.tpl');
+    $registerView = file_get_contents('System/Shell/templates/twig_tpl/register.tpl');
     $registerView = strtr($registerView, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $passwordRescue = file_get_contents('System/shell/templates/twig_tpl/passwordRescue.tpl');
+    $passwordRescue = file_get_contents('System/Shell/templates/twig_tpl/passwordRescue.tpl');
     $passwordRescue = strtr($passwordRescue, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $newPassword = file_get_contents('System/shell/templates/twig_tpl/newPassword.tpl');
+    $newPassword = file_get_contents('System/Shell/templates/twig_tpl/newPassword.tpl');
     $newPassword = strtr($newPassword, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $dashBoardView = file_get_contents('System/shell/templates/twig_tpl/dashboard.tpl');
+    $dashBoardView = file_get_contents('System/Shell/templates/twig_tpl/dashboard.tpl');
     $dashBoardView = strtr($dashBoardView, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $updateUser = file_get_contents('System/shell/templates/twig_tpl/updateUser.tpl');
+    $updateUser = file_get_contents('System/Shell/templates/twig_tpl/updateUser.tpl');
     $updateUser = strtr($updateUser, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $routesAuth = file_get_contents('System/shell/templates/php_tpl/routesAuth.tpl');
+    $routesAuth = file_get_contents('System/Shell/templates/php_tpl/routesAuth.tpl');
     $routesAuth = strtr($routesAuth, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $navbar = file_get_contents('System/shell/templates/twig_tpl/navbar.tpl');
+    $navbar = file_get_contents('System/Shell/templates/twig_tpl/navbar.tpl');
     $navbar = strtr($navbar, ['dateNow' => date('d-m-y - H:i:a')]);
 
-    $authConfig = file_get_contents('System/shell/templates/php_tpl/authConfig.tpl');
+    $authConfig = file_get_contents('System/Shell/templates/php_tpl/authConfig.tpl');
 
     if (file_exists("App/Controllers/UserController.php")) {
         Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
@@ -722,18 +722,18 @@ function execOptionMakeAuth()
         return;
     }
     fclose($f);
-    $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
+    $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/Shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
     $migrate = shell_exec("php vendor/bin/phinx migrate");
     sleep(1);
-    $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
+    $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/Shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
     $migrate = shell_exec("php vendor/bin/phinx migrate");
     if ($migrationUser) {
         Cli::println("Migration UserAuth criada com sucess");
         Cli::println("Migrate executada com sucess");
     }
-    $seed = file_get_contents('System/shell/templates/seeds_tpl/SeedUserAuth.tpl');
+    $seed = file_get_contents('System/Shell/templates/seeds_tpl/SeedUserAuth.tpl');
     $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
-    $f = fopen("App/db/seeds/SeedUserAuth.php", 'w+');
+    $f = fopen("App/Db/Seeds/SeedUserAuth.php", 'w+');
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -744,7 +744,7 @@ function execOptionMakeAuth()
         return;
     }
     fclose($f);
-    Cli::println("SeedUserAuth criada com sucesso em App/db/seeds/");
+    Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/");
 }
 
 $date = date('d-m-y - //H:i:a');
@@ -839,10 +839,10 @@ do {
     ) {
         $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo');
         $seedName = ucfirst($seedName);
-        chdir('App/db/seeds');
+        chdir('App/Db/Seeds');
         shell_exec('php '.$seedName.'.php');
 
-        Cli::println("Seed {$seedName} executada com sucesso em App/db/seeds/");
+        Cli::println("Seed {$seedName} executada com sucesso em App/Db/Seeds/");
     } elseif (
         $component == 'makeauth' or
         $component == 'make:auth'

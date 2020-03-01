@@ -11,7 +11,7 @@ if (!file_exists('vendor/autoload.php')) {
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
 require_once 'System/Core/MiniFiles.php';
-require_once 'App/Config/lang/'.SITE_LANG.'.php';
+require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 sess::sessionTokenGenerate();
 if (!sess::sessionTokenValidade()) {
     die('Opss... Algo saiu errado por favor tente novamente');

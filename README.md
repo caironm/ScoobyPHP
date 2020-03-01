@@ -75,15 +75,17 @@ Ou caso esteja utilizando um virtual host, digite no navegador o link setado nos
 
 Caso a instalação tenha dado tudo cero, uma tela de boas vindas será apresentada.
 
-![strat00](docs/images/screen_wellcome.png)
+![strat00](Docs/Images/screen_wellcome.png)
 
 ## Estrutura de pastas
 
-A pasta App será onde toda a regra de negócio ficará, esta pasta contém os controllers, models, rotas, arquivos de configuração, seeds, migrations, a pasta public onde ficaram os arquivos css, javascript, imagens utilizadas na aplicação,imagens vindas de uploads, views e uma pasta nomeada de Grenerics, que será explicada sua função no decorrer deste guia.
+A pasta App será onde toda a regra de negócio ficará, esta pasta contém os controllers, models, rotas, arquivos de configuração, seeds, migrations, a pasta public onde ficaram os arquivos css, javascript, imagens utilizadas na aplicação, imagens vindas de uploads, views e uma pasta nomeada de Utils, que será explicada sua função no decorrer deste guia.
+
+**Atenção:** Por convenção o ScoobyPHP nomeia suas pastas com a primeira letra maiúscula, sendo assim, quando criar uma pasta ou uma sub-pasta,  por favor siga esta recomendação.
 
 Estrutura de pasta App/:
 
-![strat00](docs/images/skeleton.png)
+![strat00](Docs/Images/skeleton.png)
 
 ### Breve descrição de cada pasta dentro do diretório App/
 
@@ -107,11 +109,11 @@ Aqui ficam todos os controlers da aplicação, esta pasta não aceita outras pas
 
 Nesta pasta ficam os arquivos de migrations e seeds
 
-#### App/db/migration
+#### App/Db/migration
 
 Dentro desta pasta ficaram todas as migrations geradas pelo sistema.
 
-#### App/db/seeds
+#### App/Db/seeds
 
 Dentro desta pasta ficaram todas as seeds geradas pelo sistema, ao decorrer deste guia sera abordado como gerar migrations, seeds e muito mais utilizando o scooby-do, uma ferramenta de linha de comando.
 
@@ -238,7 +240,7 @@ class HomeController extends Controller
     */
     public function index(): void
     {
-        $this->view('pages', 'Home', []);
+        $this->view('Pages', 'Home', []);
     }
 }
 ```
@@ -263,7 +265,7 @@ class HomeController extends Controller
     */
     public function index(): void
     {
-        $this->view('pages', 'Home', [
+        $this->view('Pages', 'Home', [
             'wellcomeMessage' => 'Sejam Bem Vindos ao SccobyPHP!!!'
         ]);
     }

@@ -13,8 +13,12 @@ class HomeController extends Controller
      */
     public function index(): void
     {
-        $this->view('pages', 'Home', [
+        $this->view('Pages', 'Home', [
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']
         ]);
+    }
+
+    public function teste() {
+        echo 'teste aqui a rota com nome teste funciona';
     }
 }
