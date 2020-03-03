@@ -15,6 +15,7 @@ $capsule->addConnection([
     'charset'   => CHARSET,
     'collation' => COLLATION,
     'prefix'    => '',
+    'options'   => DB_OPTIONS
 ]);
 
 $capsule->setAsGlobal();

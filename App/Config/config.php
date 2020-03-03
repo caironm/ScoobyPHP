@@ -44,6 +44,13 @@ if (ENV == 'development') {
     //Define o charset para utf8 
     define('CHARSET', 'utf8');
 
+    //Opções adicionais do DB
+    define('DB_OPTIONS', [
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+        PDO::ATTR_PERSISTENT => true,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+
     //Define a collation para utf8 general ci
     define('COLLATION', 'utf8_unicode_ci');
 
@@ -100,6 +107,13 @@ if (ENV == 'development') {
 
     //Define o charset para utf8 
     define('CHARSET', 'utf8');
+
+    //Opções adicionais do DB
+    define('DB_OPTIONS', [
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+        PDO::ATTR_PERSISTENT => true,
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
 
     //Define a collation para utf8 general ci
     define('COLLATION', 'utf8_unicode_ci');

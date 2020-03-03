@@ -12,6 +12,7 @@ if (ENV == 'development') {
     $config['host'] = DB_HOST;
     $config['dbuser'] = DB_USER;
     $config['dbpass'] = DB_PASS;
+    $config['dboptions'] = DB_OPTIONS;
     error_reporting(E_ALL);
 } else if (ENV == 'production') {
 
@@ -23,7 +24,7 @@ if (ENV == 'development') {
     error_reporting(0);
 }
 try {
-    $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'].";charset=utf8", $config['dbuser'], $config['dbpass'], [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
+    $db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'].";charset=utf8", $config['dbuser'], $config['dbpass'], $config['dboptions']);
 } catch (Exception $e) {
     throw new Exception($e->getMessage());
 }
