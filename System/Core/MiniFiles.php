@@ -39,7 +39,7 @@ class MiniFiles
     public static function miniJs(string $path = 'App/Public/assets/js', string $savePath = 'System/MinifyFiles/min-js'): bool
     {
         $fileName = 'scooby-'.md5(ASSETS_VERSION).'.min.js';
-        self::assetsRefresh('System/MinifyFiles/min-css/', $fileName);
+        self::assetsRefresh('System/MinifyFiles/min-js/', $fileName);
         $files = scandir($path);
         array_shift($files);
         array_shift($files);
