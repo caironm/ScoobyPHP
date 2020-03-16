@@ -67,13 +67,18 @@ class Session
     }
 
     /**
-     * Destroi uma variavel de sessão
+     * Destroi uma variavel de sessão caso o index dela seja informado ou destroi
+     * toda as variaveis de sessão caso nenhum index seja passado como parametro do metodo
      *
      * @param string $sessionName
      * @return void
      */
-    public static function sessionDestroy(string $sessionName): void
+    public static function sessionDestroy(string $sessionName = ''): void
     {
-        unset($_SESSION[$sessionName]);
+        if (!empty($sessionName)) {
+            unset($_SESSION[$sessionName]);
+        } else {
+            session_destroy();
+        }
     }
 }

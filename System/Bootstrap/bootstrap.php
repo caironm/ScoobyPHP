@@ -10,6 +10,7 @@ if (!file_exists('vendor/autoload.php')) {
 }
 require_once 'vendor/autoload.php';
 require_once 'App/Config/config.php';
+require_once 'App/Config/assetsInclude.php';
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 sess::sessionTokenGenerate();

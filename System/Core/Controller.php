@@ -75,4 +75,16 @@ abstract class Controller
             $this->view('error', '404');
         }
     }
+
+    public function setTitle(string $title = ''): void
+    {
+        if (!empty($title)) {
+            if (!empty($_SESSION['pageTitle'])) {
+                unset($_SESSION['pageTitle']);
+            }
+            $_SESSION['pageTitle'] = $title;
+        } else if ((empty($title) and empty($_SESSION['pageTitle'])) or !isset($_SESSION['pageTitle'])) {
+            $_SESSION['pageTitle'] = SITE_NAME;
+        }
+    }
 }

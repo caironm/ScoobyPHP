@@ -2,20 +2,24 @@
 date_default_timezone_set('America/Sao_Paulo');
 require_once 'env.php';
 
+define('ASSETS_VERSION', 1);
+
+define('ASSETS_HASH', '-'.md5(ASSETS_VERSION));
+
+// Framework css para uso no frot-end, bootstrap, materializeq, semantic-ui e etc...
+define('CSS', [
+    'name' => 'materialize',
+    'cssPath' => 'path/to/css',
+    'jsPath' => 'path/to/js'
+]);
+
+// Icone do site a ser desenvolvido
+define('SITE_ICON', 'App/Public/assets/img/scooby_logo.svg');
+
 // Descrição do site a ser criado
 define('SITE_DESCRIPTION', 'descrição do site');
 
-// Icone do site a ser desenvolvido
-define('SITE_ICON', 'icone do projeto');
-
-// Framework css para uso no frot-end, bootstrap e materialize disponíveis
-define('CSS', 'materialize');
-
 if (ENV == 'development') {
-
-    define('ASSETS_VERSION', 1);
-
-    define('ASSETS_HASH', '-'.md5(ASSETS_VERSION));
 
     //Url base para caso o controller não seja indicado na url
     define("HOME", "home");
@@ -24,7 +28,7 @@ if (ENV == 'development') {
     define('SITE_NAME', 'ScoobyPHP');
 
     //define o idioma das menssagens exibidas automaticamente pelo o frameowok em desenvolvimento
-    define('SITE_LANG', 'pt_br');
+    define('SITE_LANG', 'pt-br');
 
     //Define o nome do banco de dados a ser usado em desenvolvimento
     define('DB_NAME', '');
@@ -55,13 +59,13 @@ if (ENV == 'development') {
     define('COLLATION', 'utf8_unicode_ci');
 
     //define a url base do sistema
-    define("BASE_URL", "http://".SITE_NAME."/");
+    define("BASE_URL", "/");
 
     //define a url para a pasta node_modules
-    define("NODE_MODULES", "http://".SITE_NAME."/node_modules/");
+    define("NODE_MODULES", "/node_modules/");
 
     //define a url para a pasta assets
-    define("ASSET", "http://".SITE_NAME."/App/Public/assets/");
+    define("ASSET", "/App/Public/assets/");
 
     //Define o endereço do servidor de email a ser utilizado em modo de desenvolvimento 
     define('SMTP', 'smtp.gmail.com');
@@ -79,6 +83,7 @@ if (ENV == 'development') {
     define('SMTP_CETTIFICATE', 'ssl');
 
     error_reporting(E_ALL);
+    
 } elseif (ENV == 'production') {
 
     //Url base para caso o controller não seja indicado na url

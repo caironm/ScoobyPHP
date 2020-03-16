@@ -13,6 +13,7 @@ class HomeController extends Controller
      */
     public function index(): void
     {
+        $this->setTitle('ScoobyPHP');
         $this->view('Pages', 'Home', [
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']
         ]);
