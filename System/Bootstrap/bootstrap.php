@@ -27,9 +27,12 @@ if (ENV === 'development') {
     $whoops->prependHandler($errorPage);
     $whoops->register();
 }
+if (!isset($_SESSION['pageTitle']) or empty($_SESSION['pageTitle'])) {
+    $_SESSION['pageTitle'] = SITE_NAME;
+}
 $op = new \CoffeeCode\Optimizer\Optimizer();
 define('OPTIMIZE', $op->optimize(
-    SITE_NAME,
+    ' ',
     SITE_DESCRIPTION,
     BASE_URL,
     SITE_ICON

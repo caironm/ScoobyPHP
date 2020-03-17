@@ -10,7 +10,7 @@ class Assets
      * @param array $css
      * @return void
      */
-    public static function loadCss(): void
+    public static function loadHeader(): void
     {
         require 'App/Config/assetsInclude.php';
         if(CSS['name'] == 'materialize') {
@@ -18,8 +18,8 @@ class Assets
           } else {
             echo "<link rel='stylesheet' href='".CSS['cssPath']."'>";
           }
-        foreach ($assets['css'] as $cssFile) {
-            echo $cssFile;
+        foreach ($html['header'] as $header) {
+            echo $header;
         }
     }
 
@@ -29,11 +29,11 @@ class Assets
      * @param array $css
      * @return void
      */
-    public static function loadJs(): void
+    public static function loadBodyTop(): void
     {
         require 'App/Config/assetsInclude.php';
-        foreach ($assets['js'] as $jsFile) {
-            echo $jsFile;
+        foreach ($html['bodyTop'] as $bodyTop) {
+            echo $bodyTop;
         }
         if(CSS['name'] == 'materialize') {
             echo "<script src='".NODE_MODULES."materialize-css/dist/js/materialize.min.js'></script>";
@@ -41,5 +41,19 @@ class Assets
           } else {
             echo "<script src='".CSS['jsPath']."'></script>";
           }
+    }
+
+    /**
+     * Carrega os arquivos de js da aplicação
+     *
+     * @param array $css
+     * @return void
+     */
+    public static function loadBodyBottom(): void
+    {
+        require 'App/Config/assetsInclude.php';
+        foreach ($html['bodyBottom'] as $bodyBottom) {
+            echo $bodyBottom;
+        }
     }
 }

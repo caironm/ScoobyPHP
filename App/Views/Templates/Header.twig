@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><?=$_SESSION['pageTitle']?></title>
   <link rel = "shortcut icon" type = "imagem/x-icon" href = "<?=SITE_ICON?>"/>
   <link rel="icon" type="imagem/png" href="<?=SITE_ICON?>" />
   <link rel = "shortcut icon" type = "imagem/x-icon" href = "<?=SITE_ICON?>"/>
-  <title><?=$_SESSION['pageTitle']?></title>
   <?php
     echo OPTIMIZE;
     use Scooby\Helpers\Assets;
-    Assets::loadCss();
+    Assets::loadHeader();
   ?>
 </head>
 <body>
 <?php
-Assets::loadJs();
+Assets::loadBodyTop();
 ?>
