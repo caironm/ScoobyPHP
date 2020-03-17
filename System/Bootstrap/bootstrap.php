@@ -30,13 +30,6 @@ if (ENV === 'development') {
 if (!isset($_SESSION['pageTitle']) or empty($_SESSION['pageTitle'])) {
     $_SESSION['pageTitle'] = SITE_NAME;
 }
-$op = new \CoffeeCode\Optimizer\Optimizer();
-define('OPTIMIZE', $op->optimize(
-    ' ',
-    SITE_DESCRIPTION,
-    BASE_URL,
-    SITE_ICON
-)->render());
 MiniFiles::miniCss('App/Public/assets/css/');
 MiniFiles::miniJs('App/Public/assets/js/');
 $route = new Scooby\Router\Router(BASE_URL);
@@ -51,10 +44,11 @@ foreach ($dir as $file) {
 $route->get('/denied', function() {
     FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
 });
-$route->group('ooops');
+
+$route->group(ROUTE_ERROR);
 $route->get('/', 'NotfoundController@index');
 $route->dispatch();
 if ($route->error()) {
     $_SESSION['httpCode'] = $route->error();
-    $route->redirect("/ooops/");
+    $route->redirect("/".ROUTE_ERROR."/");
 }

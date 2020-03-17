@@ -19,6 +19,9 @@ define('SITE_ICON', 'App/Public/assets/img/scooby_logo.svg');
 // Descrição do site a ser criado
 define('SITE_DESCRIPTION', 'descrição do site');
 
+// Nome dado a rota de erro http
+define('ROUTE_ERROR', 'ooops');
+
 if (ENV == 'development') {
 
     //Url base para caso o controller não seja indicado na url
