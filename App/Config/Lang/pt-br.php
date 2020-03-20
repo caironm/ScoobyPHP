@@ -215,5 +215,13 @@ $GLOBALS = [
 
     599 => 'Erro de tempo limite de conexão à rede',
 
-    'UNKNOWN ERROR' => 'Erro desconhecido'
+    'UNKNOWN_ERROR' => 'Erro desconhecido',
+
+    'CONNECTION_FAILURE_TITLE' => 'Falha na conexão',
+
+    'CONNECTION_FAILURE' => 'Não foi possível se conectar a internet, verifique sua conexão',
+
+    'CONNECTION_TITLE' => 'Conexão restabelecida',
+
+    'RESTORED_CONNECTION' => 'Tudo certo, sua conexão foi restabelecida'
 ];

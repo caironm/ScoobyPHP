@@ -215,5 +215,13 @@ $GLOBALS = [
 
     599 => 'Errore di timeout del collegamento di rete',
 
-    'UNKNOWN ERROR' => 'Errore sconosciuto'
+    'UNKNOWN_ERROR' => 'Errore sconosciuto',
+
+    'CONNECTION_FAILURE_TITLE' => 'Interruzione della connessione ',
+
+    'CONNECTION_FAILURE' => 'Impossibile connettersi a Internet, controllare la connessione',
+
+    'CONNECTION_TITLE' => 'Collegamento ripristinato',
+
+    'RESTORED_CONNECTION' => 'Bene, il vostro collegamento è stato ristabilito'
 ];

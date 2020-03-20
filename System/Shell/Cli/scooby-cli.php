@@ -1,7 +1,8 @@
 <?php
 require_once 'vendor/autoload.php';
 require_once 'App/Config/env.php';
-require_once 'App/Config/config.php';
+require_once 'App/Config/assetsConfig.php';
+require_once 'App/Config/databaseConfig.php';
 
 use Scooby\Helpers\Cli;
 
@@ -395,13 +396,13 @@ function execOptionMakeNewDb()
         if ($connect == 'y' or $connect == 'Y') {
             $dbUser = Cli::getParam('Por favor digite o usuário do banco de dados '.$name);
             $dbpass = Cli::getParam('por favor digite a senha do usuário do banco de dados '.$name);
-            $connectionUpdate = file_get_contents('App/Config/config.php');
+            $connectionUpdate = file_get_contents('App/Config/databaseConfig.php');
             $connectionUpdate = strtr($connectionUpdate, [
                 "'DB_NAME', ''" =>  "'DB_NAME', '$name'",
                 "'DB_USER', 'root'" =>  "'DB_USER', '$dbUser'",
                 "'DB_PASS', ''" =>  "'DB_PASS', '$dbpass'"
             ]);
-            $f = fopen("App/Config/config.php", 'w+');
+            $f = fopen("App/Config/databaseConfig.php", 'w+');
             if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -412,7 +413,7 @@ function execOptionMakeNewDb()
         return;
     }
             fclose($f);
-            Cli::println('Banco de dados '.$name.' conectado com sucesso em App/Config/config.php');
+            Cli::println('Banco de dados '.$name.' conectado com sucesso em App/Config/databaseConfig.php');
         } else {
             Cli::println('Operação cancelada pelo usuário');
             return;
@@ -421,11 +422,11 @@ function execOptionMakeNewDb()
     $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
     if ($create) {
         Cli::println("BANCO DE DADOS $name Criado com sucess");
-        $configDb = file_get_contents('App/Config/config.php');
+        $configDb = file_get_contents('App/Config/databaseConfig.php');
         $configDb = strtr($configDb, [
             "'DB_NAME', ''" =>  "'DB_NAME', '$name'"
         ]);
-        $f = fopen("App/Config/config.php", 'w+');
+        $f = fopen("App/Config/databaseConfig.php", 'w+');
         if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -436,7 +437,7 @@ function execOptionMakeNewDb()
         return;
     }
         fclose($f);
-        Cli::println('DB_NAME alterado com sucesso em App/Config/config.php');
+        Cli::println('DB_NAME alterado com sucesso em App/Config/databaseConfig.php');
     } else {
         Cli::println("Um erro inesperado ocorreu, por favor tente mais tarde.");
     }

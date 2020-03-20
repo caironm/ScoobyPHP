@@ -1,4 +1,4 @@
-# ScoobyPHP
+# <img src="App/Public/assets/img/scooby_logo.svg" width="40"/> ScoobyPHP
 
 > Mais um framework MVC feito com amor e PHP.
 
@@ -61,7 +61,7 @@ Após o termino da instalação das dependências do composer, vamos instalar as
 npm install
 ```
 
-Pronto agora com as dependências instaladas, já é possível renomear a pasta do ScoobyPHP para o nome do seu projeto, Lembrando que será necessário entrar na pasta que do projeto, lá dentro entre em: App/Config/config.php e altere o nome do seu projeto na constante SITE_NAME, trocando o scoobyPHP para o nome que do projeto. Caso a instalação tenha sido feito com o instalador não será necessário fazer nenhuma alteração nas configurações do framework.
+Pronto agora com as dependências instaladas, já é possível renomear a pasta do ScoobyPHP para o nome do seu projeto, Lembrando que será necessário entrar na pasta que do projeto, lá dentro entre em: App/Config/config.php e altere o nome do seu projeto na constante APP_NAME, trocando o scoobyPHP para o nome que do projeto. Caso a instalação tenha sido feito com o instalador não será necessário fazer nenhuma alteração nas configurações do framework.
 
 ## Executando o projeto no navegador
 
@@ -95,7 +95,7 @@ Pasta onde será criada toda a regra de negócios da aplicação, em todo o cicl
 
 #### App/Config
 
-Esta pasta conterá todas as configurações da aplicação, como por exemplo, configurações de banco de dados, envio de e-mail e etc...
+Esta pasta conterá todos os arquivos de configurações da aplicação, como por exemplo, configurações de banco de dados, envio de e-mail e etc...
 
 #### App/Config/lang
 
@@ -105,15 +105,15 @@ Nesta pasta ficam os arquivos de tradução do systema, caso deseje fazer um sis
 
 Aqui ficam todos os controlers da aplicação, esta pasta não aceita outras pastas dentro dela, ou seja, o ScoobyPHP até a versão atual não aceita pastas especificas para a criação de controllers específicos, por exemplo: App/Controllers/Auth/UserController, essa arquitetura de organização dos controllers separados em pastas irá gerar um erro na aplicação.
 
-#### App/db
+#### App/Db
 
 Nesta pasta ficam os arquivos de migrations e seeds
 
-#### App/Db/migration
+#### App/Db/Migration
 
 Dentro desta pasta ficaram todas as migrations geradas pelo sistema.
 
-#### App/Db/seeds
+#### App/Db/Seeds
 
 Dentro desta pasta ficaram todas as seeds geradas pelo sistema, ao decorrer deste guia sera abordado como gerar migrations, seeds e muito mais utilizando o scooby-do, uma ferramenta de linha de comando.
 
@@ -165,10 +165,6 @@ Nesta pasta ficam as páginas de erro do sistema, como por exemplo a página de 
 
 Aqui ficam todas as páginas da aplicação, sendo assim o diretório responsável pelo frontend do app.
 
-#### App/Views/templates
-
-Nesta página ficam todos os arquivos de template frontend da aplicação.
-
 ## Os componentes do MVC
 
 Tradicionalmente usado para interfaces gráficas de usuário (GUIs), esta arquitetura tornou-se popular para projetar aplicações web e até mesmo para aplicações móveis, para desktop e para outros clientes. Linguagens de programação populares como Java, C#, Ruby, PHP e outras possuem frameworks MVC populares que são atualmente usados no desenvolvimentos de aplicações web.
@@ -193,7 +189,7 @@ O Controle (Controller) envia essas ações para o Modelo (Model) e para a janel
 
 ## Desvendadndo os Controllers
 
-Ao se trabalhar com o padrão MVC grande parte do projeto será desenvolvido nos controllers, neste tópico iremos criar nosso primeiro controller, descobrir como chamar uma view, como instanciar um model, como utilizar os helpers do ScoobyPHP, como user o método dd() do laravel, para debugar a aplicação e muito mais...
+Ao se trabalhar com o padrão MVC grande parte do projeto será desenvolvido nos controllers, neste tópico iremos criar nosso primeiro controller, descobrir como chamar uma view, como instanciar um model, como utilizar os helpers do ScoobyPHP e muito mais...
 
 ### Criando um controller
 
@@ -273,6 +269,42 @@ class HomeController extends Controller
 ```
 
 Para passarmos o valor para a view usamos um array associativo, onde a chave do array, que no nosso exemplo é ' wellcomeMessage ', será a variável que acessaremos na view, neste momento não precisa se preocupar e caso não tenha entendido como será feita esta tarefa, quando entrarmos no estudo de views todas as dúvidas serão sanadas.
+
+Podemos também setar um titulo para a view a ser apresentada, para isto basta usarmos o metodo
+
+```php
+$this->setTitle('Titulo da página');
+```
+
+Neste caso o controller ficaria assim:
+
+```php
+<?php
+
+namespace Scooby\Controllers;
+
+use Scooby\Core\Controller;
+
+class HomeController extends Controller
+{
+    /**
+    * Adiciona o titulo Hello World para a view wellcome
+    *
+    * @return void
+    */
+    public function index(): void
+    {
+        $this->setTitle('Hello world');
+        $this->view('Pages', 'Home', [
+            'wellcomeMessage' => 'Sejam Bem Vindos ao SccobyPHP!!!'
+        ]);
+    }
+}
+```
+
+Caso nenhum titulo seja informado no controller, o APP_NAME será o titulo de todas as páginas do projeto, neste caso como o APP_NAME esta definodo para ScoobyPHP, todas as páginas herdarão este titulo.
+
+Veja como é simples trabalhar com controllers no ScoobyPHP. Mais para a frente aprenderemos a usar o ***scooby-do***, o CLI integrado no Scooby.
 
 ### [***ATENÇÃO*** - ESCRITA DA DOCUMETAÇÃO EM ANDAMENTO...]
 

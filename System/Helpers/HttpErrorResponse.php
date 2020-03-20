@@ -30,7 +30,7 @@ class HttpErrorResponse
         if (in_array($_SESSION['httpCode'], array_keys($GLOBALS))) {
             $code = $GLOBALS[$_SESSION['httpCode']];
         } else {
-            $code = $GLOBALS['UNKNOWN ERROR'];
+            $code = $GLOBALS['UNKNOWN_ERROR'];
         }
         return $code;
     }

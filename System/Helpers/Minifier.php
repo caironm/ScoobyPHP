@@ -9,7 +9,7 @@ class Minifier
 {
     public static function minify($path, $pathSave, $minifyName, $type): bool
     {
-        if ($type == 'css' and $type == 'js') {
+        if ($type != 'css' and $type != 'js') {
             throw new Exception('[ '.$type.' ] Invalid format');
         }
         if ($type == "css") {

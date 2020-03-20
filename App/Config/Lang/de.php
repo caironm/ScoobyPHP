@@ -215,5 +215,13 @@ $GLOBALS = [
 
     599 => 'Zeitüberschreitungsfehler bei der Netzwerkverbindung',
 
-    'UNKNOWN ERROR' => 'Unbekannter Fehler',
+    'UNKNOWN_ERROR' => 'Unbekannter Fehler',
+
+    'CONNECTION_FAILURE_TITLE' => 'Verbindungsfehler ',
+
+    'CONNECTION_FAILURE' => 'Verbindung mit dem Internet nicht möglich, überprüfen Sie Ihre Verbindung',
+
+    'CONNECTION_TITLE' => 'wiederhergestellte Verbindung',
+
+    'RESTORED_CONNECTION' => 'In Ordnung, Ihre Verbindung wurde wieder hergestellt.'
 ];

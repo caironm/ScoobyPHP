@@ -14,7 +14,7 @@ class FlashMessage
      */
     public static function toast(string $title, string $body, string $type = "show"): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
             iziToast.$type({
@@ -39,7 +39,7 @@ HTML;
      */
     public static function toastWithHref(string $title, string $body, string $type = "show", string $url): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $url = BASE_URL.$url;
         $msg = <<<HTML
         <script>
@@ -67,7 +67,7 @@ HTML;
      */
     public static function toastWithGoBack(string $title, string $body, string $type = "show", int $value = -1): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
            iziToast.$type({
@@ -93,7 +93,7 @@ HTML;
      */
     public static function modal(string $title, string $body, string $type = "show"): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
             Swal.fire({
@@ -117,7 +117,7 @@ HTML;
      */
     public static function modalWithHref(string $title, string $body, string $type = "show", string $url): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $url = BASE_URL.$url;
         $msg = <<<HTML
         <script>
@@ -146,7 +146,7 @@ HTML;
      */
     public static function modalWithGoBack(string $title, string $body, string $type = "show", int $value = -1): void
     {
-        require_once "App/Views/Templates/Header.twig";
+        require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
             Swal.fire({

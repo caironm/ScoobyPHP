@@ -1,5 +1,5 @@
 <?php
-require_once 'App/Config/config.php';
+require_once 'App/Config/databaseConfig.php';
 require_once 'App/Config/env.php';
 return [
     'paths' => [

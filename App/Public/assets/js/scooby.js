@@ -1,4 +1,21 @@
-//Carrega os elementos do jquery e do materialize
-$(document).ready(function () {
-    $('.sidenav').sidenav();
-});
+document.addEventListener('DOMContentLoaded', function(){
+
+})
+
+function isOnline(titleFailure, msgFailure, titleSuccess, msgSuccess){
+   window.addEventListener('online', function() {
+        iziToast.success({
+            title: titleSuccess,
+            message: msgSuccess,
+            position: "topRight"
+
+        });
+    })
+    window.addEventListener('offline', function(){
+        iziToast.error({
+            title: titleFailure,
+            message: msgFailure,
+            position: "topRight"
+        });
+    })
+}

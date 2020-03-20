@@ -1,6 +1,6 @@
 <?php
 use Scooby\Helpers\Assets;
-    Assets::loadBodyBottom();
+    Assets::bodyBottomLoad();
 ?>
 </body>
 </html>

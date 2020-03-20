@@ -9,13 +9,18 @@ if (!file_exists('vendor/autoload.php')) {
     die('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente');
 }
 require_once 'vendor/autoload.php';
-require_once 'App/Config/config.php';
+require_once 'App/Config/assetsConfig.php';
+require_once 'App/Config/appConfig.php';
+require_once 'App/Config/emailConfig.php';
+require_once 'App/Config/databaseConfig.php';
+require_once 'App/Config/SEOConfig.php';
 require_once 'App/Config/assetsInclude.php';
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 sess::sessionTokenGenerate();
+$error = false;
 if (!sess::sessionTokenValidade()) {
-    die('Opss... Algo saiu errado por favor tente novamente');
+    //die('Opss... Algo saiu errado por favor tente novamente');
 }
 Csrf::csrfTokengenerate();
 if (ENV === 'development') {
@@ -28,7 +33,7 @@ if (ENV === 'development') {
     $whoops->register();
 }
 if (!isset($_SESSION['pageTitle']) or empty($_SESSION['pageTitle'])) {
-    $_SESSION['pageTitle'] = SITE_NAME;
+    $_SESSION['pageTitle'] = APP_NAME;
 }
 MiniFiles::miniCss('App/Public/assets/css/');
 MiniFiles::miniJs('App/Public/assets/js/');

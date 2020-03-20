@@ -214,5 +214,13 @@ $GLOBALS = [
 
     599 => 'Network connect timeout error',
 
-    'UNKNOWN ERROR' => 'Unknown error'
+    'UNKNOWN_ERROR' => 'Unknown error',
+
+    'CONNECTION_FAILURE_TITLE' => 'Connection failure',
+
+    'CONNECTION_FAILURE' => 'Unable to connect to the Internet, check your connection',
+
+    'CONNECTION_TITLE' => 'Restored connection',
+
+    'RESTORED_CONNECTION' => 'All right, your connection has been re-established'
 ];

@@ -20,12 +20,18 @@
 }
 
 .img-404{
-    height: 37vh !important;
+    height: 30vh !important;
 }
 
-@media screen and (max-width: 900px) and (orientation: landscape){
+.btn-back{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+@media screen and (max-width: 900px) and (orientation: portrait){
     .error-message{
-        padding-top: 0 !important;
+        padding-top: 100px !important;
     }
 
     .msg-404{

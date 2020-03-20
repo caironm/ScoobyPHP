@@ -45,7 +45,7 @@ class DashboardController extends Controller
         $u->delete();
         $this->exit();
     }
-/**
+    /**
      * Busca as informações dos usuario e chama a view de edição
      *
      * @return void

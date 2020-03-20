@@ -19,7 +19,7 @@ class Seeders
             return ("ERROR: Um erro desconhecido ocorreu.");
         }
         require_once '../../../App/Config/env.php';
-        require_once '../../../App/Config/config.php';
+        require_once '../../../App/Config/databaseConfig.php';
         $conn = new PDO(DB_DRIVER.":host=".DB_HOST.";dbname=".DB_NAME.";charset=utf8", DB_USER, DB_PASS, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"]);
         $fieldsList = '';
         $valuesList = '';

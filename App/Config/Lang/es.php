@@ -213,5 +213,13 @@ $GLOBALS = [
 
     599 => 'Error de tiempo de espera de la conexión de red',
 
-    'UNKNOWN ERROR' => 'Error desconocido'
+    'UNKNOWN_ERROR' => 'Error desconocido',
+
+    'CONNECTION_FAILURE_TITLE' => 'Fallo de conexión',
+
+    'CONNECTION_FAILURE' => 'No se puede conectar a Internet, compruebe su conexión',
+
+    'CONNECTION_TITLE' => 'La conexión restaurada',
+
+    'RESTORED_CONNECTION' => 'De acuerdo, su conexión ha sido reestablecida'
 ];

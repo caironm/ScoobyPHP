@@ -27,7 +27,7 @@ class Session
         if (!empty($_SESSION['ownerSession']) and $_SESSION['ownerSession'] == $token) {
             return true;
         } else {
-            Redirect::redirectTo('404');
+            return false;
         }
     }
 

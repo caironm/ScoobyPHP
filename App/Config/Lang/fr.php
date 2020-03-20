@@ -215,5 +215,13 @@ $GLOBALS = [
 
     599 => 'Erreur de dépassement du délai de connexion au réseau',
 
-    'UNKNOWN ERROR' => 'Erreur inconnue'
+    'UNKNOWN_ERROR' => 'Erreur inconnue',
+
+    'CONNECTION_FAILURE_TITLE' => 'Défaut de connexion',
+
+    'CONNECTION_FAILURE' => 'Impossible de se connecter à l\'internet, vérifiez votre connexion',
+
+    'CONNECTION_TITLE' => 'Rétablissement de la connexion',
+
+    'RESTORED_CONNECTION' => 'Très bien, votre connexion a été rétablie'
 ] ;

@@ -10,7 +10,7 @@ class Assets
      * @param array $css
      * @return void
      */
-    public static function loadHeader(): void
+    public static function headerLoad(): void
     {
         require 'App/Config/assetsInclude.php';
         if(CSS['name'] == 'materialize') {
@@ -29,7 +29,7 @@ class Assets
      * @param array $css
      * @return void
      */
-    public static function loadBodyTop(): void
+    public static function bodyTopLoad(): void
     {
         require 'App/Config/assetsInclude.php';
         foreach ($html['bodyTop'] as $bodyTop) {
@@ -49,7 +49,7 @@ class Assets
      * @param array $css
      * @return void
      */
-    public static function loadBodyBottom(): void
+    public static function bodyBottomLoad(): void
     {
         require 'App/Config/assetsInclude.php';
         foreach ($html['bodyBottom'] as $bodyBottom) {

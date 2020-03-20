@@ -25,7 +25,7 @@ class Csrf
     public static function csrfTokenField(): bool
     {
         self::csrfTokengenerate();
-        echo "<input type='hidden' name='csrfToken' value=".$_SESSION['csrfToken'].">";
+        echo "<input type='hidden' name='csrfToken' value=" . $_SESSION['csrfToken'] . ">";
         return true;
     }
 
