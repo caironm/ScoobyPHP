@@ -75,7 +75,7 @@ Ou caso esteja utilizando um virtual host, digite no navegador o link setado nos
 
 Caso a instalação tenha dado tudo cero, uma tela de boas vindas será apresentada.
 
-![strat00](Docs/Images/screen_wellcome.png)
+![strat00](Docs/Images/wellcome.png)
 
 ## Estrutura de pastas
 

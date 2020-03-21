@@ -3,10 +3,10 @@
 {{ msg|raw }}
 {% endif %}
 <nav>
-    <div class="nav-wrapper black">
+    <div class="nav-wrapper white">
         <div class="container">
-            <a href="{{ base_url }}" class="brand-logo"><strong>ScoobyPHP</strong></a>
-            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a href="{{ base_url }}" class="brand-logo black-text"><strong>ScoobyPHP</strong></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
         </div>
         <ul class="right hide-on-med-and-down">
             <li><strong><u>Ola {{ userName }}</u></strong><i class="material-icons right">account_circle</i></li>
@@ -19,7 +19,7 @@
 <ul class="sidenav" id="mobile-demo">
     <div class="center">
         <br><br>
-        <h5>Ola {{ userName }} <i class="material-icons">account_circle</i>
+        <h5>Ola {{ userName }} <i class="material-icons black-text">account_circle</i>
             <h5 />
     </div>
     <div class="divider"></div>
