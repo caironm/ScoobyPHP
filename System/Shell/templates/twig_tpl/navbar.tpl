@@ -2,7 +2,7 @@
     <div class="navbar-fixed">
         <nav class="z-depth-0">
             <div class="nav-wrapper white">
-                <a href="#" class="brand-logo center black-text"><img src="{{ assets }}img/scooby_logo.svg" width="50"></a>
+                <a href="#" class="brand-logo center black-text"> ScoobyPHP <img  src="{{ assets }}img/scooby_logo.svg" alt="Foto de uma pessoa relaxando na praia" height="50" style="position: relative; top: 15px">
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="{{ base_url }}login" class="black-text waves-light">{{ btn_sign_in }}</a></li>
                     <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light white-text">{{ btn_sign_up }}</a></li>
