@@ -1,11 +1,11 @@
 {# View gerada automaticamente Via Scooby_CLI em dateNow #}
     <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper white z-depth-5">
+        <nav class="z-depth-0">
+            <div class="nav-wrapper white">
                 <a href="#" class="brand-logo center black-text">ScoobyPHP</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="{{ base_url }}login" class="btn green waves-light black-text">{{ btn_sign_in }}</a></li>
-                    <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light black-text">{{ btn_sign_up }}</a></li>
+                    <li><a href="{{ base_url }}login" class="btn white waves-light">{{ btn_sign_in }}</a></li>
+                    <li><a href="{{ base_url }}register" class="btn grey darken-4 waves-light white-text">{{ btn_sign_up }}</a></li>
                 </ul>
             </div>
         </nav>
