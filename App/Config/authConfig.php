@@ -5,7 +5,7 @@
  */
 $notAutentication = [
     '404',
-    'Wellcome',
+    'home',
 ];
 
 /**

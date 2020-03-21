@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index(): void
     {
         $this->setTitle('Wellcome');
-        $this->view('Pages', 'wellcome', [
+        $this->view('Pages', 'home', [
             'wellcomeMessage' =>  $GLOBALS['WELLCOME_MSG']
         ]);
     }
