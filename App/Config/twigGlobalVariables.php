@@ -1,5 +1,6 @@
 <?php
 
+// Crie variaveis globais para serem usadas nos templates twig
 return [
     $twig->addGlobal('btn_sign_in', $GLOBALS['BTN_SIGN_IN']),
     $twig->addGlobal('btn_sign_out', $GLOBALS['BTN_SIGN_OUT']),

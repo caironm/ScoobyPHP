@@ -3,4 +3,3 @@ composer.phar
 node_modules/
 Config/Cache/!.gitignore
 Public/uploaded/!index.php
-

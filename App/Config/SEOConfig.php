@@ -11,7 +11,7 @@ if (ENV == 'development') {
     define('SITE_DESCRIPTION', 'descrição do site');
 
     // Defina as palavras chave do seu projeto
-    define('KEYWORDS', ['MVC', 'Framework', 'php']);
+    define('KEYWORDS', ['MVC', 'Framework', 'php', 'rest', 'api', 'restfull']);
     
 } else if (ENV == 'production') {
 

@@ -4,6 +4,7 @@ namespace Scooby\Core;
 
 use Scooby\Helpers\Auth;
 use Scooby\Helpers\Redirect;
+use Scooby\Helpers\Response;
 use \Twig\Loader\FilesystemLoader;
 use \Twig\Environment;
 
@@ -91,5 +92,16 @@ abstract class Controller
         if (!empty($title)) {
             $_SESSION['pageTitle'] = $title;
         }
+    }
+
+    /**
+     * Retorna um json
+     *
+     * @param string|array $data
+     * @return void
+     */
+    public function Json($data)
+    {
+        return Response::Json($data);
     }
 }

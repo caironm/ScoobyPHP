@@ -4,6 +4,7 @@ namespace Scooby\Controllers;
 
 use Scooby\Core\Controller;
 use Scooby\Helpers\HttpErrorResponse;
+use Scooby\Helpers\Response;
 
 class NotfoundController extends Controller
 {
@@ -14,10 +15,16 @@ class NotfoundController extends Controller
      */
     public function index(): void
     {
-        $this->setTitle('Oppss - '. HttpErrorResponse::httpGetErrorCode());
-        $this->view('Error', '404', [
-            'httpErrorCode' => HttpErrorResponse::httpGetErrorCode(),
-            'httpErrorMessage' => HttpErrorResponse::httpGetErrorMsg(),
-        ]);
+
+        if (IS_API === true) {
+            Response::Json([HttpErrorResponse::httpGetErrorCode() => HttpErrorResponse::httpGetErrorMsg()]);
+            exit;
+        } elseif (IS_API == false) {
+            $this->setTitle('Oppss - '. HttpErrorResponse::httpGetErrorCode());
+            $this->view('Error', '404', [
+                'httpErrorCode' => HttpErrorResponse::httpGetErrorCode(),
+                'httpErrorMessage' => HttpErrorResponse::httpGetErrorMsg(),
+            ]);
+        }
     }
 }

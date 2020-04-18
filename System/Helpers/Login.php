@@ -65,7 +65,6 @@ class Login
         return password_hash($pass, PASSWORD_BCRYPT);
     }
 
-
     /**
      * Testa se o email cadastrado existe no banco de dados
      *
@@ -76,27 +75,26 @@ class Login
     public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id', $nameField = 'name'): bool
     {
         $helper = new Helper;
-        if (Csrf::csrfTokenValidate() === true) {
-            $helper->illuminateDb();
-            $storageEmail = DB::table($table)->where($emailField, $email)->value($emailField);
-            if ($storageEmail == $email) {
-                $storagePass = DB::table($table)->where($emailField, $email)->value($passwordField);
-                if (password_verify($pass, $storagePass)) {
-                    $id = DB::table($table)->where($emailField, $email)->value($idField);
-                    $name = DB::table($table)->where($emailField, $email)->value($nameField);
-                    $time = date('Y-m-d h:m:s');
-                    self::sessionLoginGenerate($id, $storageEmail, $name, $time);
-                    return true;
+        if (!Csrf::csrfTokenValidate() and IS_API === false) {
+            Redirect::redirectTo('ooops/404');
+        }
+                $helper->illuminateDb();
+                $storageEmail = DB::table($table)->where($emailField, $email)->value($emailField);
+                if ($storageEmail == $email) {
+                    $storagePass = DB::table($table)->where($emailField, $email)->value($passwordField);
+                    if (password_verify($pass, $storagePass)) {
+                        $id = DB::table($table)->where($emailField, $email)->value($idField);
+                        $name = DB::table($table)->where($emailField, $email)->value($nameField);
+                        $time = date('Y-m-d h:m:s');
+                        self::sessionLoginGenerate($id, $storageEmail, $name, $time);
+                        return true;
+                    } else {
+                        self::sessionLoginDestroy();
+                        return false;
+                    }
                 } else {
-                    self::sessionLoginDestroy();
                     return false;
                 }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use Scooby\Helpers\Csrf;
-use Scooby\Helpers\FlashMessage;
+use Scooby\Helpers\Redirect;
 use Scooby\Helpers\Session as sess;
 
 session_start();
@@ -17,6 +17,10 @@ require_once 'App/Config/SEOConfig.php';
 require_once 'App/Config/assetsInclude.php';
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
+if (IS_API === true) {
+    header('Access-Control-Allow-Origin: *');
+    header('Access-Control-Allow-Methods: *');
+}
 sess::sessionTokenGenerate();
 $error = false;
 if (!sess::sessionTokenValidade()) {
@@ -47,9 +51,9 @@ foreach ($dir as $file) {
     require_once "App/Routes/$file";
 }
 $route->get('/denied', function() {
-    FlashMessage::modalWithGoBack('PARE', 'Esta é uma área restrita, o Scooby_CLI é reservado para se trabalhar em linha de comando. Você sera redirecionado!', 'error');
+    $url = $_SERVER['SERVER_NAME'];
+    Redirect::redirectTo($url."/".ROUTE_ERROR."/");
 });
-
 $route->group(ROUTE_ERROR);
 $route->get('/', 'NotfoundController@index');
 $route->dispatch();
