@@ -9,17 +9,24 @@ if (!file_exists('vendor/autoload.php')) {
     die('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente');
 }
 require_once 'vendor/autoload.php';
-require_once 'App/Config/assetsConfig.php';
-require_once 'App/Config/appConfig.php';
-require_once 'App/Config/emailConfig.php';
-require_once 'App/Config/databaseConfig.php';
-require_once 'App/Config/SEOConfig.php';
-require_once 'App/Config/assetsInclude.php';
+$configs = scandir('App/Config/');
+array_shift($configs);
+array_shift($configs);
+foreach ($configs as $config) {
+    if (
+            $config != 'Lang' and
+            $config != 'index.php' and
+            $config != 'twigGlobalVariables.php' and
+            $config != 'authConfig.php'
+        ) {
+        require_once "App/Config/$config";
+    }
+}
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 if (IS_API === true) {
-    header('Access-Control-Allow-Origin: *');
-    header('Access-Control-Allow-Methods: *');
+    header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW);
+    header('Access-Control-Allow-Methods: '.METHODS_ALLOW);
 }
 sess::sessionTokenGenerate();
 $error = false;

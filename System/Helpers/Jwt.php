@@ -36,7 +36,7 @@ class Jwt
     public static function jwtValidate(string $token): bool
     {
         if (self::jwtSearchTokenBlackList($token) === true) {
-            Response::json(['msg' => 'Token Inválido']);
+            Response::json(['data' => 'Token Inválido']);
             return false;
         }
         $jwt = explode('.', $token);
@@ -47,11 +47,11 @@ class Jwt
             if ($signatureToken == $jwt[2] and isset($jwt[2])) {
                 return true;
             }else{
-                Response::json(['msg' => 'Token Inválido']);
+                Response::json(['data' => 'Token Inválido']);
                 return false;
             }
         }else{
-            Response::json(['msg' => 'Token não enviado']);
+            Response::json(['data' => 'Token não enviado']);
             return false;
         }
     }

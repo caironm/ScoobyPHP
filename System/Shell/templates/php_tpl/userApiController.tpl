@@ -45,7 +45,7 @@ class UserApiController extends Controller
         if (Login::loginValidate($data->email, $data->pass)) {
             $token = Jwt::jwtCreate(['id' => $_SESSION['id'], 'email' => $data->email]);
             Jwt::jwtRefresh($token);
-            $this->Json(['token' => $token]);
+            $this->Json(['data' => $token]);
         } else {
             $this->Json(['data' => 'Usuário ou senha incorretos']);
         }

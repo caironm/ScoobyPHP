@@ -15,10 +15,8 @@ class NotfoundController extends Controller
      */
     public function index(): void
     {
-
         if (IS_API === true) {
             Response::Json([HttpErrorResponse::httpGetErrorCode() => HttpErrorResponse::httpGetErrorMsg()]);
-            exit;
         } elseif (IS_API == false) {
             $this->setTitle('Oppss - '. HttpErrorResponse::httpGetErrorCode());
             $this->view('Error', '404', [

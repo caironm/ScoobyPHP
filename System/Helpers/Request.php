@@ -189,8 +189,7 @@ class Request
             return [true, $arrPath];
         } else {
             if (IS_API === true) {
-                Response::Json(['error' => $GLOBALS['MSG_UPLOAD_FAIL']]);
-                return;
+                Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
             }
             FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
         }
@@ -292,11 +291,10 @@ class Request
             ]);
             if (empty($inputValue)) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('email', $rules)) {
@@ -307,11 +305,10 @@ class Request
             ]);
             if (!Validation::isEmail($inputValue)) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
 
@@ -323,11 +320,10 @@ class Request
             ]);
             if (!is_numeric($inputValue)) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('negative', $rules)) {
@@ -338,11 +334,10 @@ class Request
             ]);
             if (!is_numeric($inputValue) or $inputValue >= 0) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('positive', $rules)) {
@@ -353,11 +348,10 @@ class Request
             ]);
             if (!is_numeric($inputValue) or $inputValue < 0) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('string', $rules)) {
@@ -368,11 +362,10 @@ class Request
             ]);
             if (!is_string($inputValue)) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('min', $rules)) {
@@ -383,11 +376,10 @@ class Request
             ]);
             if (strlen($inputValue) < $min) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('max', $rules)) {
@@ -398,11 +390,10 @@ class Request
             ]);
             if (strlen($inputValue) > $min) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         if (in_array('between', $rules)) {
@@ -413,11 +404,10 @@ class Request
             ]);
             if ((strlen($inputValue) < $min and strlen($inputValue) > $max)) {
                 if (IS_API === true) {
-                    Response::Json(['error' => $msg]);
-                    return;
+                    Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
-                return;
+                exit;
             }
         }
         return true;
