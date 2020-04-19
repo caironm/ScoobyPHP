@@ -15,6 +15,46 @@ class Request
     }
 
     /**
+     * ATENÇÃO USANDO ESTE MÉTODO OS DADOS DA REQUISIÇÃO NÃO SERÃO FILTRADOS PARA A RETIRADA DE CÓDIGOS MALICIOSOS 
+     * por padrão retorna os dados da requisição no formato de objeto,
+     * caso setado na chamada do metodo como false ele retornará os dados da request
+     * no formato de array
+     *
+     * @param boolean $obj
+     * @return object|array
+     */
+    public static function getRequestNaturalData(bool $obj = true)
+    {
+        if (!Csrf::csrfTokenValidate() and IS_API === false) {
+            Redirect::redirectTo('ooops/404');
+        }
+        switch (self::getMethod()) {
+            case 'GET':
+                $data = $_GET;
+                if (!$obj) {
+                    return $data;
+                }
+                return (object) $data;
+            case 'PUT':
+            case 'DELETE':
+                parse_str(file_get_contents('php://input'), $data);
+                if (!$obj) {
+                    return $data;
+                }
+                return (object) $data;
+            case 'POST':
+                $data = json_decode(file_get_contents('php://input'));
+                if (is_null($data)) {
+                    $data = $_POST;
+                }
+                if (!$obj) {
+                    return $data;
+                }
+                return (object) $data;
+        }
+    }
+
+    /**
      * por padrão retorna os dados da requisição no formato de objeto,
      * caso setado na chamada do metodo como false ele retornará os dados da request
      * no formato de array
@@ -30,15 +70,17 @@ class Request
         switch (self::getMethod()) {
             case 'GET':
                 $data = $_GET;
+                $data = self::filterRequest($data);
                 if (!$obj) {
-                    return (array) $data;
+                    return $data;
                 }
                 return (object) $data;
             case 'PUT':
             case 'DELETE':
                 parse_str(file_get_contents('php://input'), $data);
+                $data = self::filterRequest($data);
                 if (!$obj) {
-                    return (array) $data;
+                    return $data;
                 }
                 return (object) $data;
             case 'POST':
@@ -46,11 +88,27 @@ class Request
                 if (is_null($data)) {
                     $data = $_POST;
                 }
+                $data = self::filterRequest($data);
                 if (!$obj) {
-                    return (array) $data;
+                    return $data;
                 }
                 return (object) $data;
         }
+    }
+
+    /**
+     * Filtra o valor retornado pelo metodo getRequestData
+     *
+     * @param array $data
+     * @return array
+     */
+    private static function filterRequest(array $data):  array
+    {
+        $arr = [];
+        foreach ($data as $key => $value) {
+            $arr[$key] = htmlspecialchars(strip_tags(addslashes(trim($value))));
+        }
+        return $arr;
     }
 
     /**
@@ -69,6 +127,7 @@ class Request
         foreach ($inputs as $input) {
             $data[$input] = $arr[$input];
         }
+        $data = self::filterRequest($data);
         if (!$obj) {
             return (array) $data;
         }
@@ -93,6 +152,7 @@ class Request
                 $data[$key] = $arr[$key];
             }
         }
+        $data = self::filterRequest($data);
         if (!$obj) {
             return (array) $data;
         }
