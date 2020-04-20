@@ -24,10 +24,15 @@ foreach ($configs as $config) {
 }
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
+
 if (IS_API === true) {
-    header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW);
-    header('Access-Control-Allow-Methods: '.METHODS_ALLOW);
+    header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW.'');
+    header('Access-Control-Allow-Methods: '.METHODS_ALLOW.'');
+    header('Access-Control-Allow-Credentials: '.CREDENTIALS_ALLOW.'');
+    header('Access-Control-Max-Age: 1728000');
+    header("Content-Length: 0");
 }
+
 sess::sessionTokenGenerate();
 $error = false;
 if (!sess::sessionTokenValidade()) {
