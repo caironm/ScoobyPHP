@@ -156,4 +156,22 @@ class Jwt
         return base64_decode(str_replace(['-','_'], ['+','/'], $string));
     }
 
+    /**
+     * Cria um token jwt
+     *
+     * @return void
+     */
+    public static function jwtKeyGenerate()
+    {
+        if (SECRET_KEY == "secret") {
+            $key = hash('sha256', rand(11111111, 99999999) . uniqid() . date('now'));
+            $generate = file_get_contents('App/Config/apiConfig.php');
+            $generate = strtr($generate, [
+                'secret' =>  "$key"
+            ]);
+            $f = fopen("App/Config/apiConfig.php", 'w+');
+            fwrite($f, $generate);
+            fclose($f);
+        }
+    }
 }

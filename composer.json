@@ -6,7 +6,7 @@
         "twig/twig": "^2.11",
         "illuminate/database": "^5.8",
         "larapack/dd": "^1.1",
-        "matthiasmullie/minify": "^1.3",
+        "matthiasmullie/minify": "*",
         "filp/whoops": "^2.5",
         "robmorgan/phinx": "0.10.0",
         "swiftmailer/swiftmailer": "^6.2",

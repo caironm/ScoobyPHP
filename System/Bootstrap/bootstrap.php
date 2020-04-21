@@ -3,6 +3,7 @@
 use Scooby\Helpers\Csrf;
 use Scooby\Helpers\Redirect;
 use Scooby\Helpers\Session as sess;
+use Scooby\Helpers\Jwt;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
@@ -24,15 +25,16 @@ foreach ($configs as $config) {
 }
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
-
 if (IS_API === true) {
+    Jwt::jwtKeyGenerate();
     header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW.'');
     header('Access-Control-Allow-Methods: '.METHODS_ALLOW.'');
     header('Access-Control-Allow-Credentials: '.CREDENTIALS_ALLOW.'');
+    header('Content-Type: application/json');
     header('Access-Control-Max-Age: 1728000');
     header("Content-Length: 0");
+    header('Content-Type: application/json');
 }
-
 sess::sessionTokenGenerate();
 $error = false;
 if (!sess::sessionTokenValidade()) {
