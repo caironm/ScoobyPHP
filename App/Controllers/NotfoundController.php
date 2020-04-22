@@ -15,14 +15,13 @@ class NotfoundController extends Controller
      */
     public function index(): void
     {
-        if (IS_API === true) {
+        if (IS_API) {
             Response::Json([HttpErrorResponse::httpGetErrorCode() => HttpErrorResponse::httpGetErrorMsg()]);
-        } elseif (IS_API == false) {
-            $this->setTitle('Oppss - '. HttpErrorResponse::httpGetErrorCode());
-            $this->view('Error', '404', [
-                'httpErrorCode' => HttpErrorResponse::httpGetErrorCode(),
-                'httpErrorMessage' => HttpErrorResponse::httpGetErrorMsg(),
-            ]);
         }
+        $this->setTitle('Oppss - ' . HttpErrorResponse::httpGetErrorCode());
+        $this->view('Error', '404', [
+            'httpErrorCode' => HttpErrorResponse::httpGetErrorCode(),
+            'httpErrorMessage' => HttpErrorResponse::httpGetErrorMsg(),
+        ]);
     }
 }
