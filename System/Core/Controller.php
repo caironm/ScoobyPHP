@@ -63,19 +63,6 @@ abstract class Controller
             } else {
                 Redirect::redirectTo('login');
             }
-        } elseif (in_array($ViewName, $changeTemplate) === true or in_array(strtolower($ViewName), $changeTemplate) === true) {
-            require_once 'System/Html/Templates/'.ucfirst($ViewName).'Header.php';
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
-            extract($ViewData);
-            echo $template->render($ViewData);
-            require_once 'System/Html/Templates/'.ucfirst($ViewName).'Footer.php';
-        } else if (in_array($ViewName, $changeAuthTemplate) === true or in_array(strtolower($ViewName), $changeAuthTemplate) === true) {
-            Auth::authValidOrFail();
-            require_once 'System/Html/Templates/'.ucfirst($ViewName).'Header.php';
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
-            extract($ViewData);
-            echo $template->render($ViewData);
-            require_once 'System/Html/Templates/'.ucfirst($ViewName).'Footer.php';
         } else {
             $this->view('error', '404');
         }
