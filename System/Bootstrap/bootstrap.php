@@ -30,10 +30,8 @@ if (IS_API === true) {
     header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW.'');
     header('Access-Control-Allow-Methods: '.METHODS_ALLOW.'');
     header('Access-Control-Allow-Credentials: '.CREDENTIALS_ALLOW.'');
-    header('Content-Type: application/json');
     header('Access-Control-Max-Age: 1728000');
     header("Content-Length: 0");
-    header('Content-Type: application/json');
 }
 sess::sessionTokenGenerate();
 $error = false;
