@@ -111,7 +111,16 @@ class Scooby
                 $component == 'makeauth' or
                 $component == 'make:auth'
             ) {
-                MakeAuth::execOptionMakeAuth();
+                $api = Cli::getParam('Seu projeto é uma API ?  Digite: [ y ] Sim || [ n ] Não');
+                if ($api == 'y' or $api == 'Y') {
+                    MakeAuth::execOptionMakeAuthApi();
+                } elseif ($api == 'n' or $api == 'N') {
+                    MakeAuth::execOptionMakeAuth();
+                } else {
+                    Cli::println('O valor digitado [ ' . $api . ' ] é Inválido');
+                    Cli::println('Autenticação de usuário não pode ser criada. Por favor tente novamente');
+                    exit;
+                }
             } elseif (
                 $component == 'makeauth --api' or
                 $component == 'make:auth --api' or
@@ -166,12 +175,12 @@ class Scooby
     private static function showHeader()
     {
         Cli::println(PHP_EOL . "\033[1;90m
-    ____                  _                      ____ _     ___ 
+    ____                  _                      ____ _     ___
    / ___|  ___ ___   ___ | |__  _   _           / ___| |   |_ _|
-   \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | | 
-    ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | | 
+   \___ \ / __/ _ \ / _ \| '_ \| | | |  _____  | |   | |    | |
+    ___) | (_| (_) | (_) | |_) | |_| | |_____| | |___| |___ | |
    |____/ \___\___/ \___/|_.__/ \__, |          \____|_____|___|
-                                |___/                           
+                                |___/
     \033[1;97m");
     }
 
@@ -179,7 +188,7 @@ class Scooby
     {
         Cli::println("
     \033[1;32m *** Bem vindo ao Scooby CLI *** \033[1;97m
-    \033[4;32m 
+    \033[4;32m
 COMANDOS DISPONÍVEIS: \033[;97m
 
   \033[1;90m - DIGITE: \033[;97m 'new:db' para criar um novo banco
@@ -189,12 +198,12 @@ COMANDOS DISPONÍVEIS: \033[;97m
   \033[1;90m - DIGITE: \033[;97m 'make:seed' para criar uma Seed no Banco de dados
   \033[1;90m - DIGITE: \033[;97m 'Run:Seed' para executar uma Seed no Banco de dados
   \033[1;90m - DIGITE: \033[;97m 'make:controller' para criar um Controller
-  \033[1;90m - DIGITE: \033[;97m 'make:controller -r' ou make:controller --resource para criar um 
+  \033[1;90m - DIGITE: \033[;97m 'make:controller -r' ou make:controller --resource para criar um
   ResourceController
   \033[1;90m - DIGITE: \033[;97m 'make:model' para criar um Model
-  \033[1;90m - DIGITE: \033[;97m 'make:model -m' ou make:model --migration para criar um model 
+  \033[1;90m - DIGITE: \033[;97m 'make:model -m' ou make:model --migration para criar um model
   com uma respectiva migration
-  \033[1;90m - DIGITE: \033[;97m 'make:model -m -s' make:model --migration --seed para criar 
+  \033[1;90m - DIGITE: \033[;97m 'make:model -m -s' make:model --migration --seed para criar
   um model com uma respectiva migration e uma respectiva seed
   \033[1;90m - DIGITE: \033[;97m 'make:view' para criar uma View
   \033[1;90m - DIGITE: \033[;97m 'make:view -a' para criar uma View autenticada
