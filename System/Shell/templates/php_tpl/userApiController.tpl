@@ -69,10 +69,64 @@ class UserApiController extends Controller
         }
     }
 
+    /**
+     * Executa o logout do usuário
+     *
+     * @return void
+     */
     public function logout()
     {
        Jwt::jwtValidate(Jwt::jwtGetToken());
        Jwt::jwtExpire(Jwt::jwtGetToken());
        $this->Json(['data' => 'Usuário deslogado com sucesso']);
+    }
+
+    /**
+     * Retorna os dados do usuario
+     *
+     * @return void
+     */
+    public function update()
+    {
+        Jwt::jwtValidate(Jwt::jwtGetToken());
+        $id = Jwt::jwtPayloadDecode(Jwt::jwtGetToken())->id;
+        $user = new User;
+        $u = $user->find($id);
+        if ($u == null) {
+            $this->Json(['data' => $GLOBALS['SOMETHING_WRONG']]);
+        }
+        $this->Json([
+            'name' => $u->name,
+            'email' => $u->email
+        ]);
+    }
+
+    /**
+     * Altera o usuario logado no sistema
+     *
+     * @return void
+     */
+    public function alter()
+    {
+        Jwt::jwtValidate(Jwt::jwtGetToken());
+        $data = Request::getRequestData();
+        $user = new User;
+        $u = $user->find(Jwt::jwtPayloadDecode(Jwt::jwtGetToken())->id);
+        if (empty($data->name)) {
+            $data->name = $u->name;
+        }
+        if (empty($data->email)) {
+            $data->email = $u->email;
+        }
+        if (empty($data->pass)) {
+            $data->pass = $u->password;
+        }
+        $u->name = $data->name;
+        $u->email = $data->email;
+        $u->password = $data->pass;
+        if (!$u->save()) {
+            $this->Json(['data' => $GLOBALS['SOMETHING_WRONG']]);
+        }
+        $this->json(['data' => $GLOBALS['UPDATE_DATA_SUCCESS']]);
     }
 }
