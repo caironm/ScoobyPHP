@@ -1,6 +1,6 @@
 # <img src="App/Public/assets/img/scooby_logo.svg" width="40"/> ScoobyPHP
 
-> Mais um framework MVC feito com amor e PHP.
+> Um framework MVC feito com PHP e muito amor para tornar o desnvolvimento web muito mais simples e divertido.
 
 O desenvolvimento de aplicações web tem se tornado cada vez mais necessário no cenário atual, seguindo esta tendência, a padronização de escrita de código, estruturação de projeto e etc tem evoluído cada dia mais, não é difícil nos depararmos com novos padrões adotados pela comunidade. Levando em consideração toda essa evolução e necessidade, proporcionamos aos desenvolvedores, principalmente aqueles que estão tendo um primeiro contato com um framework
 php
@@ -28,7 +28,7 @@ Após clonar o repositório ScoobyNewProject acesse ele e copie o arquivo que en
 para rodarmos o instalador do ScoobyPHP basta e entrar na pasta onde o arquivo scooby-create-app se encontra e executar o comando:
 
 ```sh
-php scooby-create-app
+php scooby-create
 ```
 
 Ao executar este comando, será solicitado no terminal que o programador de um nome para o novo projeto, informe este nome e aguarde o termino da instalação. Pode ser que o instalador necessite da senha do usuário logado para a manipulação do cache e para dar as devidas permissões no projeto, caso isso aconteça, informe a senha requerida e aguarde o fim da instalação.
@@ -49,7 +49,7 @@ Também é possível clonar o repositório do ScoobyPHP direto do github, para i
 git clone https://github.com/terriani/ScoobyPHP.git
 ```
 
-Após clonar o projeto será necessário instalar as suas dependências, para isto basta rodar dois comandos no terminal na na pasta raiz do projeto. Primeiro instale as dependências do composer, para isto execute:
+Após clonar o projeto será necessário instalar as suas dependências, para isto basta rodar dois comandos no terminal na pasta raiz do projeto. Primeiro instale as dependências do composer, para isto execute:
 
 ```sh
 composer install
@@ -61,11 +61,11 @@ Após o termino da instalação das dependências do composer, vamos instalar as
 npm install
 ```
 
-Pronto agora com as dependências instaladas, já é possível renomear a pasta do ScoobyPHP para o nome do seu projeto, Lembrando que será necessário entrar na pasta que do projeto, lá dentro entre em: App/Config/config.php e altere o nome do seu projeto na constante APP_NAME, trocando o scoobyPHP para o nome que do projeto. Caso a instalação tenha sido feito com o instalador não será necessário fazer nenhuma alteração nas configurações do framework.
+Pronto agora com as dependências instaladas, já é possível renomear a pasta do ScoobyPHP para o nome do seu projeto, Lembrando que será necessário entrar na pasta que do projeto, lá dentro entre em: App/Config/appConfig.php e altere o nome do seu projeto na constante APP_NAME, trocando o scoobyPHP para o nome que do projeto. Caso a instalação tenha sido feito com o instalador não será necessário fazer nenhuma alteração nas configurações do framework.
 
 ## Executando o projeto no navegador
 
-Levando em consideração que todos os passos anteriores foram executados corretamente e seu servidor local, por exemplo o xampp, esteja rodando sem error, abra seu navegador e digite na barra de endereço:
+Levando em consideração que todos os passos anteriores foram executados corretamente e seu servidor local, por exemplo o xampp, esteja rodando sem erro, abra seu navegador e digite na barra de endereço:
 
 ```sh
 http://localhost/NomeDoProjeto/
@@ -79,7 +79,7 @@ Caso a instalação tenha dado tudo cero, uma tela de boas vindas será apresent
 
 ## Estrutura de pastas
 
-A pasta App será onde toda a regra de negócio ficará, esta pasta contém os controllers, models, rotas, arquivos de configuração, seeds, migrations, a pasta public onde ficaram os arquivos css, javascript, imagens utilizadas na aplicação, imagens vindas de uploads, views e uma pasta nomeada de Utils, que será explicada sua função no decorrer deste guia.
+A pasta *** App *** será onde toda a regra de negócio ficará, esta pasta contém os controllers, models, rotas, arquivos de configuração, seeds, migrations, a pasta public onde ficaram os arquivos css, javascript, imagens utilizadas na aplicação, imagens vindas de uploads, views e uma pasta nomeada de Utils, que será explicada sua função no decorrer deste guia.
 
 **Atenção:** Por convenção o ScoobyPHP nomeia suas pastas com a primeira letra maiúscula, sendo assim, quando criar uma pasta ou uma sub-pasta,  por favor siga esta recomendação.
 
@@ -187,9 +187,198 @@ Controle é o componente final da tríade, faz a mediação da entrada e saída,
 
 O Controle (Controller) envia essas ações para o Modelo (Model) e para a janela de visualização (View) onde serão realizadas as operações necessárias.
 
+# Configurações
+
+## Desvendando as configurações do ScoobyPHP
+
+Raramente o programador precisará alterar os arquivos de configuração do Scooby, porém, é de suma importância termos conhecimentos sobre seus arquivos.
+
+### Conhecendo a pasta App/Config
+
+Possuímos alguns arquivos de configuração dentro da pasta App/Config, são estes:
+
+#### App/Config/Lang/
+
+Nesta pasta ficam os arquivos de idioma do ScoobyPHP, para criar novos arquivos de tradução dentro do Scooby é bem simples, basta criar um novo arquivo dentro desta pasta, o nome deste arquivo deve seguir a tabela contida nesta página <a href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank'>www.w3schools.com/tags/ref_language_codes.asp</a>, Após nomear o arquivo com referência ao idioma que sera incluso basta copiar o conteúdo de um dos arquivos já existentes, o conteúdo dos arquivos de tradução é um array $GLOBAL['key' => 'value'], onde a tradução devera ser feita substituindo o valor do value dentro do array.
+
+```php
+<?php
+
+//Simulação de criação de novo arquivo de tradução
+
+//Arquivo existente en.php
+$GLOBALS = [
+'WELLCOME_MSG' => 'Welcome to the Scooby framework. If you are viewing this page,
+     it means that scooby was installed correctly! '
+];
+
+//Primeiro Criamos o arquivo pt-br.php e adicionamos o conteúdo do en.php, após isso traduzimos as mensagens e caso precise criamos novas mensagens
+//Tradução, note que a chave do array permanece a mesma só alteramos o valor
+<?php
+
+$GLOBALS = [
+'WELLCOME_MSG' => 'Bem vindo ao Scooby framework. Se Você esta visualizando esta página,
+     quer dizer que o scooby foi instalado corretamente!'
+]
+
+```
+
+Para acessarmos essas mensagens traduzidas em qualquer parte do sistema é muito fácil, basta chamarmos $GLOBALS[''], passando a chave que desejamos recuperar o valor.
+
+```php
+// Recuperando o valor de um arquivo de tradução
+//chame-se a global passando a chave desejada
+echo $GLOBALS['WELLCOME_MSG'];
+```
+
+Esse código ira imprimir na tela a mensagem de boas-vindas.
+
+Para configurar um novo idioma basta abrir o arquivo situado em App/Config/appConfig.php e alterar a constante SITE_LANG para o idioma desejado.
+
+```php
+// Alteração de idioma de inglês para português
+
+//Site lang definido em inglês
+ define('SITE_LANG', 'en');
+
+// Alterar para o idioma desejado, lembrando que o arquivo de tradução devera ter sido criado previamente
+ define('SITE_LANG', 'pt_br'); 
+```
+
+#### App/Config/apiConfig.php
+
+Este arquivo é muito importante, pois contém as configurações básicas para o desenvolvimento de APIs utilizando o scooby
+
+Neste arquivo encontramos:
+
+```php
+<?php
+
+// Definir se a aplicação será uma API ou um projeto WEB monolítico
+define('IS_API', false);
+
+// Hash para encriptação do jwt único, gerado ao criar o projeto
+define('SECRET_KEY', '76783e11c38704ce746fa4f01cf4c85cb5db840077d4d4e4a4bf250824f155bb');
+
+// Constante para definição de origens permitidas 
+define('ORIGIN_ALLOW', '*');
+
+// Constante para definição de metodos permitodos 
+define('METHODS_ALLOW', 'GET, POST, PUT, DELETE');
+
+// 
+define('CREDENTIALS_ALLOW', true);
+
+```
+
+#### App/Config/appConfig.php
+
+No arquivo appConfig encontramos as configurações básicas da aplicação como APP_NAME, BASE_URL e etc...
+
+```php
+//define o nome do site em desenvolvimento
+    define('APP_NAME', 'ScoobyPHP');
+
+    //Url base para caso o controller não seja indicado na url
+    define("HOME", "home");
+
+    //define o idioma das menssagens exibidas automaticamente pelo o framework em desenvolvimento
+    define('SITE_LANG', 'pt-br');
+
+    //define a url base do sistema
+    define("BASE_URL", "/");
+
+    // Nome dado a rota de erro http
+    define('ROUTE_ERROR', 'ooops');
+```
+
+#### App/Config/assetsConfig
+
+Neste arquivo encontramos todas as configurações de assets da aplicação.
+Em **ASSETS_VERSION** temos um valor definido como 1, este valor é a versão atual dos seus assets, ao um projeto em produção, alteramos o conteúdo do arquivo  ***env.php*** para "***production***" e subimos o projeto para o servidor, com o projeto em ambiengte de produção ao alterarmos o conteúdo de algum de nossos arquivos de assets como os ***CSS*** ou o ***JS*** da nossa aplicação devemos mudar a verssão da constante **ASSETS_VESRION** para 2 e assim por diante, agora caso queira voltar uma versão especifica dos assets do projeto basta alterar o assets versio para o número desejado.
+
+#### App/Config/assetsInclude.php
+
+A utilização deste arquivo é bem simples e intuitivo, dentro do array ***html*** temos 3 arrays, o ***header***, ***bodyTop*** e ***bodyBottom***, a função destes arrays são receber as tags ***Link*** e ***Script***, por exemplo, vamos supor que precisamos adicionar uma tag link no ***header*** do template da nossa aplicação, arquivo assetsInclude.php ficaria assim
+
+```php
+<?php
+
+$html = [
+    'header' => [
+        // Este arquivo sera carregado no header da aplicação
+        "<link rel='stylesheet' href='" . ASSET . "css/404.css'>"
+    ],
+    'bodyTop' => [
+        // Aqui ficara os arquivos carregados na parte superior da body
+    ],
+    'bodyBottom' => [
+        // Aqui ficara os arquivos carregados na parte superior da body
+    ]
+];
+
+```
+
+#### App/Config/authConfig.php
+
+Por padrão o ScoonyPHP não autentica somente suas rotas e controllers, ele também autentica suas views, oferecendo assim mais uma camada de segurança para suas aplicações.
+Ao criarmos uma view, precisamos registar ela no arquivo ***authConfig.php***, este arquivo possui dois arrays, um chamado ***notAutentication*** e o outro nomeado como ***autentication***, para as views públicas, que serão vistas por todos e não somente por usuário logados no sistema, devera ser adicionado o nome ao array notAutentication, e as views que só poderão ser visualizadas por usuários logados deverão ser registradas no array autentication. Para registrar uma view e muito simples, basta adicionar o nome da mesma, sem a extensão ***.twig***.
+
+```php
+<?php
+
+/**
+ * Array contendo as views que não passarão pela autenticação
+ */
+$notAutentication = [
+    // Aqui ficam as view não autenticadas 
+    '404',
+    'home',
+];
+
+/**
+ * Array contendo as views que passarão pela autenticação
+ */
+$autentication = [
+    // Aqui ficam as views autenticadas
+];
+
+```
+
+#### App/Config/databaseConfig.php
+
+Neste arquivo podemos efetuar todas as configurações de banco de dados, tanto em modo de desenvolvimento como em produção
+
+#### App/Config/emailConfig.php
+
+Neste arquivo podemos efetuar todas as configurações de um servidor ***SMTP***, tanto em modo de desenvolvimento como em produção
+
+#### App/Config/env.php
+
+Neste arquivo definimos se nossa aplicação está em modo desenvolvimento ou em produção
+
+#### App/Config/SEOConfig.php
+
+Neste arquivo podemos efetuar todas as configurações de ***SEO*** da aplicação, tanto em modo de desenvolvimento como em produção
+
+#### App/Config/twigGlobalVariables.php
+
+Neste arquivo podemos definir variáveis globais para usarmos em nosso frontend com ***.twig***, segue um exemplo de definição de variável global em twig e sua recuperação no frontend da aplicação.
+
+```php
+$twig->addGlobal('nome_dado_a_variavel', 'Conteudo_da_variavel'),
+```
+
+e para usarmos essa variável em nossos arquivos ***.twig*** usamos:
+
+```twig
+{{ nome_dado_a_variavel }}
+```
+# Controllers
+
 ## Desvendadndo os Controllers
 
-Ao se trabalhar com o padrão MVC grande parte do projeto será desenvolvido nos controllers, neste tópico iremos criar nosso primeiro controller, descobrir como chamar uma view, como instanciar um model, como utilizar os helpers do ScoobyPHP e muito mais...
+Ao se trabalhar com o padrão MVC grande parte do projeto será desenvolvido nos controllers, neste tópico iremos criar nosso primeiro controller, descobrir como chamar uma view, como instanciar um model, como utilizar alguns dos helpers do ScoobyPHP e muito mais...
 
 ### Criando um controller
 

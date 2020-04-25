@@ -13,11 +13,6 @@ class Assets
     public static function headerLoad(): void
     {
         require 'App/Config/assetsInclude.php';
-        if(CSS['name'] == 'materialize') {
-            echo "<link rel='stylesheet' href='".NODE_MODULES."materialize-css/dist/css/materialize.min.css'>";
-          } else {
-            echo "<link rel='stylesheet' href='".CSS['cssPath']."'>";
-          }
         foreach ($html['header'] as $header) {
             echo $header;
         }
@@ -35,12 +30,6 @@ class Assets
         foreach ($html['bodyTop'] as $bodyTop) {
             echo $bodyTop;
         }
-        if(CSS['name'] == 'materialize') {
-            echo "<script src='".NODE_MODULES."materialize-css/dist/js/materialize.min.js'></script>";
-            
-          } else {
-            echo "<script src='".CSS['jsPath']."'></script>";
-          }
     }
 
     /**
