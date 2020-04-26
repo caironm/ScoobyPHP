@@ -27,14 +27,15 @@ require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 Jwt::jwtKeyGenerate();
 if (IS_API === true) {
-    header('Access-Control-Allow-Origin: '.ORIGIN_ALLOW.'');
-    header('Access-Control-Allow-Methods: '.METHODS_ALLOW.'');
-    header('Access-Control-Allow-Credentials: '.CREDENTIALS_ALLOW.'');
-    header('Access-Control-Max-Age: 1728000');
-    header("Content-Length: 0");
+    header("Access-Control-Allow-Origin: ".ORIGIN_ALLOW."");
+    if (CREDENTIALS_ALLOW === true) {
+        header("Access-Control-Allow-Credentials: true");
+    }
+    header("Access-Control-Max-Age: 1728000");
+    header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+    header("Access-Control-Allow-Methods: ".METHODS_ALLOW."");
 }
 sess::sessionTokenGenerate();
-$error = false;
 if (!sess::sessionTokenValidade()) {
     //die('Opss... Algo saiu errado por favor tente novamente');
 }

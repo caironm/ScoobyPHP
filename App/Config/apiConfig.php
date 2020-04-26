@@ -10,4 +10,4 @@ define('ORIGIN_ALLOW', '*');
 
 define('METHODS_ALLOW', 'GET, POST, PUT, DELETE');
 
-define('CREDENTIALS_ALLOW', true);
+define('CREDENTIALS_ALLOW', false);
