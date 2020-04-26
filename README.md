@@ -621,9 +621,7 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	protected $table = 'my_users';
-
 }
 ```
 
@@ -653,7 +651,7 @@ $users = User::where('votes', '>', 100)->take(10)->get();
 
 foreach ($users as $user)
 {
-	var_dump($user->name);
+    var_dump($user->name);
 }
 ```
 
@@ -732,11 +730,9 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
-	protected $table = 'users';
-
+    protected $table = 'users';
+    
 	public $timestamps = false;
-
 }
 ```
 
@@ -751,12 +747,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function freshTimestamp()
 	{
 		return time();
 	}
-
 }
 ```
 
@@ -780,12 +774,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function phone()
 	{
 		return $this->hasOne('Phone');
 	}
-
 }
 ```
 
@@ -818,12 +810,10 @@ use Scooby\Core\Model;
 
 class Phone extends Model 
 {
-
 	public function user()
 	{
 		return $this->belongsTo('User');
 	}
-
 }
 ```
 
@@ -837,12 +827,10 @@ use Scooby\Core\Model;
 
 class Post extends Model 
 {
-
 	public function comments()
 	{
 		return $this->hasMany('Comment');
 	}
-
 }
 ```
 
@@ -874,12 +862,10 @@ use Scooby\Core\Model;
 
 class Comment extends Model 
 {
-
 	public function post()
 	{
 		return $this->belongsTo('Post');
 	}
-
 }
 ```
 
@@ -895,12 +881,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function roles()
 	{
 		return $this->belongsToMany('Role');
 	}
-
 }
 ```
 
@@ -932,32 +916,26 @@ use Scooby\Core\Model;
 
 class Photo extends Model 
 {
-
 	public function imageable()
 	{
 		return $this->morphTo();
 	}
-
 }
 
 class Staff extends Model 
 {
-
 	public function photos()
 	{
 		return $this->morphMany('Photo', 'imageable');
 	}
-
 }
 
 class Order extends Model 
 {
-
 	public function photos()
 	{
 		return $this->morphMany('Photo', 'imageable');
 	}
-
 }
 ```
 
@@ -1015,12 +993,10 @@ use Scooby\Core\Model;
 
 class Book extends Model 
 {
-
 	public function author()
 	{
 		return $this->belongsTo('Author');
 	}
-
 }
 ```
 
@@ -1218,12 +1194,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function newCollection(array $models = array())
 	{
 		return new CustomCollection($models);
 	}
-
 }
 ```
 
@@ -1239,12 +1213,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function giveFirstName($value)
 	{
 		return ucfirst($value);
 	}
-
 }
 ```
 
@@ -1261,12 +1233,10 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	public function takeFirstName($value)
 	{
 		$this->attributes['first_name'] = strtolower($value);
 	}
-
 }
 ```
 
@@ -1286,9 +1256,7 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	protected $fillable = array('first_name', 'last_name', 'email');
-
 }
 ```
 
@@ -1305,9 +1273,7 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	protected $guarded = array('id', 'password');
-
 }
 ```
 
@@ -1366,9 +1332,7 @@ use Scooby\Core\Model;
 
 class User extends Model 
 {
-
 	protected $hidden = array('password');
-
 }
 ```
 
