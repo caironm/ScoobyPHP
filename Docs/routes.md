@@ -21,7 +21,6 @@ $route->get('/home/{id}/{name}', 'HomeController@index');
 e lá no HomeController, na action index, recuperamos este valor da seguinte maneira:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 

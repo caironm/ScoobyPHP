@@ -11,7 +11,6 @@ para criarmos um controller, basta irmos ate a pasta Controllers, que se encontr
 Ao abrir o Controller recém criado basta adicionar o código abaixo:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -34,7 +33,6 @@ Pronto, com algumas linhas de código já temos um controller criado e pronto pa
 Para chamar uma view no navegador do usuário, levando em consideração que a view já foi previamente criada na pasta App/Views/Pages/, basta escrever o seguinte código dentro do método desejado. Exemplo de um controller chamando uma view na action index.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -59,7 +57,6 @@ Note que o método view mapeia a chamada para dentro da pasta App/Views, sendo n
 Exemplo de envio de um texto de boa vindas do metodo index para a view home.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -92,7 +89,6 @@ $this->setTitle('Titulo da página');
 Neste caso o controller ficaria assim:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -129,7 +125,6 @@ $route->get('/{name}', 'HomeController@index');
 Eo controller ficaria:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -158,7 +153,6 @@ class HomeController extends Controller
 Muitas vezes em que estamos escrevendo uma aplicação, principalmente quando estamos criando uma **API**, precisamos retornar não uma **view**, mas sim um **Json**, para retornar um jason no ScoobyPHP basta chamar $this->Json() e passar um array com os dados a ser retornado
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -184,7 +178,6 @@ Veja agora um exemplo de consulta em uma tabela de usuarios.
 OBS: Na sessão de Models será melhor explicado como se tarbalhar corretamente com o Eloquent e com o models dentro do ScoobyPHP.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 

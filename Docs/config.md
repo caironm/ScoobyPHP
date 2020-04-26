@@ -13,7 +13,6 @@ Possuímos alguns arquivos de configuração dentro da pasta App/Config, são es
 Nesta pasta ficam os arquivos de idioma do ScoobyPHP, para criar novos arquivos de tradução dentro do Scooby é bem simples, basta criar um novo arquivo dentro desta pasta, o nome deste arquivo deve seguir a tabela contida nesta página <a href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank'>www.w3schools.com/tags/ref_language_codes.asp</a>, Após nomear o arquivo com referência ao idioma que sera incluso basta copiar o conteúdo de um dos arquivos já existentes, o conteúdo dos arquivos de tradução é um array $GLOBAL['key' => 'value'], onde a tradução devera ser feita substituindo o valor do value dentro do array.
 
 ```php
-<?php
 
 //Simulação de criação de novo arquivo de tradução
 
@@ -25,7 +24,6 @@ $GLOBALS = [
 
 //Primeiro Criamos o arquivo pt-br.php e adicionamos o conteúdo do en.php, após isso traduzimos as mensagens e caso precise criamos novas mensagens
 //Tradução, note que a chave do array permanece a mesma só alteramos o valor
-<?php
 
 $GLOBALS = [
 'WELLCOME_MSG' => 'Bem vindo ao Scooby framework. Se Você esta visualizando esta página,
@@ -63,7 +61,6 @@ Este arquivo é muito importante, pois contém as configurações básicas para 
 Neste arquivo encontramos:
 
 ```php
-<?php
 
 // Definir se a aplicação será uma API ou um projeto WEB monolítico
 define('IS_API', false);
@@ -113,7 +110,6 @@ Em **ASSETS_VERSION** temos um valor definido como 1, este valor é a versão at
 A utilização deste arquivo é bem simples e intuitivo, dentro do array ***html*** temos 3 arrays, o ***header***, ***bodyTop*** e ***bodyBottom***, a função destes arrays são receber as tags ***Link*** e ***Script***, por exemplo, vamos supor que precisamos adicionar uma tag link no ***header*** do template da nossa aplicação, arquivo assetsInclude.php ficaria assim
 
 ```php
-<?php
 
 $html = [
     'header' => [
@@ -136,7 +132,6 @@ Por padrão o ScoonyPHP não autentica somente suas rotas e controllers, ele tam
 Ao criarmos uma view, precisamos registar ela no arquivo ***authConfig.php***, este arquivo possui dois arrays, um chamado ***notAutentication*** e o outro nomeado como ***autentication***, para as views públicas, que serão vistas por todos e não somente por usuário logados no sistema, devera ser adicionado o nome ao array notAutentication, e as views que só poderão ser visualizadas por usuários logados deverão ser registradas no array autentication. Para registrar uma view e muito simples, basta adicionar o nome da mesma, sem a extensão ***.twig***.
 
 ```php
-<?php
 
 /**
  * Array contendo as views que não passarão pela autenticação

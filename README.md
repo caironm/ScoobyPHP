@@ -202,7 +202,6 @@ Possuímos alguns arquivos de configuração dentro da pasta App/Config, são es
 Nesta pasta ficam os arquivos de idioma do ScoobyPHP, para criar novos arquivos de tradução dentro do Scooby é bem simples, basta criar um novo arquivo dentro desta pasta, o nome deste arquivo deve seguir a tabela contida nesta página <a href='https://www.w3schools.com/tags/ref_language_codes.asp' target='_blank'>www.w3schools.com/tags/ref_language_codes.asp</a>, Após nomear o arquivo com referência ao idioma que sera incluso basta copiar o conteúdo de um dos arquivos já existentes, o conteúdo dos arquivos de tradução é um array $GLOBAL['key' => 'value'], onde a tradução devera ser feita substituindo o valor do value dentro do array.
 
 ```php
-<?php
 
 //Simulação de criação de novo arquivo de tradução
 
@@ -214,7 +213,6 @@ $GLOBALS = [
 
 //Primeiro Criamos o arquivo pt-br.php e adicionamos o conteúdo do en.php, após isso traduzimos as mensagens e caso precise criamos novas mensagens
 //Tradução, note que a chave do array permanece a mesma só alteramos o valor
-<?php
 
 $GLOBALS = [
 'WELLCOME_MSG' => 'Bem vindo ao Scooby framework. Se Você esta visualizando esta página,
@@ -252,7 +250,6 @@ Este arquivo é muito importante, pois contém as configurações básicas para 
 Neste arquivo encontramos:
 
 ```php
-<?php
 
 // Definir se a aplicação será uma API ou um projeto WEB monolítico
 define('IS_API', false);
@@ -302,7 +299,6 @@ Em **ASSETS_VERSION** temos um valor definido como 1, este valor é a versão at
 A utilização deste arquivo é bem simples e intuitivo, dentro do array ***html*** temos 3 arrays, o ***header***, ***bodyTop*** e ***bodyBottom***, a função destes arrays são receber as tags ***Link*** e ***Script***, por exemplo, vamos supor que precisamos adicionar uma tag link no ***header*** do template da nossa aplicação, arquivo assetsInclude.php ficaria assim
 
 ```php
-<?php
 
 $html = [
     'header' => [
@@ -325,7 +321,6 @@ Por padrão o ScoonyPHP não autentica somente suas rotas e controllers, ele tam
 Ao criarmos uma view, precisamos registar ela no arquivo ***authConfig.php***, este arquivo possui dois arrays, um chamado ***notAutentication*** e o outro nomeado como ***autentication***, para as views públicas, que serão vistas por todos e não somente por usuário logados no sistema, devera ser adicionado o nome ao array notAutentication, e as views que só poderão ser visualizadas por usuários logados deverão ser registradas no array autentication. Para registrar uma view e muito simples, basta adicionar o nome da mesma, sem a extensão ***.twig***.
 
 ```php
-<?php
 
 /**
  * Array contendo as views que não passarão pela autenticação
@@ -387,7 +382,6 @@ para criarmos um controller, basta irmos ate a pasta Controllers, que se encontr
 Ao abrir o Controller recém criado basta adicionar o código abaixo:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -410,7 +404,6 @@ Pronto, com algumas linhas de código já temos um controller criado e pronto pa
 Para chamar uma view no navegador do usuário, levando em consideração que a view já foi previamente criada na pasta App/Views/Pages/, basta escrever o seguinte código dentro do método desejado. Exemplo de um controller chamando uma view na action index.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -435,7 +428,6 @@ Note que o método view mapeia a chamada para dentro da pasta App/Views, sendo n
 Exemplo de envio de um texto de boa vindas do metodo index para a view home.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -468,7 +460,6 @@ $this->setTitle('Titulo da página');
 Neste caso o controller ficaria assim:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -505,7 +496,6 @@ $route->get('/{name}', 'HomeController@index');
 Eo controller ficaria:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -534,7 +524,6 @@ class HomeController extends Controller
 Muitas vezes em que estamos escrevendo uma aplicação, principalmente quando estamos criando uma **API**, precisamos retornar não uma **view**, mas sim um **Json**, para retornar um jason no ScoobyPHP basta chamar $this->Json() e passar um array com os dados a ser retornado
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -560,7 +549,6 @@ Veja agora um exemplo de consulta em uma tabela de usuarios.
 OBS: Na sessão de Models será melhor explicado como se tarbalhar corretamente com o Eloquent e com o models dentro do ScoobyPHP.
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -1365,7 +1353,6 @@ Após isto sera pedido o nome da migration, esse nome, por padrão, precisa ser 
 Ao executar este comando um novo arquivo será criado em **App/Db/Migrations/** com um nome parecido com **20200425160028_minha_primeira_migration.php**, dentro deste arquivo podemos encontrar o seguinte conteúdo:
 
 ```php
-<?php
 
 use Phinx\Migration\AbstractMigration;
 
@@ -1405,7 +1392,6 @@ Para termos nossa migration totalmente funcional basta preenchermos com algumas 
 Veja neste exemplo, onde iremos criar uma migration da tabela de usuários.
 
 ```php
-<?php
 
 use Phinx\Migration\AbstractMigration;
 
@@ -1484,7 +1470,6 @@ $route->get('/home/{id}/{name}', 'HomeController@index');
 e lá no HomeController, na action index, recuperamos este valor da seguinte maneira:
 
 ```php
-<?php
 
 namespace Scooby\Controllers;
 
@@ -1712,6 +1697,13 @@ $route->get('/home', 'HomeController@index');
 $route->group("novo_prefixo");
 $route->get('/home', 'HomeController@index');
 ```
+
+# Assets
+
+## Desvendando os assets
+
+Todos assets do ScoobyPHP encontram-se na pasta assets que fica em **App/Public/assets/**, lá estão arquivos de **JS**, **CSS**.
+Para adicionar código css e ja ao projeto basta criar um novo arquivo, ou utilizar os arquivos que vem por padrão, ao atualizar a página da aplicação que esta sendo desenvolvida todos os arquivos criados serão minificados e adicionando em um só, assim não sendo necessário a inclusão deles no projeto
 
 ### [***ATENÇÃO*** - ESCRITA DA DOCUMETAÇÃO EM ANDAMENTO...]
 
