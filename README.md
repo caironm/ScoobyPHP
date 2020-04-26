@@ -1465,7 +1465,7 @@ Esse comando irá executar todas as migrationsque ainda não foram executadas na
 
 ## Desvendando as rotas
 
-Os arquivos de rota do ScoobyPHP encontra-se no diretório **App/Routes/**, note que dentro da pasta Routes encontramos dois arqiovos, o **api.php** e o **web.php**, o uso destes arquivos não é obrigatório, o programador pode criar seus próprios arquivos de rota para uma melhor organização do código da aplicação. Nesta sessão será explicado a criação de rotas utilizando os arquivos padrões que já vem pa pasta Routes1, porém fica a critério do desenvolvedor utilizar os conhecimentos adquiridos neste guia em qualquer outro arquivo de rotas por ele criado.
+Os arquivos de rota do ScoobyPHP encontra-se no diretório **App/Routes/**, note que dentro da pasta Routes encontramos dois arqiovos, o **api.php** e o **web.php**, o uso destes arquivos não é obrigatório, o programador pode criar seus próprios arquivos de rota para uma melhor organização do código da aplicação. Nesta sessão será explicado a criação de rotas utilizando os arquivos padrões que vem por padrão na pasta Routes, porém fica a critério do desenvolvedor utilizar os conhecimentos adquiridos neste guia em qualquer outro arquivo de rotas por ele criado.
 
 ### Criando nossa primeira rota
 
@@ -1503,11 +1503,6 @@ class HomeController extends Controller
         $id = $param['id'];
         $name = $param['name'];
 
-        $this->setTitle('Hello world');
-        $this->view('Pages', 'Home', [
-            'id' => $id,
-            'nome' => $name
-        ]);
     }
 }
 ```
@@ -1677,8 +1672,6 @@ A criação de uma rota do tipo match é feita da seguinte maneira:
 ```php
 $route->auth(['get', 'post', 'etc...'], '/caminho_da_rota', 'Controller@action');
 ```
-
-ou em forma de clojure
 
 ou em forma de clojure
 
