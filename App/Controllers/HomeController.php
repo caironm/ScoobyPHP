@@ -3,7 +3,6 @@
 namespace Scooby\Controllers;
 
 use Scooby\Core\Controller;
-use Scooby\Helpers\HttpClient;
 use Scooby\Helpers\Response;
 
 class HomeController extends Controller
