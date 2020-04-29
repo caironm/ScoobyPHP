@@ -12,7 +12,8 @@
         "swiftmailer/swiftmailer": "^6.2",
         "dfridrich/php-mime-type": "^2.0",
         "jasongrimes/paginator": "^1.0",
-        "coffeecode/optimizer": "^2.0"
+        "coffeecode/optimizer": "^2.0",
+        "kitetail/zttp": "^0.6.0"
     },
     "autoload":{
         "psr-4": {
