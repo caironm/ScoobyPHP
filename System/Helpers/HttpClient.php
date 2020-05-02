@@ -24,7 +24,10 @@ class HttpClient
         $response = Zttp::withOptions($options)->withHeaders($headers)->asMultipart()->asFormParams()->get($url, $param);
         return (object) [
             'headers' => $response->headers(),
-            'body' => $response->json(),
+            'body' => [
+                'json' => $response->json(),
+                'raw' => $response->body()
+            ],
             'ok' => $response->isSuccess(),
             'status' => $response->status(),
             'serverError' => $response->isServerError(),
@@ -50,7 +53,10 @@ class HttpClient
         $response = Zttp::withOptions($options)->withHeaders($headers)->asMultipart()->asFormParams()->post($url, $param);
         return (object) [
             'headers' => $response->headers(),
-            'body' => $response->json(),
+            'body' => [
+                'json' => $response->json(),
+                'raw' => $response->body()
+            ],
             'ok' => $response->isSuccess(),
             'status' => $response->status(),
             'serverError' => $response->isServerError(),
@@ -76,7 +82,10 @@ class HttpClient
         $response = Zttp::withOptions($options)->withHeaders($headers)->asMultipart()->asFormParams()->put($url, $param);
         return (object) [
             'headers' => $response->headers(),
-            'body' => $response->json(),
+            'body' => [
+                'json' => $response->json(),
+                'raw' => $response->body()
+            ],
             'ok' => $response->isSuccess(),
             'status' => $response->status(),
             'serverError' => $response->isServerError(),
@@ -102,7 +111,10 @@ class HttpClient
         $response = Zttp::withOptions($options)->withHeaders($headers)->asMultipart()->asFormParams()->delete($url, $param);
         return (object) [
             'headers' => $response->headers(),
-            'body' => $response->json(),
+            'body' => [
+                'json' => $response->json(),
+                'raw' => $response->body()
+            ],
             'ok' => $response->isSuccess(),
             'status' => $response->status(),
             'serverError' => $response->isServerError(),
