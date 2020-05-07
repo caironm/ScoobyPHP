@@ -28,7 +28,7 @@ class Jwt
     }
 
     /**
-     * Valida um token JWT informado 
+     * Valida um token JWT informado
      *
      * @param string $token
      * @return boolean
@@ -41,7 +41,7 @@ class Jwt
         }
         $jwt = explode('.', $token);
         if (count($jwt) == 3) {
-            $signature = hash_hmac("sha256", $jwt[0].'.'.$jwt[1], SECRET_KEY, true); 
+            $signature = hash_hmac("sha256", $jwt[0].'.'.$jwt[1], SECRET_KEY, true);
             $signatureToken = self::base64_encode_url($signature);
 
             if ($signatureToken == $jwt[2] and isset($jwt[2])) {
@@ -64,7 +64,7 @@ class Jwt
      */
     public static function jwtPayloadDecode(string $token): object
     {
-        $tokenSplit = explode('.', $token); 
+        $tokenSplit = explode('.', $token);
         return (object) json_decode(self::base64_decode_url($tokenSplit[1]));
     }
 
@@ -130,7 +130,7 @@ class Jwt
         $blackList = file_get_contents($path);
         if (strpos($blackList, $token) === false) {
             return false;
-        } 
+        }
         return true;
     }
 
@@ -144,7 +144,7 @@ class Jwt
     {
         return str_replace(['+','/','='], ['-','_',''], base64_encode($string));
     }
-    
+
     /**
      * Decodifica uma string em base64
      *
@@ -164,7 +164,7 @@ class Jwt
     public static function jwtKeyGenerate()
     {
         if (SECRET_KEY == "secret") {
-            $key = hash('sha256', rand(11111111, 99999999) . uniqid() . date('now'));
+            $key = hash('sha256', md5(rand(11111111, 99999999) . uniqid(rand(), true) . time()));
             $generate = file_get_contents('App/Config/apiConfig.php');
             $generate = strtr($generate, [
                 'secret' =>  "$key"

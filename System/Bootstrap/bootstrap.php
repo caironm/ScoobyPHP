@@ -7,7 +7,7 @@ use Scooby\Helpers\Jwt;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
-    die('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente');
+    throw( new Exception('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente'));
 }
 require_once 'vendor/autoload.php';
 $configs = scandir('App/Config/');

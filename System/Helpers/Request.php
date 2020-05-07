@@ -15,7 +15,7 @@ class Request
     }
 
     /**
-     * ATENÇÃO USANDO ESTE MÉTODO OS DADOS DA REQUISIÇÃO NÃO SERÃO FILTRADOS PARA A RETIRADA DE CÓDIGOS MALICIOSOS 
+     * ATENÇÃO USANDO ESTE MÉTODO OS DADOS DA REQUISIÇÃO NÃO SERÃO FILTRADOS PARA A RETIRADA DE CÓDIGOS MALICIOSOS
      * por padrão retorna os dados da requisição no formato de objeto,
      * caso setado na chamada do metodo como false ele retornará os dados da request
      * no formato de array
@@ -224,34 +224,63 @@ class Request
      * Executa o upload de arquivos
      *
      * @param string $name
+     * @param array $type
      * @param string $path
      * @return array|bool
      */
-    public static function upload(string $name, string $path = 'Public/uploaded/')
+    public static function upload(string $name, array $type = [], string $path = 'App/Public/uploaded/')
     {
         if (!Csrf::csrfTokenValidate() and IS_API === false) {
+            if (IS_API === true) {
+                Response::Json(['data' => $GLOBALS['SOMETHING_WRONG']]);
+            }
             FlashMessage::modalWithGoBack('Opss', $GLOBALS['SOMETHING_WRONG'], 'error');
+            exit;
         }
         $arrPath = [];
         if (!isset($_FILES[$name]) or empty($_FILES[$name])) {
             return false;
         }
-        $count = count($_FILES[$name]['tmp_name']);
-        if ($count > 0) {
-            for ($i = 0; $i < $count; $i++) {
-                $mimeType = $_FILES[$name]['type'][$i];
-                $arrMimeType = explode('/', $mimeType);
-                $ext = end($arrMimeType);
-                $fileName = md5($_FILES[$name]['name'][$i] . time() . rand(0, 99999));
-                move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path . $fileName . "." . $ext);
-                $arrPath[$i] = $path . $fileName . '.' . $ext;
-            }
-            return [true, $arrPath];
-        } else {
-            if (IS_API === true) {
-                Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
+        if (is_array($_FILES[$name]['tmp_name'])) {
+            $count = count($_FILES[$name]['tmp_name']);
+            if ($count > 0) {
+                for ($i = 0; $i < $count; $i++) {
+                    $mimeType = $_FILES[$name]['type'][$i];
+                    if (!empty($type) and !in_array($_FILES[$name]['type'][$i], $type)) {
+                        if (IS_API === true) {
+                            Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
+                        }
+                        FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
+                        exit;
+                    }
+                    $arrMimeType = explode('/', $mimeType);
+                    $ext = end($arrMimeType);
+                    $fileName = md5($_FILES[$name]['name'][$i] . time() . rand(0, 99999));
+                    move_uploaded_file($_FILES[$name]['tmp_name'][$i], $path . $fileName . "." . $ext);
+                    $arrPath[$i] = $path . $fileName . '.' . $ext;
+                }
+                return [true, $arrPath];
+            } else {
+                if (IS_API === true) {
+                    Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
+                }
             }
             FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
+        } else {
+            $mimeType = $_FILES[$name]['type'];
+            if (!empty($type) and !in_array($_FILES[$name]['type'], $type)) {
+                if (IS_API === true) {
+                    Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
+                }
+                FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
+                exit;
+            }
+            $arrMimeType = explode('/', $mimeType);
+            $ext = end($arrMimeType);
+            $fileName = md5($_FILES[$name]['name'] . time() . rand(0, 99999));
+            move_uploaded_file($_FILES[$name]['tmp_name'], $path . $fileName . "." . $ext);
+            $arrPath[] = $path . $fileName . '.' . $ext;
+            return [true, $arrPath];
         }
     }
 

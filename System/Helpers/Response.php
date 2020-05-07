@@ -7,6 +7,7 @@ class Response
      /**
      * Retorna um array json
      *
+     * @param int $code
      * @param string|array $data
      * @return void
      */
