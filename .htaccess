@@ -5,6 +5,13 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?route=/$1 [QSA,L]
 RewriteRule (scooby-do)$ denied [L]
 RewriteRule (BlackList.txt)$ denied [L]
+RewriteRule (.env)$ denied [L]
+RewriteRule (composer.json)$ denied [L]
+RewriteRule (composer.lock)$ denied [L]
+RewriteRule (package.json)$ denied [L]
+RewriteRule (.package-lock.json)$ denied [L]
+RewriteRule (.editorconfig)$ denied [L]
+RewriteRule (.gitignore)$ denied [L]
 <IfModule mod_deflate.c>
 AddOutputFilterByType DEFLATE text/html
 AddOutputFilterByType DEFLATE text/css

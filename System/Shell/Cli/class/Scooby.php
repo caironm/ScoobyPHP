@@ -103,7 +103,8 @@ class Scooby
             ) {
                 $seedName = Cli::getParam('Por favor, DIGITE o nome da Seed a ser executada. Use o mesmo formato dado ao nome do arquivo');
                 $seedName = ucfirst($seedName);
-                chdir('App/Db/Seeds');
+                chdir('App/Db/Seeds/');
+
                 shell_exec('php ' . $seedName . '.php');
 
                 Cli::println("Seed {$seedName} executada com sucesso em App/Db/Seeds/");

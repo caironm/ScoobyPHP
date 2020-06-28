@@ -1349,40 +1349,29 @@ Ao abrir a tela do scooby-do, digitamos:
 make:migration
 ```
 
-Após isto sera pedido o nome da migration, esse nome, por padrão, precisa ser escrito no formato **MinhaPrimeiraMigration**, note que a primeira letra de cada palavra esta escrita em maiúsculo.
-Ao executar este comando um novo arquivo será criado em **App/Db/Migrations/** com um nome parecido com **20200425160028_minha_primeira_migration.php**, dentro deste arquivo podemos encontrar o seguinte conteúdo:
+Após isto sera pedido o nome da migration, esse nome, por padrão, precisa ser escrito no formato CamelCase, ficando assim **MinhaPrimeiraMigration**, note que a primeira letra de cada palavra esta escrita em maiúsculo.
+Ao executar este comando um novo arquivo será criado em **App/Db/Migrations/** com um nome escolhido para a migration, dentro deste arquivo podemos encontrar o seguinte conteúdo:
 
 ```php
+<?php
 
 use Phinx\Migration\AbstractMigration;
 
-class MinhaPrimeiraMigration extends AbstractMigration
+class MinhaPrimeiraMigrationCreateTable extends AbstractMigration
 {
-    /**
-    * Change Method.
-    *
-    * Write your reversible migrations using this method.
-    *
-    * More information on writing migrations is available here:
-    * http://docs.phinx.org/en/latest/migrations.html#the-abstractmigration-class
-    *
-    * The following commands can be used in this method and Phinx will
-    * automatically reverse them when rolling back:
-    *
-    * createTable
-    * renameTable
-    * addColumn
-    * addCustomColumn
-    * renameColumn
-    * addIndex
-    * addForeignKey
-    *
-    * Any other distructive changes will result in an error when trying to
-    * rollback the migration.
-    */
-    public function change()
+    /*
+     *
+     * @return void
+     */
+    public function change(): void
     {
+        $this->Table('table_name')
 
+        // Adicione colunas à tabela com o método addColum, passando p nome da coluna
+        // o tipo do dado e um array com opções como no exemplo abaixo:
+        // ->addColum('name', 'string', ['null' => false])
+
+        ->create();
     }
 }
 ```
@@ -1392,33 +1381,16 @@ Para termos nossa migration totalmente funcional basta preenchermos com algumas 
 Veja neste exemplo, onde iremos criar uma migration da tabela de usuários.
 
 ```php
+<?php
 
 use Phinx\Migration\AbstractMigration;
 
-class CreateUserAuth extends AbstractMigration
+class MinhaPrimeiraMigrationCreateTable extends AbstractMigration
 {
-    /**
-    * Change Method.
-    *
-    * Write your reversible migrations using this method.
-    *
-    * More information on writing migrations is available here:
-    * http://docs.phinx.org/en/latest/migrations.html#the-abstractmigration-class
-    *
-    * The following commands can be used in this method and Phinx will
-    * automatically reverse them when rolling back:
-    *
-    * createTable
-    * renameTable
-    * addColumn
-    * addCustomColumn
-    * renameColumn
-    * addIndex
-    * addForeignKey
-    *
-    * Any other distructive changes will result in an error when trying to
-    * rollback the migration.
-    */
+    /*
+     *
+     * @return void
+     */
     public function change(): void
     {
     $this->Table('users')
@@ -1427,14 +1399,74 @@ class CreateUserAuth extends AbstractMigration
     ->addColumn('password', 'string', ['null' => false])
     ->create();
     }
-
 }
 
 ```
 
 Neste exemplo passamos primeiramente o nome da tabela a ser criada, apos isto passamos seus campos com os nomes, tipos e um array com as regras, neste caso, **['null' =&gt; false]** e por ultimo chamamos o método **create()**, note que não informamos o **id**, pois o phinx cria um campo com o nome id do tipo primary key automaticamente
 
+Os metodos disponíveis para a criação de migrations são:
+
+ **createTable()**
+
+ **renameTable()**
+
+ **addColumn()**
+
+ **renameColumn()**
+
+ **addIndex()**
+
+ **addForeignKey()**
+
+Já os tipos de dados aceitos são:
+
+**biginteger**
+
+**binary**
+
+**boolean**
+
+**date**
+
+**datetime**
+
+**decimal**
+
+**float**
+
+**double**
+
+**integer**
+
+**smallinteger**
+
+**string**
+
+**text**
+
+**time**
+
+**timestamp**
+
+**uuid**
+
+Configurações aceitas:
+
+**limit** - definir comprimento máximo para as strings
+
+**length** - Apelido para o limite
+
+**default** - definir valor ou ação padrão
+
+**nulo** - permitir valores NULL, padrões como false (não deve ser usado com chaves primárias!) 
+
+**after** - especificar a coluna que uma nova coluna deve ser colocada depois (só se aplica ao MySQL)
+
+**comment** - definir um comentário de texto na coluna
+
 Agora, basta voltarmos ao terminal, digitarmos novamente
+
 ```shell
 php scooby-do
 ```

@@ -25,8 +25,11 @@ class Request
      */
     public static function getRequestNaturalData(bool $obj = true)
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            Redirect::redirectTo('ooops/404');
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
         }
         switch (self::getMethod()) {
             case 'GET':
@@ -64,8 +67,11 @@ class Request
      */
     public static function getRequestData(bool $obj = true)
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            Redirect::redirectTo('ooops/404');
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
         }
         switch (self::getMethod()) {
             case 'GET':
@@ -122,6 +128,12 @@ class Request
      */
     public static function getRequestOnly(array $inputs, bool $obj = true)
     {
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
+        }
         $data = [];
         $arr = (array) self::getRequestData();
         foreach ($inputs as $input) {
@@ -145,6 +157,12 @@ class Request
      */
     public static function getRequestExcept(array $inputs, bool $obj = true)
     {
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
+        }
         $data = [];
         $arr = (array) self::getRequestData();
         foreach ($arr as $key => $value) {
@@ -167,8 +185,11 @@ class Request
      */
     public static function input(string $inputName)
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            Redirect::redirectTo('ooops/404');
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
         }
 
         if (self::has($inputName)) {
@@ -188,8 +209,11 @@ class Request
      */
     public static function get(string $inputName)
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            Redirect::redirectTo('ooops/404');
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
         }
         if (self::has($inputName)) {
             if (isset($_GET["$inputName"]) and !empty($_GET["$inputName"])) {
@@ -208,8 +232,11 @@ class Request
      */
     public static function post(string $inputName)
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            Redirect::redirectTo('ooops/404');
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
+            }
         }
         if (self::has($inputName)) {
             if (isset($_POST["$inputName"]) and !empty($_POST["$inputName"])) {
@@ -230,12 +257,11 @@ class Request
      */
     public static function upload(string $name, array $type = [], string $path = 'App/Public/uploaded/')
     {
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
-            if (IS_API === true) {
-                Response::Json(['data' => $GLOBALS['SOMETHING_WRONG']]);
+        if (getenv('CSRF_PROTECTION') == "true") {
+            if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Redirect::redirectTo('ooops/404');
+                return false;
             }
-            FlashMessage::modalWithGoBack('Opss', $GLOBALS['SOMETHING_WRONG'], 'error');
-            exit;
         }
         $arrPath = [];
         if (!isset($_FILES[$name]) or empty($_FILES[$name])) {
@@ -247,7 +273,7 @@ class Request
                 for ($i = 0; $i < $count; $i++) {
                     $mimeType = $_FILES[$name]['type'][$i];
                     if (!empty($type) and !in_array($_FILES[$name]['type'][$i], $type)) {
-                        if (IS_API === true) {
+                        if (IS_API == 'true') {
                             Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
                         }
                         FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
@@ -261,7 +287,7 @@ class Request
                 }
                 return [true, $arrPath];
             } else {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
                 }
             }
@@ -269,7 +295,7 @@ class Request
         } else {
             $mimeType = $_FILES[$name]['type'];
             if (!empty($type) and !in_array($_FILES[$name]['type'], $type)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $GLOBALS['MSG_UPLOAD_FAIL']]);
                 }
                 FlashMessage::modalWithGoBack('Opss', $GLOBALS['MSG_UPLOAD_FAIL'], 'error');
@@ -379,7 +405,7 @@ class Request
                 ':max' => $max
             ]);
             if (empty($inputValue)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -393,7 +419,7 @@ class Request
                 ':max' => $max
             ]);
             if (!Validation::isEmail($inputValue)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -408,7 +434,7 @@ class Request
                 ':max' => $max
             ]);
             if (!is_numeric($inputValue)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -422,7 +448,7 @@ class Request
                 ':max' => $max
             ]);
             if (!is_numeric($inputValue) or $inputValue >= 0) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -436,7 +462,7 @@ class Request
                 ':max' => $max
             ]);
             if (!is_numeric($inputValue) or $inputValue < 0) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -450,7 +476,7 @@ class Request
                 ':max' => $max
             ]);
             if (!is_string($inputValue)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -464,7 +490,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) < $min) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -478,7 +504,7 @@ class Request
                 ':max' => $max
             ]);
             if (strlen($inputValue) > $min) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');
@@ -492,7 +518,7 @@ class Request
                 ':max' => $max
             ]);
             if ((strlen($inputValue) < $min and strlen($inputValue) > $max)) {
-                if (IS_API === true) {
+                if (IS_API == 'true') {
                     Response::Json(['data' => $msg]);
                 }
                 FlashMessage::flashMessage('errMessage', 'Opss...', $msg, 'error');

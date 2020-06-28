@@ -22,14 +22,11 @@ abstract class Controller
      */
     public function view(string $viewPath, string $ViewName, array $ViewData = [])
     {
-        $autentication = [];
-        $notAutentication = [];
-        $changeTemplate = [];
-        $changeAuthTemplate = [];
-        include "App/Config/authConfig.php";
+        $viewAutentication = [];
+        include "System/SysConfig/viewsAuthentication.php";
         $loader = new FilesystemLoader('App/Views');
         $debug = false;
-        if (ENV == 'development') {
+        if (getenv('ENV') == 'development') {
             $debug = true;
         }
         $twig = new Environment($loader, [
@@ -47,13 +44,7 @@ abstract class Controller
         $twig->addGlobal('method_patch', '<input type="hidden" name="_method" value="PATCH">');
         require_once 'App/Config/twigGlobalVariables.php';
         $ViewName = ucwords($ViewName);
-        if (in_array($ViewName, $notAutentication) === true or in_array(strtolower($ViewName), $notAutentication) === true) {
-            require_once 'System/Html/Templates/Header.php';
-            $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
-            extract($ViewData);
-            echo $template->render($ViewData);
-            require_once 'System/Html/Templates/Footer.php';
-        } elseif (in_array($ViewName, $autentication) === true or in_array(strtolower($ViewName), $autentication) === true) {
+        if (in_array($ViewName, $viewAutentication) === true or in_array(strtolower($ViewName), $viewAutentication) === true) {
             if (Auth::authValidOrFail()) {
                 require_once 'System/Html/Templates/Header.php';
                 $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
@@ -61,10 +52,14 @@ abstract class Controller
                 echo $template->render($ViewData);
                 require_once 'System/Html/Templates/Footer.php';
             } else {
-                Redirect::redirectTo('login');
+                Redirect::redirectTo('ooops/404');
             }
         } else {
-            $this->view('error', '404');
+                require_once 'System/Html/Templates/Header.php';
+                $template = $twig->load(ucfirst($viewPath) . '/' . ucfirst($ViewName) . '.twig');
+                extract($ViewData);
+                echo $template->render($ViewData);
+                require_once 'System/Html/Templates/Footer.php';
         }
     }
 

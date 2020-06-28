@@ -4,31 +4,35 @@ use Scooby\Helpers\Csrf;
 use Scooby\Helpers\Redirect;
 use Scooby\Helpers\Session as sess;
 use Scooby\Helpers\Jwt;
+use Dotenv\Dotenv;
 
 session_start();
 if (!file_exists('vendor/autoload.php')) {
     throw( new Exception('Falha ao executar o autoload, por favor rode o comando composer install no terminal e recarregue a pagina novamente'));
 }
 require_once 'vendor/autoload.php';
+$dotenv = Dotenv::createImmutable(dirname(__DIR__, 2));
+$dotenv->load();
 $configs = scandir('App/Config/');
 array_shift($configs);
 array_shift($configs);
 foreach ($configs as $config) {
     if (
-            $config != 'Lang' and
-            $config != 'index.php' and
-            $config != 'twigGlobalVariables.php' and
-            $config != 'authConfig.php'
-        ) {
+        $config != 'Lang' and
+        $config != 'index.php' and
+        $config != 'twigGlobalVariables.php' and
+        $config != 'viewsAuthentication.php' and
+        $config != 'assetsInclude.php'
+    ) {
         require_once "App/Config/$config";
     }
 }
 require_once 'System/Core/MiniFiles.php';
 require_once 'App/Config/Lang/'.SITE_LANG.'.php';
 Jwt::jwtKeyGenerate();
-if (IS_API === true) {
+if (IS_API == 'true') {
     header("Access-Control-Allow-Origin: ".ORIGIN_ALLOW."");
-    if (CREDENTIALS_ALLOW === true) {
+    if (CREDENTIALS_ALLOW == 'true') {
         header("Access-Control-Allow-Credentials: true");
     }
     header("Access-Control-Max-Age: 1728000");
@@ -37,10 +41,12 @@ if (IS_API === true) {
 }
 sess::sessionTokenGenerate();
 if (!sess::sessionTokenValidade()) {
-    //die('Opss... Algo saiu errado por favor tente novamente');
+    if (getenv('SESSION_VALIDADTION') == 'true') {
+        die('Opss... Algo saiu errado por favor tente novamente');
+    }
 }
 Csrf::csrfTokengenerate();
-if (ENV === 'development') {
+if (getenv('ENV') === 'development') {
     $whoops = new \Whoops\Run;
     $errorPage = new Whoops\Handler\PrettyPageHandler();
     $whoops->prependHandler(new \Whoops\Handler\PrettyPageHandler);

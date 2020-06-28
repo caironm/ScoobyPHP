@@ -1,6 +1,11 @@
 <?php
-require_once 'App/Config/databaseConfig.php';
-require_once 'App/Config/env.php';
+
+use Dotenv\Dotenv;
+
+require_once 'vendor/autoload.php';
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 return [
     'paths' => [
         'migrations' => __DIR__.'/App/Db/Migrations',
@@ -10,22 +15,13 @@ return [
         'default_migration_table' => 'migrations_log',
         'default_database' => 'development',
         'development' => [
-            'adapter' => DB_DRIVER,
-            'host' => DB_HOST,
-            'name' => DB_NAME,
-            'user' => DB_USER,
-            'pass' => DB_PASS,
+            'adapter' => getenv('DB_DRIVER'),
+            'host' => getenv('DB_HOST'),
+            'name' => getenv('DB_NAME'),
+            'user' => getenv('DB_USER'),
+            'pass' => getenv('DB_PASS'),
             'port' => 3306,
-            'charset' => CHARSET
-        ],
-        'production' => [
-            'adapter' => DB_DRIVER,
-            'host' => DB_HOST,
-            'name' => DB_NAME,
-            'user' => DB_USER,
-            'pass' => DB_PASS,
-            'port' => 3306,
-            'charset' => CHARSET
+            'charset' => getenv('CHARSET')
         ]
     ],
     'version_order' => 'creation'

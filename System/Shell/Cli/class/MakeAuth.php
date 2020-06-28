@@ -10,7 +10,7 @@ class MakeAuth
         shell_exec('sudo chmod 777 -R System/SysConfig/Cache');
         $userController = file_get_contents('System/Shell/templates/php_tpl/userController.tpl');
         $userController = strtr($userController, ['dateNow' => date('d-m-y - H:i:a')]);
-        
+
         $dashboardController = file_get_contents('System/Shell/templates/php_tpl/dashboardController.tpl');
         $dashboardController = strtr($dashboardController, ['dateNow' => date('d-m-y - H:i:a')]);
 
@@ -45,7 +45,7 @@ class MakeAuth
         $navbar = file_get_contents('System/Shell/templates/twig_tpl/navbar.tpl');
         $navbar = strtr($navbar, ['dateNow' => date('d-m-y - H:i:a')]);
 
-        $authConfig = file_get_contents('System/Shell/templates/php_tpl/authConfig.tpl');
+        $authConfig = file_get_contents('.env');
 
         if (file_exists("App/Controllers/UserController.php")) {
             Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
@@ -217,11 +217,14 @@ class MakeAuth
         }
         fclose($f);
         Cli::println("Navbar criado em 'App/Views/Pages/Home.twig' com sucesso.");
-        $f = fopen("App/Config/authConfig.php", 'w+');
+        $f = fopen(".env", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
+        $authConfig = strtr($authConfig, [
+            'VIEWS_AUTH=' => 'VIEWS_AUTH=Dashboard,UpdateUser,'
+        ]);
         fwrite($f, $authConfig);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
@@ -229,13 +232,11 @@ class MakeAuth
         }
         fclose($f);
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/Shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
-        $migrate = shell_exec("php vendor/bin/phinx migrate");
         sleep(1);
         $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/Shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
-        $migrate = shell_exec("php vendor/bin/phinx migrate");
         if ($migrationUser) {
             Cli::println("Migration UserAuth criada com sucess");
-            Cli::println("Migrate executada com sucess");
+            //Cli::println("Migrate executada com sucess");
         }
         $seed = file_get_contents('System/Shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
@@ -250,7 +251,10 @@ class MakeAuth
             return;
         }
         fclose($f);
-        Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/");
+        //$migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
+        Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
+        Cli::println("\033[1;96m -> [ATENÇÃO] Antes de executar as MIGRATIONS verifique se não deseja alterar suas estruturas em App/Db/Migrations, após isso execute as migrations com o comando MIGRATE via scooby-do" . PHP_EOL);
+        exit;
     }
 
     public static function execOptionMakeAuthApi()
@@ -273,12 +277,12 @@ class MakeAuth
             Cli::println("ERROR: Controller UserApiController já existente na pasta 'App/Controllers'");
             return;
         }
-       
+
         if (file_exists("App/Models/User.php")) {
             Cli::println("ERROR: Model User já existente na pasta 'App/Models'");
             return;
         }
-        
+
         $f = fopen("App/Controllers/UserApiController.php", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
@@ -327,13 +331,11 @@ class MakeAuth
         fclose($f);
         Cli::println("Rotas de Autenticação criadas em 'App/Routes/api.php' com sucesso.");
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/Shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
-        $migrate = shell_exec("php vendor/bin/phinx migrate");
         sleep(1);
         $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/Shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
-        $migrate = shell_exec("php vendor/bin/phinx migrate");
         if ($migrationUser) {
             Cli::println("Migration UserAuth criada com sucess");
-            Cli::println("Migrate executada com sucess");
+            //Cli::println("Migrate executada com sucess");
         }
         $seed = file_get_contents('System/Shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
@@ -348,6 +350,9 @@ class MakeAuth
             return;
         }
         fclose($f);
-        Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/");
+        //$migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
+        Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
+        Cli::println("\033[1;96m -> [ATENÇÃO] Antes de executar as MIGRATIONS verifique se não deseja alterar suas estruturas em App/Db/Migrations, após isso execute as migrations com o comando MIGRATE via scooby-do" . PHP_EOL);
+        exit;
     }
 }

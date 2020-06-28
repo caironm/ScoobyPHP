@@ -33,7 +33,8 @@ $html = [
 
 
         /**
-         * Esta função gera um alert do tipo toast sempre a internet do usuario cair ou ser restabelecida, você encontra esta função  em App/Public/assets/js/scooby.js
+         * Esta função gera um alert do tipo toast sempre a internet do usuario cair ou ser restabelecida,
+         * você encontra esta função  em App/Public/assets/js/scooby.js
          */
         '<script>
             isOnline(

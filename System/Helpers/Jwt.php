@@ -165,11 +165,11 @@ class Jwt
     {
         if (SECRET_KEY == "secret") {
             $key = hash('sha256', md5(rand(11111111, 99999999) . uniqid(rand(), true) . time()));
-            $generate = file_get_contents('App/Config/apiConfig.php');
+            $generate = file_get_contents('.env');
             $generate = strtr($generate, [
                 'secret' =>  "$key"
             ]);
-            $f = fopen("App/Config/apiConfig.php", 'w+');
+            $f = fopen(".env", 'w+');
             fwrite($f, $generate);
             fclose($f);
         }

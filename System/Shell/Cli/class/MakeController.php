@@ -78,7 +78,7 @@ class MakeController
             return;
         }
         fclose($f);
-        Cli::println("Rotas do controller {$name} criadas em 'App/Config/routes' com sucesso.");
+        Cli::println("Rotas do controller {$name} criadas em 'App/Routes/web.php' com sucesso.");
     }
 
     public static function execOptionMakeControllerApiResource()
@@ -126,6 +126,6 @@ class MakeController
             return;
         }
         fclose($f);
-        Cli::println("Rotas do controller {$name} criadas em 'App/Config/api' com sucesso.");
+        Cli::println("Rotas do controller {$name} criadas em 'App/Routes/api.php' com sucesso.");
     }
 }

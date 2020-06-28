@@ -16,14 +16,13 @@ class UserApiController extends Controller
     /**
      * Registra um novo usuario
      *
-     * @return bool
+     * @return void
      */
-    public function register(): bool
+    public function register(): void
     {
         $data = Request::getRequestData();
         if (!Validation::emailMatch($data->email, 'users', 'email')) {
             $this->Json(['data' => 'Email já cadastrado, por favor tente com um email diferente']);
-            return false;
         }
         $user = new User;
         $user->name = $data->name;
@@ -31,7 +30,6 @@ class UserApiController extends Controller
         $user->password = Login::passwordHash($data->pass);
         $user->save();
         $this->Json(['data' => 'Usuário salvo com sucesso']);
-        return true;
     }
 
     /**
@@ -39,7 +37,7 @@ class UserApiController extends Controller
      *
      * @return void
      */
-    public function login()
+    public function login(): void
     {
         $data = Request::getRequestData();
         if (Login::loginValidate($data->email, $data->pass)) {
@@ -56,7 +54,7 @@ class UserApiController extends Controller
      *
      * @return void
      */
-    public function delete()
+    public function delete(): void
     {
         Jwt::jwtValidate(Jwt::jwtGetToken());
         $data = Jwt::jwtPayloadDecode(Jwt::jwtGetToken());
@@ -74,7 +72,7 @@ class UserApiController extends Controller
      *
      * @return void
      */
-    public function logout()
+    public function logout(): void
     {
        Jwt::jwtValidate(Jwt::jwtGetToken());
        Jwt::jwtExpire(Jwt::jwtGetToken());
@@ -86,7 +84,7 @@ class UserApiController extends Controller
      *
      * @return void
      */
-    public function update()
+    public function update(): void
     {
         Jwt::jwtValidate(Jwt::jwtGetToken());
         $id = Jwt::jwtPayloadDecode(Jwt::jwtGetToken())->id;
@@ -106,7 +104,7 @@ class UserApiController extends Controller
      *
      * @return void
      */
-    public function alter()
+    public function alter(): void
     {
         Jwt::jwtValidate(Jwt::jwtGetToken());
         $data = Request::getRequestData();

@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index(): void
     {
-        if (IS_API) {
+        if (IS_API == 'true') {
             Response::Json(['Wellcome' => $GLOBALS['WELLCOME_MSG']]);
         }
         $this->setTitle('Wellcome');

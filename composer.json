@@ -1,7 +1,8 @@
 {
+    "name": "terriani/scoobyphp",
     "type" : "project",
 	"homepage" : "https://github.com/terriani/ScoobyPHP",
-	"description" : "ScoobyPHP, A litle and very simple PHP framework ",
+	"description" : "Um framework MVC feito com PHP e muito amor para tornar o desnvolvimento web muito mais simples e divertido",
     "require":{
         "twig/twig": "^2.11",
         "illuminate/database": "^5.8",
@@ -13,7 +14,8 @@
         "dfridrich/php-mime-type": "^2.0",
         "jasongrimes/paginator": "^1.0",
         "coffeecode/optimizer": "^2.0",
-        "kitetail/zttp": "^0.6.0"
+        "kitetail/zttp": "^0.6.0",
+        "vlucas/phpdotenv": "^4.1"
     },
     "autoload":{
         "psr-4": {
@@ -21,7 +23,7 @@
             "Scooby\\Core\\":"System/Core/",
             "Scooby\\Controllers\\":"App/Controllers/",
             "Scooby\\Models\\":"App/Models/",
-            "Scooby\\Utils\\":"App/Utils/",
+            "Scooby\\Services\\":"App/Services/",
             "Scooby\\Router\\":"System/Router/"
         }
     },

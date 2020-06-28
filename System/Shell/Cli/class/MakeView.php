@@ -18,28 +18,12 @@ class MakeView
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
     ]);
-    $register = file_get_contents('App/Config/authConfig.php');
-    $register = strtr($register, [
-        '$notAutentication = [' => '$notAutentication = [
-    ' . "'$name'".','
-    ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
     }
     fwrite($f, $content);
-    if ($f == false) {
-        Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
-        return;
-    }
-    fclose($f);
-    $f = fopen('App/Config/authConfig.php', 'w+');
-    if ($f == false) {
-        Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
-        return;
-    }
-    fwrite($f, $register);
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;
@@ -62,10 +46,9 @@ public static function execOptionMakeViewAuth()
         'dateNow' => date('d-m-y - H:i:a'),
         '$name' => $name
     ]);
-    $register = file_get_contents('App/Config/authConfig.php');
+    $register = file_get_contents('.env');
     $register = strtr($register, [
-        '$autentication = [' => '$autentication = [
-    ' . "'$name'".','
+            'VIEWS_AUTH=' => 'VIEWS_AUTH='.$name.','
     ]);
     $f = fopen("App/Views/Pages/$name.twig", 'w+');
     if ($f == false) {
@@ -78,7 +61,7 @@ public static function execOptionMakeViewAuth()
         return;
     }
     fclose($f);
-    $f = fopen('App/Config/authConfig.php', 'w+');
+    $f = fopen('.env', 'w+');
     if ($f == false) {
         Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
         return;

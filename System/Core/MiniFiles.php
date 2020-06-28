@@ -55,7 +55,7 @@ class MiniFiles
     }
 
     /**
-     * Caso esteja em ambiente de desenvolvimento e o arquivo minificado 
+     * Caso esteja em ambiente de desenvolvimento e o arquivo minificado
      * exista ele apaga o arquivo minificado para que ele seja recriado
      *
      * @param string $path
@@ -64,7 +64,7 @@ class MiniFiles
      */
     private static function assetsRefresh(string $path, string $name): void
     {
-        if (ENV === 'development' and file_exists($path.$name) ) {
+        if (getenv('ENV') === 'development' and file_exists($path.$name) ) {
             unlink($path.$name);
         }
     }

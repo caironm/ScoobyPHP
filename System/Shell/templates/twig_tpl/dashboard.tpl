@@ -9,7 +9,7 @@
             <a href="#" data-target="mobile-demo" class="sidenav-trigger black-text"><i class="material-icons">menu</i></a>
         </div>
         <ul class="right hide-on-med-and-down">
-            <li><strong><u>Ola {{ userName }}</u></strong><i class="material-icons right">account_circle</i></li>
+            <li class="black-text"><strong><u>Ola {{ userName }}</u></strong><i class="material-icons right">account_circle</i></li>
             &nbsp;&nbsp;&nbsp;
             <li><a href="{{ base_url }}alter-user" class="btn white black-text">Alterar</a></li>
             <li><a href="{{ base_url }}exit" class="btn grey darken-4">sair</a></li>

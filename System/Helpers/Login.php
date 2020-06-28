@@ -44,7 +44,7 @@ class Login
      * @param string $viewName
      * @return void
      */
-    public static function sessionLoginDestroyWithRedirect(string $viewName = HOME)
+    public static function sessionLoginDestroyWithRedirect(string $viewName = '/')
     {
         $_SESSION['id'] = "";
         $_SESSION['email'] = "";
@@ -75,7 +75,7 @@ class Login
     public static function loginValidate($email, $pass, $table = 'users', $emailField = 'email', $passwordField = 'password', $idField = 'id', $nameField = 'name'): bool
     {
         $helper = new Helper;
-        if (!Csrf::csrfTokenValidate() and IS_API === false) {
+        if (!Csrf::csrfTokenValidate() and IS_API == 'false') {
             Redirect::redirectTo('ooops/404');
         }
                 $helper->illuminateDb();

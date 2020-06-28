@@ -25,4 +25,3 @@
 <body>
   <?php
   Assets::bodyTopLoad();
-  
