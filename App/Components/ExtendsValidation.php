@@ -1,6 +1,6 @@
 <?php
 
-namespace Scooby\Services;
+namespace Scooby\Components;
 
 use Scooby\Helpers\Validation;
 

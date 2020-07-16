@@ -1,6 +1,6 @@
 <?php
 
-namespace Scooby\Services;
+namespace Scooby\Components;
 
 use Scooby\Helpers\Request;
 use Scooby\Helpers\FlashMessage;
@@ -19,7 +19,7 @@ class ExtendsRequestFormValidate extends Request
      * @return bool
      */
     /** @scrutinizer ignore-unused */
-    public static function formValidate(string $input, string $inputAlias, string $redirect, array $rules, int $min = null, int $max = null)
+    public static function formValidate(string $input, string $inputAlias, array $rules, int $min = null, int $max = null)
     {
         if (in_array('validation_name', $rules)) {
 

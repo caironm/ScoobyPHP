@@ -4,6 +4,7 @@ namespace Scooby\Core;
 
 use Illuminate\Database\Capsule\Manager as db;
 use Illuminate\Database\Eloquent\Model as IlluminateModel;
+use Scooby\Helpers\Debug;
 
 abstract class Model extends IlluminateModel
 {
@@ -18,5 +19,18 @@ abstract class Model extends IlluminateModel
     {
         require_once 'System/SysConfig/illuminateConfig.php';
         require_once 'System/SysConfig/PDOConfig.php';
+    }
+
+    /**
+     * Cria um arquivo de debug
+     *
+     * @param mixed $data
+     * @param string $msg
+     * @param string $logName
+     * @return void
+     */
+    public function debug($data, $msg = '', $logName = 'debug.log')
+    {
+        Debug::debug($data, $msg, $logName);
     }
 }

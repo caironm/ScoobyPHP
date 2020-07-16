@@ -45,6 +45,8 @@ class Scooby
                 $component == 'makemodel --migration --seed'
             ) {
                 MakeModel::execOptionMakeModelMigrationAndSeed();
+            } elseif ($component == 'make:component' or $component == 'makecomponent') {
+                MakeComponent::execOptionMakeComponent();
             } elseif (
                 $component == 'make:view' or
                 $component == 'makeview'
@@ -206,6 +208,7 @@ COMANDOS DISPONÍVEIS: \033[;97m
   com uma respectiva migration
   \033[1;90m - DIGITE: \033[;97m 'make:model -m -s' make:model --migration --seed para criar
   um model com uma respectiva migration e uma respectiva seed
+  \033[1;90m - DIGITE: \033[;97m 'make:component' para criar um Componente
   \033[1;90m - DIGITE: \033[;97m 'make:view' para criar uma View
   \033[1;90m - DIGITE: \033[;97m 'make:view -a' para criar uma View autenticada
   \033[1;90m - DIGITE: \033[;97m 'make:file' para criar um Arquivo

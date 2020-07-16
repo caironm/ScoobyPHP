@@ -58,7 +58,7 @@ class Validation
     }
 
     /**
-     * Retorna true se o email não existir nobanco de dados informado 
+     * Retorna true se o email não existir no banco de dados informado
      *
      * @param string $value
      * @param string $tableName

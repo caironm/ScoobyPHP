@@ -3,6 +3,7 @@
 namespace Scooby\Core;
 
 use Scooby\Helpers\Auth;
+use Scooby\Helpers\Debug;
 use Scooby\Helpers\Redirect;
 use Scooby\Helpers\Response;
 use \Twig\Loader\FilesystemLoader;
@@ -45,6 +46,7 @@ abstract class Controller
         require_once 'App/Config/twigGlobalVariables.php';
         $ViewName = ucwords($ViewName);
         if (in_array($ViewName, $viewAutentication) === true or in_array(strtolower($ViewName), $viewAutentication) === true) {
+            echo 'aqui';
             if (Auth::authValidOrFail()) {
                 require_once 'System/Html/Templates/Header.php';
                 $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
@@ -85,5 +87,18 @@ abstract class Controller
     public function Json($data)
     {
         return Response::Json($data);
+    }
+
+    /**
+     * Cria um arquivo de debug
+     *
+     * @param mixed $data
+     * @param string $msg
+     * @param string $logName
+     * @return void
+     */
+    public function debug($data, $msg = '', $logName = 'debug.log')
+    {
+        Debug::debug($data, $msg, $logName);
     }
 }
