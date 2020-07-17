@@ -1,4 +1,5 @@
 <?php
+
 //Controller gerado automaticamente via - Scooby-CLI em dateNow
 
 namespace Scooby\Controllers;
@@ -16,7 +17,7 @@ class $name extends Controller
     {
         //Logica para salvar os dados no banco
     }
- 
+
     /**
      * Atualiza um registro específico no banco de dados
      *
@@ -28,9 +29,9 @@ class $name extends Controller
         $id = $data['id'];
         //Logica para a alteração do registro
     }
-     
+
     /**
-     * Apaga um registro específico buscando pelo id no banco de dados 
+     * Apaga um registro específico buscando pelo id no banco de dados
      *
      * @param array $data
      * @return void

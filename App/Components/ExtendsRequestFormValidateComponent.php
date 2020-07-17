@@ -5,7 +5,7 @@ namespace Scooby\Components;
 use Scooby\Helpers\Request;
 use Scooby\Helpers\FlashMessage;
 
-class ExtendsRequestFormValidate extends Request
+class ExtendsRequestFormValidateComponent extends Request
 {
     /**
      * Extende a classe Request no metodo validate, podendo assim ser criadas validações especificas

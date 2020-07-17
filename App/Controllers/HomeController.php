@@ -2,6 +2,7 @@
 
 namespace Scooby\Controllers;
 
+use Scooby\Components\SlugComponent;
 use Scooby\Core\Controller;
 
 class HomeController extends Controller

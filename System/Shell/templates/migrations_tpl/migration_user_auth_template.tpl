@@ -1,5 +1,7 @@
 <?php
 
+// Migration criada - Via Scooby_CLI em dateNow
+
 use Phinx\Migration\AbstractMigration;
 
 class CreateUserAuth extends AbstractMigration

@@ -9,7 +9,7 @@ class MakeComponent
         Cli::println("Você optou por criar um Componente.");
         $name = Cli::getParam('Por favor, DIGITE o nome do Componente a ser criado');
         $name = ucfirst($name);
-        $name = $name;
+        $name = $name. "Component";
         if (file_exists("App/Components/$name.php")) {
             Cli::println("ERROR: Componente já existente na pasta 'App/Components'");
             return;

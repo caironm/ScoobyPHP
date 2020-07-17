@@ -1,4 +1,5 @@
 <?php
+
 //Controller gerado automaticamente via - Scooby-CLI em dateNow
 
 namespace Scooby\Controllers;

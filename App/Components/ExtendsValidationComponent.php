@@ -4,7 +4,7 @@ namespace Scooby\Components;
 
 use Scooby\Helpers\Validation;
 
-class ExtendsValidation extends Validation
+class ExtendsValidationComponent extends Validation
 {
     /**
      * Defina um metodo de validadção especifico
