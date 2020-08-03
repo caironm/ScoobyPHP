@@ -76,6 +76,7 @@ class Login
     {
         $helper = new Helper;
         if (!Csrf::csrfTokenValidate() and IS_API == 'false') {
+            Debug::log('Login recusado, falha na autenticação de csrf');
             Redirect::redirectTo('ooops/404');
         }
                 $helper->illuminateDb();

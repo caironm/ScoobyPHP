@@ -54,6 +54,7 @@ abstract class Controller
                 echo $template->render($ViewData);
                 require_once 'System/Html/Templates/Footer.php';
             } else {
+                Debug::log('Tentativa de acesso a uma View protegida por autenticação');
                 Redirect::redirectTo('ooops/404');
             }
         } else {

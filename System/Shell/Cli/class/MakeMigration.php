@@ -1,6 +1,7 @@
 <?php
 
 use Scooby\Helpers\Cli;
+use Scooby\Helpers\Debug;
 
 class MakeMigration
 {
@@ -14,6 +15,7 @@ class MakeMigration
 
         if (file_exists("App/Db/Migrations/$fileName.php")) {
             Cli::println("ERROR: Migration já existente na pasta 'App/Db/Migrations/'");
+            Debug::log("ERROR: Migration $fileName já existente na pasta 'App/Db/Migrations/'");
             return;
         }
         $migration = file_get_contents('System/Shell/templates/migrations_tpl/migration.tpl');
@@ -26,9 +28,11 @@ class MakeMigration
         fclose($f);
         if (!$f) {
             Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
+            Debug::log("Ocorreu um erro inesperado ao tentar criar a migration $fileName, por favor tente novamente.");
             return;
         }
 
         Cli::println("Migration $migrationName criada com sucesso em App/Db/Migrations/");
+        Debug::log("Migration $migrationName criada com sucesso em App/Db/Migrations/");
     }
 }

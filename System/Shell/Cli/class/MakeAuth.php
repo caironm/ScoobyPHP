@@ -1,6 +1,7 @@
 <?php
 
 use Scooby\Helpers\Cli;
+use Scooby\Helpers\Debug;
 
 class MakeAuth
 {
@@ -48,211 +49,267 @@ class MakeAuth
         $authConfig = file_get_contents('.env');
 
         if (file_exists("App/Controllers/UserController.php")) {
+            Debug::log('Controller UserController já existente na pasta App/Controllers');
             Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
             return;
         }
         if (file_exists("App/Controllers/DashboardController.php")) {
+            Debug::log('Controller UserController já existente na pasta App/Controllers');
             Cli::println("ERROR: Controller UserController já existente na pasta 'App/Controllers'");
             return;
         }
         if (file_exists("App/Models/User.php")) {
+            Debug::log('Model User já existente na pasta App/Models');
             Cli::println("ERROR: Model User já existente na pasta 'App/Models'");
             return;
         }
         if (file_exists("App/Views/Pages/Login.twig")) {
+            Debug::log('View Login já existente na pasta App/Views/Pages');
             Cli::println("ERROR: View Login já existente na pasta 'App/Views/Pages'");
             return;
         }
         if (file_exists("App/Views/Pages/Register.twig")) {
+            Debug::log('View Register já existente na pasta App/Views/Pages');
             Cli::println("ERROR: View Register já existente na pasta 'App/Views/Pages'");
             return;
         }
         if (file_exists("App/Views/Pages/passwordRescue.twig")) {
+            Debug::log('View Password Rescue já existente na pasta App/Views/Pages');
             Cli::println("ERROR: View Password Rescue já existente na pasta 'App/Views/Pages'");
             return;
         }
         if (file_exists("App/Views/Pages/NewPassword.twig")) {
+            Debug::log('View New Password Rescue já existente na pasta App/Views/Pages');
             Cli::println("ERROR: View New Password Rescue já existente na pasta 'App/Views/Pages'");
             return;
         }
         $f = fopen("App/Controllers/UserController.php", 'w+');
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu ao criar o UserController');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $userController);
+        $f = fwrite($f, $userController);
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu ao criar o UserController');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
+        Debug::log('UserController criado em App/Controllers com sucesso.');
         Cli::println("UserController criado em 'App/Controllers' com sucesso.");
         $f = fopen("App/Controllers/DashboardController.php", 'w+');
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu, por favor tente novamente');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $dashboardController);
+        $f = fwrite($f, $dashboardController);
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu ao criar o DashboardController');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
+        Debug::log("DashboardController criado em 'App/Controllers' com sucesso.");
         Cli::println("DashboardController criado em 'App/Controllers' com sucesso.");
         $f = fopen("App/Models/User.php", 'w+');
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu ao crir user model');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $userModel);
+        $f = fwrite($f, $userModel);
         if ($f == false) {
+            Debug::log('Um erro desconhecido ocorreu ao criar user model');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
+        Debug::log("User model criado em 'App/Models' com sucesso.");
+        Cli::println("User criado em 'App/Models' com sucesso.");
         fclose($f);
         $f = fopen("App/Models/PasswordUserToken.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $passwordTokenModel);
+        $f = fwrite($f, $passwordTokenModel);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
+        Debug::log("PasswordUserToken criado em 'App/Models' com sucesso.");
         fclose($f);
         Cli::println("PasswordUserToken criado em 'App/Models' com sucesso.");
         $f = fopen("App/Views/Pages/Login.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view Login");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $loginView);
+        $f = fwrite($f, $loginView);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view Login");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
+        Debug::log("Login criado em 'App/Views/Pages' com sucesso.");
         Cli::println("Login criado em 'App/Views/Pages' com sucesso.");
         $f = fopen("App/Views/Pages/Register.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view register");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $registerView);
+        $f = fwrite($f, $registerView);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view register");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("Register criado em 'App/Views/Pages' com sucesso.");
+        Debug::log("Register criado em 'App/Views/Pages' com sucesso.");
         $f = fopen("App/Views/Pages/PasswordRescue.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view passwordRescue");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $passwordRescue);
+        $f = fwrite($f, $passwordRescue);
         if ($f == false) {
-            Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
-            return;
-        }
-        fclose($f);
-        $f = fopen("App/Views/Pages/NewPassword.twig", 'w+');
-        if ($f == false) {
-            Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
-            return;
-        }
-        fwrite($f, $newPassword);
-        if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view passwordRescue");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("PasswordRescue criado em 'App/Views/Pages' com sucesso.");
-        $f = fopen("App/Views/Pages/DashBoard.twig", 'w+');
+        Debug::log("PasswordRescue criado em 'App/Views/Pages' com sucesso.");
+        $f = fopen("App/Views/Pages/NewPassword.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a newPassword");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $dashBoardView);
+        $f = fwrite($f, $newPassword);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a newPassword");
+            Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            return;
+        }
+        fclose($f);
+        Cli::println("NewPassword criado em 'App/Views/Pages' com sucesso.");
+        Debug::log("NewPassword criado em 'App/Views/Pages' com sucesso.");
+        $f = fopen("App/Views/Pages/DashBoard.twig", 'w+');
+        if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view dashboard");
+            Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            return;
+        }
+        $f = fwrite($f, $dashBoardView);
+        if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view dashboard");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("DashBoard criado em 'App/Views/Pages' com sucesso.");
+        Debug::log("DashBoard criado em 'App/Views/Pages' com sucesso.");
         $f = fopen("App/Views/Pages/UpdateUser.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view updateUser");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $updateUser);
+        $f = fwrite($f, $updateUser);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a view updateUser");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("UpdateUser criado em 'App/Views/Pages' com sucesso.");
+        Debug::log("UpdateUser criado em 'App/Views/Pages' com sucesso.");
         $f = fopen("App/Routes/web.php", 'a+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas WEB");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $routesAuth);
+        $f = fwrite($f, $routesAuth);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas WEB");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("Rotas de Autenticação criadas em 'App/Routes/web.php' com sucesso.");
+        Debug::log("Rotas de Autenticação criadas em 'App/Routes/web.php' com sucesso.");
         $f = fopen("App/Views/Pages/Home.twig", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao alterar a view home");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $navbar);
+        $f = fwrite($f, $navbar);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao alterar a view home");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("Navbar criado em 'App/Views/Pages/Home.twig' com sucesso.");
+        Debug::log("Navbar criado em 'App/Views/Pages/Home.twig' com sucesso.");
         $f = fopen(".env", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao atrerar o arquivo .env");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         $authConfig = strtr($authConfig, [
             'VIEWS_AUTH=' => 'VIEWS_AUTH=Dashboard,UpdateUser,'
         ]);
-        fwrite($f, $authConfig);
+        $f = fwrite($f, $authConfig);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao alterar o arquivo .env");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
+        Cli::println(".env alterado com sucesso.");
+        Debug::log(".env alterado com sucesso.");
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/Shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
         sleep(1);
         $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/Shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
         if ($migrationUser) {
             Cli::println("Migration UserAuth criada com sucess");
-            //Cli::println("Migrate executada com sucess");
+            Debug::log("Migration UserAuth criada com sucess");
+        }
+        if ($migrationPasswordRescue) {
+            Cli::println("Migration PasswordRescue criada com sucess");
+            Debug::log("Migration PasswordRescue criada com sucess");
         }
         $seed = file_get_contents('System/Shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen("App/Db/Seeds/SeedUserAuth.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a seed seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $seed);
+        $f = fwrite($f, $seed);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a seed seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         //$migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
         Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
+        Debug::log("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
         Cli::println("\033[1;96m -> [ATENÇÃO] Antes de executar as MIGRATIONS verifique se não deseja alterar suas estruturas em App/Db/Migrations, após isso execute as migrations com o comando MIGRATE via scooby-do" . PHP_EOL);
         exit;
     }
@@ -275,83 +332,104 @@ class MakeAuth
 
         if (file_exists("App/Controllers/UserApiController.php")) {
             Cli::println("ERROR: Controller UserApiController já existente na pasta 'App/Controllers'");
+            Debug::log("ERROR: Controller UserApiController já existente na pasta 'App/Controllers'");
             return;
         }
 
         if (file_exists("App/Models/User.php")) {
             Cli::println("ERROR: Model User já existente na pasta 'App/Models'");
+            Debug::log("ERROR: Model User já existente na pasta 'App/Models'");
             return;
         }
 
         $f = fopen("App/Controllers/UserApiController.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o UserApiController");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $userController);
+        $f = fwrite($f, $userController);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o UserApiController");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("UserApiController criado em 'App/Controllers' com sucesso.");
+        Debug::log("UserApiController criado em 'App/Controllers' com sucesso.");
         $f = fopen("App/Models/User.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o user model");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $userModel);
+        $f = fwrite($f, $userModel);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o user model");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
+        Cli::println("User model criado em 'App/Models' com sucesso.");
+        Debug::log("User model criado em 'App/Models' com sucesso.");
         $f = fopen("App/Models/PasswordUserToken.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $passwordTokenModel);
+        $f = fwrite($f, $passwordTokenModel);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("PasswordUserToken criado em 'App/Models' com sucesso.");
+        Debug::log("PasswordUserToken criado em 'App/Models' com sucesso.");
         $f = fopen("App/Routes/api.php", 'a+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas API");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $routesAuth);
+        $f = fwrite($f, $routesAuth);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas API");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
         Cli::println("Rotas de Autenticação criadas em 'App/Routes/api.php' com sucesso.");
+        Debug::log("Rotas de Autenticação criadas em 'App/Routes/api.php' com sucesso.");
         $migrationUser = shell_exec("php vendor/robmorgan/phinx/bin/phinx create CreateUserAuth --template='System/Shell/templates/migrations_tpl/migration_user_auth_template.tpl'");
         sleep(1);
         $migrationPasswordRescue = shell_exec("php vendor/robmorgan/phinx/bin/phinx create PasswordRescue --template='System/Shell/templates/migrations_tpl/migration_user_password_rescue_template.tpl'");
         if ($migrationUser) {
             Cli::println("Migration UserAuth criada com sucess");
-            //Cli::println("Migrate executada com sucess");
+            Debug::log("Migration UserAuth criada com sucess");
+        }
+        if ($migrationPasswordRescue) {
+            Cli::println("Migration PasswordRescue criada com sucess");
+            Debug::log("Migration PasswordRescue criada com sucess");
         }
         $seed = file_get_contents('System/Shell/templates/seeds_tpl/SeedUserAuth.tpl');
         $seed = strtr($seed, ['dateNow' => date('d-m-y - H:i:a')]);
         $f = fopen("App/Db/Seeds/SeedUserAuth.php", 'w+');
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        fwrite($f, $seed);
+        $f = fwrite($f, $seed);
         if ($f == false) {
+            Debug::log("Um erro desconhecido ocorreu ao criar a seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
         fclose($f);
-        //$migrate = shell_exec("php vendor/robmorgan/phinx/bin/phinx migrate");
         Cli::println("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
+        Debug::log("SeedUserAuth criada com sucesso em App/Db/Seeds/" . PHP_EOL);
         Cli::println("\033[1;96m -> [ATENÇÃO] Antes de executar as MIGRATIONS verifique se não deseja alterar suas estruturas em App/Db/Migrations, após isso execute as migrations com o comando MIGRATE via scooby-do" . PHP_EOL);
         exit;
     }

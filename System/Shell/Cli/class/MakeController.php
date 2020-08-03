@@ -1,6 +1,7 @@
 <?php
 
 use Scooby\Helpers\Cli;
+use Scooby\Helpers\Debug;
 
 class MakeController
 {
@@ -11,7 +12,8 @@ class MakeController
         $name = ucfirst($name);
         $name = $name . "Controller";
         if (file_exists("App/Controllers/$name.php")) {
-            Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
+            Cli::println("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
+            Debug::log("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
             return;
         }
         $content = file_get_contents('System/Shell/templates/php_tpl/controllerFile.tpl');
@@ -22,15 +24,18 @@ class MakeController
         $f = fopen("App/Controllers/$name.php", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
         fwrite($f, $content);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
         }
         fclose($f);
         Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
+        Debug::log("{$name} criado em 'App/Controllers' com sucesso.");
     }
 
     public static function execOptionMakeControllerResource()
@@ -41,7 +46,8 @@ class MakeController
         $name = ucfirst($name);
         $name = $name . "Controller";
         if (file_exists("App/Controllers/$name.php")) {
-            Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
+            Cli::println("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
+            Debug::log("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
             return;
         }
         $content = file_get_contents('System/Shell/templates/php_tpl/resourceControllerFile.tpl');
@@ -58,27 +64,33 @@ class MakeController
         $f = fopen("App/Controllers/$name.php", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
         fwrite($f, $content);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
         }
         fclose($f);
         Cli::println("{$name} criado em 'App/Controllers' com sucesso.");
+        Debug::log("{$name} criado em 'App/Controllers' com sucesso.");
         $f = fopen("App/Routes/web.php", 'a+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo de rotas do controller resource');
             return;
         }
         fwrite($f, $routeResource);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo de rotas do controller resource');
             return;
         }
         fclose($f);
         Cli::println("Rotas do controller {$name} criadas em 'App/Routes/web.php' com sucesso.");
+        Debug::log("Rotas do controller {$name} criadas em 'App/Routes/web.php' com sucesso.");
     }
 
     public static function execOptionMakeControllerApiResource()
@@ -89,7 +101,8 @@ class MakeController
         $name = ucfirst($name);
         $name = $name . "Controller";
         if (file_exists("App/Controllers/$name.php")) {
-            Cli::println("ERROR: Controller já existente na pasta 'App/Controllers'");
+            Cli::println("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
+            Debug::log("ERROR: Controller " . $name . " já existente na pasta 'App/Controllers'");
             return;
         }
         $content = file_get_contents('System/Shell/templates/php_tpl/resourceApiControllerFile.tpl');
@@ -106,11 +119,13 @@ class MakeController
         $f = fopen("App/Controllers/$name.php", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
         fwrite($f, $content);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
         }
         fclose($f);
@@ -118,14 +133,17 @@ class MakeController
         $f = fopen("App/Routes/api.php", 'a+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo de rotas');
             return;
         }
         fwrite($f, $routeResource);
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo de rotas');
             return;
         }
         fclose($f);
         Cli::println("Rotas do controller {$name} criadas em 'App/Routes/api.php' com sucesso.");
+        Debug::log("Rotas do controller {$name} criadas em 'App/Routes/api.php' com sucesso.");
     }
 }

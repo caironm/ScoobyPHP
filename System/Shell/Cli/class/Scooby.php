@@ -63,6 +63,11 @@ class Scooby
             ) {
                 MakeNewDb::execOptionMakeNewDb();
             } elseif (
+                $component == 'make:react-app' or
+                $component == 'makereact-app'
+            ) {
+                MakeReactApp::execOptionMakeReactApp();
+            } elseif (
                 $component == 'clear:cache' or
                 $component == 'clearcache'
             ) {
@@ -214,6 +219,8 @@ COMANDOS DISPONÍVEIS: \033[;97m
   \033[1;90m - DIGITE: \033[;97m 'make:file' para criar um Arquivo
   \033[1;90m - DIGITE: \033[;97m 'Clear:Cache para apagar os arquivos de cache do twig
   \033[1;90m - DIGITE: \033[;97m 'make:auth' para criar uma rotina de cadastro e login
+  \033[1;90m - DIGITE: \033[;97m 'make:auth --api' para criar uma rotina de cadastro e login via api
+  \033[1;90m - DIGITE: \033[;97m 'make:react-app' para criar uma estrutura ReactJs
 ");
     }
 }

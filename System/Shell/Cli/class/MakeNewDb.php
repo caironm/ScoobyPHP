@@ -2,6 +2,7 @@
 
 use Dotenv\Dotenv;
 use Scooby\Helpers\Cli;
+use Scooby\Helpers\Debug;
 
 class MakeNewDb
 {
@@ -20,6 +21,7 @@ class MakeNewDb
             }
         } catch (Exception $e) {
             Cli::println('Um erro inesperado ocorreu, por favor tente mais tarde.');
+            Debug::log("Um erro inesperado ocorreu ao criar o banco de dados $name, \n [ERRO] -> " . $e->getMessage());
             Cli::println('');
             Cli::println($e->getMessage());
             return;
@@ -40,15 +42,18 @@ class MakeNewDb
                 $f = fopen(".env", 'w+');
                 if ($f == false) {
                     Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+                    Debug::log('Um erro desconhecido ocorreu na leitura do .ENV, por favor tente novamente');
                     return;
                 }
                 fwrite($f, $connectionUpdate);
                 if ($f == false) {
                     Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+                    Debug::log('Um erro desconhecido ocorreu na escrita do .ENV, por favor tente novamente');
                     return;
                 }
                 fclose($f);
                 Cli::println('Banco de dados ' . $name . ' conectado com sucesso');
+                Debug::log('Banco de dados ' . $name . ' conectado com sucesso');
             } else {
                 Cli::println('Operação cancelada pelo usuário');
                 return;
@@ -58,23 +63,27 @@ class MakeNewDb
         $create = $conn->query("CREATE DATABASE IF NOT EXISTS $name CHARACTER SET utf8 COLLATE utf8_general_ci;");
         if ($create) {
             Cli::println("BANCO DE DADOS $name Criado com sucess");
+            Debug::log("BANCO DE DADOS $name Criado com sucess");
             $configDb = file_get_contents('.env');
             $configDb = strtr($configDb, [
                 "DB_NAME=" =>  "DB_NAME=$name",
-                
+
             ]);
             $f = fopen(".env", 'w+');
             if ($f == false) {
                 Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+                Debug::log('Um erro desconhecido ocorreu na leitura do .ENV, por favor tente novamente');
                 return;
             }
             fwrite($f, $configDb);
             if ($f == false) {
                 Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+                Debug::log('Um erro desconhecido ocorreu na escrita do .ENV, por favor tente novamente');
                 return;
             }
             fclose($f);
             Cli::println('DB_NAME alterado com sucesso');
+            Debug::log('DB_NAME alterado com sucesso');
         } else {
             Cli::println("Um erro inesperado ocorreu, por favor tente mais tarde.");
         }

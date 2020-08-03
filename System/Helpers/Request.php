@@ -27,6 +27,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -69,6 +70,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -130,6 +132,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -159,6 +162,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -187,6 +191,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -211,6 +216,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -234,6 +240,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }
@@ -259,6 +266,7 @@ class Request
     {
         if (getenv('CSRF_PROTECTION') == "true") {
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
+                Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
                 return false;
             }

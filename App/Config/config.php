@@ -2,6 +2,8 @@
 
 date_default_timezone_set('America/Sao_Paulo');
 
+// Log interno do framework
+define('LOG', getenv('LOG'));
 
 // Definir se a aplicação será uma API ou um projeto WEB monolítico
 define('IS_API', getenv('IS_API'));
@@ -131,10 +133,8 @@ if (getenv('ENV') == 'production') {
 // Configurações do banco de dados e smtp do projeto rodando em desenvolvimento
 } else if (getenv('ENV') == 'development') {
 
-
     error_reporting(E_ALL);
-
-
+   
     //Define o nome do banco de dados a ser usado em desenvolvimento
     define('DB_NAME', getenv('DB_NAME'));
 

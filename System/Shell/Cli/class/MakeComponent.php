@@ -1,6 +1,7 @@
 <?php
 
 use Scooby\Helpers\Cli;
+use Scooby\Helpers\Debug;
 
 class MakeComponent
 {
@@ -11,7 +12,8 @@ class MakeComponent
         $name = ucfirst($name);
         $name = $name. "Component";
         if (file_exists("App/Components/$name.php")) {
-            Cli::println("ERROR: Componente já existente na pasta 'App/Components'");
+            Cli::println("ERROR: Componente ". $name . " já existente na pasta 'App/Components'");
+            Debug::log("ERROR: Componente " . $name . " já existente na pasta 'App/Components'");
             return;
         }
         $content = file_get_contents('System/Shell/templates/php_tpl/componentFile.tpl');
@@ -22,14 +24,16 @@ class MakeComponent
         $f = fopen("App/Components/$name.php", 'w+');
         if ($f == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base de components');
             return;
         }
         fwrite($f, $content);
         if ($f == false) {
-            Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
+            Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base de components');
             return;
         }
         fclose($f);
         Cli::println("{$name} criado em 'App/Components' com sucesso.");
+        Debug::log("{$name} criado em 'App/Components' com sucesso.");
     }
 }

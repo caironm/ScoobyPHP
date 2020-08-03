@@ -172,6 +172,7 @@ class Jwt
             $f = fopen(".env", 'w+');
             fwrite($f, $generate);
             fclose($f);
+            Debug::log('SALT gerado em .env');
         }
     }
 }
