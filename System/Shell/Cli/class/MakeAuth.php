@@ -89,8 +89,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $userController);
-        if ($f == false) {
+        $fw = fwrite($f, $userController);
+        if ($fw == false) {
             Debug::log('Um erro desconhecido ocorreu ao criar o UserController');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -104,8 +104,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $dashboardController);
-        if ($f == false) {
+        $fw = fwrite($f, $dashboardController);
+        if ($fw == false) {
             Debug::log('Um erro desconhecido ocorreu ao criar o DashboardController');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -119,8 +119,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $userModel);
-        if ($f == false) {
+        $fw = fwrite($f, $userModel);
+        if ($fw == false) {
             Debug::log('Um erro desconhecido ocorreu ao criar user model');
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -134,8 +134,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $passwordTokenModel);
-        if ($f == false) {
+        $fw = fwrite($f, $passwordTokenModel);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -149,8 +149,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $loginView);
-        if ($f == false) {
+        $fw = fwrite($f, $loginView);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a view Login");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -164,8 +164,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $registerView);
-        if ($f == false) {
+        $fw = fwrite($f, $registerView);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a view register");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -179,8 +179,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $passwordRescue);
-        if ($f == false) {
+        $fw = fwrite($f, $passwordRescue);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a view passwordRescue");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -194,8 +194,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $newPassword);
-        if ($f == false) {
+        $fw = fwrite($f, $newPassword);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a newPassword");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -209,8 +209,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $dashBoardView);
-        if ($f == false) {
+        $fw = fwrite($f, $dashBoardView);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a view dashboard");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -224,8 +224,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $updateUser);
-        if ($f == false) {
+        $fw = fwrite($f, $updateUser);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a view updateUser");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -239,8 +239,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $routesAuth);
-        if ($f == false) {
+        $fw = fwrite($f, $routesAuth);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas WEB");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -254,8 +254,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $navbar);
-        if ($f == false) {
+        $fw = fwrite($f, $navbar);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao alterar a view home");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -272,8 +272,8 @@ class MakeAuth
         $authConfig = strtr($authConfig, [
             'VIEWS_AUTH=' => 'VIEWS_AUTH=Dashboard,UpdateUser,'
         ]);
-        $f = fwrite($f, $authConfig);
-        if ($f == false) {
+        $fw = fwrite($f, $authConfig);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao alterar o arquivo .env");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -300,8 +300,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $seed);
-        if ($f == false) {
+        $fw = fwrite($f, $seed);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a seed seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -348,8 +348,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $userController);
-        if ($f == false) {
+        $fw = fwrite($f, $userController);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar o UserApiController");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -363,8 +363,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $userModel);
-        if ($f == false) {
+        $fw = fwrite($f, $userModel);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar o user model");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -378,8 +378,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $passwordTokenModel);
-        if ($f == false) {
+        $fw = fwrite($f, $passwordTokenModel);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar PasswordUserToken");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
@@ -393,7 +393,7 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $routesAuth);
+        $fw = fwrite($f, $routesAuth);
         if ($f == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar o arquivo de rotas API");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
@@ -421,8 +421,8 @@ class MakeAuth
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
         }
-        $f = fwrite($f, $seed);
-        if ($f == false) {
+        $fw = fwrite($f, $seed);
+        if ($fw == false) {
             Debug::log("Um erro desconhecido ocorreu ao criar a seedUserAuth");
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             return;
