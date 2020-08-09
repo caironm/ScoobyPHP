@@ -37,8 +37,8 @@ class MakeFile
             Debug::log('Um erro desconhecido ocorreu na leitura do arquivo ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita do arquivo ' . $name . ', por favor tente novamente');
             return;

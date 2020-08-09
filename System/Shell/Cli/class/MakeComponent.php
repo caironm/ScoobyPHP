@@ -27,8 +27,8 @@ class MakeComponent
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base de components');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base de components');
             return;
         }

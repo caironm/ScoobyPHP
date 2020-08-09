@@ -27,8 +27,8 @@ class MakeController
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
@@ -67,8 +67,8 @@ class MakeController
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
@@ -82,8 +82,8 @@ class MakeController
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo de rotas do controller resource');
             return;
         }
-        fwrite($f, $routeResource);
-        if ($f == false) {
+        $fw = fwrite($f, $routeResource);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo de rotas do controller resource');
             return;
@@ -122,8 +122,8 @@ class MakeController
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo base do controller');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo base do controller');
             return;
@@ -136,8 +136,8 @@ class MakeController
             Debug::log('Um erro desconhecido ocorreu ao ler o arquivo de rotas');
             return;
         }
-        fwrite($f, $routeResource);
-        if ($f == false) {
+        $fw = fwrite($f, $routeResource);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu ao clonar o arquivo de rotas');
             return;

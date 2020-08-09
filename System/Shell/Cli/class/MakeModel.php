@@ -26,8 +26,8 @@ class MakeModel
             Debug::log('Um erro desconhecido ocorreu na leitura do model ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita do model ' . $name . ', por favor tente novamente');
             return;
@@ -59,8 +59,8 @@ class MakeModel
             Debug::log('Um erro desconhecido ocorreu na leitura do model ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita do model ' . $name . ', por favor tente novamente');
             return;
@@ -117,8 +117,8 @@ class MakeModel
             Debug::log('Um erro desconhecido ocorreu na leitura do model ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita do model ' . $name . ', por favor tente novamente');
             return;
@@ -161,8 +161,8 @@ class MakeModel
             Debug::log('Um erro desconhecido ocorreu na leitura da seed ' . $seedName . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $seed);
-        if ($f == false) {
+        $fw = fwrite($f, $seed);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita da seed ' . $seedName . ', por favor tente novamente');
             return;

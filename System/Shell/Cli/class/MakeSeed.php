@@ -22,8 +22,8 @@ class MakeSeed
             Debug::log('Um erro desconhecido ocorreu na leitura da seed ' . $seedName . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $seed);
-        if ($f == false) {
+        $fw = fwrite($f, $seed);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita da seed ' . $seedName . ', por favor tente novamente');
             return;

@@ -45,8 +45,8 @@ class MakeNewDb
                     Debug::log('Um erro desconhecido ocorreu na leitura do .ENV, por favor tente novamente');
                     return;
                 }
-                fwrite($f, $connectionUpdate);
-                if ($f == false) {
+                $fw = fwrite($f, $connectionUpdate);
+                if ($fw == false) {
                     Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
                     Debug::log('Um erro desconhecido ocorreu na escrita do .ENV, por favor tente novamente');
                     return;
@@ -75,8 +75,8 @@ class MakeNewDb
                 Debug::log('Um erro desconhecido ocorreu na leitura do .ENV, por favor tente novamente');
                 return;
             }
-            fwrite($f, $configDb);
-            if ($f == false) {
+            $fw = fwrite($f, $configDb);
+            if ($fw == false) {
                 Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
                 Debug::log('Um erro desconhecido ocorreu na escrita do .ENV, por favor tente novamente');
                 return;

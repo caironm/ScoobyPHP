@@ -26,8 +26,8 @@ class MakeView
             Debug::log('Um erro desconhecido ocorreu na leitura da view ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita da view ' . $name . ', por favor tente novamente');
             return;
@@ -62,8 +62,8 @@ class MakeView
             Debug::log('Um erro desconhecido ocorreu na leitura da view ' . $name . ', por favor tente novamente');
             return;
         }
-        fwrite($f, $content);
-        if ($f == false) {
+        $fw = fwrite($f, $content);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na escrita da view ' . $name . ', por favor tente novamente');
             return;
@@ -75,8 +75,8 @@ class MakeView
             Debug::log('Um erro desconhecido ocorreu na leitura do arquivo .ENV, por favor tente novamente');
             return;
         }
-        fwrite($f, $register);
-        if ($f == false) {
+        $fw = fwrite($f, $register);
+        if ($fw == false) {
             Cli::println('Um erro desconhecido ocorreu, por favor tente novamente');
             Debug::log('Um erro desconhecido ocorreu na ecrita do arquivo .ENV, por favor tente novamente');
             return;

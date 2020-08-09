@@ -24,8 +24,8 @@ class MakeMigration
             'dateNow' => date('d-m-y - H:i:a')
         ]);
         $f = fopen('App/Db/Migrations/' . $fileName . '.php', 'w+');
-        fwrite($f, $migration);
-        fclose($f);
+        $fw = fwrite($f, $migration);
+        fclose($fw);
         if (!$f) {
             Cli::println("Ocorreu um erro inesperado, por favor tente novamente.");
             Debug::log("Ocorreu um erro inesperado ao tentar criar a migration $fileName, por favor tente novamente.");

@@ -46,7 +46,6 @@ abstract class Controller
         require_once 'App/Config/twigGlobalVariables.php';
         $ViewName = ucwords($ViewName);
         if (in_array($ViewName, $viewAutentication) === true or in_array(strtolower($ViewName), $viewAutentication) === true) {
-            echo 'aqui';
             if (Auth::authValidOrFail()) {
                 require_once 'System/Html/Templates/Header.php';
                 $template = $twig->load(ucfirst($viewPath).'/'.ucfirst($ViewName).'.twig');
