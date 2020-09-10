@@ -1,5 +1,7 @@
 <?php
-
+$filter = new \Twig\TwigFilter('encode', function ($string) {
+    return base64_encode($string);
+});
 // Crie variaveis globais para serem usadas nos templates twig
 return [
     $twig->addGlobal('btn_sign_in', $GLOBALS['BTN_SIGN_IN']),
@@ -10,4 +12,5 @@ return [
     $twig->addGlobal('btn_back', $GLOBALS['BTN_BACK']),
     $twig->addGlobal('btn_send', $GLOBALS['BTN_SEND']),
     $twig->addGlobal('btn_password_reset', $GLOBALS['BTN_PASSWORD_RESET']),
+    $twig->addFilter($filter)
 ];

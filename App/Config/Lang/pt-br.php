@@ -34,8 +34,7 @@ $GLOBALS = [
 
     'EMAIL_NOT_SEND' => 'Algo saiu errado, Email não enviado',
 
-    'EMAIL_NOT_FOUND' => 'Email não encontrado em nossa base de dados, por favor
-     tente novamente com um email diferente',
+    'EMAIL_NOT_FOUND' => 'Email não encontrado em nossa base de dados',
 
     'TOKEN_INVALID' => 'Token Inválido',
 

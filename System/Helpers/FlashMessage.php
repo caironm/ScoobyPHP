@@ -17,12 +17,11 @@ class FlashMessage
         require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
-            iziToast.$type({
-                title: "$title",
-                message: "$body",
-                position: "topRight"
-
-            });
+            Toast.fire({
+                title: '$title',
+                text: '$body',
+                type: '$type'
+            })
         </script>
 HTML;
         echo $msg;
@@ -40,15 +39,16 @@ HTML;
     public static function toastWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "System/Html/Templates/Header.php";
-        $url = BASE_URL.$url;
+        $url = BASE_URL . $url;
         $msg = <<<HTML
         <script>
-            iziToast.$type({
-                title: "$title",
-                message: "$body",
-                position: "topRight",
-                onClosing: function(){
-                    window.location.href="$url";
+            Toast.fire({
+                title: '$title',
+                text: '$body',
+                type: '$type',
+            }).then(function (result) {
+                    if (result.value) {
+                    window.location = "$url";
                 }
             });
         </script>
@@ -70,14 +70,13 @@ HTML;
         require_once "System/Html/Templates/Header.php";
         $msg = <<<HTML
         <script>
-           iziToast.$type({
-                title: "$title",
-                message: "$body",
-                position: "topRight",
-                onClosing: function(){
-                    window.history.go($value);
-                }
-            });
+            Toast.fire({
+                title: '$title',
+                text: '$body',
+                type: '$type',
+            }).then(function(result){
+                window.history.go($value);
+            })
         </script>
 HTML;
         echo $msg;
@@ -118,7 +117,7 @@ HTML;
     public static function modalWithHref(string $title, string $body, string $type = "show", string $url): void
     {
         require_once "System/Html/Templates/Header.php";
-        $url = BASE_URL.$url;
+        $url = BASE_URL . $url;
         $msg = <<<HTML
         <script>
             Swal.fire({

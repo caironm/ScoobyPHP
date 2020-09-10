@@ -35,7 +35,7 @@ class Cookie
      * @param string $cookieName
      * @return bool
      */
-    public static function getCookie(string $cookieName): bool
+    public static function getCookie(string $cookieName): string
     {
         if (!isset($_COOKIE[$cookieName])) {
             return false;
@@ -69,7 +69,7 @@ class Cookie
         if (!isset($_COOKIE[$cookieName])) {
             return false;
         }
-        unset($_COOKIE[$cookieName]);
+        setcookie($cookieName, "", time() - 3600);
         return true;
     }
 }

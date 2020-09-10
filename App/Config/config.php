@@ -5,9 +5,10 @@ date_default_timezone_set('America/Sao_Paulo');
 // Log interno do framework
 define('LOG', getenv('LOG'));
 
+define('ENV', getenv('ENV'));
+
 // Definir se a aplicação será uma API ou um projeto WEB monolítico
 define('IS_API', getenv('IS_API'));
-
 
 // Hash para encriptação do jwt unico, gerado ao criar o projeto
 define('SECRET_KEY', getenv('SECRET_KEY'));
@@ -32,6 +33,10 @@ define('SITE_LANG', getenv('SITE_LANG'));
 
 //define a url base do sistema
 define("BASE_URL", getenv('BASE_URL'));
+
+
+//url base do sistema
+define("ROUTE", getenv('ROUTE'));
 
 
 // Nome dado a rota de erro http
@@ -134,7 +139,7 @@ if (getenv('ENV') == 'production') {
 } else if (getenv('ENV') == 'development') {
 
     error_reporting(E_ALL);
-   
+
     //Define o nome do banco de dados a ser usado em desenvolvimento
     define('DB_NAME', getenv('DB_NAME'));
 

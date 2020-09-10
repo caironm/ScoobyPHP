@@ -268,12 +268,12 @@ class Request
             if ((!Csrf::csrfTokenValidate() and IS_API == 'false')) {
                 Debug::log('Request recusado, falha na autenticação de csrf');
                 Redirect::redirectTo('ooops/404');
-                return false;
+                return 1;
             }
         }
         $arrPath = [];
         if (!isset($_FILES[$name]) or empty($_FILES[$name])) {
-            return false;
+            return 2;
         }
         if (is_array($_FILES[$name]['tmp_name'])) {
             $count = count($_FILES[$name]['tmp_name']);

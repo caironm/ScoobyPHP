@@ -4,11 +4,11 @@
 
 namespace Scooby\Controllers;
 
-use Scooby\Core\Controller;
 use Scooby\Helpers\Jwt;
 use Scooby\Helpers\Login;
 use Scooby\Helpers\Request;
 use Scooby\Helpers\Validation;
+use Scooby\Models\PasswordUserToken;
 use Scooby\Models\User;
 
 class UserApiController extends Controller
@@ -62,9 +62,8 @@ class UserApiController extends Controller
         if ($user->delete()) {
             Jwt::jwtExpire(Jwt::jwtGetToken());
             $this->Json(['data' => 'Usuário deletado com sucesso']);
-        } else {
-            $this->Json(['data' => 'Falha ao deletar usuário']);
         }
+        $this->Json(['data' => 'Falha ao deletar usuário']);
     }
 
     /**
@@ -126,5 +125,109 @@ class UserApiController extends Controller
             $this->Json(['data' => $GLOBALS['SOMETHING_WRONG']]);
         }
         $this->json(['data' => $GLOBALS['UPDATE_DATA_SUCCESS']]);
+    }
+
+    public function passwordRescue ()
+    {
+        $data = Request::getRequestData();
+        $email = $data->email;
+        $token = $data->token;
+        if (Validation::emailMatch($email, 'users', 'email')) {
+            $this->Json([
+                'status' => false,
+                'data' => 'Email Não existente em nossa base de dados'
+            ]);
+        }
+        $user = new User;
+        $u = $user->where('email', $email)->first();
+        $newPass = new PasswordUserToken;
+        $newPass->user_id = $u->id;
+        $newPass->token = $token;
+        $newPass->used = 0;
+        $newPass->save();
+        $this->Json([
+            'status' => true,
+            'UserName' => $u->name
+        ]);
+    }
+
+    public function tokenValidate()
+    {
+        $data = Request::getRequestData();
+        $token = $data->token;
+        $tokenUsed = new PasswordUserToken;
+        $used = $tokenUsed->where('token', $token)->first();
+        if ($used->used != 0) {
+            $this->Json([
+                'status' => false,
+                'data' => 'Token Inválido'
+            ]);
+        }
+        $this->Json([
+            'status' => true
+        ]);
+    }
+
+    public function updatePassword()
+    {
+        $data = Request::getRequestData();
+        $newPass = new PasswordUserToken;
+        $p = $newPass->where('token', $data->token)->first();
+        $p->used = 1;
+        $p->save();
+        $user = new User;
+        $id = $p->user_id;
+        $u = $user->where('id', $id)->update(['password' => Login::passwordHash($data->newPassword)]);
+        if (!$u or !$p)
+        {
+            $this->Json([
+                'status' => false
+            ]);
+        }
+        $this->Json([
+            'status' => true
+        ]);
+    }
+
+    public function getUserName()
+    {
+        Jwt::jwtValidate(Jwt::jwtGetToken());
+        $id = null;
+        if (empty(Request::getRequestData()->id)) {
+            $id = Jwt::jwtPayloadDecode(Jwt::jwtGetToken())->id;
+        } else {
+            $id = Request::getRequestData()->id;
+        }
+        $user = new User;
+        $name = $user->find($id);
+        if (!$name) {
+            $this->Json([
+                'status' => false
+            ]);
+        }
+        $this->Json([
+            'ownerName' => $name->name
+        ]);
+    }
+
+    public function getUserEmail()
+    {
+        Jwt::jwtValidate(Jwt::jwtGetToken());
+        $id = null;
+        if (empty(Request::getRequestData()->id)) {
+            $id = Jwt::jwtPayloadDecode(Jwt::jwtGetToken())->id;
+        } else {
+            $id = Request::getRequestData()->id;
+        }
+        $user = new User;
+        $email = $user->find($id);
+        if (!$email) {
+            $this->Json([
+                'status' => false
+            ]);
+        }
+        $this->Json([
+            'ownerEmail' => $email->email
+        ]);
     }
 }

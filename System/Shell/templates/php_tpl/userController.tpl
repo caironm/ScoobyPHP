@@ -4,7 +4,6 @@
 
 namespace Scooby\Controllers;
 
-use Scooby\Core\Controller;
 use Scooby\Helpers\Email;
 use Scooby\Helpers\FlashMessage;
 use Scooby\Helpers\Login;
@@ -93,13 +92,13 @@ class UserController extends Controller
                     $this->view("pages", "Login", [
                         "msg" => FlashMessage::toast("Ok...", $GLOBALS['REGISTERED_USER'], "success")
                     ]);
-                } 
+                }
             } elseif (Validation::emailMatch($email, "users", "email") === false and !empty($email)) {
                 $this->view("pages", 'Register', [
                     "msg" => FlashMessage::toast("Opss...", $GLOBALS['EMAIL_USED'], "warning")
                 ]);
             }
-        } 
+        }
     }
 
     /**

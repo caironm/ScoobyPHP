@@ -27,7 +27,6 @@ class Session
         if (!empty($_SESSION['ownerSession']) and $_SESSION['ownerSession'] == $token) {
             return true;
         } else {
-            Debug::log('Falha na autenticação de sessão');
             return false;
         }
     }

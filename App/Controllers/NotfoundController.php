@@ -2,7 +2,6 @@
 
 namespace Scooby\Controllers;
 
-use Scooby\Core\Controller;
 use Scooby\Helpers\HttpErrorResponse;
 
 class NotfoundController extends Controller

@@ -4,8 +4,6 @@
 
 namespace Scooby\Models;
 
-use Scooby\Core\Model;
-
 class User extends Model
 {
     //

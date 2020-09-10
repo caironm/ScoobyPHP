@@ -4,7 +4,6 @@
 
 namespace Scooby\Controllers;
 
-use Scooby\Core\Controller;
 use Scooby\Models\User;
 use Scooby\Helpers\Redirect;
 use Scooby\Helpers\FlashMessage;

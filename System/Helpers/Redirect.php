@@ -13,12 +13,12 @@ class Redirect
      */
     public static function redirectTo(string $url): void
     {
-        header("Location:".BASE_URL."$url");
+        header("Location:$url");
     }
 
     /**
      * Retorna a quantidade de paginas informada no metodo
-     * caso não seja informado um valor, retorna para a pagina anterior 
+     * caso não seja informado um valor, retorna para a pagina anterior
      *
      * @param integer $value
      * @return void
