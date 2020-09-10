@@ -1,8 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
-    $('.modal').modal()
     $('.sidenav').sidenav()
-    $('.parallax').parallax()
-    $('.fixed-action-btn').floatingActionButton()
     $('.counter').characterCounter()
     $('.materialboxed').materialbox()
     $('.datepicker').datepicker({
@@ -27,39 +24,6 @@ document.addEventListener('DOMContentLoaded', function(){
         closeOnSelect: true,
         container: 'body'
     });
-    $('.select').formSelect();
-    $(document).on('scroll', function() {
-        if($(window).scrollTop() > 35) {
-            $('nav').css('border-bottom', '1px solid #f0f0f0')
-            $('#lg').css('transform', 'scale(1.2)')
-            $('.icon').css('transform', 'rotate(15deg) scale(.9)')
-            $('.cover-img').css('transform', 'rotate(15deg)')
-            $('.cover-img').css('transition', '1s')
-            $('#lg').css('transition', '.2s')
-            $('.btn-login').css('transform', 'scale(1.2)')
-            $('.btn-login').css('transition', '.2s')
-            $('.btn-project').css('background', 'red')
-            $('.btn-project').addClass('btn-floating')
-            $('.btn-project').addClass('btn-project-scrool')
-            $('.btn-project').addClass('btn-large')
-            $('.new-project-text-buttom').hide()
-        } else {
-            $('nav').css('border-bottom', '0px solid #fff')
-            $('#lg').css('transform', 'scale(1.0)')
-            $('#lg').css('transition', '.2s')
-            $('.btn-login').css('transform', 'scale(1.0)')
-            $('.btn-login').css('transition', '.2s')
-            $('.cover-img').css('transform', 'rotate(10deg)')
-            $('.cover-img').css('transition', '.5s')
-            $('.btn-project').removeClass('btn-floating')
-            $('.btn-project').removeClass('btn-project-scrool')
-            $('.btn-project').removeClass('btn-large')
-            $('.new-project-text-buttom').show()
-            $('.icon').css('transform', 'rotate(15deg) scale(1)')
-
-        }
-     });
-})
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -134,12 +98,4 @@ function logout(token) {
             console.log('erro')
         }
     });
-}
-function closeModal(modal) {
-    $(modal).modal('close');
-}
-function share(id, name) {
-    $('#modal-share').modal('open')
-    $('#input-project-name-share').val(name)
-    $('#project_share_id').val(id)
 }
